@@ -11,10 +11,11 @@ import gestionOrdenes.IManejoOrdenes;
  *
  * @author Abraham Coronel
  */
-public class ControlOrdenes {
+public class ControlOrdenes implements IControlOrdenes {
 
     private IManejoOrdenes manejo;
 
+    @Override
     public void crear0rden(OrdenDTO orden) {
         manejo.crearOrden(orden);
     }
