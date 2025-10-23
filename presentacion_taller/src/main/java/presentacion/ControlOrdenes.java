@@ -4,6 +4,7 @@
  */
 package presentacion;
 
+import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
 
 /**
@@ -13,6 +14,9 @@ import gestionOrdenes.IManejoOrdenes;
 public class ControlOrdenes {
 
     private IManejoOrdenes manejo;
-    
+
+    public void crear0rden(OrdenDTO orden) {
+        manejo.crearOrden(orden);
+    }
 
 }
