@@ -14,6 +14,19 @@ import gestionOrdenes.IManejoOrdenes;
 public class ControlOrdenes implements IControlOrdenes {
 
     private IManejoOrdenes manejo;
+    
+    //Singleton
+    private static ControlOrdenes instancia;
+
+    private ControlOrdenes() {
+    }
+    
+    public static ControlOrdenes getInstancia() {
+        if (instancia == null) {
+            instancia = new ControlOrdenes();
+        }
+        return instancia;
+    }
 
     @Override
     public void crear0rden(OrdenDTO orden) {
