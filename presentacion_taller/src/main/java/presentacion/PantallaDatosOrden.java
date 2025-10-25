@@ -28,10 +28,10 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         lblAtras = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtaServiciosSolicitados = new javax.swing.JTextArea();
         lblSiguiente = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        txtaFallaReportada = new javax.swing.JScrollPane();
+        dtFechaIngreso = new com.github.lgooddatepicker.components.DatePicker();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,9 +46,10 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         });
         getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 50));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtaServiciosSolicitados.setBackground(null);
+        txtaServiciosSolicitados.setColumns(20);
+        txtaServiciosSolicitados.setRows(5);
+        jScrollPane2.setViewportView(txtaServiciosSolicitados);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 280, 110));
 
@@ -60,8 +61,10 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 90, 50));
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
-        getContentPane().add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
+
+        txtaFallaReportada.setBackground(null);
+        getContentPane().add(txtaFallaReportada, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
+        getContentPane().add(dtFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
@@ -79,12 +82,12 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.github.lgooddatepicker.components.DatePicker dtFechaIngreso;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAtras;
     private javax.swing.JLabel lblSiguiente;
+    private javax.swing.JScrollPane txtaFallaReportada;
+    private javax.swing.JTextArea txtaServiciosSolicitados;
     // End of variables declaration//GEN-END:variables
 }
