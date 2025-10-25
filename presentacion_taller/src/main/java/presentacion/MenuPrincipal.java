@@ -11,7 +11,7 @@ package presentacion;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuPrincipal
+     * Creates new form IniciarSesion
      */
     public MenuPrincipal() {
         initComponents();
@@ -26,21 +26,92 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        crearOrden = new javax.swing.JButton();
+        generarPresupuesto = new javax.swing.JButton();
+        pagarOrden = new javax.swing.JButton();
+        auditarCitaCliente = new javax.swing.JButton();
+        reclamarGarantia = new javax.swing.JButton();
+        visualizarTarea = new javax.swing.JButton();
+        venderRefacciones = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1_fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        crearOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4.png"))); // NOI18N
+        crearOrden.setContentAreaFilled(false);
+        crearOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearOrdenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crearOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
+
+        generarPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5.png"))); // NOI18N
+        generarPresupuesto.setContentAreaFilled(false);
+        getContentPane().add(generarPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+
+        pagarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/6.png"))); // NOI18N
+        pagarOrden.setContentAreaFilled(false);
+        pagarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagarOrdenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pagarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
+
+        auditarCitaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7.png"))); // NOI18N
+        auditarCitaCliente.setContentAreaFilled(false);
+        auditarCitaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                auditarCitaClienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(auditarCitaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
+
+        reclamarGarantia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8.png"))); // NOI18N
+        reclamarGarantia.setContentAreaFilled(false);
+        getContentPane().add(reclamarGarantia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, 120));
+
+        visualizarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/9.png"))); // NOI18N
+        visualizarTarea.setContentAreaFilled(false);
+        getContentPane().add(visualizarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
+
+        venderRefacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/10.png"))); // NOI18N
+        venderRefacciones.setContentAreaFilled(false);
+        venderRefacciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                venderRefaccionesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(venderRefacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/11.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, -1, -1));
+
+        jLabel1_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuMecanico.png"))); // NOI18N
+        getContentPane().add(jLabel1_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearOrdenActionPerformed
+
+    private void pagarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pagarOrdenActionPerformed
+
+    private void auditarCitaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auditarCitaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_auditarCitaClienteActionPerformed
+
+    private void venderRefaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venderRefaccionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_venderRefaccionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,6 +139,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -78,5 +150,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton auditarCitaCliente;
+    private javax.swing.JButton crearOrden;
+    private javax.swing.JButton generarPresupuesto;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1_fondo;
+    private javax.swing.JButton pagarOrden;
+    private javax.swing.JButton reclamarGarantia;
+    private javax.swing.JButton venderRefacciones;
+    private javax.swing.JButton visualizarTarea;
     // End of variables declaration//GEN-END:variables
 }

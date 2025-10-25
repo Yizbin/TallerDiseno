@@ -11,7 +11,7 @@ package presentacion;
 public class IniciarSesion extends javax.swing.JFrame {
 
     /**
-     * Creates new form IniciarSesion
+     * Creates new form MenuPrincipal
      */
     public IniciarSesion() {
         initComponents();
@@ -26,21 +26,51 @@ public class IniciarSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        correo = new javax.swing.JTextField();
+        contraseña = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel_Fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1920, 1080));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        correo.setText("correo...");
+        correo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                correoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
+
+        contraseña.setText("contraseña...");
+        contraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contraseñaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 220, 40));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonIniciarSesion.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusPainted(false);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 80, 20));
+
+        jLabel_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IniciarSesion.png"))); // NOI18N
+        jLabel_Fondo.setText("F");
+        getContentPane().add(jLabel_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_correoActionPerformed
+
+    private void contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contraseñaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,6 +98,9 @@ public class IniciarSesion extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -78,5 +111,9 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField contraseña;
+    private javax.swing.JTextField correo;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel_Fondo;
     // End of variables declaration//GEN-END:variables
 }

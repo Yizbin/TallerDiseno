@@ -6,10 +6,7 @@ package presentacion;
 
 import dto.OrdenDTO;
 
-/**
- *
- * @author Abraham Coronel
- */
+
 public interface IControlOrdenes {
 
     public void crear0rden(OrdenDTO orden);
