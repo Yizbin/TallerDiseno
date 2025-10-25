@@ -6,15 +6,18 @@ package presentacion;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+    
+    private final IControlOrdenes control = ControlOrdenes.getInstancia();
 
     /**
      * Creates new form IniciarSesion
      */
     public MenuPrincipal() {
         initComponents();
+        configurarVentana();
     }
 
     /**
@@ -97,8 +100,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+    }
+    
+    private void navegar() {
+        control.mostrarDatosCliente();
+        this.dispose();
+    }
+    
+    
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
-        // TODO add your handling code here:
+        this.navegar();
     }//GEN-LAST:event_crearOrdenActionPerformed
 
     private void pagarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarOrdenActionPerformed

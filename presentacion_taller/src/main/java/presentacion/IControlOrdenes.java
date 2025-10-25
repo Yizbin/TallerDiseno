@@ -13,6 +13,8 @@ public interface IControlOrdenes {
     
     // METODOS DE NAVEGACION DE PANTALLAS
     public void mostrarMenuPrincipal();
+    
+    public void mostrarDatosCliente();
         
     
 }

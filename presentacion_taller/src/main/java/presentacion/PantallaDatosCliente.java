@@ -6,7 +6,7 @@ package presentacion;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class PantallaDatosCliente extends javax.swing.JFrame {
 

@@ -40,6 +40,12 @@ public class ControlOrdenes implements IControlOrdenes {
         
     }
 
+    @Override
+    public void mostrarDatosCliente() {
+        PantallaDatosCliente datosCliente = new PantallaDatosCliente();
+        datosCliente.setVisible(true);
+    }
+
     
 
 }
