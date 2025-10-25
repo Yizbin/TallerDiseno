@@ -4,17 +4,27 @@
  */
 package presentacion;
 
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class IniciarSesion extends javax.swing.JFrame {
+
+    private final IControlOrdenes control = ControlOrdenes.getInstancia();
+
+    private final String USUARIO_MOCK = "pepe";
+    private final String CONTRA_MOCK = "123";
 
     /**
      * Creates new form MenuPrincipal
      */
     public IniciarSesion() {
         initComponents();
+        configurarVentana();
+        configurarListeners();
     }
 
     /**
@@ -26,36 +36,41 @@ public class IniciarSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        correo = new javax.swing.JTextField();
-        contraseña = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        correoText = new javax.swing.JTextField();
+        contraseniaText = new javax.swing.JTextField();
+        btnIniciarSesion = new javax.swing.JButton();
         jLabel_Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        correo.setText("correo...");
-        correo.addActionListener(new java.awt.event.ActionListener() {
+        correoText.setText("correo...");
+        correoText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                correoActionPerformed(evt);
+                correoTextActionPerformed(evt);
             }
         });
-        getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
+        getContentPane().add(correoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
 
-        contraseña.setText("contraseña...");
-        contraseña.addActionListener(new java.awt.event.ActionListener() {
+        contraseniaText.setText("contraseña...");
+        contraseniaText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contraseñaActionPerformed(evt);
+                contraseniaTextActionPerformed(evt);
             }
         });
-        getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 220, 40));
+        getContentPane().add(contraseniaText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 220, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonIniciarSesion.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setFocusPainted(false);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 80, 20));
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonIniciarSesion.png"))); // NOI18N
+        btnIniciarSesion.setBorderPainted(false);
+        btnIniciarSesion.setContentAreaFilled(false);
+        btnIniciarSesion.setFocusPainted(false);
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 80, 20));
 
         jLabel_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IniciarSesion.png"))); // NOI18N
         jLabel_Fondo.setText("F");
@@ -64,13 +79,50 @@ public class IniciarSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_correoActionPerformed
+    private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+    }
 
-    private void contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseñaActionPerformed
+    private void configurarListeners() {
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iniciarSesion();
+            }
+        });
+    }
+
+    private void iniciarSesion() {
+        String usuario = correoText.getText();
+        String contra = contraseniaText.getText();
+
+        if (usuario.equals(USUARIO_MOCK) && contra.equals(CONTRA_MOCK)) {
+            this.navegar();
+        } else {
+            mostrarError("Usuario o contrasenia incorrectos");
+        }
+    }
+
+    private void navegar() {
+        control.mostrarMenuPrincipal();
+        this.dispose();
+    }
+
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error de Autenticacion", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void correoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contraseñaActionPerformed
+    }//GEN-LAST:event_correoTextActionPerformed
+
+    private void contraseniaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseniaTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contraseniaTextActionPerformed
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,9 +163,9 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField contraseña;
-    private javax.swing.JTextField correo;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JTextField contraseniaText;
+    private javax.swing.JTextField correoText;
     private javax.swing.JLabel jLabel_Fondo;
     // End of variables declaration//GEN-END:variables
 }

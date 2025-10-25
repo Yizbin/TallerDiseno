@@ -6,7 +6,6 @@ package presentacion;
 
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
-
 /**
  *
  * @author Abraham Coronel
@@ -14,13 +13,13 @@ import gestionOrdenes.IManejoOrdenes;
 public class ControlOrdenes implements IControlOrdenes {
 
     private IManejoOrdenes manejo;
-    
+
     //Singleton
     private static ControlOrdenes instancia;
 
     private ControlOrdenes() {
     }
-    
+
     public static ControlOrdenes getInstancia() {
         if (instancia == null) {
             instancia = new ControlOrdenes();
@@ -32,5 +31,15 @@ public class ControlOrdenes implements IControlOrdenes {
     public void crear0rden(OrdenDTO orden) {
         manejo.crearOrden(orden);
     }
+
+    // METODOS DE NAVEGACION DE PANTALLAS
+    @Override
+    public void mostrarMenuPrincipal() {
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
+        
+    }
+
+    
 
 }

@@ -10,4 +10,9 @@ import dto.OrdenDTO;
 public interface IControlOrdenes {
 
     public void crear0rden(OrdenDTO orden);
+    
+    // METODOS DE NAVEGACION DE PANTALLAS
+    public void mostrarMenuPrincipal();
+        
+    
 }
