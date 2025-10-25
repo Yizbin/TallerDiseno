@@ -16,5 +16,5 @@ public interface IControlOrdenes {
     
     public void mostrarDatosCliente();
         
-    
+     public void mostrarDatosOrden();
 }

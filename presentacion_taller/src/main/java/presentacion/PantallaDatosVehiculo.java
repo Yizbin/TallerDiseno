@@ -26,23 +26,141 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        txtColor = new javax.swing.JTextField();
+        lblAtras = new javax.swing.JLabel();
+        lblSiguiente = new javax.swing.JLabel();
+        txtKilometraje = new javax.swing.JTextField();
+        txtPlacas = new javax.swing.JTextField();
+        txtAnio = new javax.swing.JTextField();
+        cbModelo = new javax.swing.JComboBox<>();
+        cbMarca = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtColor.setBackground(new java.awt.Color(255, 255, 255));
+        txtColor.setForeground(new java.awt.Color(0, 0, 0));
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtColorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 220, -1));
+
+        lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAtras.setText("   <");
+        lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAtrasMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 60, 60));
+
+        lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblSiguiente.setText("    >");
+        lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSiguienteMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 470, 70, 50));
+
+        txtKilometraje.setBackground(new java.awt.Color(255, 255, 255));
+        txtKilometraje.setForeground(new java.awt.Color(0, 0, 0));
+        txtKilometraje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKilometrajeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 220, -1));
+
+        txtPlacas.setBackground(new java.awt.Color(255, 255, 255));
+        txtPlacas.setForeground(new java.awt.Color(0, 0, 0));
+        txtPlacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlacasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 220, -1));
+
+        txtAnio.setBackground(new java.awt.Color(255, 255, 255));
+        txtAnio.setForeground(new java.awt.Color(0, 0, 0));
+        txtAnio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, -1));
+
+        cbModelo.setBackground(new java.awt.Color(255, 255, 255));
+        cbModelo.setForeground(new java.awt.Color(0, 0, 0));
+        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbModeloActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, -1));
+
+        cbMarca.setBackground(new java.awt.Color(255, 255, 255));
+        cbMarca.setForeground(new java.awt.Color(0, 0, 0));
+        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMarcaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 220, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosAuto.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnioActionPerformed
+
+    private void txtPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlacasActionPerformed
+
+    private void txtKilometrajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKilometrajeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKilometrajeActionPerformed
+
+    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtColorActionPerformed
+
+    private void cbMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMarcaActionPerformed
+
+    private void cbModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbModeloActionPerformed
+
+    private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSiguienteMouseClicked
+
+    private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblAtrasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbMarca;
+    private javax.swing.JComboBox<String> cbModelo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblAtras;
+    private javax.swing.JLabel lblSiguiente;
+    private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtKilometraje;
+    private javax.swing.JTextField txtPlacas;
     // End of variables declaration//GEN-END:variables
 }
