@@ -4,17 +4,30 @@
  */
 package presentacion;
 
+import dto.OrdenDTO;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class PantallaDatosOrden extends javax.swing.JFrame {
+
+    private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private OrdenDTO orden;
 
     /**
      * Creates new form PantallaCrearOrden
      */
     public PantallaDatosOrden() {
         initComponents();
+    }
+
+    public PantallaDatosOrden(OrdenDTO orden) {
+        initComponents();
+        this.orden = orden;
+        configurarVentana();
     }
 
     /**
@@ -30,9 +43,10 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtaServiciosSolicitados = new javax.swing.JTextArea();
         lblSiguiente = new javax.swing.JLabel();
-        txtaFallaReportada = new javax.swing.JScrollPane();
         dtFechaIngreso = new com.github.lgooddatepicker.components.DatePicker();
-        jLabel1 = new javax.swing.JLabel();
+        txtFallaReportada = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,7 +60,6 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         });
         getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 50));
 
-        txtaServiciosSolicitados.setBackground(null);
         txtaServiciosSolicitados.setColumns(20);
         txtaServiciosSolicitados.setRows(5);
         jScrollPane2.setViewportView(txtaServiciosSolicitados);
@@ -61,33 +74,68 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 90, 50));
-
-        txtaFallaReportada.setBackground(null);
-        getContentPane().add(txtaFallaReportada, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
         getContentPane().add(dtFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
+        txtFallaReportada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
+        getContentPane().add(txtFallaReportada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 280, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+    }
+
+    private boolean guardarDatosOrden() {
+        LocalDate fecha = dtFechaIngreso.getDate();
+        String falla = txtFallaReportada.getText();
+        String servicios = txtaServiciosSolicitados.getText();
+
+
+        this.orden.setFechaIngreso(fecha);
+        this.orden.setFallaReportada(falla);
+        this.orden.setServicioSolicitado(servicios);
+
+        return true;
+
+    }
+
+
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        // TODO add your handling code here:
+        if (guardarDatosOrden()) {
+            try {
+                control.crear0rden(this.orden);
+
+                JOptionPane.showMessageDialog(this, new PantallaConfirmacion(), "Orden creada exitosamente", JOptionPane.PLAIN_MESSAGE);
+
+                control.mostrarMenuPrincipal();
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar la orden: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
     private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked
-        // TODO add your handling code here:
+        control.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_lblAtrasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker dtFechaIngreso;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAtras;
     private javax.swing.JLabel lblSiguiente;
-    private javax.swing.JScrollPane txtaFallaReportada;
+    private javax.swing.JLabel txtFallaReportada;
     private javax.swing.JTextArea txtaServiciosSolicitados;
     // End of variables declaration//GEN-END:variables
 }

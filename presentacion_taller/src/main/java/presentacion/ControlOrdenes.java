@@ -6,13 +6,14 @@ package presentacion;
 
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
+import gestionOrdenes.ManejoOrdenes;
 /**
  *
  * @author Abraham Coronel
  */
 public class ControlOrdenes implements IControlOrdenes {
 
-    private IManejoOrdenes manejo;
+    private final IManejoOrdenes manejo = ManejoOrdenes.getInstancia();
 
     //Singleton
     private static ControlOrdenes instancia;
@@ -47,9 +48,15 @@ public class ControlOrdenes implements IControlOrdenes {
     }
     
     @Override
-    public void mostrarDatosOrden() {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden();
+    public void mostrarDatosOrden(OrdenDTO orden) {
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden);
         datosOrden.setVisible(true);
+    }
+
+    @Override
+    public void mostrarDatosVehiculo(OrdenDTO orden) {
+        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(orden);
+        datosVehiculo.setVisible(true);
     }
 
 

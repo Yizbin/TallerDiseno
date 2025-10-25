@@ -4,17 +4,26 @@
  */
 package presentacion;
 
+import dto.OrdenDTO;
+import dto.VehiculoDTO;
+
 /**
  *
  * @author PC Gamer
  */
 public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PantallaDatosVehiculo
-     */
+    private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private OrdenDTO orden;
+    
     public PantallaDatosVehiculo() {
         initComponents();
+    }
+    
+    public PantallaDatosVehiculo(OrdenDTO orden) {
+        initComponents();
+        this.orden = orden;
+        configurarVentana();
     }
 
     /**
@@ -119,6 +128,26 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+    }
+    
+    private boolean guardarDatosVehiculo() {
+        String marca = (String) cbMarca.getSelectedItem();
+        String modelo = (String) cbModelo.getSelectedItem();
+        String anio = txtAnio.getText();
+        String placas = txtPlacas.getText();
+        String km = txtKilometraje.getText();
+        String color = txtColor.getText();
+
+        VehiculoDTO vehiculo = new VehiculoDTO(marca, modelo, anio, placas, km, color);
+
+        this.orden.setVehiculo(vehiculo);
+
+        return true;
+
+    }
+    
     private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnioActionPerformed
@@ -144,11 +173,15 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        // TODO add your handling code here:
+        if (guardarDatosVehiculo()) {
+            control.mostrarDatosOrden(this.orden);
+            this.dispose();
+        }
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
     private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked
-        // TODO add your handling code here:
+        control.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_lblAtrasMouseClicked
 
 

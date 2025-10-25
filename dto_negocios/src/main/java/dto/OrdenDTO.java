@@ -4,7 +4,8 @@
  */
 package dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -16,7 +17,7 @@ public class OrdenDTO {
 
     private VehiculoDTO vehiculo;
 
-    private LocalDateTime fechaIngreso;
+    private LocalDate fechaIngreso;
 
     private String fallaReportada;
 
@@ -25,7 +26,7 @@ public class OrdenDTO {
     public OrdenDTO() {
     }
 
-    public OrdenDTO(ClienteDTO cliente, VehiculoDTO vehiculo, LocalDateTime fechaIngreso, String fallaReportada, String servicioSolicitado) {
+    public OrdenDTO(ClienteDTO cliente, VehiculoDTO vehiculo, LocalDate fechaIngreso, String fallaReportada, String servicioSolicitado) {
         this.cliente = cliente;
         this.vehiculo = vehiculo;
         this.fechaIngreso = fechaIngreso;
@@ -49,11 +50,11 @@ public class OrdenDTO {
         this.vehiculo = vehiculo;
     }
 
-    public LocalDateTime getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
