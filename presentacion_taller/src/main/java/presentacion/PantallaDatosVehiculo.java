@@ -6,20 +6,22 @@ package presentacion;
 
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import javax.swing.JOptionPane;
+import presentacion.validaciones.ValidacionException;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
     private OrdenDTO orden;
-    
+
     public PantallaDatosVehiculo() {
         initComponents();
     }
-    
+
     public PantallaDatosVehiculo(OrdenDTO orden) {
         initComponents();
         this.orden = orden;
@@ -131,8 +133,8 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     private void configurarVentana() {
         this.setLocationRelativeTo(null);
     }
-    
-    private boolean guardarDatosVehiculo() {
+
+    private void guardarDatosVehiculo() {
         String marca = (String) cbMarca.getSelectedItem();
         String modelo = (String) cbModelo.getSelectedItem();
         String anio = txtAnio.getText();
@@ -144,10 +146,19 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
         this.orden.setVehiculo(vehiculo);
 
-        return true;
-
     }
-    
+
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error de validacion", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void validarCampos() throws ValidacionException {
+        control.validarAnio(txtAnio.getText());
+        control.validarCampoVacio(txtPlacas.getText(), "Placas");
+        control.validarCampoNumerico(txtKilometraje.getText(), "Kilometraje");
+        control.validarCampoVacio(txtColor.getText(), "Color");
+    }
+
     private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnioActionPerformed
@@ -173,9 +184,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        if (guardarDatosVehiculo()) {
-            control.mostrarDatosOrden(this.orden);
+        try {
+            validarCampos();
+            guardarDatosVehiculo();
+            control.mostrarDatosOrden(orden);
             this.dispose();
+        } catch (ValidacionException e) {
+            mostrarError(e.getMessage());
         }
     }//GEN-LAST:event_lblSiguienteMouseClicked
 

@@ -7,6 +7,9 @@ package presentacion;
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
+import presentacion.validaciones.IValidacionesPresentacion;
+import presentacion.validaciones.ValidacionException;
+import presentacion.validaciones.ValidacionesPresentacion;
 
 /**
  *
@@ -15,6 +18,7 @@ import gestionOrdenes.ManejoOrdenes;
 public class ControlOrdenes implements IControlOrdenes {
 
     private final IManejoOrdenes manejo = ManejoOrdenes.getInstancia();
+    private IValidacionesPresentacion validacion = ValidacionesPresentacion.getInstancia();
 
     //Singleton
     private static ControlOrdenes instancia;
@@ -37,6 +41,41 @@ public class ControlOrdenes implements IControlOrdenes {
     @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) {
         return manejo.autenticarUsuario(usuario, contrasena);
+    }
+
+    @Override
+    public void validarCampoVacio(String texto, String nombreCampo) throws ValidacionException {
+        validacion.validarCampoVacio(texto, nombreCampo);
+    }
+
+    @Override
+    public void validarRegex(String texto, String regex, String mensajeError) throws ValidacionException {
+        validacion.validarRegex(texto, regex, mensajeError);
+    }
+
+    @Override
+    public void validarObjetoNull(Object object, String nombreCampo) throws ValidacionException {
+        validacion.validarObjetoNull(object, nombreCampo);
+    }
+
+    @Override
+    public void validarEmail(String email) throws ValidacionException {
+        validacion.validarEmail(email);
+    }
+
+    @Override
+    public void validarTelefono(String telefono) throws ValidacionException {
+        validacion.validarTelefono(telefono);
+    }
+
+    @Override
+    public void validarAnio(String anio) throws ValidacionException {
+        validacion.validarAnio(anio);
+    }
+
+    @Override
+    public void validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException {
+        validacion.validarCampoNumerico(texto, nombreCampo);
     }
 
     // METODOS DE NAVEGACION DE PANTALLAS

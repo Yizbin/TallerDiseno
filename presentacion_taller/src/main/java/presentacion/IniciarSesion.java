@@ -15,9 +15,6 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
 
-    private final String USUARIO_MOCK = "pepe";
-    private final String CONTRA_MOCK = "123";
-
     /**
      * Creates new form MenuPrincipal
      */

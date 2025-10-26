@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package presentacion;
 
-import dto.OrdenDTO;
-import presentacion.validaciones.ValidacionException;
+package presentacion.validaciones;
 
-public interface IControlOrdenes {
+/**
+ *
+ * @author Abraham Coronel
+ */
+public interface IValidacionesPresentacion {
 
-    public void crearOrden(OrdenDTO orden);
-    
-    public Boolean autenticarUsuario(String usuario, String contrasena);
-    
     public void validarCampoVacio(String texto, String nombreCampo) throws ValidacionException;
     
     public void validarRegex(String texto, String regex, String mensajeError) throws ValidacionException;
@@ -26,13 +24,4 @@ public interface IControlOrdenes {
     public void validarAnio(String anio) throws ValidacionException;
     
     public void validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
-
-    // METODOS DE NAVEGACION DE PANTALLAS
-    public void mostrarMenuPrincipal();
-
-    public void mostrarDatosCliente();
-    
-    public void mostrarDatosVehiculo(OrdenDTO orden);
-
-    public void mostrarDatosOrden(OrdenDTO orden);
 }
