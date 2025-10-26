@@ -6,7 +6,7 @@ package presentacion;
 
 /**
  *
- * @author PC Gamer
+ * @author Abraham Coronel
  */
 public class PantallaConfirmacion extends javax.swing.JPanel {
 
@@ -31,6 +31,7 @@ public class PantallaConfirmacion extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ordenExitosa.png"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(320, 240));
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 120));
     }// </editor-fold>//GEN-END:initComponents
 

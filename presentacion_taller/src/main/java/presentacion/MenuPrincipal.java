@@ -36,7 +36,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         reclamarGarantia = new javax.swing.JButton();
         visualizarTarea = new javax.swing.JButton();
         venderRefacciones = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel1_fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,9 +90,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(venderRefacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/11.png"))); // NOI18N
-        jButton2.setContentAreaFilled(false);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, -1, -1));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/11.png"))); // NOI18N
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, -1, -1));
 
         jLabel1_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menuMecanico.png"))); // NOI18N
         getContentPane().add(jLabel1_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
@@ -126,12 +131,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_venderRefaccionesActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton auditarCitaCliente;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton crearOrden;
     private javax.swing.JButton generarPresupuesto;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1_fondo;
     private javax.swing.JButton pagarOrden;
     private javax.swing.JButton reclamarGarantia;
