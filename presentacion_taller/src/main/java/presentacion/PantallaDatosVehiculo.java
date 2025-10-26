@@ -102,9 +102,9 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, -1));
 
+        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "RAV4", "Yaris", "Fiesta" }));
         cbModelo.setBackground(new java.awt.Color(255, 255, 255));
         cbModelo.setForeground(new java.awt.Color(0, 0, 0));
-        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbModeloActionPerformed(evt);
@@ -112,9 +112,9 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, -1));
 
+        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Nissan", "Kia", "Tesla" }));
         cbMarca.setBackground(new java.awt.Color(255, 255, 255));
         cbMarca.setForeground(new java.awt.Color(0, 0, 0));
-        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMarcaActionPerformed(evt);
