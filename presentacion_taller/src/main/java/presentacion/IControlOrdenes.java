@@ -8,7 +8,9 @@ import dto.OrdenDTO;
 
 public interface IControlOrdenes {
 
-    public void crear0rden(OrdenDTO orden);
+    public void crearOrden(OrdenDTO orden);
+    
+    public Boolean autenticarUsuario(String usuario, String contrasena);
 
     // METODOS DE NAVEGACION DE PANTALLAS
     public void mostrarMenuPrincipal();

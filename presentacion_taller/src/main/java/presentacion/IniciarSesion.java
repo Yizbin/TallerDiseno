@@ -96,7 +96,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         String usuario = correoText.getText();
         String contra = contraseniaText.getText();
 
-        if (usuario.equals(USUARIO_MOCK) && contra.equals(CONTRA_MOCK)) {
+        if (control.autenticarUsuario(usuario, contra)) {
             this.navegar();
         } else {
             mostrarError("Usuario o contrasenia incorrectos");

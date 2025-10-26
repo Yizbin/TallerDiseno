@@ -7,6 +7,7 @@ package presentacion;
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
+
 /**
  *
  * @author Abraham Coronel
@@ -29,8 +30,13 @@ public class ControlOrdenes implements IControlOrdenes {
     }
 
     @Override
-    public void crear0rden(OrdenDTO orden) {
+    public void crearOrden(OrdenDTO orden) {
         manejo.crearOrden(orden);
+    }
+
+    @Override
+    public Boolean autenticarUsuario(String usuario, String contrasena) {
+        return manejo.autenticarUsuario(usuario, contrasena);
     }
 
     // METODOS DE NAVEGACION DE PANTALLAS
@@ -38,7 +44,7 @@ public class ControlOrdenes implements IControlOrdenes {
     public void mostrarMenuPrincipal() {
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
-        
+
     }
 
     @Override
@@ -46,7 +52,7 @@ public class ControlOrdenes implements IControlOrdenes {
         PantallaDatosCliente datosCliente = new PantallaDatosCliente();
         datosCliente.setVisible(true);
     }
-    
+
     @Override
     public void mostrarDatosOrden(OrdenDTO orden) {
         PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden);
@@ -58,6 +64,5 @@ public class ControlOrdenes implements IControlOrdenes {
         PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(orden);
         datosVehiculo.setVisible(true);
     }
-
 
 }

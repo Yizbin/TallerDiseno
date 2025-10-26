@@ -27,7 +27,7 @@ public class ManejoOrdenes implements IManejoOrdenes {
         return instancia;
     }
 
-    public ManejoOrdenes() {
+    private ManejoOrdenes() {
         this.listaOrdenes = new ArrayList<>();
     }
 
@@ -68,6 +68,11 @@ public class ManejoOrdenes implements IManejoOrdenes {
             System.out.println("Orden nula");
 
         }
+    }
+
+    @Override
+    public Boolean autenticarUsuario(String usuario, String contrasena) {
+        return "pepe".equals(usuario) && "123".equals(contrasena);
     }
 
 }

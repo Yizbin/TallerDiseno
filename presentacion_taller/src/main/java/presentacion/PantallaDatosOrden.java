@@ -110,7 +110,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
         if (guardarDatosOrden()) {
             try {
-                control.crear0rden(this.orden);
+                control.crearOrden(this.orden);
 
                 JOptionPane.showMessageDialog(this, new PantallaConfirmacion(), "Orden creada exitosamente", JOptionPane.PLAIN_MESSAGE);
 

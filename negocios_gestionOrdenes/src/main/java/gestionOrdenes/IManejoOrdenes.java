@@ -13,4 +13,5 @@ import dto.OrdenDTO;
 public interface IManejoOrdenes {
 
     public void crearOrden(OrdenDTO orden);
+    public Boolean autenticarUsuario(String usuario, String contrasena);
 }
