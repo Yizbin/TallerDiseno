@@ -40,17 +40,23 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtaFallaReportada = new javax.swing.JTextArea();
         lblAtras = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtaServiciosSolicitados = new javax.swing.JTextArea();
         lblSiguiente = new javax.swing.JLabel();
         dtFechaIngreso = new com.github.lgooddatepicker.components.DatePicker();
         txtFallaReportada = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtaFallaReportada.setColumns(20);
+        txtaFallaReportada.setRows(5);
+        jScrollPane3.setViewportView(txtaFallaReportada);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
 
         lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblAtras.setText("      <");
@@ -79,12 +85,6 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         txtFallaReportada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
         getContentPane().add(txtFallaReportada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 280, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,12 +140,12 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker dtFechaIngreso;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblAtras;
     private javax.swing.JLabel lblSiguiente;
     private javax.swing.JLabel txtFallaReportada;
+    private javax.swing.JTextArea txtaFallaReportada;
     private javax.swing.JTextArea txtaServiciosSolicitados;
     // End of variables declaration//GEN-END:variables
 }
