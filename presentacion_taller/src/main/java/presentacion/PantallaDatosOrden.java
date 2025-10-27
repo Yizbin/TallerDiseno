@@ -95,7 +95,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     private void guardarDatosOrden() {
         LocalDate fecha = dtFechaIngreso.getDate();
-        String falla = txtFallaReportada.getText();
+        String falla = txtaFallaReportada.getText();
         String servicios = txtaServiciosSolicitados.getText();
 
         this.orden.setFechaIngreso(fecha);
@@ -110,7 +110,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     private void validarCampos() throws ValidacionException {
         control.validarObjetoNull(dtFechaIngreso.getDate(), "Fecha de ingreso");
-        control.validarCampoVacio(txtFallaReportada.getText(), "Falla reportada");
+        control.validarCampoVacio(txtaFallaReportada.getText(), "Falla reportada");
         control.validarCampoVacio(txtaServiciosSolicitados.getText(), "Servicios Solicitados");
     }
 
