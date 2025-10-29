@@ -24,4 +24,6 @@ public interface IValidacionesPresentacion {
     public void validarAnio(String anio) throws ValidacionException;
     
     public void validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
+    
+    public void validarPlaca(String placas)throws ValidacionException;
 }

@@ -50,8 +50,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtColor.setBackground(new java.awt.Color(255, 255, 255));
-        txtColor.setForeground(new java.awt.Color(0, 0, 0));
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColorActionPerformed(evt);
@@ -59,26 +57,24 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 220, -1));
 
+        lblAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblAtras.setText("   <");
         lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAtrasMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 60, 60));
+        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 60, 60));
 
+        lblSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
         lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSiguiente.setText("    >");
         lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSiguienteMouseClicked(evt);
             }
         });
-        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 470, 70, 50));
+        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 460, 50, 50));
 
-        txtKilometraje.setBackground(new java.awt.Color(255, 255, 255));
-        txtKilometraje.setForeground(new java.awt.Color(0, 0, 0));
         txtKilometraje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKilometrajeActionPerformed(evt);
@@ -86,8 +82,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 220, -1));
 
-        txtPlacas.setBackground(new java.awt.Color(255, 255, 255));
-        txtPlacas.setForeground(new java.awt.Color(0, 0, 0));
         txtPlacas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlacasActionPerformed(evt);
@@ -95,8 +89,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 220, -1));
 
-        txtAnio.setBackground(new java.awt.Color(255, 255, 255));
-        txtAnio.setForeground(new java.awt.Color(0, 0, 0));
         txtAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnioActionPerformed(evt);
@@ -105,18 +97,14 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, -1));
 
         cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "RAV4", "Yaris", "Fiesta" }));
-        cbModelo.setBackground(new java.awt.Color(255, 255, 255));
-        cbModelo.setForeground(new java.awt.Color(0, 0, 0));
         cbModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbModeloActionPerformed(evt);
             }
         });
-        getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, -1));
+        getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 220, -1));
 
         cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Nissan", "Kia", "Tesla" }));
-        cbMarca.setBackground(new java.awt.Color(255, 255, 255));
-        cbMarca.setForeground(new java.awt.Color(0, 0, 0));
         cbMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMarcaActionPerformed(evt);
@@ -125,7 +113,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().add(cbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 220, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosAuto.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 550));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

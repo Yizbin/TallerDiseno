@@ -43,6 +43,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         correoText.setText("correo...");
+        correoText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                correoTextMouseClicked(evt);
+            }
+        });
         correoText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 correoTextActionPerformed(evt);
@@ -51,6 +56,14 @@ public class IniciarSesion extends javax.swing.JFrame {
         getContentPane().add(correoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
 
         contraseniaText.setText("contraseña...");
+        contraseniaText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contraseniaTextMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                contraseniaTextMouseEntered(evt);
+            }
+        });
         contraseniaText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contraseniaTextActionPerformed(evt);
@@ -110,7 +123,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     private void correoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoTextActionPerformed
-        // TODO add your handling code here:
+  
     }//GEN-LAST:event_correoTextActionPerformed
 
     private void contraseniaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseniaTextActionPerformed
@@ -120,6 +133,22 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void correoTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_correoTextMouseClicked
+        if(correoText.getText().equals("correo...")){
+            correoText.setText("");
+        }
+    }//GEN-LAST:event_correoTextMouseClicked
+
+    private void contraseniaTextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseEntered
+       //nada que ver aqui, ya no lo pude borrar
+    }//GEN-LAST:event_contraseniaTextMouseEntered
+
+    private void contraseniaTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseClicked
+         if(contraseniaText.getText().equals("contraseña...")){
+            contraseniaText.setText("");
+        }
+    }//GEN-LAST:event_contraseniaTextMouseClicked
 
     /**
      * @param args the command line arguments

@@ -4,12 +4,14 @@
  */
 package presentacion;
 
+import dto.ClienteDTO;
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
 import presentacion.validaciones.IValidacionesPresentacion;
 import presentacion.validaciones.ValidacionException;
 import presentacion.validaciones.ValidacionesPresentacion;
+
 
 /**
  *
@@ -104,4 +106,8 @@ public class ControlOrdenes implements IControlOrdenes {
         datosVehiculo.setVisible(true);
     }
 
+    @Override
+    public void mostrarClientesRegistrados(ClienteDTO cliente) {
+        PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados();
+    }
 }

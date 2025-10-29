@@ -4,6 +4,7 @@
  */
 package presentacion;
 
+import dto.ClienteDTO;
 import dto.OrdenDTO;
 import presentacion.validaciones.ValidacionException;
 
@@ -35,4 +36,6 @@ public interface IControlOrdenes {
     public void mostrarDatosVehiculo(OrdenDTO orden);
 
     public void mostrarDatosOrden(OrdenDTO orden);
+    
+    public void mostrarClientesRegistrados(ClienteDTO clienteDTO);
 }

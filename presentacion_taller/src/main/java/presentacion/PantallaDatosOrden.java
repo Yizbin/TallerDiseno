@@ -58,14 +58,14 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
 
+        lblAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblAtras.setText("      <");
         lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAtrasMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 50));
+        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 50, 50));
 
         txtaServiciosSolicitados.setColumns(20);
         txtaServiciosSolicitados.setRows(5);
@@ -73,14 +73,14 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 280, 110));
 
+        lblSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptar.png"))); // NOI18N
         lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblSiguiente.setText("         >");
         lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSiguienteMouseClicked(evt);
             }
         });
-        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 90, 50));
+        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 50, 50));
         getContentPane().add(dtFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
 
         txtFallaReportada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N

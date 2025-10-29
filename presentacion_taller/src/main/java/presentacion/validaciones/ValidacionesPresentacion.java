@@ -72,4 +72,9 @@ public class ValidacionesPresentacion implements IValidacionesPresentacion {
         validarRegex(texto, NUMERO_REGEX, "El campo " + nombreCampo + " solo debe contener numeros");
     }
 
+    @Override
+    public void validarPlaca(String placas) throws ValidacionException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

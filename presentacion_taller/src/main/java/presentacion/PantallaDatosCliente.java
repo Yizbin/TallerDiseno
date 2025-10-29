@@ -52,16 +52,15 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
         lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSiguiente.setText("    >");
         lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSiguienteMouseClicked(evt);
             }
         });
-        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 480, 80, 50));
+        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 50, 50));
 
-        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
@@ -69,39 +68,27 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         });
         getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, -1));
 
-        txtDireccion.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDireccionActionPerformed(evt);
             }
         });
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 260, -1));
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 260, -1));
+        getContentPane().add(txtCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 260, -1));
 
-        txtCorreoElectronico.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 260, -1));
-
+        lblAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblAtras.setText("    <");
         lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAtrasMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, 60));
-
-        txtColonia.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, 260, -1));
-
-        txtNumExterior.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, 60));
+        getContentPane().add(txtColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 260, -1));
         getContentPane().add(txtNumExterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, 110, -1));
-
-        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 270, -1));
-
-        txtApellidoPaterno.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
-        txtApellidoMaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoMaternoActionPerformed(evt);
