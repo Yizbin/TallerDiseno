@@ -17,7 +17,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
 
     private OrdenDTO orden;
-    private ClienteDTO clienteDTO;
 
     /**
      * Creates new form PantallaDatosCliente
@@ -45,8 +44,8 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtApellidoPaterno = new javax.swing.JTextField();
         txtApellidoMaterno = new javax.swing.JTextField();
-        jButton1_regresar = new javax.swing.JButton();
-        jButton2_siguiente = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,23 +158,23 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         });
         getContentPane().add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 130, -1));
 
-        jButton1_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
-        jButton1_regresar.setContentAreaFilled(false);
-        jButton1_regresar.addActionListener(new java.awt.event.ActionListener() {
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnAtras.setContentAreaFilled(false);
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1_regresarActionPerformed(evt);
+                btnAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+        getContentPane().add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
-        jButton2_siguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
-        jButton2_siguiente.setContentAreaFilled(false);
-        jButton2_siguiente.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
+        btnSiguiente.setContentAreaFilled(false);
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2_siguienteActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2_siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, -1));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosCliente.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
@@ -223,7 +222,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     }
 
     private void txtApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMaternoActionPerformed
-       
+
     }//GEN-LAST:event_txtApellidoMaternoActionPerformed
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -231,27 +230,32 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-       
+
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void jButton1_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_regresarActionPerformed
-        control.mostrarClientesRegistrados(clienteDTO);
-    }//GEN-LAST:event_jButton1_regresarActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        control.mostrarClientesRegistrados();
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        
+
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jButton2_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_siguienteActionPerformed
-        control.mostrarDatosVehiculo(orden);
-    }//GEN-LAST:event_jButton2_siguienteActionPerformed
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        if (validarCampos()) {
+            this.orden = guardarDatosCliente();
+            control.mostrarDatosVehiculo(orden);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void txtApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPaternoActionPerformed
-       
+
     }//GEN-LAST:event_txtApellidoPaternoActionPerformed
 
     private void txtCorreoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoElectronicoActionPerformed
-        
+
     }//GEN-LAST:event_txtCorreoElectronicoActionPerformed
 
     private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
@@ -267,26 +271,26 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtApellidoPaternoMouseClicked
 
     private void txtApellidoMaternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMaternoMouseClicked
-         if (txtApellidoMaterno.getText().equals("apellido materno...")) {
+        if (txtApellidoMaterno.getText().equals("apellido materno...")) {
             txtApellidoMaterno.setText("");
         }
     }//GEN-LAST:event_txtApellidoMaternoMouseClicked
 
     private void txtTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTelefonoMouseClicked
-       if (txtTelefono.getText().equals("telefono...")) {
-           txtTelefono.setText("");
-        } 
+        if (txtTelefono.getText().equals("telefono...")) {
+            txtTelefono.setText("");
+        }
     }//GEN-LAST:event_txtTelefonoMouseClicked
 
     private void txtCorreoElectronicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoElectronicoMouseClicked
         if (txtCorreoElectronico.getText().equals("correo electronico...")) {
             txtCorreoElectronico.setText("");
         }
-        
+
     }//GEN-LAST:event_txtCorreoElectronicoMouseClicked
 
     private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
-       if (txtDireccion.getText().equals("calle...")) {
+        if (txtDireccion.getText().equals("calle...")) {
             txtDireccion.setText("");
         }
     }//GEN-LAST:event_txtDireccionMouseClicked
@@ -297,20 +301,20 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
     private void txtColoniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtColoniaMouseClicked
         if (txtColonia.getText().equals("colonia...")) {
-           txtColonia.setText("");
+            txtColonia.setText("");
         }
     }//GEN-LAST:event_txtColoniaMouseClicked
 
     private void txtNumExteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumExteriorMouseClicked
         if (txtNumExterior.getText().equals("numero ext...")) {
-           txtNumExterior.setText("");
+            txtNumExterior.setText("");
         }
     }//GEN-LAST:event_txtNumExteriorMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1_regresar;
-    private javax.swing.JButton jButton2_siguiente;
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtApellidoPaterno;

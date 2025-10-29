@@ -8,6 +8,9 @@ import dto.ClienteDTO;
 import dto.OrdenDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
+import gestionarClientes.IManejoClientes;
+import gestionarClientes.ManejoClientes;
+import java.util.List;
 import javax.swing.JOptionPane;
 import presentacion.validaciones.IValidacionesPresentacion;
 import presentacion.validaciones.ValidacionException;
@@ -20,19 +23,22 @@ import presentacion.validaciones.ValidacionesPresentacion;
 public class ControlOrdenes implements IControlOrdenes {
 
     private final IManejoOrdenes manejo;
+    private final IManejoClientes clientes;
     private final IValidacionesPresentacion validacion;
     private static ControlOrdenes instancia;
 
-    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion) {
+    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes) {
         this.manejo = manejo;
         this.validacion = validacion;
+        this.clientes = clientes;
     }
 
     public static ControlOrdenes getInstancia() {
         if (instancia == null) {
             IManejoOrdenes manejoServicio = ManejoOrdenes.getInstancia();
             IValidacionesPresentacion validacionServicio = ValidacionesPresentacion.getInstancia();
-            instancia = new ControlOrdenes(manejoServicio, validacionServicio);
+            IManejoClientes clientesServicio = ManejoClientes.getInstancia();
+            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio);
         }
         return instancia;
     }
@@ -126,6 +132,12 @@ public class ControlOrdenes implements IControlOrdenes {
         }
     }
 
+    @Override
+    public List<ClienteDTO> obtenerClientesMock() {
+        List<ClienteDTO> listaClientes = clientes.obtenerClientes();
+        return listaClientes;
+    }
+
     // METODOS DE NAVEGACION DE PANTALLAS
     @Override
     public void mostrarMenuPrincipal() {
@@ -153,7 +165,7 @@ public class ControlOrdenes implements IControlOrdenes {
     }
 
     @Override
-    public void mostrarClientesRegistrados(ClienteDTO cliente) {
+    public void mostrarClientesRegistrados() {
         PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados();
         clientesRegistrados.setVisible(true);
     }
@@ -163,4 +175,5 @@ public class ControlOrdenes implements IControlOrdenes {
     public void mostrarErrorCampos(String mensajeError) {
         JOptionPane.showMessageDialog(null, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
     }
+
 }

@@ -6,6 +6,7 @@ package presentacion;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import java.util.List;
 import presentacion.validaciones.ValidacionException;
 
 public interface IControlOrdenes {
@@ -27,6 +28,8 @@ public interface IControlOrdenes {
     public Boolean validarAnio(String anio) throws ValidacionException;
     
     public Boolean validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
+    
+    public List<ClienteDTO> obtenerClientesMock();
 
     // METODOS DE NAVEGACION DE PANTALLAS
     public void mostrarMenuPrincipal();
@@ -37,7 +40,7 @@ public interface IControlOrdenes {
 
     public void mostrarDatosOrden(OrdenDTO orden);
     
-    public void mostrarClientesRegistrados(ClienteDTO clienteDTO);
+    public void mostrarClientesRegistrados();
     
     // METODOS INFORMATIVOS
     public void mostrarErrorCampos(String mensajeError);

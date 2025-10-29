@@ -110,7 +110,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     private void navegar() {
-        control.mostrarDatosCliente();
+        control.mostrarClientesRegistrados();
         this.dispose();
     }
     

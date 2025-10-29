@@ -16,13 +16,13 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
     private ClienteDTO clienteDTO;
+
     /**
      * Creates new form MenuPrincipal
      */
     public IniciarSesion() {
         initComponents();
-        configurarVentana();
-        configurarListeners();
+        configurarVentana();    
     }
 
     /**
@@ -96,14 +96,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private void configurarListeners() {
-        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iniciarSesion();
-            }
-        });
-    }
 
     private Boolean validarCampos() {
         String usuario = correoText.getText();
@@ -147,7 +139,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseniaTextActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-       control.mostrarClientesRegistrados(clienteDTO);
+        iniciarSesion();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void correoTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_correoTextMouseClicked

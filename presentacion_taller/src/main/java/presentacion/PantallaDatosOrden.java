@@ -75,6 +75,11 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptar.png"))); // NOI18N
         btnAceptar.setContentAreaFilled(false);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, -1, -1));
 
         txtFallaReportada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
@@ -112,8 +117,18 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        control.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (validarCampos()) {
+            guardarDatosOrden();
+            control.crearOrden(orden);
+            control.mostrarMenuPrincipal();
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

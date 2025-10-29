@@ -9,6 +9,7 @@
         <module>../dto_negocios</module>
         <module>../negocios_gestionOrdenes</module>
         <module>../presentacion_taller</module>
+        <module>../negocios_gestionarClientes</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

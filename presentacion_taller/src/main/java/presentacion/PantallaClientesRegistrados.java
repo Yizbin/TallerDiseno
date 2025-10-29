@@ -5,8 +5,6 @@
 package presentacion;
 
 import dto.ClienteDTO;
-import gestionarClientes.IManejoClientes;
-import gestionarClientes.ManejoClientes;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -16,29 +14,13 @@ import javax.swing.JPanel;
  * @author payde
  */
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
+
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    IManejoClientes manejo = new ManejoClientes();
-    List<ClienteDTO> clientes = manejo.obtenerClientes();
-    
+
     public PantallaClientesRegistrados() {
         initComponents();
         configurarVentana();
-        
-        IManejoClientes manejo = new ManejoClientes();
-        List<ClienteDTO> clientes = manejo.obtenerClientes();
-
-        JPanel contenedor = new JPanel();
-        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
-        contenedor.setOpaque(false);
-
-        for (ClienteDTO cliente : clientes) {
-            String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " " 
-                         + cliente.getApellidoM() + " | " + cliente.getTelefono();
-            clientePanel panel = new clientePanel(texto);
-            contenedor.add(panel);
-        }
-
-        scrollPaneClientes.setViewportView(contenedor);
+        generarClientes();
     }
 
     private void configurarVentana() {
@@ -46,8 +28,26 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
         scrollPaneClientes.setOpaque(false);
         scrollPaneClientes.getViewport().setOpaque(false);
         scrollPaneClientes.setBorder(null);
-        
+
     }
+
+    public final void generarClientes() {
+        List<ClienteDTO> listaClientes = control.obtenerClientesMock();
+
+        JPanel contenedor = new JPanel();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+        contenedor.setOpaque(false);
+
+        for (ClienteDTO cliente : listaClientes) {
+            String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " "
+                    + cliente.getApellidoM() + " | " + cliente.getTelefono();
+            clientePanel panel = new clientePanel(texto);
+            contenedor.add(panel);
+        }
+
+        scrollPaneClientes.setViewportView(contenedor);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,46 +98,17 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         control.mostrarDatosCliente();
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         control.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

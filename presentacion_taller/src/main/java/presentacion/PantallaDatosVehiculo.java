@@ -203,34 +203,39 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        control.mostrarDatosCliente();
+        control.mostrarDatosOrden(orden);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-       control.mostrarDatosOrden(orden);
+        if (validarCampos()) {
+            guardarDatosVehiculo();
+            control.mostrarDatosOrden(orden);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void txtAnioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioMouseClicked
         if (txtAnio.getText().equals("año...")) {
-           txtAnio.setText("");
+            txtAnio.setText("");
         }
     }//GEN-LAST:event_txtAnioMouseClicked
 
     private void txtPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPlacasMouseClicked
-       if (txtPlacas.getText().equals("placas...")) {
-           txtPlacas.setText("");
+        if (txtPlacas.getText().equals("placas...")) {
+            txtPlacas.setText("");
         }
     }//GEN-LAST:event_txtPlacasMouseClicked
 
     private void txtKilometrajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKilometrajeMouseClicked
-       if (txtKilometraje.getText().equals("kilometraje...")) {
-          txtKilometraje.setText("");
+        if (txtKilometraje.getText().equals("kilometraje...")) {
+            txtKilometraje.setText("");
         }
     }//GEN-LAST:event_txtKilometrajeMouseClicked
 
     private void txtColorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtColorMouseClicked
         if (txtColor.getText().equals("color...")) {
-          txtColor.setText("");
+            txtColor.setText("");
         }
     }//GEN-LAST:event_txtColorMouseClicked
 
