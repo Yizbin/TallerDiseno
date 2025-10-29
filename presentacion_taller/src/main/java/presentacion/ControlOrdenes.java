@@ -155,6 +155,7 @@ public class ControlOrdenes implements IControlOrdenes {
     @Override
     public void mostrarClientesRegistrados(ClienteDTO cliente) {
         PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados();
+        clientesRegistrados.setVisible(true);
     }
 
     // METODOS INFORMATIVOS

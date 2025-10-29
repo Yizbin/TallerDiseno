@@ -37,18 +37,25 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     private void initComponents() {
 
         txtColor = new javax.swing.JTextField();
-        lblAtras = new javax.swing.JLabel();
-        lblSiguiente = new javax.swing.JLabel();
         txtKilometraje = new javax.swing.JTextField();
         txtPlacas = new javax.swing.JTextField();
         txtAnio = new javax.swing.JTextField();
         cbModelo = new javax.swing.JComboBox<>();
         cbMarca = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtColor.setForeground(new java.awt.Color(51, 51, 51));
+        txtColor.setText("color...");
+        txtColor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtColorMouseClicked(evt);
+            }
+        });
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColorActionPerformed(evt);
@@ -56,24 +63,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 220, -1));
 
-        lblAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
-        lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtKilometraje.setForeground(new java.awt.Color(51, 51, 51));
+        txtKilometraje.setText("kilometraje...");
+        txtKilometraje.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAtrasMouseClicked(evt);
+                txtKilometrajeMouseClicked(evt);
             }
         });
-        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 60, 60));
-
-        lblSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
-        lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSiguienteMouseClicked(evt);
-            }
-        });
-        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 460, 50, 50));
-
         txtKilometraje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKilometrajeActionPerformed(evt);
@@ -81,6 +77,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 220, -1));
 
+        txtPlacas.setForeground(new java.awt.Color(51, 51, 51));
+        txtPlacas.setText("placas...");
+        txtPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtPlacasMouseClicked(evt);
+            }
+        });
         txtPlacas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlacasActionPerformed(evt);
@@ -88,6 +91,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 220, -1));
 
+        txtAnio.setForeground(new java.awt.Color(51, 51, 51));
+        txtAnio.setText("año...");
+        txtAnio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAnioMouseClicked(evt);
+            }
+        });
         txtAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnioActionPerformed(evt);
@@ -111,8 +121,27 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(cbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 220, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosAuto.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 560));
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnRegresar.setToolTipText("");
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
+        btnSiguiente.setContentAreaFilled(false);
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
+
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosAuto.png"))); // NOI18N
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -173,27 +202,45 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbModeloActionPerformed
 
-    private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        if (validarCampos()) {
-            guardarDatosVehiculo();
-            control.mostrarDatosOrden(orden);
-            this.dispose();
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        control.mostrarDatosCliente();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+       control.mostrarDatosOrden(orden);
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void txtAnioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAnioMouseClicked
+        if (txtAnio.getText().equals("año...")) {
+           txtAnio.setText("");
         }
+    }//GEN-LAST:event_txtAnioMouseClicked
 
-    }//GEN-LAST:event_lblSiguienteMouseClicked
+    private void txtPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPlacasMouseClicked
+       if (txtPlacas.getText().equals("placas...")) {
+           txtPlacas.setText("");
+        }
+    }//GEN-LAST:event_txtPlacasMouseClicked
 
-    private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked
-        control.mostrarMenuPrincipal();
-        this.dispose();
-    }//GEN-LAST:event_lblAtrasMouseClicked
+    private void txtKilometrajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKilometrajeMouseClicked
+       if (txtKilometraje.getText().equals("kilometraje...")) {
+          txtKilometraje.setText("");
+        }
+    }//GEN-LAST:event_txtKilometrajeMouseClicked
+
+    private void txtColorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtColorMouseClicked
+        if (txtColor.getText().equals("color...")) {
+          txtColor.setText("");
+        }
+    }//GEN-LAST:event_txtColorMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JComboBox<String> cbMarca;
     private javax.swing.JComboBox<String> cbModelo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblAtras;
-    private javax.swing.JLabel lblSiguiente;
+    private javax.swing.JLabel lblFondo;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtKilometraje;

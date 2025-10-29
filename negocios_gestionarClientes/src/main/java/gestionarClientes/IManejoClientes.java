@@ -4,10 +4,13 @@
  */
 package gestionarClientes;
 
+import dto.ClienteDTO;
+import java.util.List;
+
 /**
  *
  * @author payde
  */
 public interface IManejoClientes {
-    
+     List<ClienteDTO> obtenerClientes();
 }

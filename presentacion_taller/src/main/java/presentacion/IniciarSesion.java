@@ -4,6 +4,7 @@
  */
 package presentacion;
 
+import dto.ClienteDTO;
 import java.awt.event.ActionEvent;
 import presentacion.validaciones.ValidacionException;
 
@@ -14,7 +15,7 @@ import presentacion.validaciones.ValidacionException;
 public class IniciarSesion extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
-
+    private ClienteDTO clienteDTO;
     /**
      * Creates new form MenuPrincipal
      */
@@ -42,6 +43,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        correoText.setForeground(new java.awt.Color(51, 51, 51));
         correoText.setText("correo...");
         correoText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -55,6 +57,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         getContentPane().add(correoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
 
+        contraseniaText.setForeground(new java.awt.Color(51, 51, 51));
         contraseniaText.setText("contraseña...");
         contraseniaText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -144,7 +147,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseniaTextActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
+       control.mostrarClientesRegistrados(clienteDTO);
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void correoTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_correoTextMouseClicked

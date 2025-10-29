@@ -41,11 +41,11 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         txtaFallaReportada = new javax.swing.JTextArea();
-        lblAtras = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtaServiciosSolicitados = new javax.swing.JTextArea();
-        lblSiguiente = new javax.swing.JLabel();
         dtFechaIngreso = new com.github.lgooddatepicker.components.DatePicker();
+        btnRegresar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         txtFallaReportada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,30 +57,25 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 280, 110));
 
-        lblAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
-        lblAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblAtras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAtrasMouseClicked(evt);
-            }
-        });
-        getContentPane().add(lblAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 50, 50));
-
         txtaServiciosSolicitados.setColumns(20);
         txtaServiciosSolicitados.setRows(5);
         jScrollPane2.setViewportView(txtaServiciosSolicitados);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 280, 110));
+        getContentPane().add(dtFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
 
-        lblSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptar.png"))); // NOI18N
-        lblSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSiguienteMouseClicked(evt);
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(lblSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 50, 50));
-        getContentPane().add(dtFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 250, 40));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, -1));
+
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptar.png"))); // NOI18N
+        btnAceptar.setContentAreaFilled(false);
+        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, -1, -1));
 
         txtFallaReportada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosSolicitados.png"))); // NOI18N
         getContentPane().add(txtFallaReportada, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
@@ -116,28 +111,17 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     }
 
 
-    private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        if (validarCampos())
-        {
-            guardarDatosOrden();
-            control.crearOrden(orden);
-            control.mostrarMenuPrincipal();
-            this.dispose();
-        }
-    }//GEN-LAST:event_lblSiguienteMouseClicked
-
-    private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked
-        control.mostrarMenuPrincipal();
-        this.dispose();
-    }//GEN-LAST:event_lblAtrasMouseClicked
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnRegresar;
     private com.github.lgooddatepicker.components.DatePicker dtFechaIngreso;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblAtras;
-    private javax.swing.JLabel lblSiguiente;
     private javax.swing.JLabel txtFallaReportada;
     private javax.swing.JTextArea txtaFallaReportada;
     private javax.swing.JTextArea txtaServiciosSolicitados;

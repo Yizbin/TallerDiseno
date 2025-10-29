@@ -4,22 +4,49 @@
  */
 package presentacion;
 
+import dto.ClienteDTO;
+import gestionarClientes.IManejoClientes;
+import gestionarClientes.ManejoClientes;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author payde
  */
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
-
-    /**
-     * Creates new form listaClientesRegistrados
-     */
+    private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    IManejoClientes manejo = new ManejoClientes();
+    List<ClienteDTO> clientes = manejo.obtenerClientes();
+    
     public PantallaClientesRegistrados() {
         initComponents();
         configurarVentana();
+        
+        IManejoClientes manejo = new ManejoClientes();
+        List<ClienteDTO> clientes = manejo.obtenerClientes();
+
+        JPanel contenedor = new JPanel();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+        contenedor.setOpaque(false);
+
+        for (ClienteDTO cliente : clientes) {
+            String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " " 
+                         + cliente.getApellidoM() + " | " + cliente.getTelefono();
+            clientePanel panel = new clientePanel(texto);
+            contenedor.add(panel);
+        }
+
+        scrollPaneClientes.setViewportView(contenedor);
     }
 
     private void configurarVentana() {
         this.setLocationRelativeTo(null);
+        scrollPaneClientes.setOpaque(false);
+        scrollPaneClientes.getViewport().setOpaque(false);
+        scrollPaneClientes.setBorder(null);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,35 +57,35 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1_agregarCliente = new javax.swing.JButton();
-        jButton2_regresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        btnAgregar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        scrollPaneClientes = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(410, 540));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1_agregarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAgregar_1.png"))); // NOI18N
-        jButton1_agregarCliente.setContentAreaFilled(false);
-        jButton1_agregarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAgregar_1.png"))); // NOI18N
+        btnAgregar.setContentAreaFilled(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1_agregarClienteActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1_agregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
 
-        jButton2_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
-        jButton2_regresar.setContentAreaFilled(false);
-        jButton2_regresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2_regresarActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2_regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 50, 50));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 50, 50));
 
-        jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 280, 310));
+        scrollPaneClientes.setBackground(new java.awt.Color(242, 242, 242));
+        getContentPane().add(scrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 280, 310));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaClientesRegistrados.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(200, 270));
@@ -69,13 +96,13 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1_agregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_agregarClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1_agregarClienteActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        control.mostrarDatosCliente();
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton2_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2_regresarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2_regresarActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        control.mostrarMenuPrincipal();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,9 +144,9 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1_agregarCliente;
-    private javax.swing.JButton jButton2_regresar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane scrollPaneClientes;
     // End of variables declaration//GEN-END:variables
 }
