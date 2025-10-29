@@ -5,7 +5,7 @@
 package presentacion;
 
 import java.awt.event.ActionEvent;
-import javax.swing.JOptionPane;
+import presentacion.validaciones.ValidacionException;
 
 /**
  *
@@ -102,14 +102,30 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
     }
 
-    private void iniciarSesion() {
+    private Boolean validarCampos() {
         String usuario = correoText.getText();
         String contra = contraseniaText.getText();
 
-        if (control.autenticarUsuario(usuario, contra)) {
-            this.navegar();
-        } else {
-            mostrarError("Usuario o contrasenia incorrectos");
+        try {
+            control.validarCampoVacio(usuario, "Correo");
+            control.validarCampoVacio(contra, "Contraseña");
+        } catch (ValidacionException ex) {
+            control.mostrarErrorCampos(ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    private void iniciarSesion() {
+        if (validarCampos()) {
+            String usuario = correoText.getText();
+            String contra = contraseniaText.getText();
+
+            if (control.autenticarUsuario(usuario, contra)) {
+                this.navegar();
+            } else {
+                control.mostrarErrorCampos("Usuario o contraseña incorrectos");
+            }
         }
     }
 
@@ -118,12 +134,9 @@ public class IniciarSesion extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error de Autenticacion", JOptionPane.ERROR_MESSAGE);
-    }
 
     private void correoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoTextActionPerformed
-  
+
     }//GEN-LAST:event_correoTextActionPerformed
 
     private void contraseniaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseniaTextActionPerformed
@@ -135,17 +148,17 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void correoTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_correoTextMouseClicked
-        if(correoText.getText().equals("correo...")){
+        if (correoText.getText().equals("correo...")) {
             correoText.setText("");
         }
     }//GEN-LAST:event_correoTextMouseClicked
 
     private void contraseniaTextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseEntered
-       //nada que ver aqui, ya no lo pude borrar
+        //nada que ver aqui, ya no lo pude borrar
     }//GEN-LAST:event_contraseniaTextMouseEntered
 
     private void contraseniaTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseClicked
-         if(contraseniaText.getText().equals("contraseña...")){
+        if (contraseniaText.getText().equals("contraseña...")) {
             contraseniaText.setText("");
         }
     }//GEN-LAST:event_contraseniaTextMouseClicked
