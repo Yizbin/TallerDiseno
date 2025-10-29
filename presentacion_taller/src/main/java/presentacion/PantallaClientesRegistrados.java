@@ -20,7 +20,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     public PantallaClientesRegistrados() {
         initComponents();
         configurarVentana();
-        generarClientes();
+        generarListaClientes();
     }
 
     private void configurarVentana() {
@@ -31,7 +31,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
     }
 
-    public final void generarClientes() {
+    public final void generarListaClientes() {
         List<ClienteDTO> listaClientes = control.obtenerClientesMock();
 
         JPanel contenedor = new JPanel();
@@ -41,7 +41,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
         for (ClienteDTO cliente : listaClientes) {
             String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " "
                     + cliente.getApellidoM() + " | " + cliente.getTelefono();
-            clientePanel panel = new clientePanel(texto);
+            JPanel panel = control.crearPanelCliente(texto);
             contenedor.add(panel);
         }
 

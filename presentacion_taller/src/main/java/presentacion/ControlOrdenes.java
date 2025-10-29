@@ -12,6 +12,9 @@ import gestionarClientes.IManejoClientes;
 import gestionarClientes.ManejoClientes;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import presentacion.utilerias.CreacionPaneles;
+import presentacion.utilerias.ICreacionPaneles;
 import presentacion.validaciones.IValidacionesPresentacion;
 import presentacion.validaciones.ValidacionException;
 import presentacion.validaciones.ValidacionesPresentacion;
@@ -25,12 +28,14 @@ public class ControlOrdenes implements IControlOrdenes {
     private final IManejoOrdenes manejo;
     private final IManejoClientes clientes;
     private final IValidacionesPresentacion validacion;
+    private final ICreacionPaneles creacionPaneles;
     private static ControlOrdenes instancia;
 
-    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes) {
+    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles) {
         this.manejo = manejo;
         this.validacion = validacion;
         this.clientes = clientes;
+        this.creacionPaneles = creacionPaneles;
     }
 
     public static ControlOrdenes getInstancia() {
@@ -38,7 +43,8 @@ public class ControlOrdenes implements IControlOrdenes {
             IManejoOrdenes manejoServicio = ManejoOrdenes.getInstancia();
             IValidacionesPresentacion validacionServicio = ValidacionesPresentacion.getInstancia();
             IManejoClientes clientesServicio = ManejoClientes.getInstancia();
-            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio);
+            ICreacionPaneles creacionPanelesServicio = CreacionPaneles.getInstancia();
+            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio, creacionPanelesServicio);
         }
         return instancia;
     }
@@ -130,6 +136,32 @@ public class ControlOrdenes implements IControlOrdenes {
         } catch (ValidacionException ex) {
             throw new ValidacionException(ex.getMessage());
         }
+    }
+
+    // METODOS DE CREACION UI
+    @Override
+    public JPanel crearPanelCliente(String nombreCliente) {
+        return creacionPaneles.crearPanelCliente(nombreCliente);
+    }
+
+    @Override
+    public JPanel crearPanelOrden(String textoOrden) {
+         return creacionPaneles.crearPanelOrden(textoOrden);
+    }
+
+    @Override
+    public JPanel crearPanelTitulo(String titulo) {
+         return creacionPaneles.crearPanelTitulo(titulo);
+    }
+
+    @Override
+    public JPanel crearPanelInformativo(String texto, Boolean esDestacado) {
+         return creacionPaneles.crearPanelInformativo(texto, esDestacado);
+    }
+
+    @Override
+    public JPanel crearSeparador(int altura) {
+         return creacionPaneles.crearSeparador(altura);
     }
 
     @Override

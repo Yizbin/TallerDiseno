@@ -6,7 +6,9 @@ package presentacion;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import java.awt.Font;
 import java.util.List;
+import javax.swing.JPanel;
 import presentacion.validaciones.ValidacionException;
 
 public interface IControlOrdenes {
@@ -30,6 +32,18 @@ public interface IControlOrdenes {
     public Boolean validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
     
     public List<ClienteDTO> obtenerClientesMock();
+    
+    // METODOS DE CREACION UI
+    public JPanel crearPanelCliente(String nombreCliente);
+
+    public JPanel crearPanelOrden(String textoOrden);
+
+    public JPanel crearPanelTitulo(String titulo);
+
+    public JPanel crearPanelInformativo(String texto, Boolean esDestacado);
+
+    public JPanel crearSeparador(int altura);
+
 
     // METODOS DE NAVEGACION DE PANTALLAS
     public void mostrarMenuPrincipal();
