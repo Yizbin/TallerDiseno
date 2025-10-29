@@ -6,7 +6,6 @@ package presentacion;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
-import javax.swing.JOptionPane;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -125,18 +124,20 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
     }
 
-    private void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error de validacion", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void validarCampos() throws ValidacionException {
-        control.validarCampoVacio(txtNombre.getText(), "Nombre");
-        control.validarCampoVacio(txtApellidoPaterno.getText(), "Apellido paterno");
-        control.validarTelefono(txtTelefono.getText());
-        control.validarEmail(txtCorreoElectronico.getText());
-        control.validarCampoVacio(txtDireccion.getText(), "Direccion");
-        control.validarCampoVacio(txtColonia.getText(), "Colonia");
-        control.validarCampoNumerico(txtNumExterior.getText(), "Numero Exterior");
+    private Boolean validarCampos() {
+        try {
+            control.validarCampoVacio(txtNombre.getText(), "Nombre");
+            control.validarCampoVacio(txtApellidoPaterno.getText(), "Apellido paterno");
+            control.validarTelefono(txtTelefono.getText());
+            control.validarEmail(txtCorreoElectronico.getText());
+            control.validarCampoVacio(txtDireccion.getText(), "Direccion");
+            control.validarCampoVacio(txtColonia.getText(), "Colonia");
+            control.validarCampoNumerico(txtNumExterior.getText(), "Numero Exterior");
+            return true;
+        } catch (ValidacionException ex) {
+            control.mostrarErrorCampos(ex.getMessage());
+            return false;
+        }
     }
 
     private void txtApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMaternoActionPerformed
@@ -148,14 +149,12 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        try {
-            validarCampos();
-            orden = this.guardarDatosCliente();
+        if (validarCampos()) {
+            this.orden = guardarDatosCliente();
             control.mostrarDatosVehiculo(orden);
             this.dispose();
-        } catch (ValidacionException e) {
-            mostrarError(e.getMessage());
         }
+
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed

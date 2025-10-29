@@ -6,7 +6,6 @@ package presentacion;
 
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
-import javax.swing.JOptionPane;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -136,15 +135,18 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
     }
 
-    private void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error de validacion", JOptionPane.ERROR_MESSAGE);
-    }
+    private Boolean validarCampos() {
+        try {
+            control.validarAnio(txtAnio.getText());
+            control.validarCampoVacio(txtPlacas.getText(), "Placas");
+            control.validarCampoNumerico(txtKilometraje.getText(), "Kilometraje");
+            control.validarCampoVacio(txtColor.getText(), "Color");
+            return true;
+        } catch (ValidacionException ex) {
+            control.mostrarErrorCampos(ex.getMessage());
+            return false;
+        }
 
-    private void validarCampos() throws ValidacionException {
-        control.validarAnio(txtAnio.getText());
-        control.validarCampoVacio(txtPlacas.getText(), "Placas");
-        control.validarCampoNumerico(txtKilometraje.getText(), "Kilometraje");
-        control.validarCampoVacio(txtColor.getText(), "Color");
     }
 
     private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
@@ -172,14 +174,12 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        try {
-            validarCampos();
+        if (validarCampos()) {
             guardarDatosVehiculo();
             control.mostrarDatosOrden(orden);
             this.dispose();
-        } catch (ValidacionException e) {
-            mostrarError(e.getMessage());
         }
+
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
     private void lblAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtrasMouseClicked

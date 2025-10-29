@@ -10,23 +10,23 @@ import presentacion.validaciones.ValidacionException;
 
 public interface IControlOrdenes {
 
-    public void crearOrden(OrdenDTO orden);
+    public Boolean crearOrden(OrdenDTO orden);
     
     public Boolean autenticarUsuario(String usuario, String contrasena);
     
-    public void validarCampoVacio(String texto, String nombreCampo) throws ValidacionException;
+    public Boolean validarCampoVacio(String texto, String nombreCampo) throws ValidacionException;
     
-    public void validarRegex(String texto, String regex, String mensajeError) throws ValidacionException;
+    public Boolean validarRegex(String texto, String regex, String mensajeError) throws ValidacionException;
     
-    public void validarObjetoNull(Object object, String nombreCampo) throws ValidacionException;
+    public Boolean validarObjetoNull(Object object, String nombreCampo) throws ValidacionException;
     
-    public void validarEmail(String email) throws ValidacionException;
+    public Boolean validarEmail(String email) throws ValidacionException;
     
-    public void validarTelefono(String telefono) throws ValidacionException;
+    public Boolean validarTelefono(String telefono) throws ValidacionException;
     
-    public void validarAnio(String anio) throws ValidacionException;
+    public Boolean validarAnio(String anio) throws ValidacionException;
     
-    public void validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
+    public Boolean validarCampoNumerico(String texto, String nombreCampo) throws ValidacionException;
 
     // METODOS DE NAVEGACION DE PANTALLAS
     public void mostrarMenuPrincipal();
@@ -38,4 +38,7 @@ public interface IControlOrdenes {
     public void mostrarDatosOrden(OrdenDTO orden);
     
     public void mostrarClientesRegistrados(ClienteDTO clienteDTO);
+    
+    // METODOS INFORMATIVOS
+    public void mostrarErrorCampos(String mensajeError);
 }

@@ -60,13 +60,14 @@ public class ManejoOrdenes implements IManejoOrdenes {
     }
 
     @Override
-    public void crearOrden(OrdenDTO orden) {
+    public Boolean crearOrden(OrdenDTO orden) {
         if (orden != null) {
             this.listaOrdenes.add(orden);
             System.out.println("Orden correcta");
+            return true;
         } else {
             System.out.println("Orden nula");
-
+            return false;
         }
     }
 

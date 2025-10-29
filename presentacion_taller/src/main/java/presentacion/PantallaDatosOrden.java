@@ -6,7 +6,6 @@ package presentacion;
 
 import dto.OrdenDTO;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -104,31 +103,26 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     }
 
-    private void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Error de validacion", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void validarCampos() throws ValidacionException {
-        control.validarObjetoNull(dtFechaIngreso.getDate(), "Fecha de ingreso");
-        control.validarCampoVacio(txtaFallaReportada.getText(), "Falla reportada");
-        control.validarCampoVacio(txtaServiciosSolicitados.getText(), "Servicios Solicitados");
+    private Boolean validarCampos() {
+        try {
+            control.validarObjetoNull(dtFechaIngreso.getDate(), "Fecha de ingreso");
+            control.validarCampoVacio(txtaFallaReportada.getText(), "Falla reportada");
+            control.validarCampoVacio(txtaServiciosSolicitados.getText(), "Servicios Solicitados");
+            return true;
+        } catch (ValidacionException ex) {
+            control.mostrarErrorCampos(ex.getMessage());
+            return false;
+        }
     }
 
 
     private void lblSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSiguienteMouseClicked
-        try {
-            validarCampos();
+        if (validarCampos())
+        {
             guardarDatosOrden();
-            try {
-                control.crearOrden(orden);
-                JOptionPane.showMessageDialog(this, "Orden creada correctamente", "Confirmarcion", JOptionPane.INFORMATION_MESSAGE);
-                control.mostrarMenuPrincipal();
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al guardar la orden: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (ValidacionException e) {
-            mostrarError(e.getMessage());
+            control.crearOrden(orden);
+            control.mostrarMenuPrincipal();
+            this.dispose();
         }
     }//GEN-LAST:event_lblSiguienteMouseClicked
 
