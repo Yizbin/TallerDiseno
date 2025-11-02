@@ -37,6 +37,7 @@ public class ManejoOrdenes implements IManejoOrdenes {
     public Boolean crearOrden(OrdenDTO orden) {
         if (orden != null) {
             this.listaOrdenes.add(orden);
+            orden.setEstado(Boolean.TRUE);
             System.out.println("Orden correcta");
             return true;
         } else {

@@ -6,7 +6,6 @@ package dto;
 
 import java.time.LocalDate;
 
-
 /**
  *
  * @author Abraham Coronel
@@ -23,15 +22,18 @@ public class OrdenDTO {
 
     private String servicioSolicitado;
 
+    private Boolean estado; // TRUE == ORDEN PENDIENTE // FALSE == ORDEN PAGADA
+
     public OrdenDTO() {
     }
 
-    public OrdenDTO(ClienteDTO cliente, VehiculoDTO vehiculo, LocalDate fechaIngreso, String fallaReportada, String servicioSolicitado) {
+    public OrdenDTO(ClienteDTO cliente, VehiculoDTO vehiculo, LocalDate fechaIngreso, String fallaReportada, String servicioSolicitado, Boolean estado) {
         this.cliente = cliente;
         this.vehiculo = vehiculo;
         this.fechaIngreso = fechaIngreso;
         this.fallaReportada = fallaReportada;
         this.servicioSolicitado = servicioSolicitado;
+        this.estado = estado;
     }
 
     public ClienteDTO getCliente() {
@@ -72,6 +74,14 @@ public class OrdenDTO {
 
     public void setServicioSolicitado(String servicioSolicitado) {
         this.servicioSolicitado = servicioSolicitado;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
 }
