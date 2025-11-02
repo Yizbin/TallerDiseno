@@ -4,10 +4,14 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.ControlOrdenes;
+import presentacion.controles.IControlNavegacion;
 
 /**
  *
@@ -16,6 +20,7 @@ import javax.swing.JPanel;
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
 
     public PantallaClientesRegistrados() {
         initComponents();
@@ -97,12 +102,12 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        control.mostrarDatosCliente();
+        navegacion.mostrarDatosCliente();
         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        control.mostrarMenuPrincipal();
+        navegacion.mostrarMenuPrincipal();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 

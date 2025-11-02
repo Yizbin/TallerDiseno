@@ -4,8 +4,10 @@
  */
 package presentacion;
 
-import dto.ClienteDTO;
-import java.awt.event.ActionEvent;
+import presentacion.controles.IControlOrdenes;
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.ControlOrdenes;
+import presentacion.controles.IControlNavegacion;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -15,7 +17,7 @@ import presentacion.validaciones.ValidacionException;
 public class IniciarSesion extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private ClienteDTO clienteDTO;
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
 
     /**
      * Creates new form MenuPrincipal
@@ -125,7 +127,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     private void navegar() {
-        control.mostrarMenuPrincipal();
+        navegacion.mostrarMenuPrincipal();
         this.dispose();
     }
 

@@ -4,8 +4,12 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import java.time.LocalDate;
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.ControlOrdenes;
+import presentacion.controles.IControlNavegacion;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -15,6 +19,7 @@ import presentacion.validaciones.ValidacionException;
 public class PantallaDatosOrden extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
     private OrdenDTO orden;
 
     /**
@@ -117,7 +122,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        control.mostrarMenuPrincipal();
+        navegacion.mostrarMenuPrincipal();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -125,7 +130,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         if (validarCampos()) {
             guardarDatosOrden();
             control.crearOrden(orden);
-            control.mostrarMenuPrincipal();
+            navegacion.mostrarMenuPrincipal();
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed

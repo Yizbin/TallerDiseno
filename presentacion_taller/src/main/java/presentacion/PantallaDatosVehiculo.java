@@ -4,8 +4,12 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.ControlOrdenes;
+import presentacion.controles.IControlNavegacion;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -15,6 +19,7 @@ import presentacion.validaciones.ValidacionException;
 public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
     private OrdenDTO orden;
 
     public PantallaDatosVehiculo() {
@@ -203,14 +208,14 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        control.mostrarDatosOrden(orden);
+        navegacion.mostrarDatosOrden(orden);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             guardarDatosVehiculo();
-            control.mostrarDatosOrden(orden);
+            navegacion.mostrarDatosOrden(orden);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

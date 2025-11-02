@@ -4,13 +4,16 @@
  */
 package presentacion;
 
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.IControlNavegacion;
+
 /**
  *
  * @author Abraham Coronel
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
 
     /**
      * Creates new form IniciarSesion
@@ -110,7 +113,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     private void navegar() {
-        control.mostrarClientesRegistrados();
+        navegacion.mostrarClientesRegistrados();
         this.dispose();
     }
     

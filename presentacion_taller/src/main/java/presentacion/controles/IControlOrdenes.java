@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package presentacion;
+package presentacion.controles;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
-import java.awt.Font;
 import java.util.List;
 import javax.swing.JPanel;
 import presentacion.validaciones.ValidacionException;
@@ -43,18 +42,7 @@ public interface IControlOrdenes {
     public JPanel crearPanelInformativo(String texto, Boolean esDestacado);
 
     public JPanel crearSeparador(int altura);
-
-
-    // METODOS DE NAVEGACION DE PANTALLAS
-    public void mostrarMenuPrincipal();
-
-    public void mostrarDatosCliente();
     
-    public void mostrarDatosVehiculo(OrdenDTO orden);
-
-    public void mostrarDatosOrden(OrdenDTO orden);
-    
-    public void mostrarClientesRegistrados();
     
     // METODOS INFORMATIVOS
     public void mostrarErrorCampos(String mensajeError);

@@ -4,8 +4,12 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import presentacion.controles.ControlNavegacion;
+import presentacion.controles.ControlOrdenes;
+import presentacion.controles.IControlNavegacion;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -15,6 +19,7 @@ import presentacion.validaciones.ValidacionException;
 public class PantallaDatosCliente extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
+    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
 
     private OrdenDTO orden;
 
@@ -234,7 +239,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        control.mostrarClientesRegistrados();
+        navegacion.mostrarClientesRegistrados();
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
@@ -245,7 +250,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             this.orden = guardarDatosCliente();
-            control.mostrarDatosVehiculo(orden);
+            navegacion.mostrarDatosVehiculo(orden);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
