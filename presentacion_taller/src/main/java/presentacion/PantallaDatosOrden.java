@@ -59,7 +59,6 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         txtFallaReportada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(960, 520));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtaFallaReportada.setColumns(20);
