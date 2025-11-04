@@ -57,6 +57,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(960, 549));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtColor.setForeground(new java.awt.Color(51, 51, 51));
@@ -71,7 +72,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 txtColorActionPerformed(evt);
             }
         });
-        getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 220, -1));
+        getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 220, -1));
 
         txtKilometraje.setForeground(new java.awt.Color(51, 51, 51));
         txtKilometraje.setText("kilometraje...");
@@ -85,7 +86,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 txtKilometrajeActionPerformed(evt);
             }
         });
-        getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 220, -1));
+        getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 220, -1));
 
         txtPlacas.setForeground(new java.awt.Color(51, 51, 51));
         txtPlacas.setText("placas...");
@@ -99,7 +100,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 txtPlacasActionPerformed(evt);
             }
         });
-        getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 220, -1));
+        getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 220, -1));
 
         txtAnio.setForeground(new java.awt.Color(51, 51, 51));
         txtAnio.setText("año...");
@@ -113,7 +114,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 txtAnioActionPerformed(evt);
             }
         });
-        getContentPane().add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, -1));
+        getContentPane().add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 220, -1));
 
         cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "RAV4", "Yaris", "Fiesta" }));
         cbModelo.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +122,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 cbModeloActionPerformed(evt);
             }
         });
-        getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 220, -1));
+        getContentPane().add(cbModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, -1));
 
         cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Nissan", "Kia", "Tesla" }));
         cbMarca.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +130,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 cbMarcaActionPerformed(evt);
             }
         });
-        getContentPane().add(cbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 220, -1));
+        getContentPane().add(cbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 220, -1));
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         btnRegresar.setToolTipText("");
@@ -139,7 +140,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
         btnSiguiente.setContentAreaFilled(false);
@@ -148,10 +149,10 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
                 btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, -1, -1));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/datosAuto.png"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 560));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
