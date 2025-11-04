@@ -23,6 +23,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
     private OrdenDTO orden;
     private NavegacionOrigen origen;
+    private NavegacionOrigen origenCliente;
 
     /**
      * Creates new form PantallaCrearOrden
@@ -31,10 +32,11 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         initComponents();
     }
 
-    public PantallaDatosOrden(OrdenDTO orden, NavegacionOrigen origen) {
+    public PantallaDatosOrden(OrdenDTO orden, NavegacionOrigen origen, NavegacionOrigen origenCliente) {
         initComponents();
         this.orden = orden;
         this.origen = origen;
+        this.origenCliente = origenCliente;
         configurarVentana();
     }
 
@@ -123,10 +125,28 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         }
     }
 
+    private void regresar() {
+        if (this.origen != null) {
+            switch (origen) {
+                case DATOS_VEHICULO:
+                    navegacion.mostrarDatosVehiculo(orden, this.origenCliente);
+                    break;
+                case VEHICULOS_REGISTRADOS:
+                    navegacion.mostrarVehiculosRegistrados(orden, this.origenCliente);
+                    break;
+                default:
+                    navegacion.mostrarVehiculosRegistrados(orden, this.origenCliente);
+                    break;
+            }
+        } else {
+            navegacion.mostrarMenuPrincipal();
+        }
+        this.dispose();
+    }
+
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarDatosVehiculo(orden, this.origen);
-        this.dispose();
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed

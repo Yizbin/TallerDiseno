@@ -19,7 +19,9 @@ public interface IControlNavegacion {
 
     public void mostrarDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen);
 
-    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origen);
+    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente);
 
     public void mostrarClientesRegistrados();
+    
+    public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen);
 }

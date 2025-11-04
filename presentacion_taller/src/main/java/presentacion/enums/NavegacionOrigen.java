@@ -10,5 +10,5 @@ package presentacion.enums;
  * @author Abraham Coronel
  */
 public enum NavegacionOrigen {
-    DATOS_CLIENTE, CLIENTES_REGISTRADOS, DATOS_VEHICULO
+    DATOS_CLIENTE, CLIENTES_REGISTRADOS, DATOS_VEHICULO, VEHICULOS_REGISTRADOS;
 }

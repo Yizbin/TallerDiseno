@@ -46,10 +46,31 @@ public class CreacionPaneles implements ICreacionPaneles {
         panel.setPreferredSize(new Dimension(280, 30));
         panel.setMaximumSize(new Dimension(280, 30));
         panel.setOpaque(false);
-        
+
         panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JLabel lblNombre = new JLabel(nombreCliente, SwingConstants.LEFT);
+        lblNombre.setFont(FUENTE_NORMAL);
+        lblNombre.setForeground(COLOR_TEXTO_PRIMARY);
+        lblNombre.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+
+        panel.add(lblNombre, BorderLayout.CENTER);
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, COLOR_BORDE));
+
+        return panel;
+    }
+
+    @Override
+    public JPanel crearPanelVehiculo(String vehiculo) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout(0, 0));
+        panel.setPreferredSize(new Dimension(260, 30));
+        panel.setMaximumSize(new Dimension(260, 30));
+        panel.setOpaque(false);
+
+        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        JLabel lblNombre = new JLabel(vehiculo, SwingConstants.LEFT);
         lblNombre.setFont(FUENTE_NORMAL);
         lblNombre.setForeground(COLOR_TEXTO_PRIMARY);
         lblNombre.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -138,4 +159,5 @@ public class CreacionPaneles implements ICreacionPaneles {
     public Font getFuentePequena() {
         return FUENTE_PEQUENA;
     }
+
 }

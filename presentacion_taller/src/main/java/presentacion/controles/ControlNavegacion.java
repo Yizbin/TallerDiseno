@@ -10,6 +10,7 @@ import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
+import presentacion.PantallaVehiculosRegistrados;
 import presentacion.enums.NavegacionOrigen;
 
 /**
@@ -44,8 +45,8 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden, origen);
+    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente) {
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden, origenPantalla, origenCliente);
         datosOrden.setVisible(true);
     }
 
@@ -59,6 +60,12 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarClientesRegistrados() {
         PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados();
         clientesRegistrados.setVisible(true);
+    }
+
+    @Override
+    public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
+        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(orden, origen);
+        vehiculosRegistrados.setVisible(true);
     }
 
 }

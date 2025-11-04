@@ -6,10 +6,13 @@ package presentacion.controles;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.VehiculoDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
 import gestionarClientes.IManejoClientes;
 import gestionarClientes.ManejoClientes;
+import gestionarVehiculos.IManejoVehiculos;
+import gestionarVehiculos.ManejoVehiculos;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,14 +30,16 @@ public class ControlOrdenes implements IControlOrdenes {
 
     private final IManejoOrdenes manejo;
     private final IManejoClientes clientes;
+    private final IManejoVehiculos vehiculos;
     private final IValidacionesPresentacion validacion;
     private final ICreacionPaneles creacionPaneles;
     private static ControlOrdenes instancia;
 
-    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles) {
+    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles, IManejoVehiculos vehiculos) {
         this.manejo = manejo;
         this.validacion = validacion;
         this.clientes = clientes;
+        this.vehiculos = vehiculos;
         this.creacionPaneles = creacionPaneles;
     }
 
@@ -44,7 +49,8 @@ public class ControlOrdenes implements IControlOrdenes {
             IValidacionesPresentacion validacionServicio = ValidacionesPresentacion.getInstancia();
             IManejoClientes clientesServicio = ManejoClientes.getInstancia();
             ICreacionPaneles creacionPanelesServicio = CreacionPaneles.getInstancia();
-            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio, creacionPanelesServicio);
+            IManejoVehiculos vehiculosServicio = ManejoVehiculos.getInstancia();
+            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio, creacionPanelesServicio, vehiculosServicio);
         }
         return instancia;
     }
@@ -67,6 +73,13 @@ public class ControlOrdenes implements IControlOrdenes {
     public OrdenDTO crearOrdenConCliente(ClienteDTO cliente) {
         OrdenDTO ordenNueva = new OrdenDTO();
         ordenNueva.setCliente(cliente);
+        return ordenNueva;
+    }
+
+    @Override
+    public OrdenDTO crearOrdenConVehiculo(VehiculoDTO vehiculo) {
+        OrdenDTO ordenNueva = new OrdenDTO();
+        ordenNueva.setVehiculo(vehiculo);
         return ordenNueva;
     }
 
@@ -150,6 +163,11 @@ public class ControlOrdenes implements IControlOrdenes {
     public JPanel crearPanelCliente(String nombreCliente) {
         return creacionPaneles.crearPanelCliente(nombreCliente);
     }
+    
+    @Override
+    public JPanel crearPanelVehiculo(String vehiculo) {
+        return creacionPaneles.crearPanelVehiculo(vehiculo);
+    }
 
     @Override
     public JPanel crearPanelOrden(String textoOrden) {
@@ -175,6 +193,12 @@ public class ControlOrdenes implements IControlOrdenes {
     public List<ClienteDTO> obtenerClientesMock() {
         List<ClienteDTO> listaClientes = clientes.obtenerClientes();
         return listaClientes;
+    }
+
+    @Override
+    public List<VehiculoDTO> obtenerVehiculosMock() {
+        List<VehiculoDTO> listaVehiculos = vehiculos.obtenerVehiculosMock();
+        return listaVehiculos;
     }
 
     // METODOS INFORMATIVOS

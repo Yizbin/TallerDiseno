@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 public interface ICreacionPaneles {
 
     public JPanel crearPanelCliente(String nombreCliente);
+    
+    public JPanel crearPanelVehiculo(String vehiculo);
 
     public JPanel crearPanelOrden(String textoOrden);
 

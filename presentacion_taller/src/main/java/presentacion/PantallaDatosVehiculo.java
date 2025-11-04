@@ -175,25 +175,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }
 
     private void regresar() {
-        if (this.origen != null) {
-            switch (origen) {
-                case DATOS_CLIENTE:
-                    // Vino de crear un cliente nuevo
-                    navegacion.mostrarDatosCliente();
-                    break;
-                case CLIENTES_REGISTRADOS:
-                    // Vino de seleccionar un cliente existente
-                    navegacion.mostrarClientesRegistrados();
-                    break;
-                default:
-                    // Fallback por si acaso, aunque no debería pasar
-                    navegacion.mostrarClientesRegistrados();
-                    break;
-            }
-        } else {
-            // Comportamiento por defecto si el origen es nulo
-            navegacion.mostrarClientesRegistrados();
-        }
+        navegacion.mostrarVehiculosRegistrados(this.orden, this.origen);
         this.dispose();
     }
 
@@ -242,7 +224,7 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             guardarDatosVehiculo();
-            navegacion.mostrarDatosOrden(orden, NavegacionOrigen.DATOS_VEHICULO);
+            navegacion.mostrarDatosOrden(orden, NavegacionOrigen.DATOS_VEHICULO, this.origen);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

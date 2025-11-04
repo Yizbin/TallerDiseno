@@ -6,6 +6,7 @@ package presentacion.controles;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.VehiculoDTO;
 import java.util.List;
 import javax.swing.JPanel;
 import presentacion.validaciones.ValidacionException;
@@ -15,6 +16,8 @@ public interface IControlOrdenes {
     public Boolean crearOrden(OrdenDTO orden);
     
     public OrdenDTO crearOrdenConCliente(ClienteDTO cliente);
+    
+    public OrdenDTO crearOrdenConVehiculo(VehiculoDTO vehiculo);
     
     public Boolean autenticarUsuario(String usuario, String contrasena);
     
@@ -34,8 +37,12 @@ public interface IControlOrdenes {
     
     public List<ClienteDTO> obtenerClientesMock();
     
+    public List<VehiculoDTO> obtenerVehiculosMock();
+    
     // METODOS DE CREACION UI
     public JPanel crearPanelCliente(String nombreCliente);
+    
+    public JPanel crearPanelVehiculo(String vehiculo);
 
     public JPanel crearPanelOrden(String textoOrden);
 

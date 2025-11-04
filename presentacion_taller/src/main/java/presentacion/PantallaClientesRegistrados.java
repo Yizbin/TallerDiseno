@@ -66,7 +66,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
     private void clienteSeleccionado(ClienteDTO cliente) {
         OrdenDTO ordenNueva = control.crearOrdenConCliente(cliente);
-        navegacion.mostrarDatosVehiculo(ordenNueva, NavegacionOrigen.CLIENTES_REGISTRADOS);
+        navegacion.mostrarVehiculosRegistrados(ordenNueva, NavegacionOrigen.CLIENTES_REGISTRADOS);
         this.dispose();
     }
 
