@@ -12,19 +12,20 @@ import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
 import presentacion.PantallaVehiculosRegistrados;
 import presentacion.enums.NavegacionOrigen;
+import static presentacion.enums.NavegacionOrigen.CLIENTES_REGISTRADOS;
+import static presentacion.enums.NavegacionOrigen.DATOS_CLIENTE;
 
 /**
  *
  * @author Abraham Coronel
  */
 public class ControlNavegacion implements IControlNavegacion {
-    
+
     private final IControlOrdenes controlOrdenes;
 
     public ControlNavegacion(IControlOrdenes controlOrdenes) {
         this.controlOrdenes = controlOrdenes;
     }
-    
 
     @Override
     public void mostrarMenuPrincipal() {
@@ -41,7 +42,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente) {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden(this.controlOrdenes, this ,orden, origenPantalla, origenCliente);
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(this.controlOrdenes, this, orden, origenPantalla, origenCliente);
         datosOrden.setVisible(true);
     }
 
@@ -61,6 +62,33 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
         PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this.controlOrdenes, this, orden, origen);
         vehiculosRegistrados.setVisible(true);
+    }
+
+    @Override
+    public void regresarDatosOrden(NavegacionOrigen origen, OrdenDTO orden, NavegacionOrigen origenCliente) {
+        if (origen != null) {
+            switch (origen) {
+                case DATOS_VEHICULO -> this.mostrarDatosVehiculo(orden, origenCliente);
+                case VEHICULOS_REGISTRADOS -> this.mostrarVehiculosRegistrados(orden, origenCliente);
+                default -> this.mostrarVehiculosRegistrados(orden, origenCliente);
+            }
+        } else {
+            this.mostrarMenuPrincipal();
+        }
+    }
+
+    @Override
+    public void regresarVehiculosRegistrados(NavegacionOrigen origen) {
+        if (origen != null) {
+            switch (origen) {
+                case DATOS_CLIENTE -> this.mostrarDatosCliente();
+                case CLIENTES_REGISTRADOS -> this.mostrarClientesRegistrados();
+                default -> this.mostrarClientesRegistrados();
+            }
+        } else {
+            this.mostrarClientesRegistrados();
+        }
+
     }
 
 }

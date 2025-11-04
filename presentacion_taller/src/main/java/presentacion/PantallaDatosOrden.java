@@ -119,21 +119,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     }
 
     private void regresar() {
-        if (this.origen != null) {
-            switch (origen) {
-                case DATOS_VEHICULO:
-                    navegacion.mostrarDatosVehiculo(orden, this.origenCliente);
-                    break;
-                case VEHICULOS_REGISTRADOS:
-                    navegacion.mostrarVehiculosRegistrados(orden, this.origenCliente);
-                    break;
-                default:
-                    navegacion.mostrarVehiculosRegistrados(orden, this.origenCliente);
-                    break;
-            }
-        } else {
-            navegacion.mostrarMenuPrincipal();
-        }
+        navegacion.regresarDatosOrden(origen, orden, origenCliente);
         this.dispose();
     }
 

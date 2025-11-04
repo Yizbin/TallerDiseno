@@ -70,21 +70,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
     }
 
     private void regresar() {
-        if (this.origen != null) {
-            switch (origen) {
-                case DATOS_CLIENTE:
-                    navegacion.mostrarDatosCliente();
-                    break;
-                case CLIENTES_REGISTRADOS:
-                    navegacion.mostrarClientesRegistrados();
-                    break;
-                default:
-                    navegacion.mostrarClientesRegistrados();
-                    break;
-            }
-        } else {
-            navegacion.mostrarClientesRegistrados();
-        }
+        navegacion.regresarVehiculosRegistrados(this.origen);
         this.dispose();
     }
 

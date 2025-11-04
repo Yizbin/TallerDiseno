@@ -24,4 +24,8 @@ public interface IControlNavegacion {
     public void mostrarClientesRegistrados();
     
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen);
+    
+    public void regresarDatosOrden(NavegacionOrigen origen, OrdenDTO orden, NavegacionOrigen origenCliente);
+    
+    public void regresarVehiculosRegistrados(NavegacionOrigen origen);
 }
