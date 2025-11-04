@@ -17,10 +17,6 @@ import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.enums.NavegacionOrigen;
 
-/**
- *
- * @author Abraham Coronel
- */
 public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
@@ -103,11 +99,12 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 
         btnRegresar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         scrollPaneVehiculos = new javax.swing.JScrollPane();
+        jLabel1_fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(410, 540));
+        setPreferredSize(new java.awt.Dimension(410, 500));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         btnRegresar.setContentAreaFilled(false);
@@ -116,6 +113,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 50, 50));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAgregar_1.png"))); // NOI18N
         btnAgregar.setContentAreaFilled(false);
@@ -124,48 +122,13 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Vehiculos");
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
         scrollPaneVehiculos.setBackground(new java.awt.Color(242, 242, 242));
+        getContentPane().add(scrollPaneVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 290, 300));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(btnAgregar)
-                .addGap(34, 34, 34))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scrollPaneVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel1)))
-                .addContainerGap(402, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scrollPaneVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jLabel1_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaVehiculosRegistrados.png"))); // NOI18N
+        getContentPane().add(jLabel1_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -186,7 +149,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel1_fondo;
     private javax.swing.JScrollPane scrollPaneVehiculos;
     // End of variables declaration//GEN-END:variables
 }
