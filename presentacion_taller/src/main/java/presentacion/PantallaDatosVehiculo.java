@@ -55,7 +55,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtColor.setForeground(new java.awt.Color(51, 51, 51));
-        txtColor.setText("color...");
         txtColor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtColorMouseClicked(evt);
@@ -69,7 +68,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 220, -1));
 
         txtKilometraje.setForeground(new java.awt.Color(51, 51, 51));
-        txtKilometraje.setText("kilometraje...");
         txtKilometraje.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtKilometrajeMouseClicked(evt);
@@ -83,7 +81,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 220, -1));
 
         txtPlacas.setForeground(new java.awt.Color(51, 51, 51));
-        txtPlacas.setText("placas...");
         txtPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtPlacasMouseClicked(evt);
@@ -97,7 +94,6 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         getContentPane().add(txtPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 220, -1));
 
         txtAnio.setForeground(new java.awt.Color(51, 51, 51));
-        txtAnio.setText("año...");
         txtAnio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtAnioMouseClicked(evt);

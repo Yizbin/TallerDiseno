@@ -7,9 +7,7 @@ package presentacion.controles;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
-import gestionOrdenes.IManejoOrdenes;
-import gestionarClientes.IManejoClientes;
-import gestionarVehiculos.IManejoVehiculos;
+import gestionOrdenes.fachada.IGestorTaller;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,24 +21,20 @@ import presentacion.validaciones.ValidacionException;
  */
 public class ControlOrdenes implements IControlOrdenes {
 
-    private final IManejoOrdenes manejo;
-    private final IManejoClientes clientes;
-    private final IManejoVehiculos vehiculos;
+    private final IGestorTaller taller;
     private final IValidacionesPresentacion validacion;
     private final ICreacionPaneles creacionPaneles;
 
-    public ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles, IManejoVehiculos vehiculos) {
-        this.manejo = manejo;
+    public ControlOrdenes(IGestorTaller taller, IValidacionesPresentacion validacion, ICreacionPaneles creacionPaneles) {
+        this.taller = taller;
         this.validacion = validacion;
-        this.clientes = clientes;
-        this.vehiculos = vehiculos;
         this.creacionPaneles = creacionPaneles;
     }
 
 
     @Override
     public Boolean crearOrden(OrdenDTO orden) {
-        Boolean exito = manejo.crearOrden(orden);
+        Boolean exito = taller.crearOrden(orden);
 
         if (exito) {
             JOptionPane.showMessageDialog(null, "Orden creada correctamente", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -68,7 +62,7 @@ public class ControlOrdenes implements IControlOrdenes {
 
     @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) {
-        return manejo.autenticarUsuario(usuario, contrasena);
+        return taller.autenticarUsuario(usuario, contrasena);
     }
 
     @Override
@@ -174,13 +168,13 @@ public class ControlOrdenes implements IControlOrdenes {
 
     @Override
     public List<ClienteDTO> obtenerClientesMock() {
-        List<ClienteDTO> listaClientes = clientes.obtenerClientes();
+        List<ClienteDTO> listaClientes = taller.obtenerClienteMock();
         return listaClientes;
     }
 
     @Override
     public List<VehiculoDTO> obtenerVehiculosMock() {
-        List<VehiculoDTO> listaVehiculos = vehiculos.obtenerVehiculosMock();
+        List<VehiculoDTO> listaVehiculos = taller.obtenerVehiculosMock();
         return listaVehiculos;
     }
 

@@ -56,7 +56,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtTelefono.setForeground(new java.awt.Color(51, 51, 51));
-        txtTelefono.setText("telefono...");
         txtTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtTelefonoMouseClicked(evt);
@@ -70,7 +69,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, -1));
 
         txtDireccion.setForeground(new java.awt.Color(51, 51, 51));
-        txtDireccion.setText("calle...");
         txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtDireccionMouseClicked(evt);
@@ -84,7 +82,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 260, -1));
 
         txtCorreoElectronico.setForeground(new java.awt.Color(51, 51, 51));
-        txtCorreoElectronico.setText("correo electronico...");
         txtCorreoElectronico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtCorreoElectronicoMouseClicked(evt);
@@ -98,7 +95,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 260, -1));
 
         txtColonia.setForeground(new java.awt.Color(51, 51, 51));
-        txtColonia.setText("colonia...");
         txtColonia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtColoniaMouseClicked(evt);
@@ -112,7 +108,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 260, -1));
 
         txtNumExterior.setForeground(new java.awt.Color(51, 51, 51));
-        txtNumExterior.setText("numero ext...");
         txtNumExterior.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNumExteriorMouseClicked(evt);
@@ -121,7 +116,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtNumExterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, 110, -1));
 
         txtNombre.setForeground(new java.awt.Color(51, 51, 51));
-        txtNombre.setText("nombre...");
         txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNombreMouseClicked(evt);
@@ -135,7 +129,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 270, -1));
 
         txtApellidoPaterno.setForeground(new java.awt.Color(51, 51, 51));
-        txtApellidoPaterno.setText("apellido paterno...");
         txtApellidoPaterno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtApellidoPaternoMouseClicked(evt);
@@ -149,7 +142,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         getContentPane().add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
         txtApellidoMaterno.setForeground(new java.awt.Color(51, 51, 51));
-        txtApellidoMaterno.setText("apellido materno...");
         txtApellidoMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtApellidoMaternoMouseClicked(evt);
