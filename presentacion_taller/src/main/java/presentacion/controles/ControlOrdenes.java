@@ -8,19 +8,14 @@ import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import gestionOrdenes.IManejoOrdenes;
-import gestionOrdenes.ManejoOrdenes;
 import gestionarClientes.IManejoClientes;
-import gestionarClientes.ManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
-import gestionarVehiculos.ManejoVehiculos;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import presentacion.utilerias.CreacionPaneles;
 import presentacion.utilerias.ICreacionPaneles;
 import presentacion.validaciones.IValidacionesPresentacion;
 import presentacion.validaciones.ValidacionException;
-import presentacion.validaciones.ValidacionesPresentacion;
 
 /**
  *
@@ -33,9 +28,8 @@ public class ControlOrdenes implements IControlOrdenes {
     private final IManejoVehiculos vehiculos;
     private final IValidacionesPresentacion validacion;
     private final ICreacionPaneles creacionPaneles;
-    private static ControlOrdenes instancia;
 
-    private ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles, IManejoVehiculos vehiculos) {
+    public ControlOrdenes(IManejoOrdenes manejo, IValidacionesPresentacion validacion, IManejoClientes clientes, ICreacionPaneles creacionPaneles, IManejoVehiculos vehiculos) {
         this.manejo = manejo;
         this.validacion = validacion;
         this.clientes = clientes;
@@ -43,17 +37,6 @@ public class ControlOrdenes implements IControlOrdenes {
         this.creacionPaneles = creacionPaneles;
     }
 
-    public static ControlOrdenes getInstancia() {
-        if (instancia == null) {
-            IManejoOrdenes manejoServicio = ManejoOrdenes.getInstancia();
-            IValidacionesPresentacion validacionServicio = ValidacionesPresentacion.getInstancia();
-            IManejoClientes clientesServicio = ManejoClientes.getInstancia();
-            ICreacionPaneles creacionPanelesServicio = CreacionPaneles.getInstancia();
-            IManejoVehiculos vehiculosServicio = ManejoVehiculos.getInstancia();
-            instancia = new ControlOrdenes(manejoServicio, validacionServicio, clientesServicio, creacionPanelesServicio, vehiculosServicio);
-        }
-        return instancia;
-    }
 
     @Override
     public Boolean crearOrden(OrdenDTO orden) {

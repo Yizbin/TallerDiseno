@@ -18,53 +18,48 @@ import presentacion.enums.NavegacionOrigen;
  * @author Abraham Coronel
  */
 public class ControlNavegacion implements IControlNavegacion {
+    
+    private final IControlOrdenes controlOrdenes;
 
-    private static ControlNavegacion instancia;
-
-    private ControlNavegacion() {
+    public ControlNavegacion(IControlOrdenes controlOrdenes) {
+        this.controlOrdenes = controlOrdenes;
     }
-
-    public static ControlNavegacion getInstancia() {
-        if (instancia == null) {
-            instancia = new ControlNavegacion();
-        }
-        return instancia;
-    }
+    
 
     @Override
     public void mostrarMenuPrincipal() {
-        MenuPrincipal menu = new MenuPrincipal();
+        MenuPrincipal menu = new MenuPrincipal(this);
         menu.setVisible(true);
 
     }
 
     @Override
     public void mostrarDatosCliente() {
-        PantallaDatosCliente datosCliente = new PantallaDatosCliente();
+        PantallaDatosCliente datosCliente = new PantallaDatosCliente(this.controlOrdenes, this);
         datosCliente.setVisible(true);
     }
 
     @Override
     public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente) {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden, origenPantalla, origenCliente);
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(this.controlOrdenes, this ,orden, origenPantalla, origenCliente);
         datosOrden.setVisible(true);
     }
 
     @Override
     public void mostrarDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(orden, origen);
+        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(this.controlOrdenes, this, orden, origen);
         datosVehiculo.setVisible(true);
     }
 
     @Override
     public void mostrarClientesRegistrados() {
-        PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados();
+        PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados(this.controlOrdenes, this);
         clientesRegistrados.setVisible(true);
     }
 
     @Override
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(orden, origen);
+        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this.controlOrdenes, this, orden, origen);
         vehiculosRegistrados.setVisible(true);
     }
 

@@ -7,12 +7,8 @@ package presentacion;
 import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
-import presentacion.controles.ControlNavegacion;
-import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.enums.NavegacionOrigen;
-import static presentacion.enums.NavegacionOrigen.CLIENTES_REGISTRADOS;
-import static presentacion.enums.NavegacionOrigen.DATOS_CLIENTE;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -21,17 +17,15 @@ import presentacion.validaciones.ValidacionException;
  */
 public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
-    private OrdenDTO orden;
-    private NavegacionOrigen origen;
+    private final IControlOrdenes control;
+    private final IControlNavegacion navegacion;
+    private final OrdenDTO orden;
+    private final NavegacionOrigen origen;
 
-    public PantallaDatosVehiculo() {
+    public PantallaDatosVehiculo(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen) {
         initComponents();
-    }
-
-    public PantallaDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen) {
-        initComponents();
+        this.control = control;
+        this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
         configurarVentana();

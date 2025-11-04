@@ -7,8 +7,6 @@ package presentacion;
 import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
-import presentacion.controles.ControlNavegacion;
-import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.enums.NavegacionOrigen;
 import presentacion.validaciones.ValidacionException;
@@ -19,15 +17,15 @@ import presentacion.validaciones.ValidacionException;
  */
 public class PantallaDatosCliente extends javax.swing.JFrame {
 
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
+    private final IControlOrdenes control;
+    private final IControlNavegacion navegacion;
 
     private OrdenDTO orden;
 
-    /**
-     * Creates new form PantallaDatosCliente
-     */
-    public PantallaDatosCliente() {
+
+    public PantallaDatosCliente(IControlOrdenes control, IControlNavegacion navegacion) {
+        this.control = control;
+        this.navegacion = navegacion;
         initComponents();
         configurarVentana();
     }

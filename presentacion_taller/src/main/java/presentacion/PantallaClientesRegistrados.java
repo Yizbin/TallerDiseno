@@ -12,8 +12,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import presentacion.controles.ControlNavegacion;
-import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.enums.NavegacionOrigen;
 
@@ -23,10 +21,12 @@ import presentacion.enums.NavegacionOrigen;
  */
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
+    private final IControlOrdenes control;
+    private final IControlNavegacion navegacion;
 
-    public PantallaClientesRegistrados() {
+    public PantallaClientesRegistrados(IControlOrdenes control, IControlNavegacion navegacion) {
+        this.control = control;
+        this.navegacion = navegacion;
         initComponents();
         configurarVentana();
         generarListaClientes();

@@ -7,8 +7,6 @@ package presentacion;
 import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import java.time.LocalDate;
-import presentacion.controles.ControlNavegacion;
-import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.enums.NavegacionOrigen;
 import presentacion.validaciones.ValidacionException;
@@ -19,21 +17,16 @@ import presentacion.validaciones.ValidacionException;
  */
 public class PantallaDatosOrden extends javax.swing.JFrame {
 
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
-    private OrdenDTO orden;
-    private NavegacionOrigen origen;
-    private NavegacionOrigen origenCliente;
+    private final IControlOrdenes control;
+    private final IControlNavegacion navegacion;
+    private final OrdenDTO orden;
+    private final NavegacionOrigen origen;
+    private final NavegacionOrigen origenCliente;
 
-    /**
-     * Creates new form PantallaCrearOrden
-     */
-    public PantallaDatosOrden() {
+    public PantallaDatosOrden(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, NavegacionOrigen origenCliente) {
         initComponents();
-    }
-
-    public PantallaDatosOrden(OrdenDTO orden, NavegacionOrigen origen, NavegacionOrigen origenCliente) {
-        initComponents();
+        this.control = control;
+        this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
         this.origenCliente = origenCliente;

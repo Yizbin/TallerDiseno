@@ -4,7 +4,6 @@
  */
 package presentacion;
 
-import presentacion.controles.ControlNavegacion;
 import presentacion.controles.IControlNavegacion;
 
 /**
@@ -13,12 +12,11 @@ import presentacion.controles.IControlNavegacion;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
+    private final IControlNavegacion navegacion;
 
-    /**
-     * Creates new form IniciarSesion
-     */
-    public MenuPrincipal() {
+
+    public MenuPrincipal(IControlNavegacion navegacion) {
+        this.navegacion = navegacion;
         initComponents();
         configurarVentana();
     }

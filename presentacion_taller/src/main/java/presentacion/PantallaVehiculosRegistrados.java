@@ -11,21 +11,21 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import presentacion.controles.ControlNavegacion;
-import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.enums.NavegacionOrigen;
 
 public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 
-    private final IControlOrdenes control = ControlOrdenes.getInstancia();
-    private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
-    private OrdenDTO orden;
-    private NavegacionOrigen origen;
+    private final IControlOrdenes control;
+    private final IControlNavegacion navegacion;
+    private final OrdenDTO orden;
+    private final NavegacionOrigen origen;
 
-    public PantallaVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
+    public PantallaVehiculosRegistrados(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen) {
         initComponents();
+        this.control = control;
+        this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
         configurarVentana();
