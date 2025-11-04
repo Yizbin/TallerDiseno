@@ -6,12 +6,16 @@ package presentacion;
 
 import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
+import dto.OrdenDTO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.enums.NavegacionOrigen;
 
 /**
  *
@@ -33,10 +37,9 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
         scrollPaneClientes.setOpaque(false);
         scrollPaneClientes.getViewport().setOpaque(false);
         scrollPaneClientes.setBorder(null);
-
     }
 
-    public final void generarListaClientes() {
+    private void generarListaClientes() {
         List<ClienteDTO> listaClientes = control.obtenerClientesMock();
 
         JPanel contenedor = new JPanel();
@@ -47,10 +50,24 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
             String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " "
                     + cliente.getApellidoM() + " | " + cliente.getTelefono();
             JPanel panel = control.crearPanelCliente(texto);
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // 3. Al hacer clic, llamamos al método privado de esta clase
+                    clienteSeleccionado(cliente);
+                }
+            });
+
             contenedor.add(panel);
         }
 
         scrollPaneClientes.setViewportView(contenedor);
+    }
+
+    private void clienteSeleccionado(ClienteDTO cliente) {
+        OrdenDTO ordenNueva = control.crearOrdenConCliente(cliente);
+        navegacion.mostrarDatosVehiculo(ordenNueva, NavegacionOrigen.CLIENTES_REGISTRADOS);
+        this.dispose();
     }
 
     /**

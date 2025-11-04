@@ -10,6 +10,7 @@ import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
+import presentacion.enums.NavegacionOrigen;
 
 /**
  *
@@ -43,14 +44,14 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarDatosOrden(OrdenDTO orden) {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden);
+    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origen) {
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(orden, origen);
         datosOrden.setVisible(true);
     }
 
     @Override
-    public void mostrarDatosVehiculo(OrdenDTO orden) {
-        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(orden);
+    public void mostrarDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen) {
+        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(orden, origen);
         datosVehiculo.setVisible(true);
     }
 

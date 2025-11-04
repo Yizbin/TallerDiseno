@@ -10,6 +10,7 @@ import dto.OrdenDTO;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.enums.NavegacionOrigen;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -203,10 +204,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
         ClienteDTO cliente = new ClienteDTO(nombre, apellidoP, apellidoM, telefono, correo, direccion, colonia, numExt);
 
-        OrdenDTO nuevaOrden = new OrdenDTO();
-        nuevaOrden.setCliente(cliente);
-
-        return nuevaOrden;
+        return control.crearOrdenConCliente(cliente);
 
     }
 
@@ -250,7 +248,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             this.orden = guardarDatosCliente();
-            navegacion.mostrarDatosVehiculo(orden);
+            navegacion.mostrarDatosVehiculo(orden, NavegacionOrigen.DATOS_CLIENTE);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

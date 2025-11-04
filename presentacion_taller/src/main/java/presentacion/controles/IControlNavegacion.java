@@ -5,6 +5,7 @@
 package presentacion.controles;
 
 import dto.OrdenDTO;
+import presentacion.enums.NavegacionOrigen;
 
 /**
  *
@@ -16,9 +17,9 @@ public interface IControlNavegacion {
 
     public void mostrarDatosCliente();
 
-    public void mostrarDatosVehiculo(OrdenDTO orden);
+    public void mostrarDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen);
 
-    public void mostrarDatosOrden(OrdenDTO orden);
+    public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origen);
 
     public void mostrarClientesRegistrados();
 }

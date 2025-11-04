@@ -10,6 +10,9 @@ import dto.VehiculoDTO;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.enums.NavegacionOrigen;
+import static presentacion.enums.NavegacionOrigen.CLIENTES_REGISTRADOS;
+import static presentacion.enums.NavegacionOrigen.DATOS_CLIENTE;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -21,14 +24,16 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
     private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
     private OrdenDTO orden;
+    private NavegacionOrigen origen;
 
     public PantallaDatosVehiculo() {
         initComponents();
     }
 
-    public PantallaDatosVehiculo(OrdenDTO orden) {
+    public PantallaDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen) {
         initComponents();
         this.orden = orden;
+        this.origen = origen;
         configurarVentana();
     }
 
@@ -169,6 +174,29 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
     }
 
+    private void regresar() {
+        if (this.origen != null) {
+            switch (origen) {
+                case DATOS_CLIENTE:
+                    // Vino de crear un cliente nuevo
+                    navegacion.mostrarDatosCliente();
+                    break;
+                case CLIENTES_REGISTRADOS:
+                    // Vino de seleccionar un cliente existente
+                    navegacion.mostrarClientesRegistrados();
+                    break;
+                default:
+                    // Fallback por si acaso, aunque no debería pasar
+                    navegacion.mostrarClientesRegistrados();
+                    break;
+            }
+        } else {
+            // Comportamiento por defecto si el origen es nulo
+            navegacion.mostrarClientesRegistrados();
+        }
+        this.dispose();
+    }
+
     private Boolean validarCampos() {
         try {
             control.validarAnio(txtAnio.getText());
@@ -208,14 +236,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbModeloActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarDatosOrden(orden);
-        this.dispose();
+        regresar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             guardarDatosVehiculo();
-            navegacion.mostrarDatosOrden(orden);
+            navegacion.mostrarDatosOrden(orden, NavegacionOrigen.DATOS_VEHICULO);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

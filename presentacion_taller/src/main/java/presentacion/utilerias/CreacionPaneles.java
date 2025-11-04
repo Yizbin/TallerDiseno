@@ -6,6 +6,7 @@ package presentacion.utilerias;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
@@ -45,6 +46,8 @@ public class CreacionPaneles implements ICreacionPaneles {
         panel.setPreferredSize(new Dimension(280, 30));
         panel.setMaximumSize(new Dimension(280, 30));
         panel.setOpaque(false);
+        
+        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JLabel lblNombre = new JLabel(nombreCliente, SwingConstants.LEFT);
         lblNombre.setFont(FUENTE_NORMAL);

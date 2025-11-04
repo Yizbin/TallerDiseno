@@ -14,6 +14,8 @@ public interface IControlOrdenes {
 
     public Boolean crearOrden(OrdenDTO orden);
     
+    public OrdenDTO crearOrdenConCliente(ClienteDTO cliente);
+    
     public Boolean autenticarUsuario(String usuario, String contrasena);
     
     public Boolean validarCampoVacio(String texto, String nombreCampo) throws ValidacionException;

@@ -64,6 +64,13 @@ public class ControlOrdenes implements IControlOrdenes {
     }
 
     @Override
+    public OrdenDTO crearOrdenConCliente(ClienteDTO cliente) {
+        OrdenDTO ordenNueva = new OrdenDTO();
+        ordenNueva.setCliente(cliente);
+        return ordenNueva;
+    }
+
+    @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) {
         return manejo.autenticarUsuario(usuario, contrasena);
     }

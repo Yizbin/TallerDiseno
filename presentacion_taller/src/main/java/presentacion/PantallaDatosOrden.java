@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.enums.NavegacionOrigen;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -21,6 +22,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
     private final IControlOrdenes control = ControlOrdenes.getInstancia();
     private final IControlNavegacion navegacion = ControlNavegacion.getInstancia();
     private OrdenDTO orden;
+    private NavegacionOrigen origen;
 
     /**
      * Creates new form PantallaCrearOrden
@@ -29,9 +31,10 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
         initComponents();
     }
 
-    public PantallaDatosOrden(OrdenDTO orden) {
+    public PantallaDatosOrden(OrdenDTO orden, NavegacionOrigen origen) {
         initComponents();
         this.orden = orden;
+        this.origen = origen;
         configurarVentana();
     }
 
@@ -122,7 +125,7 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarMenuPrincipal();
+        navegacion.mostrarDatosVehiculo(orden, this.origen);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
