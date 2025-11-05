@@ -4,8 +4,8 @@
  */
 package presentacion.main;
 
-import gestionOrdenes.fachada.GestorTaller;
-import gestionOrdenes.fachada.IGestorTaller;
+import gestionTaller.GestorTaller;
+import gestionTaller.IGestorTaller;
 import presentacion.IniciarSesion;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;

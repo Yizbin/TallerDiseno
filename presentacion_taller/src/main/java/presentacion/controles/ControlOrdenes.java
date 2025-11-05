@@ -7,7 +7,7 @@ package presentacion.controles;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
-import gestionOrdenes.fachada.IGestorTaller;
+import gestionTaller.IGestorTaller;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

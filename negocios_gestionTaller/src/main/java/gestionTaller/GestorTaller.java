@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package gestionOrdenes.fachada;
+package gestionTaller;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
