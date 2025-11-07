@@ -14,17 +14,6 @@ import java.util.List;
  */
 public class ManejoClientes implements IManejoClientes {
 
-    private static ManejoClientes instancia;
-
-    private ManejoClientes() {
-    }
-
-    public static ManejoClientes getInstancia() {
-        if (instancia == null) {
-            instancia = new ManejoClientes();
-        }
-        return instancia;
-    }
 
     @Override
     public List<ClienteDTO> obtenerClientes() {

@@ -10,18 +10,6 @@ package presentacion.validaciones;
  */
 public class ValidacionesPresentacion implements IValidacionesPresentacion {
 
-    private static ValidacionesPresentacion instancia;
-
-    private ValidacionesPresentacion() {
-    }
-
-    public static ValidacionesPresentacion getInstancia() {
-        if (instancia == null) {
-            instancia = new ValidacionesPresentacion();
-        }
-        return instancia;
-    }
-
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
     private static final String TELEFONO_REGEX = "^[+]?[0-9]{10,13}$"; //Estariamos asumiendo que es de 10 digitos
     private static final String ANIO_REGEX = "^[0-9]{4}$";

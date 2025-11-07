@@ -20,18 +20,6 @@ import javax.swing.SwingConstants;
  */
 public class CreacionPaneles implements ICreacionPaneles {
 
-    private static CreacionPaneles instancia;
-
-    private CreacionPaneles() {
-    }
-
-    public static CreacionPaneles getInstancia() {
-        if (instancia == null) {
-            instancia = new CreacionPaneles();
-        }
-        return instancia;
-    }
-
     private static final Font FUENTE_TITULO = new Font("Century Gothic", Font.BOLD, 16);
     private static final Font FUENTE_NORMAL = new Font("Century Gothic", Font.PLAIN, 14);
     private static final Font FUENTE_PEQUENA = new Font("Century Gothic", Font.PLAIN, 12);

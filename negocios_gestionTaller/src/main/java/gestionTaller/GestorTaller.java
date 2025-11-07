@@ -9,11 +9,8 @@ import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import gestionOrdenes.IManejoOrdenes;
-import gestionOrdenes.ManejoOrdenes;
 import gestionarClientes.IManejoClientes;
-import gestionarClientes.ManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
-import gestionarVehiculos.ManejoVehiculos;
 import java.util.List;
 
 /**
@@ -26,23 +23,13 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoClientes manejoClientes;
     private final IManejoVehiculos manejoVehiculos;
     
-    private static IGestorTaller instancia;
 
-    private GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
     }
     
-    public static IGestorTaller getInstancia() {
-        if (instancia == null) {
-            IManejoOrdenes ord = ManejoOrdenes.getInstancia();
-            IManejoClientes cli = ManejoClientes.getInstancia();
-            IManejoVehiculos veh = ManejoVehiculos.getInstancia();
-            instancia = new GestorTaller(ord, cli, veh);
-        }
-        return instancia;
-    }
 
     @Override
     public Boolean crearOrden(OrdenDTO orden) {

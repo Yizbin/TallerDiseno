@@ -16,16 +16,7 @@ public class ManejoOrdenes implements IManejoOrdenes {
 
     public List<OrdenDTO> listaOrdenes;
 
-    private static ManejoOrdenes instancia;
-
-    public static ManejoOrdenes getInstancia() {
-        if (instancia == null) {
-            instancia = new ManejoOrdenes();
-        }
-        return instancia;
-    }
-
-    private ManejoOrdenes() {
+    public ManejoOrdenes() {
         this.listaOrdenes = new ArrayList<>();
     }
 

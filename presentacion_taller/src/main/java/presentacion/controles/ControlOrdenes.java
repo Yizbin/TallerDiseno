@@ -31,7 +31,6 @@ public class ControlOrdenes implements IControlOrdenes {
         this.creacionPaneles = creacionPaneles;
     }
 
-
     @Override
     public Boolean crearOrden(OrdenDTO orden) {
         Boolean exito = taller.crearOrden(orden);
@@ -140,7 +139,7 @@ public class ControlOrdenes implements IControlOrdenes {
     public JPanel crearPanelCliente(String nombreCliente) {
         return creacionPaneles.crearPanelCliente(nombreCliente);
     }
-    
+
     @Override
     public JPanel crearPanelVehiculo(String vehiculo) {
         return creacionPaneles.crearPanelVehiculo(vehiculo);

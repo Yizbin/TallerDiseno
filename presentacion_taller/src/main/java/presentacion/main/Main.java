@@ -4,8 +4,14 @@
  */
 package presentacion.main;
 
+import gestionOrdenes.IManejoOrdenes;
+import gestionOrdenes.ManejoOrdenes;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
+import gestionarClientes.IManejoClientes;
+import gestionarClientes.ManejoClientes;
+import gestionarVehiculos.IManejoVehiculos;
+import gestionarVehiculos.ManejoVehiculos;
 import presentacion.IniciarSesion;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
@@ -26,9 +32,18 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        IGestorTaller tallerServicio = GestorTaller.getInstancia();
-        IValidacionesPresentacion validacionServicio = ValidacionesPresentacion.getInstancia(); 
-        ICreacionPaneles creacionPanelesServicio = CreacionPaneles.getInstancia();
+        IManejoOrdenes manejoOrdenes = new ManejoOrdenes();
+        IManejoClientes manejoClientes = new ManejoClientes();
+        IManejoVehiculos manejoVehiculos = new ManejoVehiculos();
+
+        IGestorTaller tallerServicio = new GestorTaller(
+                manejoOrdenes,
+                manejoClientes,
+                manejoVehiculos
+        );
+
+        IValidacionesPresentacion validacionServicio = new ValidacionesPresentacion();
+        ICreacionPaneles creacionPanelesServicio = new CreacionPaneles();
 
         IControlOrdenes controlOrdenes = new ControlOrdenes(
                 tallerServicio,

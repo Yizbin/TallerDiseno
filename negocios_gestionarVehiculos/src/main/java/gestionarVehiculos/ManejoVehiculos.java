@@ -14,18 +14,6 @@ import java.util.List;
  */
 public class ManejoVehiculos implements IManejoVehiculos {
 
-    private static ManejoVehiculos instancia;
-
-    private ManejoVehiculos() {
-    }
-
-    public static ManejoVehiculos getInstancia() {
-        if (instancia == null) {
-            instancia = new ManejoVehiculos();
-        }
-        return instancia;
-    }
-
     @Override
     public List<VehiculoDTO> obtenerVehiculosMock() {
         List<VehiculoDTO> listaVehiculos = new ArrayList<>();
