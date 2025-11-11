@@ -5,7 +5,7 @@
 package presentacion.controles;
 
 import dto.OrdenDTO;
-import presentacion.enums.NavegacionOrigen;
+import dto.enums.NavegacionOrigen;
 
 /**
  *

@@ -6,6 +6,7 @@ package presentacion;
 
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import dto.enums.NavegacionOrigen;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -13,7 +14,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
-import presentacion.enums.NavegacionOrigen;
 
 public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 

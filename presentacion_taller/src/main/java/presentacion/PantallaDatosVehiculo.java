@@ -7,8 +7,8 @@ package presentacion;
 import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import dto.enums.NavegacionOrigen;
 import presentacion.controles.IControlNavegacion;
-import presentacion.enums.NavegacionOrigen;
 import presentacion.validaciones.ValidacionException;
 
 /**

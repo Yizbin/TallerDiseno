@@ -4,7 +4,6 @@
  */
 package presentacion.utilerias;
 
-import java.awt.Font;
 import javax.swing.JPanel;
 
 /**

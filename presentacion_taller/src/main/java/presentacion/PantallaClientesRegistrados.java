@@ -7,13 +7,13 @@ package presentacion;
 import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.enums.NavegacionOrigen;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.IControlNavegacion;
-import presentacion.enums.NavegacionOrigen;
 
 /**
  *

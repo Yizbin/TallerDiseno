@@ -5,15 +5,13 @@
 package presentacion.controles;
 
 import dto.OrdenDTO;
+import dto.enums.NavegacionOrigen;
 import presentacion.MenuPrincipal;
 import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
 import presentacion.PantallaVehiculosRegistrados;
-import presentacion.enums.NavegacionOrigen;
-import static presentacion.enums.NavegacionOrigen.CLIENTES_REGISTRADOS;
-import static presentacion.enums.NavegacionOrigen.DATOS_CLIENTE;
 
 /**
  *
