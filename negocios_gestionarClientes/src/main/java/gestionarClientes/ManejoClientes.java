@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class ManejoClientes implements IManejoClientes {
 
+    public ManejoClientes() {
+    }
 
     @Override
     public List<ClienteDTO> obtenerClientes() {

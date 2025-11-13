@@ -20,9 +20,19 @@ import presentacion.PantallaVehiculosRegistrados;
 public class ControlNavegacion implements IControlNavegacion {
 
     private final IControlOrdenes controlOrdenes;
+    private final IControlClientes clientes;
+    private final IControlVehiculos vehiculos;
+    private final IControlValidaciones validaciones;
+    private final IControlMensajes mensajes;
+    private final IControlCreacionUI creacion;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion) {
         this.controlOrdenes = controlOrdenes;
+        this.clientes = clientes;
+        this.vehiculos = vehiculos;
+        this.validaciones = validaciones;
+        this.mensajes = mensajes;
+        this.creacion = creacion;
     }
 
     @Override
@@ -34,31 +44,31 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarDatosCliente() {
-        PantallaDatosCliente datosCliente = new PantallaDatosCliente(this.controlOrdenes, this);
+        PantallaDatosCliente datosCliente = new PantallaDatosCliente(this.controlOrdenes, this, this.validaciones, this.mensajes);
         datosCliente.setVisible(true);
     }
 
     @Override
     public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente) {
-        PantallaDatosOrden datosOrden = new PantallaDatosOrden(this.controlOrdenes, this, orden, origenPantalla, origenCliente);
+        PantallaDatosOrden datosOrden = new PantallaDatosOrden(this.controlOrdenes, this, orden, origenPantalla, origenCliente, this.validaciones, this.mensajes);
         datosOrden.setVisible(true);
     }
 
     @Override
     public void mostrarDatosVehiculo(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(this.controlOrdenes, this, orden, origen);
+        PantallaDatosVehiculo datosVehiculo = new PantallaDatosVehiculo(this, orden, origen, this.validaciones, this.mensajes);
         datosVehiculo.setVisible(true);
     }
 
     @Override
     public void mostrarClientesRegistrados() {
-        PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados(this.controlOrdenes, this);
+        PantallaClientesRegistrados clientesRegistrados = new PantallaClientesRegistrados(this.controlOrdenes, this, this.clientes, this.creacion);
         clientesRegistrados.setVisible(true);
     }
 
     @Override
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this.controlOrdenes, this, orden, origen);
+        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this.controlOrdenes, this, orden, origen, this.vehiculos, this.creacion);
         vehiculosRegistrados.setVisible(true);
     }
 

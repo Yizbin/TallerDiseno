@@ -8,7 +8,9 @@ import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import dto.enums.NavegacionOrigen;
 import java.time.LocalDate;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -19,17 +21,21 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
+    private final IControlValidaciones validaciones;
+    private final IControlMensajes mensajes;
     private final OrdenDTO orden;
     private final NavegacionOrigen origen;
     private final NavegacionOrigen origenCliente;
 
-    public PantallaDatosOrden(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, NavegacionOrigen origenCliente) {
+    public PantallaDatosOrden(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, NavegacionOrigen origenCliente, IControlValidaciones validaciones, IControlMensajes mensajes) {
         initComponents();
         this.control = control;
         this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
         this.origenCliente = origenCliente;
+        this.validaciones = validaciones;
+        this.mensajes = mensajes;
         configurarVentana();
     }
 
@@ -108,12 +114,12 @@ public class PantallaDatosOrden extends javax.swing.JFrame {
 
     private Boolean validarCampos() {
         try {
-            control.validarObjetoNull(dtFechaIngreso.getDate(), "Fecha de ingreso");
-            control.validarCampoVacio(txtaFallaReportada.getText(), "Falla reportada");
-            control.validarCampoVacio(txtaServiciosSolicitados.getText(), "Servicios Solicitados");
+            validaciones.validarObjetoNull(dtFechaIngreso.getDate(), "Fecha de ingreso");
+            validaciones.validarCampoVacio(txtaFallaReportada.getText(), "Falla reportada");
+            validaciones.validarCampoVacio(txtaServiciosSolicitados.getText(), "Servicios Solicitados");
             return true;
         } catch (ValidacionException ex) {
-            control.mostrarErrorCampos(ex.getMessage());
+            mensajes.mostrarErrorCampos(ex.getMessage());
             return false;
         }
     }

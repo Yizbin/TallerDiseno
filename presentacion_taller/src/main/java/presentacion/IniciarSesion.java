@@ -4,8 +4,10 @@
  */
 package presentacion;
 
-import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlAutenticacion;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -14,12 +16,16 @@ import presentacion.validaciones.ValidacionException;
  */
 public class IniciarSesion extends javax.swing.JFrame {
 
-    private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
+    private final IControlValidaciones validacion;
+    private final IControlMensajes mensajes;
+    private final IControlAutenticacion autenticacion;
 
-    public IniciarSesion(IControlOrdenes control, IControlNavegacion navegacion) {
-        this.control = control;
+    public IniciarSesion(IControlNavegacion navegacion, IControlValidaciones validacion, IControlMensajes mensajes, IControlAutenticacion autenticacion) {
         this.navegacion = navegacion;
+        this.validacion = validacion;
+        this.mensajes = mensajes;
+        this.autenticacion = autenticacion;
         initComponents();
         configurarVentana();
     }
@@ -100,10 +106,10 @@ public class IniciarSesion extends javax.swing.JFrame {
         String contra = contraseniaText.getText();
 
         try {
-            control.validarCampoVacio(usuario, "Correo");
-            control.validarCampoVacio(contra, "Contraseña");
+            validacion.validarCampoVacio(usuario, "Correo");
+            validacion.validarCampoVacio(contra, "Contraseña");
         } catch (ValidacionException ex) {
-            control.mostrarErrorCampos(ex.getMessage());
+            mensajes.mostrarErrorCampos(ex.getMessage());
             return false;
         }
         return true;
@@ -114,10 +120,10 @@ public class IniciarSesion extends javax.swing.JFrame {
             String usuario = correoText.getText();
             String contra = contraseniaText.getText();
 
-            if (control.autenticarUsuario(usuario, contra)) {
+            if (autenticacion.autenticarUsuario(usuario, contra)) {
                 this.navegar();
             } else {
-                control.mostrarErrorCampos("Usuario o contraseña incorrectos");
+                mensajes.mostrarErrorCampos("Usuario o contraseña incorrectos");
             }
         }
     }

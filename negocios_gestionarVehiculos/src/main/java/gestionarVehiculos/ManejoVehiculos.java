@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class ManejoVehiculos implements IManejoVehiculos {
 
+    public ManejoVehiculos() {
+    }
+
     @Override
     public List<VehiculoDTO> obtenerVehiculosMock() {
         List<VehiculoDTO> listaVehiculos = new ArrayList<>();

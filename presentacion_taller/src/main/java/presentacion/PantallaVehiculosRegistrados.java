@@ -12,22 +12,28 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlVehiculos;
 
 public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 
     private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
+    private final IControlVehiculos vehiculos;
+    private final IControlCreacionUI creacion;
     private final OrdenDTO orden;
     private final NavegacionOrigen origen;
 
-    public PantallaVehiculosRegistrados(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen) {
+    public PantallaVehiculosRegistrados(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, IControlVehiculos vehiculos, IControlCreacionUI creacion) {
         initComponents();
         this.control = control;
         this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
+        this.vehiculos = vehiculos;
+        this.creacion = creacion;
         configurarVentana();
         generarListaVehiculos();
     }
@@ -40,7 +46,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
     }
 
     private void generarListaVehiculos() {
-        List<VehiculoDTO> listaVehiculo = control.obtenerVehiculosMock();
+        List<VehiculoDTO> listaVehiculo = vehiculos.obtenerVehiculosMock();
 
         JPanel contenedor = new JPanel();
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
@@ -49,7 +55,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
         for (VehiculoDTO vehiculo : listaVehiculo) {
             String texto = vehiculo.getMarca() + " " + vehiculo.getModelo() + " | "
                     + vehiculo.getPlacas();
-            JPanel panel = control.crearPanelVehiculo(texto);
+            JPanel panel = creacion.crearPanelVehiculo(texto);
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

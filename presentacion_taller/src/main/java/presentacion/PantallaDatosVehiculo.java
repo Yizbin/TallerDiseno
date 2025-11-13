@@ -4,11 +4,12 @@
  */
 package presentacion;
 
-import presentacion.controles.IControlOrdenes;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import dto.enums.NavegacionOrigen;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -17,17 +18,19 @@ import presentacion.validaciones.ValidacionException;
  */
 public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
-    private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
+    private final IControlValidaciones validaciones;
+    private final IControlMensajes mensajes;
     private final OrdenDTO orden;
     private final NavegacionOrigen origen;
 
-    public PantallaDatosVehiculo(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen) {
+    public PantallaDatosVehiculo(IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, IControlValidaciones validaciones, IControlMensajes mensajes) {
         initComponents();
-        this.control = control;
         this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
+        this.validaciones = validaciones;
+        this.mensajes = mensajes;
         configurarVentana();
     }
 
@@ -172,13 +175,13 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
 
     private Boolean validarCampos() {
         try {
-            control.validarAnio(txtAnio.getText());
-            control.validarCampoVacio(txtPlacas.getText(), "Placas");
-            control.validarCampoNumerico(txtKilometraje.getText(), "Kilometraje");
-            control.validarCampoVacio(txtColor.getText(), "Color");
+            validaciones.validarAnio(txtAnio.getText());
+            validaciones.validarCampoVacio(txtPlacas.getText(), "Placas");
+            validaciones.validarCampoNumerico(txtKilometraje.getText(), "Kilometraje");
+            validaciones.validarCampoVacio(txtColor.getText(), "Color");
             return true;
         } catch (ValidacionException ex) {
-            control.mostrarErrorCampos(ex.getMessage());
+            mensajes.mostrarErrorCampos(ex.getMessage());
             return false;
         }
 

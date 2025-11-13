@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import presentacion.controles.IControlClientes;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
 
 /**
@@ -22,11 +24,15 @@ import presentacion.controles.IControlNavegacion;
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
 
     private final IControlOrdenes control;
+    private final IControlClientes clientes;
     private final IControlNavegacion navegacion;
+    private final IControlCreacionUI creacion;
 
-    public PantallaClientesRegistrados(IControlOrdenes control, IControlNavegacion navegacion) {
+    public PantallaClientesRegistrados(IControlOrdenes control, IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion) {
         this.control = control;
         this.navegacion = navegacion;
+        this.clientes = clientes;
+        this.creacion = creacion;
         initComponents();
         configurarVentana();
         generarListaClientes();
@@ -40,7 +46,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     }
 
     private void generarListaClientes() {
-        List<ClienteDTO> listaClientes = control.obtenerClientesMock();
+        List<ClienteDTO> listaClientes = clientes.obtenerClientesMock();
 
         JPanel contenedor = new JPanel();
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
@@ -49,7 +55,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
         for (ClienteDTO cliente : listaClientes) {
             String texto = cliente.getNombre() + " " + cliente.getApellidoP() + " "
                     + cliente.getApellidoM() + " | " + cliente.getTelefono();
-            JPanel panel = control.crearPanelCliente(texto);
+            JPanel panel = creacion.crearPanelCliente(texto);
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

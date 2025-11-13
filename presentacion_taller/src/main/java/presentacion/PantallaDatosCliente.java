@@ -8,7 +8,9 @@ import presentacion.controles.IControlOrdenes;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.enums.NavegacionOrigen;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
 import presentacion.validaciones.ValidacionException;
 
 /**
@@ -19,13 +21,17 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
     private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
+    private final IControlValidaciones validaciones;
+    private final IControlMensajes mensajes;
 
     private OrdenDTO orden;
 
 
-    public PantallaDatosCliente(IControlOrdenes control, IControlNavegacion navegacion) {
+    public PantallaDatosCliente(IControlOrdenes control, IControlNavegacion navegacion, IControlValidaciones validaciones, IControlMensajes mensajes) {
         this.control = control;
         this.navegacion = navegacion;
+        this.validaciones = validaciones;
+        this.mensajes = mensajes;
         initComponents();
         configurarVentana();
     }
@@ -200,16 +206,16 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
     private Boolean validarCampos() {
         try {
-            control.validarCampoVacio(txtNombre.getText(), "Nombre");
-            control.validarCampoVacio(txtApellidoPaterno.getText(), "Apellido paterno");
-            control.validarTelefono(txtTelefono.getText());
-            control.validarEmail(txtCorreoElectronico.getText());
-            control.validarCampoVacio(txtDireccion.getText(), "Direccion");
-            control.validarCampoVacio(txtColonia.getText(), "Colonia");
-            control.validarCampoNumerico(txtNumExterior.getText(), "Numero Exterior");
+            validaciones.validarCampoVacio(txtNombre.getText(), "Nombre");
+            validaciones.validarCampoVacio(txtApellidoPaterno.getText(), "Apellido paterno");
+            validaciones.validarTelefono(txtTelefono.getText());
+            validaciones.validarEmail(txtCorreoElectronico.getText());
+            validaciones.validarCampoVacio(txtDireccion.getText(), "Direccion");
+            validaciones.validarCampoVacio(txtColonia.getText(), "Colonia");
+            validaciones.validarCampoNumerico(txtNumExterior.getText(), "Numero Exterior");
             return true;
         } catch (ValidacionException ex) {
-            control.mostrarErrorCampos(ex.getMessage());
+            mensajes.mostrarErrorCampos(ex.getMessage());
             return false;
         }
     }
