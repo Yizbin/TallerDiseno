@@ -40,8 +40,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void initComponents() {
 
         correoText = new javax.swing.JTextField();
-        contraseniaText = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
+        contraseniaText = new javax.swing.JPasswordField();
         jLabel_Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,23 +62,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         getContentPane().add(correoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 220, 40));
 
-        contraseniaText.setForeground(new java.awt.Color(51, 51, 51));
-        contraseniaText.setText("contraseña...");
-        contraseniaText.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                contraseniaTextMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                contraseniaTextMouseEntered(evt);
-            }
-        });
-        contraseniaText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contraseniaTextActionPerformed(evt);
-            }
-        });
-        getContentPane().add(contraseniaText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 220, 40));
-
         btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonIniciarSesion.png"))); // NOI18N
         btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.setContentAreaFilled(false);
@@ -89,6 +72,19 @@ public class IniciarSesion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 80, 20));
+
+        contraseniaText.setText("........");
+        contraseniaText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contraseniaTextMouseClicked(evt);
+            }
+        });
+        contraseniaText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contraseniaTextActionPerformed(evt);
+            }
+        });
+        getContentPane().add(contraseniaText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 220, 40));
 
         jLabel_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IniciarSesion.png"))); // NOI18N
         jLabel_Fondo.setText("F");
@@ -138,10 +134,6 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_correoTextActionPerformed
 
-    private void contraseniaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseniaTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contraseniaTextActionPerformed
-
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         iniciarSesion();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
@@ -152,15 +144,15 @@ public class IniciarSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_correoTextMouseClicked
 
-    private void contraseniaTextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseEntered
-        //nada que ver aqui, ya no lo pude borrar
-    }//GEN-LAST:event_contraseniaTextMouseEntered
-
     private void contraseniaTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseClicked
-        if (contraseniaText.getText().equals("contraseña...")) {
+         if (contraseniaText.getText().equals("........")) {
             contraseniaText.setText("");
         }
     }//GEN-LAST:event_contraseniaTextMouseClicked
+
+    private void contraseniaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseniaTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contraseniaTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +160,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
-    private javax.swing.JTextField contraseniaText;
+    private javax.swing.JPasswordField contraseniaText;
     private javax.swing.JTextField correoText;
     private javax.swing.JLabel jLabel_Fondo;
     // End of variables declaration//GEN-END:variables
