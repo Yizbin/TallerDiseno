@@ -4,11 +4,17 @@
  */
 package presentacion.controles;
 
+import java.awt.Component;
+
 /**
  *
  * @author Abraham Coronel
  */
 public interface IControlMensajes {
 
+    public void mostrarErrorCamposConPadre(Component padre, String mensajeError);
+    
     public void mostrarErrorCampos(String mensajeError);
+    
+    public void mostrarMensajeInformativo(Component padre, String mensaje, String titulo);
 }

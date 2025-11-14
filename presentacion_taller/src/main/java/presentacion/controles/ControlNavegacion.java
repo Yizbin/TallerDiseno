@@ -11,6 +11,7 @@ import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
+import presentacion.PantallaOrdenesPendientes;
 import presentacion.PantallaVehiculosRegistrados;
 
 /**
@@ -97,6 +98,12 @@ public class ControlNavegacion implements IControlNavegacion {
             this.mostrarClientesRegistrados();
         }
 
+    }
+
+    @Override
+    public void mostrarOrdenesPendientes() {
+        PantallaOrdenesPendientes pantalla = new PantallaOrdenesPendientes(this, this.mensajes, this.creacion);
+        pantalla.setVisible(true);
     }
 
 }

@@ -33,7 +33,9 @@ import presentacion.controles.IControlPagos;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
 import presentacion.utilerias.CreacionPaneles;
+import presentacion.utilerias.CreacionTablas;
 import presentacion.utilerias.ICreacionPaneles;
+import presentacion.utilerias.ICreacionTablas;
 import presentacion.validaciones.IValidacionesPresentacion;
 import presentacion.validaciones.ValidacionesPresentacion;
 
@@ -51,6 +53,7 @@ public class ContenedorDependencias {
     private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
     private final ICreacionPaneles creacionPaneles;
+    private final ICreacionTablas creacionTablas;
 
     private final IControlOrdenes controlOrdenes;
     private final IControlClientes controlClientes;
@@ -66,6 +69,7 @@ public class ContenedorDependencias {
     public ContenedorDependencias() {
         this.validacionServicio = new ValidacionesPresentacion();
         this.creacionPaneles = new CreacionPaneles();
+        this.creacionTablas = new CreacionTablas();
         this.manejoOrdenes = new ManejoOrdenes();
         this.manejoClientes = new ManejoClientes();
         this.manejoVehiculos = new ManejoVehiculos();
@@ -84,7 +88,7 @@ public class ContenedorDependencias {
         this.controlPagos = new ControlPagos(gestorPagos);
 
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
-        this.controlCreacionUI = new ControlCreacionUI(creacionPaneles);
+        this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
         this.controlMensajes = new ControlMensajes();
 
         this.controlNavegacion = new ControlNavegacion(

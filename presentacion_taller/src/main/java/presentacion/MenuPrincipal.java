@@ -110,18 +110,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    private void navegar() {
+    private void navegarClientesRegistrados() {
         navegacion.mostrarClientesRegistrados();
+        this.dispose();
+    }
+    
+    private void navegarOrdenesPendientes() {
+        navegacion.mostrarOrdenesPendientes();
         this.dispose();
     }
     
     
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
-        this.navegar();
+        this.navegarClientesRegistrados();
     }//GEN-LAST:event_crearOrdenActionPerformed
 
     private void pagarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarOrdenActionPerformed
-        // TODO add your handling code here:
+        this.navegarOrdenesPendientes();
     }//GEN-LAST:event_pagarOrdenActionPerformed
 
     private void auditarCitaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auditarCitaClienteActionPerformed

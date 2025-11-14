@@ -5,7 +5,10 @@
 package presentacion.controles;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import presentacion.utilerias.ICreacionPaneles;
+import presentacion.utilerias.ICreacionTablas;
 
 /**
  *
@@ -14,9 +17,11 @@ import presentacion.utilerias.ICreacionPaneles;
 public class ControlCreacionUI implements IControlCreacionUI {
 
     private final ICreacionPaneles creacionPaneles;
+    private final ICreacionTablas creacionTablas;
 
-    public ControlCreacionUI(ICreacionPaneles creacionPaneles) {
+    public ControlCreacionUI(ICreacionPaneles creacionPaneles, ICreacionTablas creacionTablas) {
         this.creacionPaneles = creacionPaneles;
+        this.creacionTablas = creacionTablas;
     }
 
     @Override
@@ -47,5 +52,10 @@ public class ControlCreacionUI implements IControlCreacionUI {
     @Override
     public JPanel crearSeparador(int altura) {
         return creacionPaneles.crearSeparador(altura);
+    }
+
+    @Override
+    public void aplicarEstiloTabla(JScrollPane scrollpane, JTable tabla) {
+        creacionTablas.aplicarEstiloTabla(scrollpane, tabla);
     }
 }

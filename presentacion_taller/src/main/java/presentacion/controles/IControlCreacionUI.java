@@ -5,6 +5,8 @@
 package presentacion.controles;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -23,4 +25,6 @@ public interface IControlCreacionUI {
     public JPanel crearPanelInformativo(String texto, Boolean esDestacado);
 
     public JPanel crearSeparador(int altura);
+    
+    public void aplicarEstiloTabla(JScrollPane scrollpane, JTable tabla);
 }

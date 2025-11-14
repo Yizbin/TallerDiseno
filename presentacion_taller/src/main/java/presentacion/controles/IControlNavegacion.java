@@ -28,4 +28,7 @@ public interface IControlNavegacion {
     public void regresarDatosOrden(NavegacionOrigen origen, OrdenDTO orden, NavegacionOrigen origenCliente);
     
     public void regresarVehiculosRegistrados(NavegacionOrigen origen);
+    
+    public void mostrarOrdenesPendientes();
+    
 }
