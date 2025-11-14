@@ -6,6 +6,8 @@ package presentacion.main;
 
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
+import gestionPagos.GestorPagos;
+import gestionPagos.IGestorPagos;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
 import gestionarClientes.IManejoClientes;
@@ -18,6 +20,7 @@ import presentacion.controles.ControlCreacionUI;
 import presentacion.controles.ControlMensajes;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
+import presentacion.controles.ControlPagos;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
@@ -26,6 +29,7 @@ import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlPagos;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
 import presentacion.utilerias.CreacionPaneles;
@@ -44,6 +48,7 @@ public class ContenedorDependencias {
     private final IManejoVehiculos manejoVehiculos;
 
     private final IGestorTaller tallerServicio;
+    private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
     private final ICreacionPaneles creacionPaneles;
 
@@ -54,6 +59,7 @@ public class ContenedorDependencias {
     private final IControlValidaciones controlValidaciones;
     private final IControlMensajes controlMensajes;
     private final IControlCreacionUI controlCreacionUI;
+    private final IControlPagos controlPagos;
 
     private final IControlNavegacion controlNavegacion;
 
@@ -63,6 +69,7 @@ public class ContenedorDependencias {
         this.manejoOrdenes = new ManejoOrdenes();
         this.manejoClientes = new ManejoClientes();
         this.manejoVehiculos = new ManejoVehiculos();
+        this.gestorPagos = new GestorPagos();
 
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
@@ -74,6 +81,7 @@ public class ContenedorDependencias {
         this.controlClientes = new ControlClientes(tallerServicio);
         this.controlVehiculos = new ControlVehiculos(tallerServicio);
         this.controlAutenticacion = new ControlAutenticacion(tallerServicio);
+        this.controlPagos = new ControlPagos(gestorPagos);
 
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles);
