@@ -72,7 +72,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtTelefonoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 260, -1));
 
         txtDireccion.setForeground(new java.awt.Color(51, 51, 51));
         txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -85,7 +85,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtDireccionActionPerformed(evt);
             }
         });
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 260, -1));
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, 230, -1));
 
         txtCorreoElectronico.setForeground(new java.awt.Color(51, 51, 51));
         txtCorreoElectronico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,7 +98,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtCorreoElectronicoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 260, -1));
+        getContentPane().add(txtCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 260, -1));
 
         txtColonia.setForeground(new java.awt.Color(51, 51, 51));
         txtColonia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,7 +111,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtColoniaActionPerformed(evt);
             }
         });
-        getContentPane().add(txtColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 260, -1));
+        getContentPane().add(txtColonia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, 230, -1));
 
         txtNumExterior.setForeground(new java.awt.Color(51, 51, 51));
         txtNumExterior.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +119,12 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtNumExteriorMouseClicked(evt);
             }
         });
-        getContentPane().add(txtNumExterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, 110, -1));
+        txtNumExterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumExteriorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtNumExterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 110, -1));
 
         txtNombre.setForeground(new java.awt.Color(51, 51, 51));
         txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,7 +137,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 270, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 270, -1));
 
         txtApellidoPaterno.setForeground(new java.awt.Color(51, 51, 51));
         txtApellidoPaterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,7 +150,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtApellidoPaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
+        getContentPane().add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 130, -1));
 
         txtApellidoMaterno.setForeground(new java.awt.Color(51, 51, 51));
         txtApellidoMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,7 +163,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
                 txtApellidoMaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 130, -1));
+        getContentPane().add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 130, -1));
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
         btnAtras.setContentAreaFilled(false);
@@ -309,6 +314,10 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
             txtNumExterior.setText("");
         }
     }//GEN-LAST:event_txtNumExteriorMouseClicked
+
+    private void txtNumExteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumExteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumExteriorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
