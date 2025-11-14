@@ -6,7 +6,9 @@ package presentacion.controles;
 
 import dto.RespuestaPagoDTO;
 import dto.SolicitudPagoDTO;
-import gestionPagos.IGestorPagos;
+import interfaz.IGestorPagos;
+
+
 
 /**
  *

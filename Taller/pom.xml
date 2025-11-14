@@ -13,6 +13,7 @@
         <module>../negocios_gestionarVehiculos</module>
         <module>../negocios_gestionTaller</module>
         <module>../negocios_gestionPagos</module>
+        <module>../dto_pagos</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

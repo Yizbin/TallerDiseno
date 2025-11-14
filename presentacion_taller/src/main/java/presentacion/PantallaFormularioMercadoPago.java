@@ -103,7 +103,7 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
         panelMercadoPago.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         paypal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mercado Pago.png"))); // NOI18N
-        panelMercadoPago.add(paypal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        panelMercadoPago.add(paypal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));

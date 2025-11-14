@@ -7,7 +7,7 @@ package presentacion.main;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
-import gestionPagos.IGestorPagos;
+import interfaz.IGestorPagos;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
 import gestionarClientes.IManejoClientes;

@@ -5,6 +5,7 @@
 
 package gestionPagos;
 
+import interfaz.IGestorPagos;
 import dto.RespuestaPagoDTO;
 import dto.SolicitudPagoDTO;
 import dto.enums.MetodoPago;
