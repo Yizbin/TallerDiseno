@@ -3,14 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package BO;
-
-import BO.interfaces.ITareaBO;
+package dto;
 
 /**
  *
  * @author Abraham Coronel
  */
-public class TareaBO implements ITareaBO {
+public class TareaDTO {
 
 }

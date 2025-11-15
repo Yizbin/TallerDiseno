@@ -5,10 +5,25 @@
 
 package BO.interfaces;
 
+
+import dto.ClienteDTO;
+import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadInactivaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
+import excepciones.NegocioException;
+import java.util.List;
+
 /**
  *
  * @author Abraham Coronel
  */
 public interface IClienteBO {
 
+    public ClienteDTO crearCliente(ClienteDTO clienteDTO) throws EntidadDuplicadaNegocioException, NegocioException;
+
+    public ClienteDTO actualizarCliente(ClienteDTO clienteDTO) throws EntidadNoEncontradaNegocioException, EntidadInactivaNegocioException, NegocioException;
+
+    public void desactivarCliente(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
+
+    public List<ClienteDTO> buscarTodosLosClientes() throws NegocioException;
 }

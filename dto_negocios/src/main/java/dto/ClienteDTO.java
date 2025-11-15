@@ -10,6 +10,8 @@ package dto;
  */
 public class ClienteDTO {
 
+    private String id_cliente;
+
     private String nombre;
 
     private String apellidoP;
@@ -29,6 +31,18 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
+    public ClienteDTO(String id_cliente, String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.apellidoP = apellidoP;
+        this.apellidoM = apellidoM;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numExt = numExt;
+    }
+
     public ClienteDTO(String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt) {
         this.nombre = nombre;
         this.apellidoP = apellidoP;
@@ -38,6 +52,14 @@ public class ClienteDTO {
         this.calle = calle;
         this.colonia = colonia;
         this.numExt = numExt;
+    }
+
+    public String getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(String id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNombre() {

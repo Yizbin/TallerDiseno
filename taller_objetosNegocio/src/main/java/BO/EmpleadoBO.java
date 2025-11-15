@@ -11,5 +11,5 @@ import BO.interfaces.IEmpleadoBO;
  * @author Abraham Coronel
  */
 public class EmpleadoBO implements IEmpleadoBO {
-
+    
 }
