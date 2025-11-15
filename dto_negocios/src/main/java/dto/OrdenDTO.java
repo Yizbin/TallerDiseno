@@ -22,7 +22,7 @@ public class OrdenDTO {
 
     private String servicioSolicitado;
 
-    private Boolean estado; // TRUE == ORDEN PENDIENTE // FALSE == ORDEN PAGADA
+    private Boolean estado; 
 
     public OrdenDTO() {
     }

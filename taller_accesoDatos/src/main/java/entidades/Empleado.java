@@ -46,30 +46,35 @@ public class Empleado implements Serializable {
     @Column(name = "contrasenia")
     private String contrasenia;
 
+    @Column(name = "activo")
+    private Boolean activo;
+
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tarea> tareas;
 
     public Empleado() {
     }
 
-    public Empleado(Long id, String nombre, String apellidoP, String apellidoM, String rol, String usuario, String contrasenia, List<Tarea> tareas) {
-        this.id_empleado = id;
+    public Empleado(Long id_empleado, String nombre, String apellidoP, String apellidoM, String rol, String usuario, String contrasenia, Boolean activo, List<Tarea> tareas) {
+        this.id_empleado = id_empleado;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.rol = rol;
         this.usuario = usuario;
         this.contrasenia = contrasenia;
+        this.activo = activo;
         this.tareas = tareas;
     }
 
-    public Empleado(String nombre, String apellidoP, String apellidoM, String rol, String usuario, String contrasenia, List<Tarea> tareas) {
+    public Empleado(String nombre, String apellidoP, String apellidoM, String rol, String usuario, String contrasenia, Boolean activo, List<Tarea> tareas) {
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.rol = rol;
         this.usuario = usuario;
         this.contrasenia = contrasenia;
+        this.activo = activo;
         this.tareas = tareas;
     }
 
@@ -143,6 +148,14 @@ public class Empleado implements Serializable {
 
     public void setTareas(List<Tarea> tareas) {
         this.tareas = tareas;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
 }

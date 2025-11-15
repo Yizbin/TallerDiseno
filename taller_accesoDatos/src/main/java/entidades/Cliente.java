@@ -52,6 +52,9 @@ public class Cliente implements Serializable {
     @Column(name = "numExt")
     private String numExt;
 
+    @Column(name = "activo")
+    private Boolean activo;
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vehiculo> vehiculos;
 
@@ -62,7 +65,7 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Long id_cliente, String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, List<Vehiculo> vehiculos, List<Orden> ordenes) {
+    public Cliente(Long id_cliente, String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, Boolean activo, List<Vehiculo> vehiculos, List<Orden> ordenes) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
@@ -72,11 +75,12 @@ public class Cliente implements Serializable {
         this.calle = calle;
         this.colonia = colonia;
         this.numExt = numExt;
+        this.activo = activo;
         this.vehiculos = vehiculos;
         this.ordenes = ordenes;
     }
 
-    public Cliente(String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, List<Vehiculo> vehiculos, List<Orden> ordenes) {
+    public Cliente(String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, Boolean activo, List<Vehiculo> vehiculos, List<Orden> ordenes) {
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
@@ -85,6 +89,7 @@ public class Cliente implements Serializable {
         this.calle = calle;
         this.colonia = colonia;
         this.numExt = numExt;
+        this.activo = activo;
         this.vehiculos = vehiculos;
         this.ordenes = ordenes;
     }
@@ -183,6 +188,14 @@ public class Cliente implements Serializable {
 
     public void setOrdenes(List<Orden> ordenes) {
         this.ordenes = ordenes;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
 }
