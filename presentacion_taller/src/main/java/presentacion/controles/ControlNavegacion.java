@@ -12,6 +12,7 @@ import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
 import presentacion.PantallaOrdenesPendientes;
+import presentacion.PantallaTareasMecanico;
 import presentacion.PantallaVehiculosRegistrados;
 
 /**
@@ -77,9 +78,12 @@ public class ControlNavegacion implements IControlNavegacion {
     public void regresarDatosOrden(NavegacionOrigen origen, OrdenDTO orden, NavegacionOrigen origenCliente) {
         if (origen != null) {
             switch (origen) {
-                case DATOS_VEHICULO -> this.mostrarDatosVehiculo(orden, origenCliente);
-                case VEHICULOS_REGISTRADOS -> this.mostrarVehiculosRegistrados(orden, origenCliente);
-                default -> this.mostrarVehiculosRegistrados(orden, origenCliente);
+                case DATOS_VEHICULO ->
+                    this.mostrarDatosVehiculo(orden, origenCliente);
+                case VEHICULOS_REGISTRADOS ->
+                    this.mostrarVehiculosRegistrados(orden, origenCliente);
+                default ->
+                    this.mostrarVehiculosRegistrados(orden, origenCliente);
             }
         } else {
             this.mostrarMenuPrincipal();
@@ -90,9 +94,12 @@ public class ControlNavegacion implements IControlNavegacion {
     public void regresarVehiculosRegistrados(NavegacionOrigen origen) {
         if (origen != null) {
             switch (origen) {
-                case DATOS_CLIENTE -> this.mostrarDatosCliente();
-                case CLIENTES_REGISTRADOS -> this.mostrarClientesRegistrados();
-                default -> this.mostrarClientesRegistrados();
+                case DATOS_CLIENTE ->
+                    this.mostrarDatosCliente();
+                case CLIENTES_REGISTRADOS ->
+                    this.mostrarClientesRegistrados();
+                default ->
+                    this.mostrarClientesRegistrados();
             }
         } else {
             this.mostrarClientesRegistrados();
@@ -103,6 +110,12 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarOrdenesPendientes() {
         PantallaOrdenesPendientes pantalla = new PantallaOrdenesPendientes(this, this.mensajes, this.creacion);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarTareasMecanico() {
+        PantallaTareasMecanico pantalla = new PantallaTareasMecanico(this, this.mensajes, this.creacion);
         pantalla.setVisible(true);
     }
 

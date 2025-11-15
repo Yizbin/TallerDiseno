@@ -31,4 +31,6 @@ public interface IControlNavegacion {
     
     public void mostrarOrdenesPendientes();
     
+    public void mostrarTareasMecanico();
+    
 }

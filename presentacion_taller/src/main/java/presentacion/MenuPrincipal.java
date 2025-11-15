@@ -80,6 +80,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         visualizarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/9.png"))); // NOI18N
         visualizarTarea.setContentAreaFilled(false);
+        visualizarTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarTareaActionPerformed(evt);
+            }
+        });
         getContentPane().add(visualizarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
 
         venderRefacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/10.png"))); // NOI18N
@@ -120,6 +125,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void navegarTareasMecanico() {
+        navegacion.mostrarTareasMecanico();
+        this.dispose();
+    }
+    
     
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
         this.navegarClientesRegistrados();
@@ -140,6 +150,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void visualizarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarTareaActionPerformed
+        this.navegarTareasMecanico();
+    }//GEN-LAST:event_visualizarTareaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
