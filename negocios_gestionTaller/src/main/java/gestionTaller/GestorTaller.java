@@ -7,10 +7,13 @@ package gestionTaller;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.RespuestaPagoDTO;
+import dto.SolicitudPagoDTO;
 import dto.VehiculoDTO;
 import gestionOrdenes.IManejoOrdenes;
 import gestionarClientes.IManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
+import interfaz.IGestorPagos;
 import java.util.List;
 
 /**
@@ -22,12 +25,14 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoOrdenes manejoOrdenes;
     private final IManejoClientes manejoClientes;
     private final IManejoVehiculos manejoVehiculos;
+    private final IGestorPagos gestorPagos;
     
 
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IGestorPagos gestorPagos) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
+        this.gestorPagos = gestorPagos;
     }
     
 
@@ -49,6 +54,11 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public List<VehiculoDTO> obtenerVehiculosMock() {
         return this.manejoVehiculos.obtenerVehiculosMock();
+    }
+
+    @Override
+    public RespuestaPagoDTO procesarPago(SolicitudPagoDTO solicitud) {
+        return this.gestorPagos.procesarPago(solicitud);
     }
 
 }

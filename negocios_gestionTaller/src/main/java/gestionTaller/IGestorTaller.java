@@ -2,6 +2,8 @@ package gestionTaller;
 
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.RespuestaPagoDTO;
+import dto.SolicitudPagoDTO;
 import dto.VehiculoDTO;
 import java.util.List;
 
@@ -22,4 +24,6 @@ public interface IGestorTaller {
     public List<ClienteDTO> obtenerClienteMock();
 
     public List<VehiculoDTO> obtenerVehiculosMock();
+    
+    public RespuestaPagoDTO procesarPago(SolicitudPagoDTO solicitud);
 }

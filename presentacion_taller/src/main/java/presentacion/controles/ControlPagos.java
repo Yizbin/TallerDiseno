@@ -6,7 +6,7 @@ package presentacion.controles;
 
 import dto.RespuestaPagoDTO;
 import dto.SolicitudPagoDTO;
-import interfaz.IGestorPagos;
+import gestionTaller.IGestorTaller;
 
 
 
@@ -16,15 +16,15 @@ import interfaz.IGestorPagos;
  */
 public class ControlPagos implements IControlPagos {
 
-    private final IGestorPagos pagos;
+    private final IGestorTaller taller;
 
-    public ControlPagos(IGestorPagos pagos) {
-        this.pagos = pagos;
+    public ControlPagos(IGestorTaller taller) {
+        this.taller= taller;
     }
 
     @Override
     public RespuestaPagoDTO procesarPago(SolicitudPagoDTO solicitud) {
-        return pagos.procesarPago(solicitud);
+        return taller.procesarPago(solicitud);
     }
 
 }

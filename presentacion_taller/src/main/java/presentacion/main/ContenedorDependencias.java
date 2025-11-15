@@ -78,14 +78,15 @@ public class ContenedorDependencias {
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
                 manejoClientes,
-                manejoVehiculos
+                manejoVehiculos,
+                this.gestorPagos
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
         this.controlClientes = new ControlClientes(tallerServicio);
         this.controlVehiculos = new ControlVehiculos(tallerServicio);
         this.controlAutenticacion = new ControlAutenticacion(tallerServicio);
-        this.controlPagos = new ControlPagos(gestorPagos);
+        this.controlPagos = new ControlPagos(tallerServicio);
 
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
