@@ -120,7 +120,7 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         titulo.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 0, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("Ordenes pendientes de pago");
+        titulo.setText("Tareas Mecanico");
         panelCentro.add(titulo, java.awt.BorderLayout.PAGE_START);
 
         tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
