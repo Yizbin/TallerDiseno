@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-
 package DAO.interfaces;
+
+import Excepciones.EntidadNoEncontradaException;
+import Excepciones.PersistenciaException;
+import entidades.Tarea;
+import java.util.List;
 
 /**
  *
@@ -11,4 +15,13 @@ package DAO.interfaces;
  */
 public interface ITareaDAO {
 
+    public Tarea crearTarea(Tarea tarea) throws PersistenciaException;
+
+    public Tarea actualizarTarea(Tarea tarea) throws EntidadNoEncontradaException, PersistenciaException;
+
+    public void eliminarTarea(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+
+    public List<Tarea> buscarTodasLasTareas() throws PersistenciaException;
+
+    public List<Tarea> buscarTareaPorPresupuesto(Long idPresupuesto) throws PersistenciaException;
 }

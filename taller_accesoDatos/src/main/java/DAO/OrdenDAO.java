@@ -101,7 +101,7 @@ public class OrdenDAO implements IOrdenDAO {
             TypedQuery<Orden> query = em.createQuery("SELECT o FROM Orden o", Orden.class);
             return query.getResultList();
         } catch (Exception e) {
-            throw new PersistenciaException("Error al obtener todas las órdenes: " + e.getMessage(), e);
+            throw new PersistenciaException("Error al obtener todas las ordenes: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();
@@ -116,7 +116,7 @@ public class OrdenDAO implements IOrdenDAO {
             TypedQuery<Orden> query = em.createQuery("SELECT o FROM Orden o WHERE o.estado = false", Orden.class);
             return query.getResultList();
         } catch (Exception e) {
-            throw new PersistenciaException("Error al obtener todas las órdenes: " + e.getMessage(), e);
+            throw new PersistenciaException("Error al obtener todas las ordenes: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();
