@@ -2,25 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package excepciones;
+package Excepciones;
 
 /**
  *
  * @author Abraham Coronel
  */
-public class NegocioException extends Exception {
+public class DatosFaltantesEnOrdenException extends Exception {
 
-    public NegocioException() {
+    public DatosFaltantesEnOrdenException() {
     }
 
-    public NegocioException(String message) {
+    public DatosFaltantesEnOrdenException(String message) {
         super(message);
     }
 
-    public NegocioException(String message, Throwable cause) {
+    public DatosFaltantesEnOrdenException(String message, Throwable cause) {
         super(message, cause);
     }
-    
-    
 
 }

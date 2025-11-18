@@ -24,5 +24,5 @@ public interface IVehiculoDAO {
 
     public List<Vehiculo> buscarTodosLosVehiculos() throws PersistenciaException;
 
-    public List<Vehiculo> buscarVehiculoPorCliente(Long idCliente) throws PersistenciaException;
+    public List<Vehiculo> buscarVehiculosPorCliente(Long idCliente) throws PersistenciaException;
 }

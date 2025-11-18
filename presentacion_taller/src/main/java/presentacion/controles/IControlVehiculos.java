@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface IControlVehiculos {
 
-    public List<VehiculoDTO> obtenerVehiculosMock();
+    public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente);
 }

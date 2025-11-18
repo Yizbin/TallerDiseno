@@ -46,7 +46,7 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
     }
 
     private void generarListaClientes() {
-        List<ClienteDTO> listaClientes = clientes.obtenerClientesMock();
+        List<ClienteDTO> listaClientes = clientes.buscarTodosLosClientesActivos();
 
         JPanel contenedor = new JPanel();
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
@@ -59,7 +59,6 @@ public class PantallaClientesRegistrados extends javax.swing.JFrame {
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // 3. Al hacer clic, llamamos al método privado de esta clase
                     clienteSeleccionado(cliente);
                 }
             });

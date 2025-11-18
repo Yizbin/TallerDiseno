@@ -46,7 +46,7 @@ public class Vehiculo implements Serializable {
     private String placas;
 
     @Column(name = "km")
-    private int km;
+    private String km;
 
     @Column(name = "color")
     private String color;
@@ -61,7 +61,7 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
-    public Vehiculo(Long id_vehiculo, String tipo, String marca, String modelo, String anio, String placas, int km, String color, Cliente cliente, List<Orden> ordenes) {
+    public Vehiculo(Long id_vehiculo, String tipo, String marca, String modelo, String anio, String placas, String km, String color, Cliente cliente, List<Orden> ordenes) {
         this.id_vehiculo = id_vehiculo;
         this.tipo = tipo;
         this.marca = marca;
@@ -74,7 +74,7 @@ public class Vehiculo implements Serializable {
         this.ordenes = ordenes;
     }
 
-    public Vehiculo(String tipo, String marca, String modelo, String anio, String placas, int km, String color, Cliente cliente, List<Orden> ordenes) {
+    public Vehiculo(String tipo, String marca, String modelo, String anio, String placas, String km, String color, Cliente cliente, List<Orden> ordenes) {
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
@@ -142,11 +142,11 @@ public class Vehiculo implements Serializable {
         this.placas = placas;
     }
 
-    public int getKm() {
+    public String getKm() {
         return km;
     }
 
-    public void setKm(int km) {
+    public void setKm(String km) {
         this.km = km;
     }
 

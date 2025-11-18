@@ -26,4 +26,6 @@ public interface IClienteBO {
     public void desactivarCliente(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
 
     public List<ClienteDTO> buscarTodosLosClientes() throws NegocioException;
+    
+    public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException;
 }

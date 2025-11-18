@@ -42,11 +42,11 @@ public class Orden implements Serializable {
     @Column(name = "estado")
     private Boolean estado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_vehiculo", nullable = false)
     private Vehiculo vehiculo;
 
@@ -75,14 +75,6 @@ public class Orden implements Serializable {
         this.cliente = cliente;
         this.vehiculo = vehiculo;
         this.presupuesto = presupuesto;
-    }
-
-    public Long getId() {
-        return id_orden;
-    }
-
-    public void setId(Long id) {
-        this.id_orden = id;
     }
 
     public Long getId_orden() {

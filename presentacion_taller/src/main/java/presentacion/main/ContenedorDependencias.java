@@ -44,10 +44,10 @@ import presentacion.validaciones.ValidacionesPresentacion;
  * @author Abraham Coronel
  */
 public class ContenedorDependencias {
-    
-    private final IManejoOrdenes manejoOrdenes;
-    private final IManejoClientes manejoClientes;
-    private final IManejoVehiculos manejoVehiculos;
+
+    private final IManejoOrdenes manejoOrdenes = ManejoOrdenes.getInstancia();
+    private final IManejoClientes manejoClientes = ManejoClientes.getInstancia();
+    private final IManejoVehiculos manejoVehiculos = ManejoVehiculos.getInstancia();
 
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
@@ -59,10 +59,10 @@ public class ContenedorDependencias {
     private final IControlClientes controlClientes;
     private final IControlVehiculos controlVehiculos;
     private final IControlAutenticacion controlAutenticacion;
-    private final IControlValidaciones controlValidaciones;
-    private final IControlMensajes controlMensajes;
-    private final IControlCreacionUI controlCreacionUI;
     private final IControlPagos controlPagos;
+    private final IControlValidaciones controlValidaciones;
+    private final IControlCreacionUI controlCreacionUI;
+    private final IControlMensajes controlMensajes;
 
     private final IControlNavegacion controlNavegacion;
 
@@ -70,23 +70,19 @@ public class ContenedorDependencias {
         this.validacionServicio = new ValidacionesPresentacion();
         this.creacionPaneles = new CreacionPaneles();
         this.creacionTablas = new CreacionTablas();
-        this.manejoOrdenes = new ManejoOrdenes();
-        this.manejoClientes = new ManejoClientes();
-        this.manejoVehiculos = new ManejoVehiculos();
         this.gestorPagos = new GestorPagos();
 
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
-                manejoClientes,
                 manejoVehiculos,
-                this.gestorPagos
+                manejoClientes
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
         this.controlClientes = new ControlClientes(tallerServicio);
         this.controlVehiculos = new ControlVehiculos(tallerServicio);
         this.controlAutenticacion = new ControlAutenticacion(tallerServicio);
-        this.controlPagos = new ControlPagos(tallerServicio);
+        this.controlPagos = new ControlPagos(gestorPagos);
 
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);

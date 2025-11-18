@@ -22,6 +22,18 @@ import javax.persistence.TypedQuery;
  */
 public class ClienteDAO implements IClienteDAO {
 
+    private static IClienteDAO instancia;
+
+    private ClienteDAO() {
+    }
+
+    public static IClienteDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new ClienteDAO();
+        }
+        return instancia;
+    }
+
     @Override
     public Cliente crearCliente(Cliente cliente) throws EntidadDuplicadaException, PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -112,7 +124,22 @@ public class ClienteDAO implements IClienteDAO {
     public List<Cliente> buscarTodosLosClientes() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM CLIENTE c", Cliente.class);
+            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener los clientes: " + e.getMessage());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public List<Cliente> buscarTodosLosClientesActivos() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c WHERE c.activo = true", Cliente.class);
             return query.getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los clientes: " + e.getMessage());

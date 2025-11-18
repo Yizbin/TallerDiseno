@@ -24,5 +24,7 @@ public interface IClienteDAO {
     public void desactivarCliente(Long id) throws EntidadNoEncontradaException, PersistenciaException;
 
     public List<Cliente> buscarTodosLosClientes() throws PersistenciaException;
+    
+    public List<Cliente> buscarTodosLosClientesActivos() throws PersistenciaException;
 
 }

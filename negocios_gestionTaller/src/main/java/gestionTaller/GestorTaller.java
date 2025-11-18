@@ -2,18 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package gestionTaller;
 
+import Excepciones.DatosFaltantesEnOrdenException;
+import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
-import dto.RespuestaPagoDTO;
-import dto.SolicitudPagoDTO;
 import dto.VehiculoDTO;
+import excepciones.NegocioException;
 import gestionOrdenes.IManejoOrdenes;
 import gestionarClientes.IManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
-import interfaz.IGestorPagos;
 import java.util.List;
 
 /**
@@ -21,24 +20,20 @@ import java.util.List;
  * @author Abraham Coronel
  */
 public class GestorTaller implements IGestorTaller {
-    
+
     private final IManejoOrdenes manejoOrdenes;
     private final IManejoClientes manejoClientes;
     private final IManejoVehiculos manejoVehiculos;
-    private final IGestorPagos gestorPagos;
-    
 
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IGestorPagos gestorPagos) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoVehiculos manejoVehiculos, IManejoClientes manejoClientes) {
         this.manejoOrdenes = manejoOrdenes;
-        this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
-        this.gestorPagos = gestorPagos;
+        this.manejoClientes = manejoClientes;
     }
-    
 
     @Override
-    public Boolean crearOrden(OrdenDTO orden) {
-        return this.manejoOrdenes.crearOrden(orden);
+    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException {
+        this.manejoOrdenes.crearOrden(orden);
     }
 
     @Override
@@ -47,18 +42,13 @@ public class GestorTaller implements IGestorTaller {
     }
 
     @Override
-    public List<ClienteDTO> obtenerClienteMock() {
-        return this.manejoClientes.obtenerClientes();
+    public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException {
+        return this.manejoClientes.buscarTodosLosClientesActivos();
     }
 
     @Override
-    public List<VehiculoDTO> obtenerVehiculosMock() {
-        return this.manejoVehiculos.obtenerVehiculosMock();
-    }
-
-    @Override
-    public RespuestaPagoDTO procesarPago(SolicitudPagoDTO solicitud) {
-        return this.gestorPagos.procesarPago(solicitud);
+    public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente) {
+        return this.manejoVehiculos.obtenerVehiculosPorCliente(idCliente);
     }
 
 }

@@ -5,6 +5,10 @@
 package presentacion.main;
 
 import presentacion.IniciarSesion;
+import presentacion.controles.IControlAutenticacion;
+import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
 
 /**
  *
@@ -19,8 +23,16 @@ public class Main {
 
         ContenedorDependencias contenedor = new ContenedorDependencias();
 
+        IControlNavegacion controlNavegacion = contenedor.getControlNavegacion();
+        IControlValidaciones controlValidacion = contenedor.getControlValidaciones();
+        IControlMensajes controlMensajes = contenedor.getControlMensajes();
+        IControlAutenticacion controlAutenticacion = contenedor.getControlAutenticacion();
+
         java.awt.EventQueue.invokeLater(() -> {
-            new IniciarSesion(contenedor.getControlNavegacion(), contenedor.getControlValidaciones(), contenedor.getControlMensajes(), contenedor.getControlAutenticacion()).setVisible(true);
+            new IniciarSesion(controlNavegacion,
+                    controlValidacion,
+                    controlMensajes,
+                    controlAutenticacion).setVisible(true);
         });
     }
 

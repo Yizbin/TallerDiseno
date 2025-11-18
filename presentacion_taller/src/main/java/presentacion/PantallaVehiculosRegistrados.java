@@ -14,21 +14,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
-import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlVehiculos;
 
 public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
 
-    private final IControlOrdenes control;
     private final IControlNavegacion navegacion;
     private final IControlVehiculos vehiculos;
     private final IControlCreacionUI creacion;
     private final OrdenDTO orden;
     private final NavegacionOrigen origen;
 
-    public PantallaVehiculosRegistrados(IControlOrdenes control, IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, IControlVehiculos vehiculos, IControlCreacionUI creacion) {
+    public PantallaVehiculosRegistrados(IControlNavegacion navegacion, OrdenDTO orden, NavegacionOrigen origen, IControlVehiculos vehiculos, IControlCreacionUI creacion) {
         initComponents();
-        this.control = control;
         this.navegacion = navegacion;
         this.orden = orden;
         this.origen = origen;
@@ -46,7 +43,7 @@ public class PantallaVehiculosRegistrados extends javax.swing.JFrame {
     }
 
     private void generarListaVehiculos() {
-        List<VehiculoDTO> listaVehiculo = vehiculos.obtenerVehiculosMock();
+        List<VehiculoDTO> listaVehiculo = vehiculos.obtenerVehiculosPorCliente(this.orden.getCliente().getId_cliente());
 
         JPanel contenedor = new JPanel();
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));

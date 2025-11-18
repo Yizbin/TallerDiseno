@@ -7,21 +7,14 @@ package entidades;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author Abraham Coronel
  */
-@Entity
+@Embeddable
 public class TareaRefaccionId implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_tareaRefaccionId;
 
     @Column(name = "id_tareas")
     private Long id_tarea;
@@ -32,31 +25,9 @@ public class TareaRefaccionId implements Serializable {
     public TareaRefaccionId() {
     }
 
-    public TareaRefaccionId(Long id_tareaRefaccionId, Long id_tarea, Long id_refaccion) {
-        this.id_tareaRefaccionId = id_tareaRefaccionId;
-        this.id_tarea = id_tarea;
-        this.id_refaccion = id_refaccion;
-    }
-
     public TareaRefaccionId(Long id_tarea, Long id_refaccion) {
         this.id_tarea = id_tarea;
         this.id_refaccion = id_refaccion;
-    }
-
-    public Long getId() {
-        return id_tareaRefaccionId;
-    }
-
-    public void setId(Long id) {
-        this.id_tareaRefaccionId = id;
-    }
-
-    public Long getId_tareaRefaccionId() {
-        return id_tareaRefaccionId;
-    }
-
-    public void setId_tareaRefaccionId(Long id_tareaRefaccionId) {
-        this.id_tareaRefaccionId = id_tareaRefaccionId;
     }
 
     public Long getId_tarea() {
@@ -82,13 +53,15 @@ public class TareaRefaccionId implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         TareaRefaccionId that = (TareaRefaccionId) obj;
-        return Objects.equals(id_tarea, that.id_tarea) &&
-               Objects.equals(id_refaccion, that.id_refaccion);
+        return Objects.equals(id_tarea, that.id_tarea)
+                && Objects.equals(id_refaccion, that.id_refaccion);
     }
-    
-    
 
 }

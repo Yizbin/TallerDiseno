@@ -17,4 +17,6 @@ public interface IControlMensajes {
     public void mostrarErrorCampos(String mensajeError);
     
     public void mostrarMensajeInformativo(Component padre, String mensaje, String titulo);
+    
+    public void mostrarExito(String mensajeExito);
 }

@@ -52,7 +52,7 @@ public class ClienteMapper implements IClienteMapper {
 
         ClienteDTO dto = new ClienteDTO();
 
-        if (entidad.getId() != null) {
+        if (entidad.getId_cliente() != null) {
             dto.setId_cliente(String.valueOf(entidad.getId()));
         }
 

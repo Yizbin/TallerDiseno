@@ -19,6 +19,18 @@ import javax.persistence.TypedQuery;
  */
 public class OrdenDAO implements IOrdenDAO {
 
+    private static IOrdenDAO instancia;
+
+    private OrdenDAO() {
+    }
+
+    public static IOrdenDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new OrdenDAO();
+        }
+        return instancia;
+    }
+
     @Override
     public Orden crearOrden(Orden orden) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -45,7 +57,7 @@ public class OrdenDAO implements IOrdenDAO {
         try {
             em.getTransaction().begin();
 
-            validarOrdenExistente(em, orden.getId());
+            validarOrdenExistente(em, orden.getId_orden());
 
             Orden ordenActualizada = em.merge(orden);
             em.getTransaction().commit();
@@ -133,6 +145,18 @@ public class OrdenDAO implements IOrdenDAO {
             throw new EntidadNoEncontradaException("Orden no encontrada con ID: " + id);
         }
         return orden;
+    }
+
+    @Override
+    public Orden buscarOrdenPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            return validarOrdenExistente(em, id);
+        } catch (EntidadNoEncontradaException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar la orden por ID: " + e.getMessage(), e);
+        }
     }
 
 }

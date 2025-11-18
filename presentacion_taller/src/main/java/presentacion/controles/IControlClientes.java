@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface IControlClientes {
 
-    public List<ClienteDTO> obtenerClientesMock();
+    public List<ClienteDTO> buscarTodosLosClientesActivos();
 }

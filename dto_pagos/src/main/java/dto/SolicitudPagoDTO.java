@@ -14,16 +14,16 @@ import java.util.Map;
 public class SolicitudPagoDTO {
 
     private double monto;
-    private OrdenDTO orden;
+    private String ordenId;
     private MetodoPago metodo;
     private Map<String, String> datosPago;
 
     public SolicitudPagoDTO() {
     }
 
-    public SolicitudPagoDTO(double monto, OrdenDTO orden, MetodoPago metodo, Map<String, String> datosPago) {
+    public SolicitudPagoDTO(double monto, String ordenId, MetodoPago metodo, Map<String, String> datosPago) {
         this.monto = monto;
-        this.orden = orden;
+        this.ordenId = ordenId;
         this.metodo = metodo;
         this.datosPago = datosPago;
     }
@@ -36,12 +36,12 @@ public class SolicitudPagoDTO {
         this.monto = monto;
     }
 
-    public OrdenDTO getOrden() {
-        return orden;
+    public String getOrdenId() {
+        return ordenId;
     }
 
-    public void setOrden(OrdenDTO orden) {
-        this.orden = orden;
+    public void setOrdenId(String ordenId) {
+        this.ordenId = ordenId;
     }
 
     public MetodoPago getMetodo() {

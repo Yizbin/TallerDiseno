@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class ControlMensajes implements IControlMensajes {
 
+    public ControlMensajes() {
+    }
+
     @Override
     public void mostrarErrorCamposConPadre(Component padre, String mensajeError) {
         JOptionPane.showMessageDialog(padre, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
@@ -26,6 +29,11 @@ public class ControlMensajes implements IControlMensajes {
     @Override
     public void mostrarErrorCampos(String mensajeError) {
         JOptionPane.showMessageDialog(null, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void mostrarExito(String mensajeExito) {
+        JOptionPane.showMessageDialog(null, mensajeExito, "Exito", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

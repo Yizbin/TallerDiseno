@@ -5,6 +5,7 @@
 package BO;
 
 import BO.interfaces.IClienteBO;
+import DAO.ClienteDAO;
 import DAO.interfaces.IClienteDAO;
 import Excepciones.EntidadDuplicadaException;
 import Excepciones.EntidadInactivaException;
@@ -26,12 +27,19 @@ import java.util.List;
  */
 public class ClienteBO implements IClienteBO {
 
-    private final IClienteDAO cliente;
+    private static IClienteBO instancia;
+    private final IClienteDAO cliente = ClienteDAO.getInstancia();
     private final IClienteMapper clienteMapper;
 
-    public ClienteBO(IClienteDAO cliente) {
-        this.cliente = cliente;
+    private ClienteBO() {
         this.clienteMapper = new ClienteMapper();
+    }
+
+    public static IClienteBO getInstancia() {
+        if (instancia == null) {
+            instancia = new ClienteBO();
+        }
+        return instancia;
     }
 
     @Override
@@ -83,6 +91,18 @@ public class ClienteBO implements IClienteBO {
     public List<ClienteDTO> buscarTodosLosClientes() throws NegocioException {
         try {
             List<Cliente> listaEntidades = this.cliente.buscarTodosLosClientes();
+
+            return this.clienteMapper.toListDTO(listaEntidades);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException {
+        try {
+            List<Cliente> listaEntidades = this.cliente.buscarTodosLosClientesActivos();
 
             return this.clienteMapper.toListDTO(listaEntidades);
 

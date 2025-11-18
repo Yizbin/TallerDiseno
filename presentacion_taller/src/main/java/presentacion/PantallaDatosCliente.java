@@ -249,7 +249,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         if (validarCampos()) {
             this.orden = guardarDatosCliente();
-            navegacion.mostrarVehiculosRegistrados(orden, NavegacionOrigen.DATOS_CLIENTE);
+            navegacion.mostrarDatosVehiculo(orden, NavegacionOrigen.DATOS_CLIENTE);
             this.dispose();
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

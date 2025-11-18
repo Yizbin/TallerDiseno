@@ -20,6 +20,18 @@ import javax.persistence.TypedQuery;
  * @author Abraham Coronel
  */
 public class VehiculoDAO implements IVehiculoDAO {
+    
+    private static IVehiculoDAO instancia;
+
+    private VehiculoDAO() {
+    }
+    
+    public static IVehiculoDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new VehiculoDAO();
+        }
+        return instancia;
+    }
 
     @Override
     public Vehiculo crearVehiculo(Vehiculo vehiculo) throws EntidadDuplicadaException, PersistenciaException {
@@ -120,7 +132,7 @@ public class VehiculoDAO implements IVehiculoDAO {
     }
 
     @Override
-    public List<Vehiculo> buscarVehiculoPorCliente(Long idCliente) throws PersistenciaException {
+    public List<Vehiculo> buscarVehiculosPorCliente(Long idCliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             TypedQuery<Vehiculo> query = em.createQuery("SELECT v FROM Vehiculo v WHERE v.cliente.id_cliente = :idCliente", Vehiculo.class);

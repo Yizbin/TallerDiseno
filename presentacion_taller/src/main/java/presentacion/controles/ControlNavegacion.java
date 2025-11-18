@@ -70,7 +70,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen) {
-        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this.controlOrdenes, this, orden, origen, this.vehiculos, this.creacion);
+        PantallaVehiculosRegistrados vehiculosRegistrados = new PantallaVehiculosRegistrados(this, orden, origen, this.vehiculos, this.creacion);
         vehiculosRegistrados.setVisible(true);
     }
 

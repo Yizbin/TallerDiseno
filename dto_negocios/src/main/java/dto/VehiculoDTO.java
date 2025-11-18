@@ -22,16 +22,19 @@ public class VehiculoDTO {
 
     private String color;
 
+    private ClienteDTO cliente;
+
     public VehiculoDTO() {
     }
 
-    public VehiculoDTO(String marca, String modelo, String anio, String placas, String km, String color) {
+    public VehiculoDTO(String marca, String modelo, String anio, String placas, String km, String color, ClienteDTO cliente) {
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
         this.placas = placas;
         this.km = km;
         this.color = color;
+        this.cliente = cliente;
     }
 
     public String getMarca() {
@@ -80,6 +83,14 @@ public class VehiculoDTO {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
     }
 
 }

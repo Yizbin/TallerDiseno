@@ -4,7 +4,12 @@
  */
 package gestionOrdenes;
 
+import Excepciones.DatosFaltantesEnOrdenException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.OrdenNoEncontradaException;
 import dto.OrdenDTO;
+import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -12,6 +17,17 @@ import dto.OrdenDTO;
  */
 public interface IManejoOrdenes {
 
-    public Boolean crearOrden(OrdenDTO orden);
+    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
+    
+    public OrdenDTO actualizarOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException;
+    
+    public void eliminarOrden(String id) throws OrdenNoEncontradaException, DatosFaltantesEnOrdenException;
+    
+    public List<OrdenDTO> buscarOrdenPorId(String id) throws NegocioException;
+    
+    public List<OrdenDTO> buscarTodasLasOrdenes(String id) throws NegocioException;
+    
+    public List<OrdenDTO> buscarTodasLasOrdenesPendientes(String id) throws NegocioException;
+    
     public Boolean autenticarUsuario(String usuario, String contrasena);
 }

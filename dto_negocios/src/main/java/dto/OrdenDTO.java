@@ -12,6 +12,8 @@ import java.time.LocalDate;
  */
 public class OrdenDTO {
 
+    private String idOrden;
+
     private ClienteDTO cliente;
 
     private VehiculoDTO vehiculo;
@@ -22,12 +24,13 @@ public class OrdenDTO {
 
     private String servicioSolicitado;
 
-    private Boolean estado; 
+    private Boolean estado;
 
     public OrdenDTO() {
     }
 
-    public OrdenDTO(ClienteDTO cliente, VehiculoDTO vehiculo, LocalDate fechaIngreso, String fallaReportada, String servicioSolicitado, Boolean estado) {
+    public OrdenDTO(String idOrden, ClienteDTO cliente, VehiculoDTO vehiculo, LocalDate fechaIngreso, String fallaReportada, String servicioSolicitado, Boolean estado) {
+        this.idOrden = idOrden;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
         this.fechaIngreso = fechaIngreso;
@@ -82,6 +85,14 @@ public class OrdenDTO {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public String getIdOrden() {
+        return idOrden;
+    }
+
+    public void setIdOrden(String idOrden) {
+        this.idOrden = idOrden;
     }
 
 }

@@ -5,8 +5,10 @@
 package presentacion.controles;
 
 import dto.ClienteDTO;
+import excepciones.NegocioException;
 import gestionTaller.IGestorTaller;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,9 +23,13 @@ public class ControlClientes implements IControlClientes {
     }
 
     @Override
-    public List<ClienteDTO> obtenerClientesMock() {
-        List<ClienteDTO> listaClientes = taller.obtenerClienteMock();
-        return listaClientes;
+    public List<ClienteDTO> buscarTodosLosClientesActivos() {
+        try {
+            return taller.buscarTodosLosClientesActivos();
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Error: nose encontro clientes activos" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
 }

@@ -21,8 +21,8 @@ public class ControlVehiculos implements IControlVehiculos {
     }
 
     @Override
-    public List<VehiculoDTO> obtenerVehiculosMock() {
-        List<VehiculoDTO> listaVehiculos = taller.obtenerVehiculosMock();
+    public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente) {
+        List<VehiculoDTO> listaVehiculos = taller.obtenerVehiculosPorCliente(idCliente);
         return listaVehiculos;
     }
 

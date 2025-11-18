@@ -4,9 +4,12 @@
  */
 package presentacion.controles;
 
+import Excepciones.DatosFaltantesEnOrdenException;
+import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import excepciones.NegocioException;
 import gestionTaller.IGestorTaller;
 import javax.swing.JOptionPane;
 
@@ -23,15 +26,16 @@ public class ControlOrdenes implements IControlOrdenes {
     }
 
     @Override
-    public Boolean crearOrden(OrdenDTO orden) {
-        Boolean exito = taller.crearOrden(orden);
-
-        if (exito) {
-            JOptionPane.showMessageDialog(null, "Orden creada correctamente", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo crear la orden", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+    public void crearOrden(OrdenDTO orden) {
+        try {
+            taller.crearOrden(orden);
+            JOptionPane.showMessageDialog(null, "Orden creada correctamente!!!", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (DatosFaltantesEnOrdenException ex) {
+            JOptionPane.showMessageDialog(null, "Error: falta rellenar datos para crear la orden." + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (FechaInvalidaException ex) {
+            JOptionPane.showMessageDialog(null, "Error: la fecha es invalida, ingresala de nuevo porfavor" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Error: la orden no fue procesada correctamente" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

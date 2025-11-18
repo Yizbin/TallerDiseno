@@ -1,10 +1,11 @@
 package gestionTaller;
 
+import Excepciones.DatosFaltantesEnOrdenException;
+import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
-import dto.RespuestaPagoDTO;
-import dto.SolicitudPagoDTO;
 import dto.VehiculoDTO;
+import excepciones.NegocioException;
 import java.util.List;
 
 /*
@@ -17,13 +18,11 @@ import java.util.List;
  */
 public interface IGestorTaller {
 
-    public Boolean crearOrden(OrdenDTO orden);
+    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
 
     public Boolean autenticarUsuario(String usuario, String contrasena);
 
-    public List<ClienteDTO> obtenerClienteMock();
+    public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException;
 
-    public List<VehiculoDTO> obtenerVehiculosMock();
-    
-    public RespuestaPagoDTO procesarPago(SolicitudPagoDTO solicitud);
+    public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente);
 }

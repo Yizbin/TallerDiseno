@@ -5,6 +5,7 @@
 package gestionarClientes;
 
 import dto.ClienteDTO;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -12,5 +13,6 @@ import java.util.List;
  * @author payde
  */
 public interface IManejoClientes {
-     List<ClienteDTO> obtenerClientes();
+
+    public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException;
 }

@@ -21,6 +21,18 @@ import javax.persistence.TypedQuery;
  * @author Abraham Coronel
  */
 public class EmpleadoDAO implements IEmpleadoDAO {
+    
+    private static IEmpleadoDAO instancia;
+
+    private EmpleadoDAO() {
+    }
+    
+    public static IEmpleadoDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new EmpleadoDAO();
+        }
+        return instancia;
+    }
 
     @Override
     public Empleado crearEmpleado(Empleado empleado) throws EntidadDuplicadaException, PersistenciaException {
