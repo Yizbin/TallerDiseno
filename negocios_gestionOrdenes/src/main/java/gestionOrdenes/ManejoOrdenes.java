@@ -34,9 +34,9 @@ public class ManejoOrdenes implements IManejoOrdenes {
     }
 
     @Override
-    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException {
+    public OrdenDTO crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException {
         if (orden == null) {
-            throw new DatosFaltantesEnOrdenException("La orden (DTO) no puede ser nula.");
+            throw new DatosFaltantesEnOrdenException("La orden no puede ser nula.");
         }
 
         if (orden.getCliente() == null) {
@@ -63,7 +63,11 @@ public class ManejoOrdenes implements IManejoOrdenes {
             throw new FechaInvalidaException("La fecha de ingreso no puede ser en el pasado.");
         }
 
-        ordenes.crearOrden(orden);
+        if (orden.getEstado() == null) {
+            orden.setEstado(false);
+        }
+
+        return ordenes.crearOrden(orden);
 
     }
 

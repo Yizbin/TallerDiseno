@@ -24,6 +24,10 @@ public class VehiculoMapper implements IVehiculoMapper {
 
         Vehiculo entidad = new Vehiculo();
 
+        if (dto.getIdVehiculo() != null && !dto.getIdVehiculo().isEmpty()) {
+            entidad.setId_vehiculo(Long.valueOf(dto.getIdVehiculo()));
+        }
+
         entidad.setMarca(dto.getMarca());
         entidad.setModelo(dto.getModelo());
         entidad.setAnio(dto.getAnio());
@@ -40,6 +44,10 @@ public class VehiculoMapper implements IVehiculoMapper {
         }
 
         VehiculoDTO dto = new VehiculoDTO();
+
+        if (entidad.getId_vehiculo() != null) {
+            dto.setIdVehiculo(String.valueOf(entidad.getId_vehiculo()));
+        }
 
         dto.setMarca(entidad.getMarca());
         dto.setModelo(entidad.getModelo());
@@ -69,6 +77,10 @@ public class VehiculoMapper implements IVehiculoMapper {
             return null;
         }
         Vehiculo entidad = new Vehiculo();
+
+        if (dto.getIdVehiculo() != null && !dto.getIdVehiculo().isEmpty()) {
+            entidad.setId_vehiculo(Long.valueOf(dto.getIdVehiculo()));
+        }
 
         entidad.setMarca(dto.getMarca());
         entidad.setModelo(dto.getModelo());

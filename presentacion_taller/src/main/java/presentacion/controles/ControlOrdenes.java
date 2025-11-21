@@ -26,10 +26,14 @@ public class ControlOrdenes implements IControlOrdenes {
     }
 
     @Override
-    public void crearOrden(OrdenDTO orden) {
+    public OrdenDTO crearOrden(OrdenDTO orden) {
         try {
-            taller.crearOrden(orden);
-            JOptionPane.showMessageDialog(null, "Orden creada correctamente!!!", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            OrdenDTO ordenGuardada = taller.crearOrden(orden);
+
+            orden.setIdOrden(ordenGuardada.getIdOrden());
+
+            JOptionPane.showMessageDialog(null, "Orden creada correctamente!!! ID: " + ordenGuardada.getIdOrden(), "Exito", JOptionPane.INFORMATION_MESSAGE);
+            return ordenGuardada;
         } catch (DatosFaltantesEnOrdenException ex) {
             JOptionPane.showMessageDialog(null, "Error: falta rellenar datos para crear la orden." + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (FechaInvalidaException ex) {
@@ -37,6 +41,7 @@ public class ControlOrdenes implements IControlOrdenes {
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(null, "Error: la orden no fue procesada correctamente" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return null;
 
     }
 

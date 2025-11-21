@@ -10,7 +10,7 @@ import dto.VehiculoDTO;
 
 public interface IControlOrdenes {
 
-    public void crearOrden(OrdenDTO orden);
+    public OrdenDTO crearOrden(OrdenDTO orden);
     
     public OrdenDTO crearOrdenConCliente(ClienteDTO cliente);
     

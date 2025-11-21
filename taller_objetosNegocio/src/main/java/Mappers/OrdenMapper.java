@@ -53,6 +53,7 @@ public class OrdenMapper implements IOrdenMapper {
         entidad.setFechaIngreso(dto.getFechaIngreso());
         entidad.setFallaReportada(dto.getFallaReportada());
         entidad.setServicioSolicitado(dto.getServicioSolicitado());
+        entidad.setEstado(dto.getEstado());
         entidad.setCliente(clienteEntidad);
         entidad.setVehiculo(vehiculoEntidad);
         return entidad;

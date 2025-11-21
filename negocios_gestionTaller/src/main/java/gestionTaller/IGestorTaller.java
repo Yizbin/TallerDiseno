@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface IGestorTaller {
 
-    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
+    public OrdenDTO crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
 
     public Boolean autenticarUsuario(String usuario, String contrasena);
 

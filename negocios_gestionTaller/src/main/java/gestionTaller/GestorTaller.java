@@ -35,8 +35,8 @@ public class GestorTaller implements IGestorTaller {
     }
 
     @Override
-    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException {
-        this.manejoOrdenes.crearOrden(orden);
+    public OrdenDTO crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException {
+        return this.manejoOrdenes.crearOrden(orden);
     }
 
     @Override

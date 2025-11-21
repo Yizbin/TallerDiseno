@@ -162,14 +162,28 @@ public class PantallaDatosVehiculo extends javax.swing.JFrame {
         String km = txtKilometraje.getText();
         String color = txtColor.getText();
 
-        VehiculoDTO vehiculo = new VehiculoDTO(marca, modelo, anio, placas, km, color, this.orden.getCliente());
+        String idVehiculoActual = null;
+        if (this.orden.getVehiculo() != null) {
+            idVehiculoActual = this.orden.getVehiculo().getIdVehiculo();
+        }
+
+        VehiculoDTO vehiculo = new VehiculoDTO(
+                idVehiculoActual,
+                marca,
+                modelo,
+                anio,
+                placas,
+                km,
+                color,
+                this.orden.getCliente()
+        );
 
         this.orden.setVehiculo(vehiculo);
 
     }
 
     private void regresar() {
-        navegacion.mostrarVehiculosRegistrados(this.orden, this.origen);
+        navegacion.mostrarDatosCliente();
         this.dispose();
     }
 

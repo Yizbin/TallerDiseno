@@ -10,6 +10,8 @@ package dto;
  */
 public class VehiculoDTO {
 
+    private String idVehiculo;
+
     private String marca;
 
     private String modelo;
@@ -27,6 +29,17 @@ public class VehiculoDTO {
     public VehiculoDTO() {
     }
 
+    public VehiculoDTO(String idVehiculo, String marca, String modelo, String anio, String placas, String km, String color, ClienteDTO cliente) {
+        this.idVehiculo = idVehiculo;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.placas = placas;
+        this.km = km;
+        this.color = color;
+        this.cliente = cliente;
+    }
+
     public VehiculoDTO(String marca, String modelo, String anio, String placas, String km, String color, ClienteDTO cliente) {
         this.marca = marca;
         this.modelo = modelo;
@@ -35,6 +48,14 @@ public class VehiculoDTO {
         this.km = km;
         this.color = color;
         this.cliente = cliente;
+    }
+
+    public String getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public void setIdVehiculo(String idVehiculo) {
+        this.idVehiculo = idVehiculo;
     }
 
     public String getMarca() {

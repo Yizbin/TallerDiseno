@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface IManejoOrdenes {
 
-    public void crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
+    public OrdenDTO crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
     
     public OrdenDTO actualizarOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException;
     
