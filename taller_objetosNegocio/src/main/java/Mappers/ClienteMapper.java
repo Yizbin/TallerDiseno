@@ -41,6 +41,7 @@ public class ClienteMapper implements IClienteMapper {
         entidad.setCalle(dto.getCalle());
         entidad.setColonia(dto.getColonia());
         entidad.setNumExt(dto.getNumExt());
+        entidad.setActivo(dto.getActivo());
         return entidad;
     }
 
@@ -64,6 +65,7 @@ public class ClienteMapper implements IClienteMapper {
         dto.setCalle(entidad.getCalle());
         dto.setColonia(entidad.getColonia());
         dto.setNumExt(entidad.getNumExt());
+        dto.setActivo(entidad.getActivo());
         return dto;
     }
 

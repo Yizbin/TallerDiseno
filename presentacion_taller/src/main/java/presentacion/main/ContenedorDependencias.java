@@ -4,6 +4,8 @@
  */
 package presentacion.main;
 
+import gestionEmpleados.IManejoEmpleados;
+import gestionEmpleados.ManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
@@ -48,6 +50,7 @@ public class ContenedorDependencias {
     private final IManejoOrdenes manejoOrdenes = ManejoOrdenes.getInstancia();
     private final IManejoClientes manejoClientes = ManejoClientes.getInstancia();
     private final IManejoVehiculos manejoVehiculos = ManejoVehiculos.getInstancia();
+    private final IManejoEmpleados manejoEmpleados = ManejoEmpleados.getInstancia();
 
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
@@ -74,8 +77,9 @@ public class ContenedorDependencias {
 
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
+                manejoClientes,
                 manejoVehiculos,
-                manejoClientes
+                manejoEmpleados
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);

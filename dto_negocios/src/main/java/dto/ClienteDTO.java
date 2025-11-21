@@ -28,10 +28,12 @@ public class ClienteDTO {
 
     private String numExt;
 
+    private Boolean activo;
+
     public ClienteDTO() {
     }
 
-    public ClienteDTO(String id_cliente, String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt) {
+    public ClienteDTO(String id_cliente, String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, Boolean activo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
@@ -41,9 +43,10 @@ public class ClienteDTO {
         this.calle = calle;
         this.colonia = colonia;
         this.numExt = numExt;
+        this.activo = activo;
     }
 
-    public ClienteDTO(String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt) {
+    public ClienteDTO(String nombre, String apellidoP, String apellidoM, String telefono, String correo, String calle, String colonia, String numExt, Boolean activo) {
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
@@ -52,6 +55,7 @@ public class ClienteDTO {
         this.calle = calle;
         this.colonia = colonia;
         this.numExt = numExt;
+        this.activo = activo;
     }
 
     public String getId_cliente() {
@@ -124,6 +128,14 @@ public class ClienteDTO {
 
     public void setNumExt(String numExt) {
         this.numExt = numExt;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
 }

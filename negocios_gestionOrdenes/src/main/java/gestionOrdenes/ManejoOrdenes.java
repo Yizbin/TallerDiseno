@@ -25,7 +25,7 @@ public class ManejoOrdenes implements IManejoOrdenes {
 
     private ManejoOrdenes() {
     }
-    
+
     public static IManejoOrdenes getInstancia() {
         if (instancia == null) {
             instancia = new ManejoOrdenes();
@@ -65,11 +65,6 @@ public class ManejoOrdenes implements IManejoOrdenes {
 
         ordenes.crearOrden(orden);
 
-    }
-
-    @Override
-    public Boolean autenticarUsuario(String usuario, String contrasena) {
-        return "pepe".equals(usuario) && "123".equals(contrasena);
     }
 
     @Override

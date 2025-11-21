@@ -10,6 +10,7 @@ import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
+import gestionEmpleados.IManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
 import gestionarClientes.IManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
@@ -24,11 +25,13 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoOrdenes manejoOrdenes;
     private final IManejoClientes manejoClientes;
     private final IManejoVehiculos manejoVehiculos;
+    private final IManejoEmpleados manejoEmpleados;
 
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoVehiculos manejoVehiculos, IManejoClientes manejoClientes) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados) {
         this.manejoOrdenes = manejoOrdenes;
-        this.manejoVehiculos = manejoVehiculos;
         this.manejoClientes = manejoClientes;
+        this.manejoVehiculos = manejoVehiculos;
+        this.manejoEmpleados = manejoEmpleados;
     }
 
     @Override
@@ -38,7 +41,12 @@ public class GestorTaller implements IGestorTaller {
 
     @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) {
-        return this.manejoOrdenes.autenticarUsuario(usuario, contrasena);
+        try {
+            return this.manejoEmpleados.autenticarUsuario(usuario, contrasena);
+        } catch (NegocioException ex) {
+            System.err.println("Error de negocio en autenticación: " + ex.getMessage());
+            return false;
+        }
     }
 
     @Override

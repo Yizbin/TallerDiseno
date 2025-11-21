@@ -26,4 +26,6 @@ public interface IEmpleadoDAO {
     public List<Empleado> buscarTodosLosEmpleados() throws PersistenciaException;
 
     public List<Empleado> buscarTodosLosEmpleadosActivos() throws PersistenciaException;
+    
+    public Empleado autenticarEmpleado(String usuario, String contrasena) throws EntidadNoEncontradaException, PersistenciaException;
 }

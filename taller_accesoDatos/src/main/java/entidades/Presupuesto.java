@@ -28,7 +28,7 @@ import javax.persistence.Table;
 public class Presupuesto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_presupuesto;
 
     @Column(name = "fechaCreacion")

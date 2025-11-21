@@ -26,7 +26,6 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
 
     private OrdenDTO orden;
 
-
     public PantallaDatosCliente(IControlOrdenes control, IControlNavegacion navegacion, IControlValidaciones validaciones, IControlMensajes mensajes) {
         this.control = control;
         this.navegacion = navegacion;
@@ -203,7 +202,7 @@ public class PantallaDatosCliente extends javax.swing.JFrame {
         String colonia = txtColonia.getText();
         String numExt = txtNumExterior.getText();
 
-        ClienteDTO cliente = new ClienteDTO(nombre, apellidoP, apellidoM, telefono, correo, direccion, colonia, numExt);
+        ClienteDTO cliente = new ClienteDTO(nombre, apellidoP, apellidoM, telefono, correo, direccion, colonia, numExt, true);
 
         return control.crearOrdenConCliente(cliente);
 

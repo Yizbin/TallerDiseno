@@ -7,7 +7,10 @@ package BO;
 import BO.interfaces.IEmpleadoBO;
 import DAO.EmpleadoDAO;
 import DAO.interfaces.IEmpleadoDAO;
+import Excepciones.EntidadNoEncontradaException;
+import Excepciones.PersistenciaException;
 import Mappers.interfaces.IEmpleadoMapper;
+import excepciones.NegocioException;
 
 /**
  *
@@ -27,6 +30,18 @@ public class EmpleadoBO implements IEmpleadoBO {
             instancia = new EmpleadoBO();
         }
         return instancia;
+    }
+
+    @Override
+    public Boolean autenticarEmpleado(String usuario, String contrasena) throws NegocioException {
+        try {
+            empleadoDAO.autenticarEmpleado(usuario, contrasena);
+            return true;
+        } catch (EntidadNoEncontradaException e) {
+            return false;
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error a la hora de autenticar: " + e.getMessage());
+        }
     }
 
 }

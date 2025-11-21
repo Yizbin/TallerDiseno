@@ -21,12 +21,12 @@ import javax.persistence.TypedQuery;
  * @author Abraham Coronel
  */
 public class EmpleadoDAO implements IEmpleadoDAO {
-    
+
     private static IEmpleadoDAO instancia;
 
     private EmpleadoDAO() {
     }
-    
+
     public static IEmpleadoDAO getInstancia() {
         if (instancia == null) {
             instancia = new EmpleadoDAO();
@@ -177,6 +177,30 @@ public class EmpleadoDAO implements IEmpleadoDAO {
             throw new EntidadNoEncontradaException("Empleado no encontrado con ID: " + id);
         }
         return empleado;
+    }
+
+    @Override
+    public Empleado autenticarEmpleado(String usuario, String contrasena) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Empleado> query = em.createQuery(
+                    "SELECT e FROM Empleado e WHERE e.usuario = :usuario AND e.contrasenia = :contrasenia AND e.activo = true", Empleado.class);
+            query.setParameter("usuario", usuario);
+            query.setParameter("contrasenia", contrasena);
+
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new EntidadNoEncontradaException("Credenciales incorrectas o empleado inactivo.");
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al autenticar empleado: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
 }

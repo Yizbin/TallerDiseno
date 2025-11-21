@@ -29,5 +29,4 @@ public interface IManejoOrdenes {
     
     public List<OrdenDTO> buscarTodasLasOrdenesPendientes(String id) throws NegocioException;
     
-    public Boolean autenticarUsuario(String usuario, String contrasena);
 }
