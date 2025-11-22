@@ -14,6 +14,8 @@ import dto.enums.NavegacionOrigen;
 public interface IControlNavegacion {
 
     public void mostrarMenuPrincipal();
+    
+    public void mostrarMenuPrincipalAdmin();
 
     public void mostrarDatosCliente();
 

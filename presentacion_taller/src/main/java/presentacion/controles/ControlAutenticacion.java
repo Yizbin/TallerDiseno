@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.EmpleadoDTO;
 import gestionTaller.IGestorTaller;
 
 /**
@@ -21,6 +22,11 @@ public class ControlAutenticacion implements IControlAutenticacion {
     @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) {
         return taller.autenticarUsuario(usuario, contrasena);
+    }
+
+    @Override
+    public EmpleadoDTO obtenerDatosEmpleado(String usuario) {
+        return taller.obtenerDatosUsuario(usuario);
     }
 
 }

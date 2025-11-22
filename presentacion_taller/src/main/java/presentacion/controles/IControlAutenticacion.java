@@ -4,6 +4,8 @@
  */
 package presentacion.controles;
 
+import dto.EmpleadoDTO;
+
 /**
  *
  * @author Abraham Coronel
@@ -11,4 +13,6 @@ package presentacion.controles;
 public interface IControlAutenticacion {
 
     public Boolean autenticarUsuario(String usuario, String contrasena);
+    
+    public EmpleadoDTO obtenerDatosEmpleado(String usuario);
 }

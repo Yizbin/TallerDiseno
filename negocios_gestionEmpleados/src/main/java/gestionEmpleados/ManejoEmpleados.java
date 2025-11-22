@@ -6,6 +6,7 @@ package gestionEmpleados;
 
 import BO.EmpleadoBO;
 import BO.interfaces.IEmpleadoBO;
+import dto.EmpleadoDTO;
 import excepciones.NegocioException;
 
 /**
@@ -38,6 +39,11 @@ public class ManejoEmpleados implements IManejoEmpleados {
         }
 
         return empleadoBO.autenticarEmpleado(usuario, contrasena);
+    }
+
+    @Override
+    public EmpleadoDTO obtenerDatosUsuario(String usuario) throws NegocioException {
+        return empleadoBO.obtenerEmpleadoPorUsuario(usuario);
     }
 
 }

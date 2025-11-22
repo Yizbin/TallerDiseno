@@ -7,6 +7,7 @@ package gestionTaller;
 import Excepciones.DatosFaltantesEnOrdenException;
 import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
+import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
@@ -57,6 +58,16 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente) {
         return this.manejoVehiculos.obtenerVehiculosPorCliente(idCliente);
+    }
+
+    @Override
+    public EmpleadoDTO obtenerDatosUsuario(String usuario) {
+        try {
+            return this.manejoEmpleados.obtenerDatosUsuario(usuario);
+        } catch (NegocioException ex) {
+            System.err.println("Error obteniendo el usuario: " + ex.getMessage());
+            return null;
+        }
     }
 
 }

@@ -5,6 +5,7 @@
 
 package BO.interfaces;
 
+import dto.EmpleadoDTO;
 import excepciones.NegocioException;
 
 /**
@@ -13,4 +14,6 @@ import excepciones.NegocioException;
  */
 public interface IEmpleadoBO {
     public Boolean autenticarEmpleado(String usuario, String contrasena) throws NegocioException;
+    
+    public EmpleadoDTO obtenerEmpleadoPorUsuario(String usuario) throws NegocioException;
 }

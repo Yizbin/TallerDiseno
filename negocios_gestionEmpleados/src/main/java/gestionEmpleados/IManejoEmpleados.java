@@ -4,6 +4,7 @@
  */
 package gestionEmpleados;
 
+import dto.EmpleadoDTO;
 import excepciones.NegocioException;
 
 /**
@@ -13,4 +14,6 @@ import excepciones.NegocioException;
 public interface IManejoEmpleados {
 
     public Boolean autenticarUsuario(String usuario, String contrasena) throws NegocioException;
+    
+    EmpleadoDTO obtenerDatosUsuario(String usuario) throws NegocioException;
 }

@@ -10,6 +10,8 @@ import DAO.interfaces.IEmpleadoDAO;
 import Excepciones.EntidadNoEncontradaException;
 import Excepciones.PersistenciaException;
 import Mappers.interfaces.IEmpleadoMapper;
+import dto.EmpleadoDTO;
+import entidades.Empleado;
 import excepciones.NegocioException;
 
 /**
@@ -41,6 +43,27 @@ public class EmpleadoBO implements IEmpleadoBO {
             return false;
         } catch (PersistenciaException e) {
             throw new NegocioException("Error a la hora de autenticar: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public EmpleadoDTO obtenerEmpleadoPorUsuario(String usuario) throws NegocioException {
+        try {
+            Empleado e = empleadoDAO.buscarPorUsuario(usuario);
+
+            return new EmpleadoDTO(
+                    e.getId().toString(),
+                    e.getNombre(),
+                    e.getApellidoP(),
+                    e.getApellidoM(),
+                    e.getRol(),
+                    e.getUsuario(),
+                    null,
+                    e.getActivo()
+            );
+
+        } catch (EntidadNoEncontradaException | PersistenciaException ex) {
+            throw new NegocioException("Error al obtener datos del empleado: " + ex.getMessage());
         }
     }
 

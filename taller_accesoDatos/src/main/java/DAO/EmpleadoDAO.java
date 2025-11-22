@@ -123,7 +123,7 @@ public class EmpleadoDAO implements IEmpleadoDAO {
     public List<Empleado> buscarTodosLosEmpleados() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            TypedQuery<Empleado> query = em.createQuery("SELECT e FROM EMPLEADO e", Empleado.class);
+            TypedQuery<Empleado> query = em.createQuery("SELECT e FROM Empleado e", Empleado.class);
             return query.getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los empleados: " + e.getMessage());
@@ -138,7 +138,7 @@ public class EmpleadoDAO implements IEmpleadoDAO {
     public List<Empleado> buscarTodosLosEmpleadosActivos() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            TypedQuery<Empleado> query = em.createQuery("SELECT e FROM EMPLEADO e WHERE e.activo = true", Empleado.class);
+            TypedQuery<Empleado> query = em.createQuery("SELECT e FROM Empleado e WHERE e.activo = true", Empleado.class);
             return query.getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los empleados: " + e.getMessage());
@@ -196,6 +196,25 @@ public class EmpleadoDAO implements IEmpleadoDAO {
                 em.getTransaction().rollback();
             }
             throw new PersistenciaException("Error al autenticar empleado: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public Empleado buscarPorUsuario(String usuario) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Empleado> query = em.createQuery(
+                    "SELECT e FROM Empleado e WHERE e.usuario = :usuario AND e.activo = true", Empleado.class);
+            query.setParameter("usuario", usuario);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new EntidadNoEncontradaException("No se encontro el usuario: " + usuario);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar empleado: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();

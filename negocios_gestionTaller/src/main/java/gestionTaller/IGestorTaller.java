@@ -3,6 +3,7 @@ package gestionTaller;
 import Excepciones.DatosFaltantesEnOrdenException;
 import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
+import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
@@ -25,4 +26,6 @@ public interface IGestorTaller {
     public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException;
 
     public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente);
+    
+    public EmpleadoDTO obtenerDatosUsuario(String usuario);
 }

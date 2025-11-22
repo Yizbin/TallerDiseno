@@ -4,6 +4,7 @@
  */
 package presentacion;
 
+import dto.EmpleadoDTO;
 import presentacion.controles.IControlAutenticacion;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
@@ -99,7 +100,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private Boolean validarCampos() {
         String usuario = correoText.getText();
-        String contra = contraseniaText.getText();
+        String contra = String.valueOf(contraseniaText.getPassword());
 
         try {
             validacion.validarCampoVacio(usuario, "Correo");
@@ -114,14 +115,33 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void iniciarSesion() {
         if (validarCampos()) {
             String usuario = correoText.getText();
-            String contra = contraseniaText.getText();
+            String contra = String.valueOf(contraseniaText.getPassword());
 
             if (autenticacion.autenticarUsuario(usuario, contra)) {
-                this.navegar();
+
+                EmpleadoDTO empleado = autenticacion.obtenerDatosEmpleado(usuario);
+
+                if (empleado != null) {
+                    this.navegarSegunRol(empleado.getRol());
+                } else {
+                    mensajes.mostrarErrorCampos("Error al recuperar la información del usuario.");
+                }
+
             } else {
                 mensajes.mostrarErrorCampos("Usuario o contraseña incorrectos");
             }
         }
+    }
+
+    private void navegarSegunRol(String rol) {
+        // Compara con el texto exacto que guardas en tu BD (ej: "Administrador", "admin", etc.)
+        if (rol != null && rol.equalsIgnoreCase("Administrador")) {
+            navegacion.mostrarMenuPrincipalAdmin();
+        } else {
+            // Si no es admin (es mecánico, recepcionista, etc.), va al menú normal
+            navegacion.mostrarMenuPrincipal();
+        }
+        this.dispose();
     }
 
     private void navegar() {
@@ -145,7 +165,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_correoTextMouseClicked
 
     private void contraseniaTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseniaTextMouseClicked
-         if (contraseniaText.getText().equals("........")) {
+        if (contraseniaText.getText().equals("........")) {
             contraseniaText.setText("");
         }
     }//GEN-LAST:event_contraseniaTextMouseClicked

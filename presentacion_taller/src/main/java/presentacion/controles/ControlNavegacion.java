@@ -7,6 +7,7 @@ package presentacion.controles;
 import dto.OrdenDTO;
 import dto.enums.NavegacionOrigen;
 import presentacion.MenuPrincipal;
+import presentacion.MenuPrincipalAdmin;
 import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
@@ -41,7 +42,6 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarMenuPrincipal() {
         MenuPrincipal menu = new MenuPrincipal(this);
         menu.setVisible(true);
-
     }
 
     @Override
@@ -117,6 +117,12 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarTareasMecanico() {
         PantallaTareasMecanico pantalla = new PantallaTareasMecanico(this, this.mensajes, this.creacion);
         pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarMenuPrincipalAdmin() {
+        MenuPrincipalAdmin menu = new MenuPrincipalAdmin(this);
+        menu.setVisible(true);
     }
 
 }
