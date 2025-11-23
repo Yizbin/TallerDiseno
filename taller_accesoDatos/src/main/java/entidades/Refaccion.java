@@ -39,26 +39,33 @@ public class Refaccion implements Serializable {
     @Column(name = "stock")
     private int stock;
 
+    @Column(name = "estado")
+    private String estado;
+
     @OneToMany(mappedBy = "refaccion", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TareaRefaccion> tareasDondeSeUsa;
 
     public Refaccion() {
     }
 
-    public Refaccion(Long id_refaccion, String nombre, String descripcion, double precioUnitario, int stock, Set<TareaRefaccion> tareasDondeSeUsa) {
+    public Refaccion(Long id_refaccion, String nombre, String descripcion, double precioUnitario,
+                     int stock, String estado, Set<TareaRefaccion> tareasDondeSeUsa) {
         this.id_refaccion = id_refaccion;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
         this.stock = stock;
+        this.estado = estado;
         this.tareasDondeSeUsa = tareasDondeSeUsa;
     }
 
-    public Refaccion(String nombre, String descripcion, double precioUnitario, int stock, Set<TareaRefaccion> tareasDondeSeUsa) {
+    public Refaccion(String nombre, String descripcion, double precioUnitario,
+                     int stock, String estado, Set<TareaRefaccion> tareasDondeSeUsa) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
         this.stock = stock;
+        this.estado = estado;
         this.tareasDondeSeUsa = tareasDondeSeUsa;
     }
 
@@ -110,6 +117,15 @@ public class Refaccion implements Serializable {
         this.stock = stock;
     }
 
+    // ⭐️ Getter y setter del campo nuevo
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public Set<TareaRefaccion> getTareasDondeSeUsa() {
         return tareasDondeSeUsa;
     }
@@ -117,5 +133,4 @@ public class Refaccion implements Serializable {
     public void setTareasDondeSeUsa(Set<TareaRefaccion> tareasDondeSeUsa) {
         this.tareasDondeSeUsa = tareasDondeSeUsa;
     }
-
 }
