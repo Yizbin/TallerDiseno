@@ -2,14 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,6 +28,42 @@ public class Pago implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "monto", nullable = false)
+    private Double monto;
+
+    @Column(name = "fechaPago", nullable = false)
+    private LocalDateTime fechaPago;
+
+    @Column(name = "metodoPago", nullable = false)
+    private String metodoPago;
+
+    @Column(name = "referencia")
+    private String referencia;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_presupuesto", nullable = false, unique = true)
+    private Presupuesto presupuesto;
+
+    public Pago() {
+    }
+
+    public Pago(Long id, Double monto, LocalDateTime fechaPago, String metodoPago, String referencia, Presupuesto presupuesto) {
+        this.id = id;
+        this.monto = monto;
+        this.fechaPago = fechaPago;
+        this.metodoPago = metodoPago;
+        this.referencia = referencia;
+        this.presupuesto = presupuesto;
+    }
+
+    public Pago(Double monto, LocalDateTime fechaPago, String metodoPago, String referencia, Presupuesto presupuesto) {
+        this.monto = monto;
+        this.fechaPago = fechaPago;
+        this.metodoPago = metodoPago;
+        this.referencia = referencia;
+        this.presupuesto = presupuesto;
+    }
+
     public Long getId() {
         return id;
     }
@@ -32,29 +72,44 @@ public class Pago implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Double getMonto() {
+        return monto;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pago)) {
-            return false;
-        }
-        Pago other = (Pago) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setMonto(Double monto) {
+        this.monto = monto;
     }
 
-    @Override
-    public String toString() {
-        return "entidades.Pago[ id=" + id + " ]";
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDateTime fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
     }
 
 }

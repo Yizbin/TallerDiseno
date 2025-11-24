@@ -144,11 +144,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void navegar() {
-        navegacion.mostrarMenuPrincipal();
-        this.dispose();
-    }
-
 
     private void correoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoTextActionPerformed
 
