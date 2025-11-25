@@ -32,14 +32,16 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlValidaciones validaciones;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
+    private final IControlPresupuestos presupuesto;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
         this.validaciones = validaciones;
         this.mensajes = mensajes;
         this.creacion = creacion;
+        this.presupuesto = presupuesto;
     }
 
     @Override
@@ -113,7 +115,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarOrdenesPendientes() {
-        PantallaOrdenesPendientes pantalla = new PantallaOrdenesPendientes(this, this.mensajes, this.creacion);
+        PantallaOrdenesPendientes pantalla = new PantallaOrdenesPendientes(this, this.mensajes, this.creacion, this.presupuesto);
         pantalla.setVisible(true);
     }
 
@@ -131,13 +133,13 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarCliente() {
-       PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this);
-       pantalla.setVisible(true);
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this);
+        pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaSeleccionarOrden() {
-      PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this);
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this);
     }
 
     @Override

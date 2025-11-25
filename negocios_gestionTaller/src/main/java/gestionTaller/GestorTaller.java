@@ -9,10 +9,12 @@ import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
+import dto.PresupuestoDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import gestionEmpleados.IManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
+import gestionPresupuestos.IManejoPresupuestos;
 import gestionarClientes.IManejoClientes;
 import gestionarVehiculos.IManejoVehiculos;
 import java.util.List;
@@ -27,12 +29,14 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoClientes manejoClientes;
     private final IManejoVehiculos manejoVehiculos;
     private final IManejoEmpleados manejoEmpleados;
+    private final IManejoPresupuestos manejoPresupuestos;
 
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
         this.manejoEmpleados = manejoEmpleados;
+        this.manejoPresupuestos = manejoPresupuestos;
     }
 
     @Override
@@ -68,6 +72,11 @@ public class GestorTaller implements IGestorTaller {
             System.err.println("Error obteniendo el usuario: " + ex.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException {
+        return manejoPresupuestos.obtenerPresupuestosNoPagados();
     }
 
 }

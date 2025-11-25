@@ -4,11 +4,14 @@
  */
 package presentacion;
 
+import dto.PresupuestoDTO;
+import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlPresupuestos;
 
 /**
  *
@@ -19,16 +22,19 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
+    private final IControlPresupuestos presupuestos;
 
     private DefaultTableModel modeloTablaOrdenes;
 
-    public PantallaOrdenesPendientes(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion) {
+    public PantallaOrdenesPendientes(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuestos) {
         this.navegacion = navegacion;
         this.mensajes = mensajes;
         this.creacion = creacion;
+        this.presupuestos = presupuestos;
         initComponents();
         configurarModeloTabla();
         estilizarTabla();
+        cargarOrdenesPendientes();
         seleccionTabla();
         configurarVentana();
     }
@@ -36,25 +42,54 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
     private void configurarVentana() {
         this.setLocationRelativeTo(null);
     }
-    
+
     private void estilizarTabla() {
         creacion.aplicarEstiloTabla(scrollPaneOrdenes, tablaOrdenes);
     }
 
-    private void seleccionTabla() {
+    private void cargarOrdenesPendientes() {
+        try {
 
+            List<PresupuestoDTO> listaPresupuestos = presupuestos.buscarPresupuestosPendientes();
+
+            modeloTablaOrdenes.setRowCount(0);
+
+            for (PresupuestoDTO p : listaPresupuestos) {
+                String idOrden = (p.getOrden() != null) ? p.getOrden().getIdOrden() : "N/A";
+
+                String cliente = (p.getOrden() != null && p.getOrden().getCliente() != null)
+                        ? p.getOrden().getCliente().getNombre() + " " + p.getOrden().getCliente().getApellidoP()
+                        : "Desconocido";
+
+                String vehiculo = (p.getOrden() != null && p.getOrden().getVehiculo() != null)
+                        ? p.getOrden().getVehiculo().getMarca() + " " + p.getOrden().getVehiculo().getModelo()
+                        : "Desconocido";
+
+                Double deuda = p.getCostoTotal();
+
+                modeloTablaOrdenes.addRow(new Object[]{
+                    idOrden,
+                    cliente,
+                    vehiculo,
+                    String.format("$%.2f", deuda)
+                });
+            }
+        } catch (Exception e) {
+            mensajes.mostrarErrorCampos("Error cargando ordenes: " + e.getMessage());
+        }
+    }
+
+    private void seleccionTabla() {
         tablaOrdenes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
                 int filaSeleccionada = tablaOrdenes.getSelectedRow();
 
                 if (filaSeleccionada != -1) {
+                    String idOrden = (String) modeloTablaOrdenes.getValueAt(filaSeleccionada, 0);
 
-                    String numOrden = (String) modeloTablaOrdenes.getValueAt(filaSeleccionada, 0);
-                    String cliente = (String) modeloTablaOrdenes.getValueAt(filaSeleccionada, 1);
-                    String deuda = (String) modeloTablaOrdenes.getValueAt(filaSeleccionada, 3);
-
-                    String mensaje = "Iniciando pago para la orden: " + numOrden + "\nCliente: " + cliente + "\nMonto: " + deuda;
-                    mensajes.mostrarMensajeInformativo(PantallaOrdenesPendientes.this, mensaje, "Pagar Orden");
+                    PantallaSeleccionMetodoPago pantallaPago = new PantallaSeleccionMetodoPago(navegacion, idOrden);
+                    pantallaPago.setVisible(true);
+                    this.dispose();
                 }
             }
         });

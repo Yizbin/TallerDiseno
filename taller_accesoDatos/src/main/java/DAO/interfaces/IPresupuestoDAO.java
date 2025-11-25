@@ -24,4 +24,6 @@ public interface IPresupuestoDAO {
      public List<Presupuesto> buscarTodosLosPresupuestos() throws PersistenciaException;
       
      public List<Presupuesto> buscarPresupuestoPorId(Long id) throws PersistenciaException;
+     
+     public List<Presupuesto> buscarPresupuestoNoPagados() throws PersistenciaException;
 }

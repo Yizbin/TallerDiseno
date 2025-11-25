@@ -9,6 +9,8 @@ import gestionEmpleados.ManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
 import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
+import gestionPresupuestos.IManejoPresupuestos;
+import gestionPresupuestos.ManejoPresupuestos;
 import interfaz.IGestorPagos;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
@@ -23,6 +25,7 @@ import presentacion.controles.ControlMensajes;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.ControlPagos;
+import presentacion.controles.ControlPresupuestos;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
@@ -32,6 +35,7 @@ import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPagos;
+import presentacion.controles.IControlPresupuestos;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
 import presentacion.utilerias.CreacionPaneles;
@@ -51,6 +55,7 @@ public class ContenedorDependencias {
     private final IManejoClientes manejoClientes = ManejoClientes.getInstancia();
     private final IManejoVehiculos manejoVehiculos = ManejoVehiculos.getInstancia();
     private final IManejoEmpleados manejoEmpleados = ManejoEmpleados.getInstancia();
+    private final IManejoPresupuestos manejoPresupuestos = ManejoPresupuestos.getInstancia();
 
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
@@ -66,6 +71,7 @@ public class ContenedorDependencias {
     private final IControlValidaciones controlValidaciones;
     private final IControlCreacionUI controlCreacionUI;
     private final IControlMensajes controlMensajes;
+    private final IControlPresupuestos controlPresupuestos;
 
     private final IControlNavegacion controlNavegacion;
 
@@ -79,7 +85,8 @@ public class ContenedorDependencias {
                 manejoOrdenes,
                 manejoClientes,
                 manejoVehiculos,
-                manejoEmpleados
+                manejoEmpleados,
+                manejoPresupuestos
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
@@ -91,6 +98,7 @@ public class ContenedorDependencias {
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
         this.controlMensajes = new ControlMensajes();
+        this.controlPresupuestos = new ControlPresupuestos(tallerServicio);
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,
@@ -98,7 +106,8 @@ public class ContenedorDependencias {
                 controlVehiculos,
                 controlValidaciones,
                 controlMensajes,
-                controlCreacionUI
+                controlCreacionUI,
+                controlPresupuestos
         );
     }
 

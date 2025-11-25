@@ -5,6 +5,7 @@ import Excepciones.FechaInvalidaException;
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
+import dto.PresupuestoDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import java.util.List;
@@ -26,6 +27,8 @@ public interface IGestorTaller {
     public List<ClienteDTO> buscarTodosLosClientesActivos() throws NegocioException;
 
     public List<VehiculoDTO> obtenerVehiculosPorCliente(String idCliente);
-    
+
     public EmpleadoDTO obtenerDatosUsuario(String usuario);
+
+    public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException;
 }

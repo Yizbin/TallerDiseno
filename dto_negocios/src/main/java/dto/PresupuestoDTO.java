@@ -20,17 +20,17 @@ public class PresupuestoDTO {
 
     private Boolean estado;
 
-    private String idOrden;
+    private OrdenDTO orden;
 
     public PresupuestoDTO() {
     }
 
-    public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, String idOrden) {
+    public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, OrdenDTO orden) {
         this.idPresupuesto = idPresupuesto;
         this.fechaCreacion = fechaCreacion;
         this.costoTotal = costoTotal;
         this.estado = estado;
-        this.idOrden = idOrden;
+        this.orden = orden;
     }
 
     public String getIdPresupuesto() {
@@ -65,12 +65,12 @@ public class PresupuestoDTO {
         this.estado = estado;
     }
 
-    public String getIdOrden() {
-        return idOrden;
+    public OrdenDTO getOrden() {
+        return orden;
     }
 
-    public void setIdOrden(String idOrden) {
-        this.idOrden = idOrden;
+    public void setOrden(OrdenDTO orden) {
+        this.orden = orden;
     }
 
 }

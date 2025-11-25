@@ -5,10 +5,13 @@
 
 package BO.interfaces;
 
+import dto.PagoDTO;
+import excepciones.NegocioException;
+
 /**
  *
  * @author Abraham Coronel
  */
 public interface IPagoBO {
-
+    public PagoDTO registrarPago(PagoDTO pago) throws NegocioException;
 }

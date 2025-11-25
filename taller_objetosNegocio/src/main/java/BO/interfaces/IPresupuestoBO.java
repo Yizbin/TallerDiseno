@@ -5,10 +5,9 @@
 
 package BO.interfaces;
 
-import Excepciones.EntidadNoEncontradaException;
-import Excepciones.PersistenciaException;
 import dto.PresupuestoDTO;
 import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -20,10 +19,12 @@ public interface IPresupuestoBO {
     
     public PresupuestoDTO crearPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadDuplicadaNegocioException, NegocioException;
     
-    public PresupuestoDTO actualizarPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadNoEncontradaException, PersistenciaException;
+    public PresupuestoDTO actualizarPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadNoEncontradaNegocioException, NegocioException;
     
     public List<PresupuestoDTO> buscarTodosLosPresupuestos() throws EntidadDuplicadaNegocioException, NegocioException;
     
-    public PresupuestoDTO buscarPresupuestoPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+    public PresupuestoDTO buscarPresupuestoPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
+    
+    public List<PresupuestoDTO> buscarPresupuestosNoPagados() throws NegocioException;
     
 }

@@ -4,16 +4,20 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlNavegacion;
+
 /**
  *
  * @author Abraham Coronel Bringas
  */
 public class PantallaSeleccionMetodoPago extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PantallaOrdenesPendientes
-     */
-    public PantallaSeleccionMetodoPago() {
+    private final IControlNavegacion navegacion;
+    private final String idOrden;
+
+    public PantallaSeleccionMetodoPago(IControlNavegacion navegacion, String idOrden) {
+        this.navegacion = navegacion;
+        this.idOrden = idOrden;
         initComponents();
     }
 
@@ -96,7 +100,6 @@ public class PantallaSeleccionMetodoPago extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

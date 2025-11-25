@@ -4,10 +4,9 @@
  */
 package BO.interfaces;
 
-import Excepciones.EntidadNoEncontradaException;
-import Excepciones.PersistenciaException;
 import dto.RefaccionDTO;
 import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -19,10 +18,10 @@ public interface IRefaccionBO {
 
     public RefaccionDTO crearRefaccion(RefaccionDTO refaccionDTO) throws EntidadDuplicadaNegocioException, NegocioException;
 
-    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws EntidadNoEncontradaException, PersistenciaException;
+    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws EntidadNoEncontradaNegocioException, NegocioException;
 
     public List<RefaccionDTO> buscarTodasLasRefacciones() throws EntidadDuplicadaNegocioException, NegocioException;
 
-    public RefaccionDTO buscarRefaccionPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+    public RefaccionDTO buscarRefaccionPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
 
 }

@@ -13,6 +13,7 @@ import Mappers.RefaccionMapper;
 import Mappers.interfaces.IRefaccionMapper;
 import dto.RefaccionDTO;
 import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class RefaccionBO implements IRefaccionBO {
     }
 
     @Override
-    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws EntidadNoEncontradaException, PersistenciaException {
+    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws EntidadNoEncontradaNegocioException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -53,7 +54,7 @@ public class RefaccionBO implements IRefaccionBO {
     }
 
     @Override
-    public RefaccionDTO buscarRefaccionPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException {
+    public RefaccionDTO buscarRefaccionPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

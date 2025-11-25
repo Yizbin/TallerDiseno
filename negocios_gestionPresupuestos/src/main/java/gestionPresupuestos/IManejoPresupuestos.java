@@ -3,20 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 
-package Mappers.interfaces;
+package gestionPresupuestos;
 
 import dto.PresupuestoDTO;
-import entidades.Presupuesto;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
  *
  * @author Abraham Coronel
  */
-public interface IPresupuestoMapper {
-    public PresupuestoDTO toDTO(Presupuesto entidad);
-    
-    public Presupuesto toEntity(PresupuestoDTO dto);
-    
-    public List<PresupuestoDTO> toListDTO(List<Presupuesto> entidades);
+public interface IManejoPresupuestos {
+    public List<PresupuestoDTO> obtenerPresupuestosNoPagados() throws NegocioException;
 }
