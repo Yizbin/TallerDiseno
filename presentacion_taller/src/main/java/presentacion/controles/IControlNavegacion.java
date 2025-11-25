@@ -35,4 +35,12 @@ public interface IControlNavegacion {
     
     public void mostrarTareasMecanico();
     
+    public void mostrarPantallaSeleccionarCliente();
+    
+    public void mostrarPantallaSeleccionarOrden();
+    
+    public void mostrarPantallaGenerarPresupuesto();
+    
+    public void mostrarPantallaPresupuestoGenerado();
+    
 }

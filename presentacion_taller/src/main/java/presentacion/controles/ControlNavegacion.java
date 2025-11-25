@@ -6,6 +6,10 @@ package presentacion.controles;
 
 import dto.OrdenDTO;
 import dto.enums.NavegacionOrigen;
+import presentacion.GenerarPresupuesto.PantallaGenerarPresupuesto;
+import presentacion.GenerarPresupuesto.PantallaPresupuestoGenerado;
+import presentacion.GenerarPresupuesto.PantallaSeleccionarCliente;
+import presentacion.GenerarPresupuesto.PantallaSeleccionarOrden;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
 import presentacion.PantallaClientesRegistrados;
@@ -123,6 +127,27 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarMenuPrincipalAdmin() {
         MenuPrincipalAdmin menu = new MenuPrincipalAdmin(this);
         menu.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaSeleccionarCliente() {
+       PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this);
+       pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaSeleccionarOrden() {
+      PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this);
+    }
+
+    @Override
+    public void mostrarPantallaGenerarPresupuesto() {
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this);
+    }
+
+    @Override
+    public void mostrarPantallaPresupuestoGenerado() {
+        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(this);
     }
 
 }

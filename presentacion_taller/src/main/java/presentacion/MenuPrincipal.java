@@ -54,6 +54,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         generarPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5.png"))); // NOI18N
         generarPresupuesto.setContentAreaFilled(false);
+        generarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarPresupuestoActionPerformed(evt);
+            }
+        });
         getContentPane().add(generarPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
 
         pagarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/6.png"))); // NOI18N
@@ -154,6 +159,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void visualizarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarTareaActionPerformed
         this.navegarTareasMecanico();
     }//GEN-LAST:event_visualizarTareaActionPerformed
+
+    private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
+        navegacion.mostrarPantallaSeleccionarCliente();
+    }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
