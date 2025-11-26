@@ -46,7 +46,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         jLabel_Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         correoText.setForeground(new java.awt.Color(51, 51, 51));
@@ -89,7 +88,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         jLabel_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/IniciarSesion.png"))); // NOI18N
         jLabel_Fondo.setText("F");
-        getContentPane().add(jLabel_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 520));
+        getContentPane().add(jLabel_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
