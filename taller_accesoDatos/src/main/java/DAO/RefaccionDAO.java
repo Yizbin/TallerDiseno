@@ -5,6 +5,7 @@
 package DAO;
 
 import DAO.interfaces.IRefaccionDAO;
+import Excepciones.EntidadDuplicadaException;
 import Excepciones.EntidadNoEncontradaException;
 import Excepciones.PersistenciaException;
 import conexion.Conexion;
@@ -32,7 +33,7 @@ public class RefaccionDAO implements IRefaccionDAO {
     }
 
     @Override
-    public Refaccion crearRefaccion(Refaccion refaccion) throws PersistenciaException {
+    public Refaccion crearRefaccion(Refaccion refaccion) throws EntidadDuplicadaException, PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
@@ -91,7 +92,7 @@ public class RefaccionDAO implements IRefaccionDAO {
     }
 
     @Override
-    public List<Refaccion> buscarTodasLasRefacciones() throws PersistenciaException {
+    public List<Refaccion> buscarTodasLasRefacciones() throws EntidadDuplicadaException, PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             TypedQuery<Refaccion> query
