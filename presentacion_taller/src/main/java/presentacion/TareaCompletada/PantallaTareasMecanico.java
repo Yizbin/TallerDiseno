@@ -2,41 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion;
+package presentacion.TareaCompletada;
 
-import dto.PresupuestoDTO;
-import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
-import presentacion.controles.IControlPresupuestos;
 
 /**
  *
  * @author Abraham Coronel Bringas
  */
-public class PantallaOrdenesPendientes extends javax.swing.JFrame {
+public class PantallaTareasMecanico extends javax.swing.JFrame {
 
     private final IControlNavegacion navegacion;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
-    private final IControlPresupuestos presupuestos;
 
-    private DefaultTableModel modeloTablaOrdenes;
+    private DefaultTableModel modeloTablaTareas;
 
-    public PantallaOrdenesPendientes(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuestos) {
+    public PantallaTareasMecanico(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion) {
         this.navegacion = navegacion;
         this.mensajes = mensajes;
         this.creacion = creacion;
-        this.presupuestos = presupuestos;
         initComponents();
         configurarModeloTabla();
         estilizarTabla();
-        cargarOrdenesPendientes();
         seleccionTabla();
         configurarVentana();
+        mock();
     }
 
     private void configurarVentana() {
@@ -44,68 +39,44 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
     }
 
     private void estilizarTabla() {
-        creacion.aplicarEstiloTabla(scrollPaneOrdenes, tablaOrdenes);
-    }
-
-    private void cargarOrdenesPendientes() {
-        try {
-
-            List<PresupuestoDTO> listaPresupuestos = presupuestos.buscarPresupuestosPendientes();
-
-            modeloTablaOrdenes.setRowCount(0);
-
-            for (PresupuestoDTO p : listaPresupuestos) {
-                String idOrden = (p.getOrden() != null) ? p.getOrden().getIdOrden() : "N/A";
-
-                String cliente = (p.getOrden() != null && p.getOrden().getCliente() != null)
-                        ? p.getOrden().getCliente().getNombre() + " " + p.getOrden().getCliente().getApellidoP()
-                        : "Desconocido";
-
-                String vehiculo = (p.getOrden() != null && p.getOrden().getVehiculo() != null)
-                        ? p.getOrden().getVehiculo().getMarca() + " " + p.getOrden().getVehiculo().getModelo()
-                        : "Desconocido";
-
-                Double deuda = p.getCostoTotal();
-
-                modeloTablaOrdenes.addRow(new Object[]{
-                    idOrden,
-                    cliente,
-                    vehiculo,
-                    String.format("$%.2f", deuda)
-                });
-            }
-        } catch (Exception e) {
-            mensajes.mostrarErrorCampos("Error cargando ordenes: " + e.getMessage());
-        }
+        creacion.aplicarEstiloTabla(scrollPaneOrdenes, tablaTareas);
     }
 
     private void seleccionTabla() {
-        tablaOrdenes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+
+        tablaTareas.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
-                int filaSeleccionada = tablaOrdenes.getSelectedRow();
+                int filaSeleccionada = tablaTareas.getSelectedRow();
 
                 if (filaSeleccionada != -1) {
-                    String idOrden = (String) modeloTablaOrdenes.getValueAt(filaSeleccionada, 0);
 
-                    PantallaSeleccionMetodoPago pantallaPago = new PantallaSeleccionMetodoPago(navegacion, idOrden);
-                    pantallaPago.setVisible(true);
-                    this.dispose();
+                    String tarea = (String) modeloTablaTareas.getValueAt(filaSeleccionada, 0);
+                    String orden = (String) modeloTablaTareas.getValueAt(filaSeleccionada, 2);
+
+                    String mensaje = "Se ha marcado como completada la tarea:\n" + tarea + "\nPara la orden: " + orden;
+                    mensajes.mostrarMensajeInformativo(PantallaTareasMecanico.this, mensaje, "Tarea Completa");
+                    tablaTareas.clearSelection();
                 }
             }
         });
     }
 
     private void configurarModeloTabla() {
-        String[] columnas = {"Num. Orden", "Cliente", "Vehículo", "Deuda"};
+        String[] columnas = {"Tarea", "Limite", "Orden", "Nota"};
 
-        modeloTablaOrdenes = new DefaultTableModel(columnas, 0) {
+        modeloTablaTareas = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
 
-        tablaOrdenes.setModel(modeloTablaOrdenes);
+        tablaTareas.setModel(modeloTablaTareas);
+    }
+
+    private void mock() {
+        modeloTablaTareas.addRow(new Object[]{"Cambiar Aceite", "18/10/2025", "252233", "Utilizar aceite premium."});
+        modeloTablaTareas.addRow(new Object[]{"Cambio Llantas", "19/10/2025", "261628", "Solo cambiar llantas enfrente."});
     }
 
     @SuppressWarnings("unchecked")
@@ -118,10 +89,9 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
         panelCentro = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         scrollPaneOrdenes = new javax.swing.JScrollPane();
-        tablaOrdenes = new javax.swing.JTable();
+        tablaTareas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(960, 540));
 
         panelIzquierdo.setBackground(new java.awt.Color(198, 40, 40));
         panelIzquierdo.setPreferredSize(new java.awt.Dimension(150, 0));
@@ -150,10 +120,10 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
         titulo.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 0, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("Ordenes pendientes de pago");
+        titulo.setText("Tareas Mecanico");
         panelCentro.add(titulo, java.awt.BorderLayout.PAGE_START);
 
-        tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -164,7 +134,7 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        scrollPaneOrdenes.setViewportView(tablaOrdenes);
+        scrollPaneOrdenes.setViewportView(tablaTareas);
 
         panelCentro.add(scrollPaneOrdenes, java.awt.BorderLayout.CENTER);
 
@@ -185,7 +155,7 @@ public class PantallaOrdenesPendientes extends javax.swing.JFrame {
     private javax.swing.JPanel panelDerecho;
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JScrollPane scrollPaneOrdenes;
-    private javax.swing.JTable tablaOrdenes;
+    private javax.swing.JTable tablaTareas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

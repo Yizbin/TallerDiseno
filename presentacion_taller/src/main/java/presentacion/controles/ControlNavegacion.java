@@ -12,12 +12,17 @@ import presentacion.GenerarPresupuesto.PantallaSeleccionarCliente;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarOrden;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
+import presentacion.PagarOrden.PantallaFormularioMercadoPago;
+import presentacion.PagarOrden.PantallaFormularioPaypal;
+import presentacion.PagarOrden.PantallaFormularioTarjeta;
 import presentacion.PantallaClientesRegistrados;
 import presentacion.PantallaDatosCliente;
 import presentacion.PantallaDatosOrden;
 import presentacion.PantallaDatosVehiculo;
-import presentacion.PantallaOrdenesPendientes;
-import presentacion.PantallaTareasMecanico;
+import presentacion.PagarOrden.PantallaOrdenesPendientes;
+import presentacion.PagarOrden.PantallaReciboPago;
+import presentacion.PagarOrden.PantallaSeleccionMetodoPago;
+import presentacion.TareaCompletada.PantallaTareasMecanico;
 import presentacion.PantallaVehiculosRegistrados;
 
 /**
@@ -33,8 +38,9 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
     private final IControlPresupuestos presupuesto;
+    private final IControlPagos pagos;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -42,6 +48,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.mensajes = mensajes;
         this.creacion = creacion;
         this.presupuesto = presupuesto;
+        this.pagos = pagos;
     }
 
     @Override
@@ -150,6 +157,36 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarPantallaPresupuestoGenerado() {
         PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(this);
+    }
+
+    @Override
+    public void mostrarPantallaSeleccionMetodoPago(String idOrden) {
+        PantallaSeleccionMetodoPago pantalla = new PantallaSeleccionMetodoPago(this, idOrden);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarFormularioPaypal(String idOrden) {
+        PantallaFormularioPaypal pantalla = new PantallaFormularioPaypal(this, this.presupuesto, idOrden, this.pagos, this.validaciones, this.mensajes);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarFormularioMercadoPago(String idOrden) {
+        PantallaFormularioMercadoPago pantalla = new PantallaFormularioMercadoPago(this, idOrden, this.pagos, this.validaciones, this.mensajes, this.presupuesto);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarFormularioTarjeta(String idOrden) {
+        PantallaFormularioTarjeta pantalla = new PantallaFormularioTarjeta(this, idOrden, this.pagos, this.validaciones, this.mensajes, this.presupuesto);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarReciboPago(String idTransaccion, String idOrden) {
+        PantallaReciboPago pantalla = new PantallaReciboPago();
+        pantalla.setVisible(true);
     }
 
 }

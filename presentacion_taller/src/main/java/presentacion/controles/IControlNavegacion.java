@@ -14,7 +14,7 @@ import dto.enums.NavegacionOrigen;
 public interface IControlNavegacion {
 
     public void mostrarMenuPrincipal();
-    
+
     public void mostrarMenuPrincipalAdmin();
 
     public void mostrarDatosCliente();
@@ -24,23 +24,33 @@ public interface IControlNavegacion {
     public void mostrarDatosOrden(OrdenDTO orden, NavegacionOrigen origenPantalla, NavegacionOrigen origenCliente);
 
     public void mostrarClientesRegistrados();
-    
+
     public void mostrarVehiculosRegistrados(OrdenDTO orden, NavegacionOrigen origen);
-    
+
     public void regresarDatosOrden(NavegacionOrigen origen, OrdenDTO orden, NavegacionOrigen origenCliente);
-    
+
     public void regresarVehiculosRegistrados(NavegacionOrigen origen);
-    
+
     public void mostrarOrdenesPendientes();
-    
+
     public void mostrarTareasMecanico();
-    
+
     public void mostrarPantallaSeleccionarCliente();
-    
+
     public void mostrarPantallaSeleccionarOrden();
-    
+
     public void mostrarPantallaGenerarPresupuesto();
-    
+
     public void mostrarPantallaPresupuestoGenerado();
-    
+
+    public void mostrarPantallaSeleccionMetodoPago(String idOrden);
+
+    public void mostrarFormularioPaypal(String idOrden);
+
+    public void mostrarFormularioMercadoPago(String idOrden);
+
+    public void mostrarFormularioTarjeta(String idOrden);
+
+    public void mostrarReciboPago(String idTransaccion, String idOrden);
+
 }

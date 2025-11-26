@@ -107,7 +107,8 @@ public class ContenedorDependencias {
                 controlValidaciones,
                 controlMensajes,
                 controlCreacionUI,
-                controlPresupuestos
+                controlPresupuestos,
+                controlPagos
         );
     }
 
