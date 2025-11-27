@@ -24,4 +24,8 @@ public interface ITareaDAO {
     public List<Tarea> buscarTodasLasTareas() throws PersistenciaException;
 
     public List<Tarea> buscarTareaPorPresupuesto(Long idPresupuesto) throws PersistenciaException;
+
+    public List<Tarea> buscarTareasPorEmpleado(Long idEmpleado) throws PersistenciaException;
+
+    public Tarea buscarTareaPorId(Long id) throws PersistenciaException;
 }

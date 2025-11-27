@@ -36,4 +36,10 @@ public class ControlMensajes implements IControlMensajes {
         JOptionPane.showMessageDialog(null, mensajeExito, "Exito", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    @Override
+    public Boolean mostrarConfirmacion(Component padre, String mensaje, String titulo) {
+        int respuesta = JOptionPane.showConfirmDialog(padre, mensaje, titulo, JOptionPane.YES_NO_OPTION);
+        return respuesta == JOptionPane.YES_OPTION;
+    }
+
 }

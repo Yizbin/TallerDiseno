@@ -112,32 +112,33 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     private void iniciarSesion() {
-        if (validarCampos()) {
-            String usuario = correoText.getText();
-            String contra = String.valueOf(contraseniaText.getPassword());
-
-            if (autenticacion.autenticarUsuario(usuario, contra)) {
-
-                EmpleadoDTO empleado = autenticacion.obtenerDatosEmpleado(usuario);
-
-                if (empleado != null) {
-                    this.navegarSegunRol(empleado.getRol());
-                } else {
-                    mensajes.mostrarErrorCampos("Error al recuperar la información del usuario.");
-                }
-
-            } else {
-                mensajes.mostrarErrorCampos("Usuario o contraseña incorrectos");
-            }
+        if (!validarCampos()) {
+            return;
         }
+
+        String usuario = correoText.getText();
+        String contra = String.valueOf(contraseniaText.getPassword());
+
+        if (!autenticacion.autenticarUsuario(usuario, contra)) {
+            mensajes.mostrarErrorCampos("Usuario o contraseña incorrectos");
+            return;
+        }
+
+        EmpleadoDTO empleado = autenticacion.obtenerDatosEmpleado(usuario);
+
+        if (empleado == null) {
+            mensajes.mostrarErrorCampos("Error critico: No se pudieron recuperar los datos del usuario.");
+            return;
+        }
+
+        navegacion.setUsuarioActivo(empleado); 
+        navegarSegunRol(empleado.getRol());
     }
 
     private void navegarSegunRol(String rol) {
-        // Compara con el texto exacto que guardas en tu BD (ej: "Administrador", "admin", etc.)
         if (rol != null && rol.equalsIgnoreCase("Administrador")) {
             navegacion.mostrarMenuPrincipalAdmin();
         } else {
-            // Si no es admin (es mecánico, recepcionista, etc.), va al menú normal
             navegacion.mostrarMenuPrincipal();
         }
         this.dispose();

@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package Mappers.interfaces;
+
+package presentacion.controles;
 
 import dto.TareaDTO;
-import entidades.Tarea;
 import java.util.List;
 
 /**
  *
  * @author Abraham Coronel
  */
-public interface ITareaMapper {
+public interface IControlTareas {
 
-    public TareaDTO toDTO(Tarea entidad);
-
-    public List<TareaDTO> toListDTO(List<Tarea> entidades);
+    public List<TareaDTO> consultarTareasPendientes(String usuarioLogueado);
+    
+    public Boolean completarTarea(String idTarea);
 }

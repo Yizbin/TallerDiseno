@@ -6,6 +6,7 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.TareaDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import java.util.List;
@@ -33,4 +34,8 @@ public interface IGestorTaller {
     public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException;
     
     public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
+    
+    public List<TareaDTO> obtenerTareasDeMecanico(String usuario) throws NegocioException;
+    
+    public void completarTareaMecanico(String idTarea) throws NegocioException;
 }

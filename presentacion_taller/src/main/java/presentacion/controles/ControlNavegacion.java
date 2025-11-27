@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
 import dto.enums.NavegacionOrigen;
@@ -40,8 +41,11 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlCreacionUI creacion;
     private final IControlPresupuestos presupuesto;
     private final IControlPagos pagos;
+    private final IControlTareas tareas;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos) {
+    private EmpleadoDTO empleadoActivo;
+
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -50,6 +54,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.creacion = creacion;
         this.presupuesto = presupuesto;
         this.pagos = pagos;
+        this.tareas = tareas;
     }
 
     @Override
@@ -129,7 +134,18 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarTareasMecanico() {
-        PantallaTareasMecanico pantalla = new PantallaTareasMecanico(this, this.mensajes, this.creacion);
+        if (empleadoActivo == null) {
+            mensajes.mostrarErrorCampos("No se ha detectado una sesión activa.");
+            return;
+        }
+
+        PantallaTareasMecanico pantalla = new PantallaTareasMecanico(
+                this,
+                this.mensajes,
+                this.creacion,
+                this.tareas,
+                this.empleadoActivo
+        );
         pantalla.setVisible(true);
     }
 
@@ -188,6 +204,11 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarReciboPago(String idTransaccion, PresupuestoDTO presupuesto) {
         PantallaReciboPago pantalla = new PantallaReciboPago(this, idTransaccion, presupuesto);
         pantalla.setVisible(true);
+    }
+
+    @Override
+    public void setUsuarioActivo(EmpleadoDTO empleado) {
+        this.empleadoActivo = empleado;
     }
 
 }

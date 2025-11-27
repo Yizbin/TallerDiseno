@@ -4,11 +4,16 @@
  */
 package presentacion.TareaCompletada;
 
-import javax.swing.event.ListSelectionEvent;
+import dto.EmpleadoDTO;
+import dto.TareaDTO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlTareas;
 
 /**
  *
@@ -19,19 +24,25 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
+    private final IControlTareas controlTareas;
+    private final EmpleadoDTO mecanicoActual;
 
     private DefaultTableModel modeloTablaTareas;
 
-    public PantallaTareasMecanico(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion) {
+    public PantallaTareasMecanico(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion, IControlTareas controlTareas, EmpleadoDTO mecanicoActual) {
         this.navegacion = navegacion;
         this.mensajes = mensajes;
         this.creacion = creacion;
+        this.controlTareas = controlTareas;
+        this.mecanicoActual = mecanicoActual;
+
         initComponents();
         configurarModeloTabla();
         estilizarTabla();
-        seleccionTabla();
         configurarVentana();
-        mock();
+
+        cargarTareas();
+        agregarListenerTabla();
     }
 
     private void configurarVentana() {
@@ -42,41 +53,68 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         creacion.aplicarEstiloTabla(scrollPaneOrdenes, tablaTareas);
     }
 
-    private void seleccionTabla() {
-
-        tablaTareas.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            if (!event.getValueIsAdjusting()) {
-                int filaSeleccionada = tablaTareas.getSelectedRow();
-
-                if (filaSeleccionada != -1) {
-
-                    String tarea = (String) modeloTablaTareas.getValueAt(filaSeleccionada, 0);
-                    String orden = (String) modeloTablaTareas.getValueAt(filaSeleccionada, 2);
-
-                    String mensaje = "Se ha marcado como completada la tarea:\n" + tarea + "\nPara la orden: " + orden;
-                    mensajes.mostrarMensajeInformativo(PantallaTareasMecanico.this, mensaje, "Tarea Completa");
-                    tablaTareas.clearSelection();
-                }
-            }
-        });
-    }
-
     private void configurarModeloTabla() {
-        String[] columnas = {"Tarea", "Limite", "Orden", "Nota"};
-
+        String[] columnas = {"ID", "Descripción", "Vehículo", "Orden", "Estado"};
         modeloTablaTareas = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
         tablaTareas.setModel(modeloTablaTareas);
+
+        tablaTareas.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaTareas.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaTareas.getColumnModel().getColumn(0).setWidth(0);
     }
 
-    private void mock() {
-        modeloTablaTareas.addRow(new Object[]{"Cambiar Aceite", "18/10/2025", "252233", "Utilizar aceite premium."});
-        modeloTablaTareas.addRow(new Object[]{"Cambio Llantas", "19/10/2025", "261628", "Solo cambiar llantas enfrente."});
+    private void cargarTareas() {
+        modeloTablaTareas.setRowCount(0);
+        if (mecanicoActual == null) {
+            return;
+        }
+
+        List<TareaDTO> lista = controlTareas.consultarTareasPendientes(mecanicoActual.getUsuario());
+
+        for (TareaDTO t : lista) {
+            modeloTablaTareas.addRow(new Object[]{
+                t.getIdTarea(),
+                t.getDescripcion(),
+                t.getVehiculoModelo(),
+                t.getIdOrden(),
+                t.getEstado()
+            });
+        }
+    }
+
+    private void agregarListenerTabla() {
+        tablaTareas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int fila = tablaTareas.getSelectedRow();
+                    if (fila != -1) {
+                        String idTarea = (String) modeloTablaTareas.getValueAt(fila, 0);
+                        String desc = (String) modeloTablaTareas.getValueAt(fila, 1);
+
+                        confirmarTerminarTarea(idTarea, desc);
+                    }
+                }
+            }
+        });
+    }
+
+    private void confirmarTerminarTarea(String idTarea, String descripcion) {
+        Boolean confirmar = mensajes.mostrarConfirmacion(this,
+                "¿Deseas marcar como COMPLETADA la tarea:\n" + descripcion + "?",
+                "Confirmar Tarea");
+
+        if (confirmar) {
+            boolean exito = controlTareas.completarTarea(idTarea);
+            if (exito) {
+                cargarTareas(); 
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -18,6 +18,7 @@
         <module>../taller_objetosNegocio</module>
         <module>../negocios_gestionEmpleados</module>
         <module>../negocios_gestionPresupuestos</module>
+        <module>../negocios_gestionarTareas</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

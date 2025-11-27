@@ -19,4 +19,6 @@ public interface IControlMensajes {
     public void mostrarMensajeInformativo(Component padre, String mensaje, String titulo);
     
     public void mostrarExito(String mensajeExito);
+    
+    public Boolean mostrarConfirmacion(Component padre, String mensaje, String titulo);
 }

@@ -16,6 +16,8 @@ import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
 import gestionarClientes.IManejoClientes;
 import gestionarClientes.ManejoClientes;
+import gestionarTareas.IManejoTareas;
+import gestionarTareas.ManejoTareas;
 import gestionarVehiculos.IManejoVehiculos;
 import gestionarVehiculos.ManejoVehiculos;
 import presentacion.controles.ControlAutenticacion;
@@ -26,6 +28,7 @@ import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.ControlPagos;
 import presentacion.controles.ControlPresupuestos;
+import presentacion.controles.ControlTareas;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
@@ -36,6 +39,7 @@ import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPagos;
 import presentacion.controles.IControlPresupuestos;
+import presentacion.controles.IControlTareas;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
 import presentacion.utilerias.CreacionPaneles;
@@ -56,6 +60,7 @@ public class ContenedorDependencias {
     private final IManejoVehiculos manejoVehiculos = ManejoVehiculos.getInstancia();
     private final IManejoEmpleados manejoEmpleados = ManejoEmpleados.getInstancia();
     private final IManejoPresupuestos manejoPresupuestos = ManejoPresupuestos.getInstancia();
+    private final IManejoTareas manejoTareas = ManejoTareas.getInstancia();
 
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
@@ -72,6 +77,7 @@ public class ContenedorDependencias {
     private final IControlCreacionUI controlCreacionUI;
     private final IControlMensajes controlMensajes;
     private final IControlPresupuestos controlPresupuestos;
+    private final IControlTareas controlTareas;
 
     private final IControlNavegacion controlNavegacion;
 
@@ -86,7 +92,8 @@ public class ContenedorDependencias {
                 manejoClientes,
                 manejoVehiculos,
                 manejoEmpleados,
-                manejoPresupuestos
+                manejoPresupuestos,
+                manejoTareas
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
@@ -99,6 +106,7 @@ public class ContenedorDependencias {
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
         this.controlMensajes = new ControlMensajes();
         this.controlPresupuestos = new ControlPresupuestos(tallerServicio);
+        this.controlTareas = new ControlTareas(tallerServicio);
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,
@@ -108,7 +116,8 @@ public class ContenedorDependencias {
                 controlMensajes,
                 controlCreacionUI,
                 controlPresupuestos,
-                controlPagos
+                controlPagos,
+                controlTareas
         );
     }
 
@@ -147,4 +156,57 @@ public class ContenedorDependencias {
     public IGestorTaller getTallerServicio() {
         return tallerServicio;
     }
+
+    public IManejoOrdenes getManejoOrdenes() {
+        return manejoOrdenes;
+    }
+
+    public IManejoClientes getManejoClientes() {
+        return manejoClientes;
+    }
+
+    public IManejoVehiculos getManejoVehiculos() {
+        return manejoVehiculos;
+    }
+
+    public IManejoEmpleados getManejoEmpleados() {
+        return manejoEmpleados;
+    }
+
+    public IManejoPresupuestos getManejoPresupuestos() {
+        return manejoPresupuestos;
+    }
+
+    public IManejoTareas getManejoTareas() {
+        return manejoTareas;
+    }
+
+    public IGestorPagos getGestorPagos() {
+        return gestorPagos;
+    }
+
+    public IValidacionesPresentacion getValidacionServicio() {
+        return validacionServicio;
+    }
+
+    public ICreacionPaneles getCreacionPaneles() {
+        return creacionPaneles;
+    }
+
+    public ICreacionTablas getCreacionTablas() {
+        return creacionTablas;
+    }
+
+    public IControlPagos getControlPagos() {
+        return controlPagos;
+    }
+
+    public IControlPresupuestos getControlPresupuestos() {
+        return controlPresupuestos;
+    }
+
+    public IControlTareas getControlTareas() {
+        return controlTareas;
+    }
+
 }

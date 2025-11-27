@@ -24,3 +24,14 @@ INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_
 INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-02', 1500.00, 0, 2);
 
 INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Mano de obra frenos', '500.00', 'Por realizar', 2, 1);
+
+INSERT INTO empleado (nombre, apellidoP, apellidoM, rol, usuario, contrasenia, activo) VALUES ('Carlos', 'Ruiz', 'Méndez', 'MECANICO', 'carlos', '123', 1);
+
+
+INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-10', 'Problemas de encendido', 'Revisión eléctrica y cambio de bujías', 0, 1, 1);
+
+INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-10', 1200.00, 0, 3);
+
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Cambio de juego de bujías', '300.00', 'Por realizar', 3, 2);
+
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Prueba de carga de alternador', '150.00', 'Por realizar', 3, 2);

@@ -19,6 +19,18 @@ import javax.persistence.TypedQuery;
  */
 public class TareaDAO implements ITareaDAO {
 
+    private static ITareaDAO instancia;
+
+    private TareaDAO() {
+    }
+
+    public static ITareaDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new TareaDAO();
+        }
+        return instancia;
+    }
+
     @Override
     public Tarea crearTarea(Tarea tarea) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -135,6 +147,39 @@ public class TareaDAO implements ITareaDAO {
             throw new EntidadNoEncontradaException("Tarea no encontrada con ID: " + id);
         }
         return tarea;
+    }
+
+    @Override
+    public List<Tarea> buscarTareasPorEmpleado(Long idEmpleado) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Tarea> query = em.createQuery(
+                    "SELECT t FROM Tarea t WHERE t.empleado.id_empleado = :idEmpleado AND t.estado <> 'Completada'",
+                    Tarea.class
+            );
+            query.setParameter("idEmpleado", idEmpleado);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar tareas del empleado: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public Tarea buscarTareaPorId(Long id) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            return em.find(Tarea.class, id);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error buscando tarea por ID: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
 }
