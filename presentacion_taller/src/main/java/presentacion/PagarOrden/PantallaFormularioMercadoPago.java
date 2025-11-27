@@ -111,9 +111,10 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textCorreo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        textContra = new javax.swing.JTextField();
+        textContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(750, 500));
 
         panelIzquierdo.setBackground(new java.awt.Color(198, 40, 40));
         panelIzquierdo.setPreferredSize(new java.awt.Dimension(150, 0));
@@ -184,16 +185,12 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
 
         textCorreo.setBackground(new java.awt.Color(255, 255, 255));
         textCorreo.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
-        textCorreo.setForeground(new java.awt.Color(198, 40, 40));
         panelMercadoPago.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Contraseña:");
         panelMercadoPago.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
-
-        textContra.setBackground(new java.awt.Color(255, 255, 255));
-        textContra.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         panelMercadoPago.add(textContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, -1));
 
         panelCentro.add(panelMercadoPago, java.awt.BorderLayout.CENTER);
@@ -230,7 +227,7 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JPanel panelMercadoPago;
     private javax.swing.JLabel paypal;
-    private javax.swing.JTextField textContra;
+    private javax.swing.JPasswordField textContra;
     private javax.swing.JTextField textCorreo;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables

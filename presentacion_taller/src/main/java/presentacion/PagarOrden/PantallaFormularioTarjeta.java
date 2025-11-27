@@ -115,9 +115,10 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textCorreo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        textContra = new javax.swing.JTextField();
+        textContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(750, 500));
 
         panelIzquierdo.setBackground(new java.awt.Color(198, 40, 40));
         panelIzquierdo.setPreferredSize(new java.awt.Dimension(150, 0));
@@ -179,7 +180,7 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
         panelTarjeta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         paypal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Visa-Mastercard.png"))); // NOI18N
-        panelTarjeta.add(paypal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 130, 60));
+        panelTarjeta.add(paypal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, 60));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,16 +189,12 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
 
         textCorreo.setBackground(new java.awt.Color(255, 255, 255));
         textCorreo.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
-        textCorreo.setForeground(new java.awt.Color(198, 40, 40));
         panelTarjeta.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CVV:");
         panelTarjeta.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
-
-        textContra.setBackground(new java.awt.Color(255, 255, 255));
-        textContra.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         panelTarjeta.add(textContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, -1));
 
         panelCentro.add(panelTarjeta, java.awt.BorderLayout.CENTER);
@@ -234,7 +231,7 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JPanel panelTarjeta;
     private javax.swing.JLabel paypal;
-    private javax.swing.JTextField textContra;
+    private javax.swing.JPasswordField textContra;
     private javax.swing.JTextField textCorreo;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
