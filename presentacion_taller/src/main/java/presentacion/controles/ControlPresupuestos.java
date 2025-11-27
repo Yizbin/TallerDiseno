@@ -30,7 +30,12 @@ public class ControlPresupuestos implements IControlPresupuestos {
 
     @Override
     public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) {
-        return null;
+        try {
+            return taller.buscarPresupuestoPorOrden(idOrden);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            return null;
+        }
     }
 
     @Override

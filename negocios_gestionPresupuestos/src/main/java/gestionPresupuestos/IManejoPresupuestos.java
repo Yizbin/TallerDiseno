@@ -15,4 +15,6 @@ import java.util.List;
  */
 public interface IManejoPresupuestos {
     public List<PresupuestoDTO> obtenerPresupuestosNoPagados() throws NegocioException;
+    
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
 }

@@ -34,15 +34,25 @@ public class PagoDAO implements IPagoDAO {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
-            em.persist(pago);
-            Presupuesto presupuesto = pago.getPresupuesto();
-            if (presupuesto != null) {
-                Presupuesto presupuestoGestionado = em.merge(presupuesto);
-                presupuestoGestionado.setEstado(true); // true = Pagado
+
+            Long idPresupuesto = pago.getPresupuesto().getId();
+
+            Presupuesto presupuestoReal = em.find(Presupuesto.class, idPresupuesto);
+
+            if (presupuestoReal == null) {
+                throw new PersistenciaException("No se encontro el presupuesto con ID: " + idPresupuesto);
             }
 
+            presupuestoReal.setEstado(true);
+
+            pago.setPresupuesto(presupuestoReal);
+
+            em.persist(pago);
+
             em.getTransaction().commit();
+
             return pago;
+
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();

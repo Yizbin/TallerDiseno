@@ -5,6 +5,7 @@
 package presentacion.controles;
 
 import dto.OrdenDTO;
+import dto.PresupuestoDTO;
 import dto.enums.NavegacionOrigen;
 import presentacion.GenerarPresupuesto.PantallaGenerarPresupuesto;
 import presentacion.GenerarPresupuesto.PantallaPresupuestoGenerado;
@@ -184,8 +185,8 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarReciboPago(String idTransaccion, String idOrden) {
-        PantallaReciboPago pantalla = new PantallaReciboPago();
+    public void mostrarReciboPago(String idTransaccion, PresupuestoDTO presupuesto) {
+        PantallaReciboPago pantalla = new PantallaReciboPago(this, idTransaccion, presupuesto);
         pantalla.setVisible(true);
     }
 

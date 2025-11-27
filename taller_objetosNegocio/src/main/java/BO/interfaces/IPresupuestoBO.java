@@ -27,4 +27,6 @@ public interface IPresupuestoBO {
     
     public List<PresupuestoDTO> buscarPresupuestosNoPagados() throws NegocioException;
     
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
+    
 }

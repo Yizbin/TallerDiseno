@@ -29,6 +29,7 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
     private final IControlValidaciones validaciones;
     private final IControlMensajes mensajes;
     private final IControlPresupuestos controlPresupuestos;
+    private PresupuestoDTO presupuestoActual;
 
     public PantallaFormularioTarjeta(IControlNavegacion navegacion, String idOrden, IControlPagos controlPagos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlPresupuestos controlPresupuestos) {
         this.navegacion = navegacion;
@@ -47,7 +48,6 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
 
     private Boolean validarCampos() {
         try {
-            // Validamos como campos numéricos porque son tarjeta y CVV
             validaciones.validarCampoVacio(textCorreo.getText(), "Número de Tarjeta");
             validaciones.validarCampoNumerico(textCorreo.getText(), "Número de Tarjeta");
 
@@ -61,9 +61,10 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
     }
 
     private SolicitudPagoDTO recuperarDatosPago() {
-        PresupuestoDTO presupuesto = controlPresupuestos.buscarPresupuestoPorOrden(this.idOrden);
-        if (presupuesto == null) {
-            mensajes.mostrarErrorCampos("Error crítico: Presupuesto no encontrado.");
+        this.presupuestoActual = controlPresupuestos.buscarPresupuestoPorOrden(this.idOrden);
+
+        if (this.presupuestoActual == null) {
+            mensajes.mostrarErrorCampos("No se encontro el presupuesto.");
             return null;
         }
 
@@ -72,7 +73,7 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
         datosPago.put("cvv", textContra.getText());
 
         // Monto real del DTO
-        return new SolicitudPagoDTO(presupuesto.getCostoTotal(), this.idOrden, MetodoPago.TARJETA, datosPago);
+        return new SolicitudPagoDTO(presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.TARJETA, datosPago);
     }
 
     private void procesarPago() {
@@ -85,7 +86,7 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
 
         if (respuesta.getExito()) {
             mensajes.mostrarExito("Pago con Tarjeta aprobado.");
-            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.idOrden);
+            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.presupuestoActual);
             this.dispose();
         } else {
             mensajes.mostrarErrorCampos(respuesta.getMensaje());

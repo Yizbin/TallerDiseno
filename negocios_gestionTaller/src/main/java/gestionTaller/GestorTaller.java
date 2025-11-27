@@ -79,4 +79,9 @@ public class GestorTaller implements IGestorTaller {
         return manejoPresupuestos.obtenerPresupuestosNoPagados();
     }
 
+    @Override
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException {
+        return manejoPresupuestos.buscarPresupuestoPorOrden(idOrden);
+    }
+
 }

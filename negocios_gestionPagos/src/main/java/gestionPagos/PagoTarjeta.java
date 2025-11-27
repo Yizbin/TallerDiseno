@@ -10,6 +10,7 @@ import dto.PagoDTO;
 import dto.RespuestaPagoDTO;
 import dto.SolicitudPagoDTO;
 import excepciones.NegocioException;
+import gestionPagos.banco.SimuladorBanco;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,36 +21,38 @@ import java.util.UUID;
 public class PagoTarjeta implements IEstrategiaPago {
 
     private final IPagoBO pagoBO = PagoBO.getInstancia();
+    private final SimuladorBanco bancoExterno = SimuladorBanco.getInstancia();
 
     @Override
     public RespuestaPagoDTO pagar(SolicitudPagoDTO solicitud) {
         String numeroTarjeta = solicitud.getDatosPago().get("numeroTarjeta");
         String cvv = solicitud.getDatosPago().get("cvv");
 
-        if (numeroTarjeta == null || numeroTarjeta.length() < 16 || cvv == null || cvv.length() < 3) {
-            return new RespuestaPagoDTO(false, "Datos de tarjeta inválidos", null);
+        if (numeroTarjeta == null || numeroTarjeta.length() < 16) {
+            return new RespuestaPagoDTO(false, "Formato de tarjeta inválido", null);
         }
-
-        // Esta para simular un banco
-        String idTransaccion = UUID.randomUUID().toString();
-
-        PagoDTO nuevoPago = new PagoDTO();
-        nuevoPago.setMonto(solicitud.getMonto());
-        nuevoPago.setFechaPago(LocalDateTime.now());
-        nuevoPago.setMetodoPago(solicitud.getMetodo());
-        nuevoPago.setReferencia(idTransaccion);
-        nuevoPago.setIdPresupuesto(obtenerIdPresupuestoPorOrden(solicitud.getOrdenId()));
 
         try {
-            pagoBO.registrarPago(nuevoPago);
-            return new RespuestaPagoDTO(true, "Pago con Tarjeta exitoso", idTransaccion);
-        } catch (NegocioException e) {
-            return new RespuestaPagoDTO(false, "Error guardando pago: " + e.getMessage(), null);
-        }
-    }
+            bancoExterno.autorizarPagoTarjeta(numeroTarjeta, cvv, solicitud.getMonto());
 
-    private String obtenerIdPresupuestoPorOrden(String ordenId) {
-        return ordenId;
+            String idTransaccion = UUID.randomUUID().toString();
+
+            PagoDTO nuevoPago = new PagoDTO();
+            nuevoPago.setMonto(solicitud.getMonto());
+            nuevoPago.setFechaPago(LocalDateTime.now());
+            nuevoPago.setMetodoPago(solicitud.getMetodo());
+            nuevoPago.setReferencia(idTransaccion);
+            nuevoPago.setIdPresupuesto(solicitud.getOrdenId());
+
+            pagoBO.registrarPago(nuevoPago);
+
+            return new RespuestaPagoDTO(true, "Pago aprobado.", idTransaccion);
+
+        } catch (RuntimeException e) {
+            return new RespuestaPagoDTO(false, "Rechazado por el banco: " + e.getMessage(), null);
+        } catch (NegocioException e) {
+            return new RespuestaPagoDTO(false, "Error interno guardando el pago: " + e.getMessage(), null);
+        }
     }
 
 }

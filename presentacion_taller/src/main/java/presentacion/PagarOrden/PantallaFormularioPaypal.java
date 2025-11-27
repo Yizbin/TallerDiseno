@@ -29,6 +29,7 @@ public class PantallaFormularioPaypal extends javax.swing.JFrame {
     private final IControlValidaciones validaciones;
     private final IControlMensajes mensajes;
     private final String idOrden;
+    private PresupuestoDTO presupuestoActual;
 
     public PantallaFormularioPaypal(IControlNavegacion navegacion, IControlPresupuestos presupuestos, String idOrden, IControlPagos controlPagos, IControlValidaciones validaciones, IControlMensajes mensajes) {
         this.navegacion = navegacion;
@@ -58,32 +59,31 @@ public class PantallaFormularioPaypal extends javax.swing.JFrame {
     }
 
     private SolicitudPagoDTO recuperarDatosPago() {
-        PresupuestoDTO presupuesto = presupuestos.buscarPresupuestoPorOrden(this.idOrden);
-
-        if (presupuesto == null) {
-            mensajes.mostrarErrorCampos("No se encontró el presupuesto para esta orden.");
+        this.presupuestoActual = presupuestos.buscarPresupuestoPorOrden(this.idOrden);
+        
+        if (this.presupuestoActual == null) {
+            mensajes.mostrarErrorCampos("No se encontro el presupuesto.");
             return null;
         }
 
-        double montoReal = presupuesto.getCostoTotal();
 
         Map<String, String> datosPago = new HashMap<>();
         datosPago.put("correo", textCorreo.getText());
         datosPago.put("contrasena", textContra.getText());
 
-        return new SolicitudPagoDTO(montoReal, this.idOrden, MetodoPago.PAYPAL, datosPago);
+        return new SolicitudPagoDTO(this.presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.PAYPAL, datosPago);
     }
 
     private void procesarPago() {
         SolicitudPagoDTO solicitud = recuperarDatosPago();
         if (solicitud == null) {
-            return; 
+            return;
         }
         RespuestaPagoDTO respuesta = controlPagos.procesarPago(solicitud);
 
         if (respuesta.getExito()) {
             mensajes.mostrarExito("Pago exitoso. Referencia: " + respuesta.getIdtransaccion());
-            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.idOrden);
+            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.presupuestoActual);
             this.dispose();
         } else {
             mensajes.mostrarErrorCampos("Error: " + respuesta.getMensaje());

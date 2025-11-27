@@ -34,4 +34,9 @@ public class ManejoPresupuestos implements IManejoPresupuestos {
         return presupuestoBO.buscarPresupuestosNoPagados();
     }
 
+    @Override
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException {
+        return presupuestoBO.buscarPresupuestoPorOrden(idOrden);
+    }
+
 }

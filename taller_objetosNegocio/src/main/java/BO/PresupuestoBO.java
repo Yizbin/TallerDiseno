@@ -68,4 +68,28 @@ public class PresupuestoBO implements IPresupuestoBO {
         }
     }
 
+    @Override
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException {
+        if (idOrden == null || idOrden.trim().isEmpty()) {
+            throw new NegocioException("El ID de la orden es requerido.");
+        }
+
+        try {
+            Long id = Long.valueOf(idOrden);
+
+            entidades.Presupuesto presupuestoEntidad = presupuestoDAO.buscarPresupuestoPorOrden(id);
+
+            if (presupuestoEntidad == null) {
+                throw new NegocioException("No se encontro un presupuesto asociado a la orden " + idOrden);
+            }
+
+            return mapper.toDTO(presupuestoEntidad);
+
+        } catch (NumberFormatException e) {
+            throw new NegocioException("El ID de la orden no tiene un formato valido.");
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error en la capa de datos: " + e.getMessage());
+        }
+    }
+
 }

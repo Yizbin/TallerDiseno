@@ -31,4 +31,6 @@ public interface IGestorTaller {
     public EmpleadoDTO obtenerDatosUsuario(String usuario);
 
     public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException;
+    
+    public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
 }

@@ -5,6 +5,7 @@
 package presentacion.controles;
 
 import dto.OrdenDTO;
+import dto.PresupuestoDTO;
 import dto.enums.NavegacionOrigen;
 
 /**
@@ -51,6 +52,6 @@ public interface IControlNavegacion {
 
     public void mostrarFormularioTarjeta(String idOrden);
 
-    public void mostrarReciboPago(String idTransaccion, String idOrden);
+    public void mostrarReciboPago(String idTransaccion, PresupuestoDTO presupuesto);
 
 }

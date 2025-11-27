@@ -29,6 +29,7 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
     private final IControlValidaciones validaciones;
     private final IControlMensajes mensajes;
     private final IControlPresupuestos controlPresupuestos;
+    private PresupuestoDTO presupuestoActual;
 
     public PantallaFormularioMercadoPago(IControlNavegacion navegacion, String idOrden, IControlPagos controlPagos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlPresupuestos controlPresupuestos) {
         this.navegacion = navegacion;
@@ -57,9 +58,10 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
     }
 
     private SolicitudPagoDTO recuperarDatosPago() {
-        PresupuestoDTO presupuesto = controlPresupuestos.buscarPresupuestoPorOrden(this.idOrden);
-        if (presupuesto == null) {
-            mensajes.mostrarErrorCampos("No se encontró el presupuesto.");
+        this.presupuestoActual = controlPresupuestos.buscarPresupuestoPorOrden(this.idOrden);
+
+        if (this.presupuestoActual == null) {
+            mensajes.mostrarErrorCampos("No se encontro el presupuesto.");
             return null;
         }
 
@@ -67,7 +69,7 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
         datosPago.put("correo", textCorreo.getText());
         datosPago.put("contrasena", textContra.getText());
 
-        return new SolicitudPagoDTO(presupuesto.getCostoTotal(), this.idOrden, MetodoPago.MERCADOPAGO, datosPago);
+        return new SolicitudPagoDTO(presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.MERCADOPAGO, datosPago);
     }
 
     private void procesarPago() {
@@ -80,7 +82,7 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
 
         if (respuesta.getExito()) {
             mensajes.mostrarExito("Pago con MercadoPago completado. Ref: " + respuesta.getIdtransaccion());
-            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.idOrden);
+            navegacion.mostrarReciboPago(respuesta.getIdtransaccion(), this.presupuestoActual);
             this.dispose();
         } else {
             mensajes.mostrarErrorCampos(respuesta.getMensaje());

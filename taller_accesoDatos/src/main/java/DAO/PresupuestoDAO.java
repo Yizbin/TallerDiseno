@@ -11,6 +11,7 @@ import conexion.Conexion;
 import entidades.Presupuesto;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -184,6 +185,25 @@ public class PresupuestoDAO implements IPresupuestoDAO {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    @Override
+    public Presupuesto buscarPresupuestoPorOrden(Long idOrden) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT p FROM Presupuesto p WHERE p.orden.id_orden = :idOrden";
+
+            TypedQuery<Presupuesto> query = em.createQuery(jpql, Presupuesto.class);
+            query.setParameter("idOrden", idOrden);
+
+            return query.getSingleResult(); 
+        } catch (NoResultException e) {
+            return null; 
+        } catch (Exception e) {
+            throw new PersistenciaException("Error buscando presupuesto", e);
+        } finally {
+            em.close();
         }
     }
 
