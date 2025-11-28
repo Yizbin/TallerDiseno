@@ -8,6 +8,7 @@ import BO.EmpleadoBO;
 import BO.interfaces.IEmpleadoBO;
 import dto.EmpleadoDTO;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -44,6 +45,19 @@ public class ManejoEmpleados implements IManejoEmpleados {
     @Override
     public EmpleadoDTO obtenerDatosUsuario(String usuario) throws NegocioException {
         return empleadoBO.obtenerEmpleadoPorUsuario(usuario);
+    }
+
+    @Override
+    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException {
+        return empleadoBO.buscarTodosLosMecanicosActivos();
+    }
+
+    @Override
+    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException {
+        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
+             throw new NegocioException("El ID del mecánico no puede estar vacío.");
+        }
+        return empleadoBO.seleccionarMecanico(idEmpleado);
     }
 
 }

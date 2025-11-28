@@ -18,4 +18,7 @@ public interface ITareaBO {
 
     public void completarTarea(String idTarea) throws NegocioException;
 
+    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException;
+
+    public Boolean asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException;
 }

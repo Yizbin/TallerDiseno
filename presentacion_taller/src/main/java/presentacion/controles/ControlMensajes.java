@@ -42,4 +42,9 @@ public class ControlMensajes implements IControlMensajes {
         return respuesta == JOptionPane.YES_OPTION;
     }
 
+    @Override
+    public void mostrarError(Component padre, String mensaje) {
+        JOptionPane.showMessageDialog(padre, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
 }

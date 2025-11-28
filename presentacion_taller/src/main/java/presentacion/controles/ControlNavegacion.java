@@ -12,6 +12,8 @@ import presentacion.GenerarPresupuesto.PantallaGenerarPresupuesto;
 import presentacion.GenerarPresupuesto.PantallaPresupuestoGenerado;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarCliente;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarOrden;
+import presentacion.AsignarTarea.PantallaElegirMecanico;
+import presentacion.AsignarTarea.PantallaElegirTarea;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
 import presentacion.PagarOrden.PantallaFormularioMercadoPago;
@@ -42,10 +44,11 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlPresupuestos presupuesto;
     private final IControlPagos pagos;
     private final IControlTareas tareas;
+    private final IControlEmpleados controlEmpleados;
 
     private EmpleadoDTO empleadoActivo;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -55,6 +58,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.presupuesto = presupuesto;
         this.pagos = pagos;
         this.tareas = tareas;
+        this.controlEmpleados = controlEmpleados;
     }
 
     @Override
@@ -209,6 +213,36 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void setUsuarioActivo(EmpleadoDTO empleado) {
         this.empleadoActivo = empleado;
+    }
+
+    @Override
+    public void mostrarPantallaElegirMecanico() {
+        PantallaElegirMecanico pantalla = new PantallaElegirMecanico(
+                this,
+                this.mensajes,
+                this.creacion,
+                this.controlEmpleados,
+                this.empleadoActivo
+        );
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaElegirTarea(EmpleadoDTO empleado) {
+        if (empleado == null) {
+            mensajes.mostrarErrorCampos("No se recibió el empleado para asignar tareas.");
+            return;
+        }
+
+        PantallaElegirTarea pantalla = new PantallaElegirTarea(
+                this,
+                this.mensajes,
+                this.creacion,
+                this.tareas,
+                empleado
+        );
+
+        pantalla.setVisible(true);
     }
 
 }

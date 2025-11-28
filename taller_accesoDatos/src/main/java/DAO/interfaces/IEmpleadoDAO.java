@@ -30,4 +30,8 @@ public interface IEmpleadoDAO {
     public Empleado autenticarEmpleado(String usuario, String contrasena) throws EntidadNoEncontradaException, PersistenciaException;
     
     Empleado buscarPorUsuario(String usuario) throws EntidadNoEncontradaException, PersistenciaException;
+    
+    public List<Empleado> buscarMecanicosActivos() throws PersistenciaException, EntidadNoEncontradaException;
+    
+    public Empleado buscarPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
 }

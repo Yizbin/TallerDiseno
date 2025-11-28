@@ -23,6 +23,7 @@ import gestionarVehiculos.ManejoVehiculos;
 import presentacion.controles.ControlAutenticacion;
 import presentacion.controles.ControlClientes;
 import presentacion.controles.ControlCreacionUI;
+import presentacion.controles.ControlEmpleados;
 import presentacion.controles.ControlMensajes;
 import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
@@ -34,6 +35,7 @@ import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlEmpleados;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
@@ -78,6 +80,7 @@ public class ContenedorDependencias {
     private final IControlMensajes controlMensajes;
     private final IControlPresupuestos controlPresupuestos;
     private final IControlTareas controlTareas;
+    private final IControlEmpleados controlEmpleados;
 
     private final IControlNavegacion controlNavegacion;
 
@@ -107,6 +110,7 @@ public class ContenedorDependencias {
         this.controlMensajes = new ControlMensajes();
         this.controlPresupuestos = new ControlPresupuestos(tallerServicio);
         this.controlTareas = new ControlTareas(tallerServicio);
+        this.controlEmpleados = new ControlEmpleados(tallerServicio);
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,
@@ -117,7 +121,8 @@ public class ContenedorDependencias {
                 controlCreacionUI,
                 controlPresupuestos,
                 controlPagos,
-                controlTareas
+                controlTareas,
+                controlEmpleados
         );
     }
 
@@ -207,6 +212,10 @@ public class ContenedorDependencias {
 
     public IControlTareas getControlTareas() {
         return controlTareas;
+    }
+
+    public IControlEmpleados getControlEmpleados() {
+        return controlEmpleados;
     }
 
 }

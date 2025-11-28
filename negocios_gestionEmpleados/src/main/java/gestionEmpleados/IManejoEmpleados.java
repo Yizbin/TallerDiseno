@@ -6,6 +6,7 @@ package gestionEmpleados;
 
 import dto.EmpleadoDTO;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,8 @@ public interface IManejoEmpleados {
     public Boolean autenticarUsuario(String usuario, String contrasena) throws NegocioException;
     
     EmpleadoDTO obtenerDatosUsuario(String usuario) throws NegocioException;
+    
+    List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException;
+    
+    EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException;
 }

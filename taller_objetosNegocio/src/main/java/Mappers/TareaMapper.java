@@ -22,17 +22,26 @@ public class TareaMapper implements ITareaMapper {
             return null;
         }
 
-        String idOrden = "N/A";
-        String vehiculo = "N/A";
+//        String idOrden = "N/A";            Lo comente por si llega a tronar 
+//        String vehiculo = "N/A";
+//
+//        if (entidad.getPresupuesto() != null
+//                && entidad.getPresupuesto().getOrden() != null) {
+//            idOrden = String.valueOf(entidad.getPresupuesto().getOrden().getId_orden());
+//            if (entidad.getPresupuesto().getOrden().getVehiculo() != null) {
+//                vehiculo = entidad.getPresupuesto().getOrden().getVehiculo().getModelo();
+//            }
+//        }
 
-        if (entidad.getPresupuesto() != null
-                && entidad.getPresupuesto().getOrden() != null) {
+        String idOrden = "N/A";
+        if (entidad.getPresupuesto() != null && entidad.getPresupuesto().getOrden() != null) {
             idOrden = String.valueOf(entidad.getPresupuesto().getOrden().getId_orden());
-            if (entidad.getPresupuesto().getOrden().getVehiculo() != null) {
-                vehiculo = entidad.getPresupuesto().getOrden().getVehiculo().getModelo();
-            }
         }
 
+        String vehiculo = "N/A";
+        if (entidad.getPresupuesto() != null && entidad.getPresupuesto().getVehiculo() != null) {
+            vehiculo = entidad.getPresupuesto().getVehiculo().getModelo();
+        }
         return new TareaDTO(
                 entidad.getId() != null ? String.valueOf(entidad.getId()) : null,
                 entidad.getDescripcion(),

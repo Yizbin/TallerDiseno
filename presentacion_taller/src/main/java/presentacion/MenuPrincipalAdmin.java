@@ -34,7 +34,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         pagarOrden = new javax.swing.JButton();
         auditarCitaCliente = new javax.swing.JButton();
         reclamarGarantia = new javax.swing.JButton();
-        visualizarTarea = new javax.swing.JButton();
+        asignarTarea = new javax.swing.JButton();
         venderRefacciones = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel1_fondo = new javax.swing.JLabel();
@@ -82,14 +82,14 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         reclamarGarantia.setContentAreaFilled(false);
         getContentPane().add(reclamarGarantia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, 120));
 
-        visualizarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asignar tarea.png"))); // NOI18N
-        visualizarTarea.setContentAreaFilled(false);
-        visualizarTarea.addActionListener(new java.awt.event.ActionListener() {
+        asignarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/asignar tarea.png"))); // NOI18N
+        asignarTarea.setContentAreaFilled(false);
+        asignarTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarTareaActionPerformed(evt);
+                asignarTareaActionPerformed(evt);
             }
         });
-        getContentPane().add(visualizarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
+        getContentPane().add(asignarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
 
         venderRefacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/10.png"))); // NOI18N
         venderRefacciones.setContentAreaFilled(false);
@@ -150,9 +150,10 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void visualizarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarTareaActionPerformed
-
-    }//GEN-LAST:event_visualizarTareaActionPerformed
+    private void asignarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarTareaActionPerformed
+        navegacion.mostrarPantallaElegirMecanico();
+        this.dispose();
+    }//GEN-LAST:event_asignarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
         navegacion.mostrarPantallaSeleccionarCliente();
@@ -160,6 +161,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton asignarTarea;
     private javax.swing.JButton auditarCitaCliente;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton crearOrden;
@@ -168,6 +170,5 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JButton pagarOrden;
     private javax.swing.JButton reclamarGarantia;
     private javax.swing.JButton venderRefacciones;
-    private javax.swing.JButton visualizarTarea;
     // End of variables declaration//GEN-END:variables
 }

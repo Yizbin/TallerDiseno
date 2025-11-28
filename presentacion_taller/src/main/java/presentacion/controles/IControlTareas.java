@@ -17,4 +17,8 @@ public interface IControlTareas {
     public List<TareaDTO> consultarTareasPendientes(String usuarioLogueado);
     
     public Boolean completarTarea(String idTarea);
+    
+    public List<TareaDTO> buscarTareasDisponibles();
+
+    public Boolean asignarTareaAMecanico(String idTarea, String idEmpleado);
 }

@@ -13,6 +13,8 @@ import Mappers.interfaces.IEmpleadoMapper;
 import dto.EmpleadoDTO;
 import entidades.Empleado;
 import excepciones.NegocioException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -67,4 +69,52 @@ public class EmpleadoBO implements IEmpleadoBO {
         }
     }
 
+    @Override
+    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException {
+        try {
+            List<Empleado> mecanicos = empleadoDAO.buscarMecanicosActivos();
+            return mecanicos.stream().map(e -> new EmpleadoDTO(
+                    e.getId().toString(),
+                    e.getNombre(),
+                    e.getApellidoP(),
+                    e.getApellidoM(),
+                    e.getRol(),
+                    e.getUsuario(),
+                    null,
+                    e.getActivo()
+            )).collect(Collectors.toList());
+        } catch (EntidadNoEncontradaException e) {
+            throw new NegocioException("No se encontró ningún mecánico activo en el sistema.", e);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al consultar mecánicos: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException {
+        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
+            throw new NegocioException("El ID del mecánico no puede estar vacío.");
+        }
+        try {
+            Long id = Long.valueOf(idEmpleado); 
+            
+            Empleado e = empleadoDAO.buscarPorId(id);
+
+            return new EmpleadoDTO(
+                    e.getId().toString(),
+                    e.getNombre(),
+                    e.getApellidoP(),
+                    e.getApellidoM(),
+                    e.getRol(),
+                    e.getUsuario(),
+                    null,
+                    e.getActivo()
+            );
+        } catch (NumberFormatException e) {
+            throw new NegocioException("El ID proporcionado no es un formato numérico válido.", e);
+        } catch (EntidadNoEncontradaException | PersistenciaException ex) {
+            throw new NegocioException("Error al buscar el mecánico con ID " + idEmpleado + ": " + ex.getMessage(), ex);
+        }
+    }
 }
+

@@ -8,6 +8,7 @@ import DAO.interfaces.ITareaDAO;
 import Excepciones.EntidadNoEncontradaException;
 import Excepciones.PersistenciaException;
 import conexion.Conexion;
+import entidades.Empleado;
 import entidades.Tarea;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -175,6 +176,70 @@ public class TareaDAO implements ITareaDAO {
             return em.find(Tarea.class, id);
         } catch (Exception e) {
             throw new PersistenciaException("Error buscando tarea por ID: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public List<Tarea> buscarTareasDisponibles() throws PersistenciaException, EntidadNoEncontradaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Tarea> query = em.createQuery(
+                    "SELECT t FROM Tarea t "
+                    + "LEFT JOIN FETCH t.presupuesto p "
+                    + "LEFT JOIN FETCH p.vehiculo "
+                    + "WHERE t.estado <> 'Completada' AND t.empleado IS NULL",
+                    Tarea.class
+            );
+
+            return query.getResultList();
+
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar tareas: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public void asignarTareaAMecanico(Long idTarea, Long idEmpleado) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+
+        try {
+            em.getTransaction().begin();
+
+            Tarea tarea = validarTareaExistente(em, idTarea);
+
+            Empleado empleado = em.find(Empleado.class, idEmpleado);
+            if (empleado == null) {
+                throw new EntidadNoEncontradaException(
+                        "Empleado no encontrado con ID: " + idEmpleado
+                );
+            }
+
+            tarea.setEmpleado(empleado);
+            tarea.setEstado("Asignada");
+
+            em.merge(tarea);
+            em.getTransaction().commit();
+
+        } catch (EntidadNoEncontradaException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al asignar tarea al mecánico: " + e.getMessage(), e);
+
         } finally {
             if (em != null) {
                 em.close();

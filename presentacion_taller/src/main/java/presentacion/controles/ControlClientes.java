@@ -27,7 +27,7 @@ public class ControlClientes implements IControlClientes {
         try {
             return taller.buscarTodosLosClientesActivos();
         } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(null, "Error: nose encontro clientes activos" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: no se encontro clientes activos" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }

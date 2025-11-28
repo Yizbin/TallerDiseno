@@ -222,4 +222,47 @@ public class EmpleadoDAO implements IEmpleadoDAO {
         }
     }
 
+    @Override
+    public List<Empleado> buscarMecanicosActivos() throws PersistenciaException, EntidadNoEncontradaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Empleado> query = em.createQuery(
+                    "SELECT e FROM Empleado e WHERE e.rol = 'Mecanico' AND e.activo = true", Empleado.class);
+            List<Empleado> resultados = query.getResultList();
+            if (resultados.isEmpty()) {
+                throw new EntidadNoEncontradaException("No se encontró ningún mecánico activo en el sistema.");
+            }
+            return resultados;
+        } catch (EntidadNoEncontradaException e) {
+            throw e;
+        } catch (Exception e) {
+
+            throw new PersistenciaException("Error al consultar mecánicos activos: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public Empleado buscarPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            Empleado empleado = em.find(Empleado.class, id);
+            if (empleado == null) {
+                throw new EntidadNoEncontradaException("Empleado no encontrado con ID: " + id);
+            }
+            return empleado;
+        } catch (EntidadNoEncontradaException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar empleado por ID: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

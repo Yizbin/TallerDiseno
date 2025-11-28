@@ -32,10 +32,18 @@ public interface IGestorTaller {
     public EmpleadoDTO obtenerDatosUsuario(String usuario);
 
     public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException;
-    
+
     public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
-    
+
     public List<TareaDTO> obtenerTareasDeMecanico(String usuario) throws NegocioException;
-    
+
     public void completarTareaMecanico(String idTarea) throws NegocioException;
+
+    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException;
+
+    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException;
+
+    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException;
+
+    Boolean asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException;
 }

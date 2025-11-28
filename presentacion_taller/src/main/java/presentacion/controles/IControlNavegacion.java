@@ -54,7 +54,11 @@ public interface IControlNavegacion {
     public void mostrarFormularioTarjeta(String idOrden);
 
     public void mostrarReciboPago(String idTransaccion, PresupuestoDTO presupuesto);
-    
+
     public void setUsuarioActivo(EmpleadoDTO empleado);
+
+    void mostrarPantallaElegirMecanico();
+    
+    void mostrarPantallaElegirTarea(EmpleadoDTO empleado);
 
 }

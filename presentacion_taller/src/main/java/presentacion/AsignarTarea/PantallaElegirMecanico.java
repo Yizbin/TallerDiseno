@@ -4,19 +4,122 @@
  */
 package presentacion.AsignarTarea;
 
+import dto.EmpleadoDTO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlEmpleados;
+import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlTareas;
+
 /**
  *
  * @author Angel Servin
  */
 public class PantallaElegirMecanico extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaElegirMecanico.class.getName());
 
-    /**
-     * Creates new form PantallaElegirMecanico
-     */
-    public PantallaElegirMecanico() {
+    private final IControlNavegacion navegacion;
+    private final IControlMensajes mensajes;
+    private final IControlCreacionUI creacion;
+    private final IControlEmpleados controlEmpleados;
+    private final EmpleadoDTO empleadoContexto;
+    private List<EmpleadoDTO> listaMecanicos;
+
+    private DefaultTableModel modeloTablaMecanicos;
+
+    public PantallaElegirMecanico(IControlNavegacion navegacion,
+            IControlMensajes mensajes,
+            IControlCreacionUI creacion,
+            IControlEmpleados controlEmpleados,
+            EmpleadoDTO empleadoContexto) {
+
+        this.navegacion = navegacion;
+        this.mensajes = mensajes;
+        this.creacion = creacion;
+        this.controlEmpleados = controlEmpleados;
+        this.empleadoContexto = empleadoContexto;
+
         initComponents();
+        configurarModeloTabla();
+        estilizarTabla();
+        configurarVentana();
+        cargarMecanicos();
+        agregarListenerTabla();
+    }
+
+    private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+    }
+
+    private void estilizarTabla() {
+        creacion.aplicarEstiloTabla(scrollPaneMecanicos, tablaMecanicos);
+    }
+
+    private void configurarModeloTabla() {
+
+        String[] columnas = {"Nombre", "Estado", "Especialidad"};
+
+        modeloTablaMecanicos = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tablaMecanicos.setModel(modeloTablaMecanicos);
+    }
+
+    private void cargarMecanicos() {
+        modeloTablaMecanicos.setRowCount(0); // limpiar tabla
+
+        try {
+            listaMecanicos = controlEmpleados.buscarTodosLosMecanicosActivos();
+
+            for (EmpleadoDTO m : listaMecanicos) {
+                // Mostramos Nombre, Estado y Especialidad (Rol)
+                modeloTablaMecanicos.addRow(new Object[]{
+                    m.getNombre() + " " + m.getApellidoP() + " " + m.getApellidoM(), // Nombre completo
+                    m.getActivo() ? "Activo" : "Inactivo", // Estado
+                    m.getRol() // Especialidad
+                });
+            }
+
+        } catch (Exception e) {
+            mensajes.mostrarError(this, "Error al cargar los mecánicos: " + e.getMessage());
+        }
+    }
+
+    private void agregarListenerTabla() {
+        tablaMecanicos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int fila = tablaMecanicos.getSelectedRow();
+                    if (fila != -1) {
+                        // Obtenemos el EmpleadoDTO directamente desde la lista
+                        EmpleadoDTO mecanicoSeleccionado = listaMecanicos.get(fila);
+                        manejarSeleccionMecanico(mecanicoSeleccionado);
+                    }
+                }
+            }
+        });
+    }
+
+    private void manejarSeleccionMecanico(EmpleadoDTO mecanico) {
+        Boolean confirmar = mensajes.mostrarConfirmacion(
+                this,
+                "¿Deseas elegir este mecánico:\n" + mecanico.getNombre() + "?",
+                "Confirmar Asignación"
+        );
+
+        if (confirmar) {
+            navegacion.mostrarPantallaElegirTarea(mecanico);
+            this.dispose(); // cerrar pantalla (opcional)
+        }
     }
 
     /**
@@ -30,15 +133,38 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
 
         creacionTablas1 = new presentacion.utilerias.CreacionTablas();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPaneMecanicos = new javax.swing.JScrollPane();
+        tablaMecanicos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(32760, 32760));
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 190, 470, 170));
+        scrollPaneMecanicos.setMaximumSize(new java.awt.Dimension(32760, 32760));
+
+        tablaMecanicos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPaneMecanicos.setViewportView(tablaMecanicos);
+
+        jPanel1.add(scrollPaneMecanicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 150, 470, 210));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaElegirMecanico.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
@@ -51,7 +177,7 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -61,6 +187,7 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
     private presentacion.utilerias.CreacionTablas creacionTablas1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane scrollPaneMecanicos;
+    private javax.swing.JTable tablaMecanicos;
     // End of variables declaration//GEN-END:variables
 }
