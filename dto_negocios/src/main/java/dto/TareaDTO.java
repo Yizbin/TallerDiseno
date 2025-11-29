@@ -16,17 +16,19 @@ public class TareaDTO {
     private String estado;
     private String idOrden;
     private String vehiculoModelo;
+    private String vehiculoPlacas;
 
     public TareaDTO() {
     }
 
-    public TareaDTO(String idTarea, String descripcion, String costo, String estado, String idOrden, String vehiculoModelo) {
+    public TareaDTO(String idTarea, String descripcion, String costo, String estado, String idOrden, String vehiculoModelo, String vehiculoPlacas) {
         this.idTarea = idTarea;
         this.descripcion = descripcion;
         this.costo = costo;
         this.estado = estado;
         this.idOrden = idOrden;
         this.vehiculoModelo = vehiculoModelo;
+        this.vehiculoPlacas = vehiculoPlacas;
     }
 
     public String getIdTarea() {
@@ -75,6 +77,14 @@ public class TareaDTO {
 
     public void setVehiculoModelo(String vehiculoModelo) {
         this.vehiculoModelo = vehiculoModelo;
+    }
+
+    public String getVehiculoPlacas() {
+        return vehiculoPlacas;
+    }
+
+    public void setVehiculoPlacas(String vehiculoPlacas) {
+        this.vehiculoPlacas = vehiculoPlacas;
     }
 
 }

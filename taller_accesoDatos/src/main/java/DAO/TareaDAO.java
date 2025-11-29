@@ -238,16 +238,9 @@ public class TareaDAO implements ITareaDAO {
         EntityManager em = Conexion.crearConexion();
         try {
             TypedQuery<Tarea> query = em.createQuery(
-                    "SELECT DISTINCT t FROM Tarea t "
-                    + "LEFT JOIN FETCH t.presupuesto p "
-                    + "LEFT JOIN FETCH p.orden o "
-                    + "LEFT JOIN FETCH o.vehiculo v "
-                    + "WHERE t.empleado IS NULL "
-                    + "AND LOWER(TRIM(t.estado)) = 'por realizar'",
-                    Tarea.class
-            );
-            List<Tarea> listaTareas = query.getResultList(); // [Corregido] Solo una llamada aquí
-
+                    "SELECT t FROM Tarea t ",
+                    Tarea.class);
+            List<Tarea> listaTareas = query.getResultList();
             System.out.println("DAO → Tareas sin asignar encontradas: " + listaTareas.size());
 
             return listaTareas; // [Corregido] Retorna la lista

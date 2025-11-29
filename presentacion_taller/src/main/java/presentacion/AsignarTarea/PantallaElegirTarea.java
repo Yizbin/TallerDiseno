@@ -45,7 +45,7 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
     }
 
     private void configurarModeloTabla() {
-        String[] columnas = {"ID", "Descripción", "Vehículo"};
+        String[] columnas = {"ID", "Descripción", "Estado", "Placas"};
         modeloTablaTareas = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -74,7 +74,8 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
             modeloTablaTareas.addRow(new Object[]{
                 t.getIdTarea(),
                 t.getDescripcion(),
-                t.getVehiculoModelo()
+                t.getEstado(),
+                t.getVehiculoPlacas()
             });
         }
     }

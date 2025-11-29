@@ -22,34 +22,41 @@ public class TareaMapper implements ITareaMapper {
             return null;
         }
 
-        // 1. Obtener ID de Orden y Modelo de Vehículo (Manejo de Nulos)
-        // Obtenemos el ID de la Orden. Si alguna parte de la cadena es nula, usamos "N/A".
+        // === ID DE ORDEN ===
         String idOrden = (entidad.getPresupuesto() != null
-                && entidad.getPresupuesto().getOrden() != null)
+                && entidad.getPresupuesto().getOrden() != null
+                && entidad.getPresupuesto().getOrden().getId_orden() != null)
                 ? String.valueOf(entidad.getPresupuesto().getOrden().getId_orden())
                 : "N/A";
 
-        // Obtenemos el Modelo del Vehículo. Si alguna parte de la cadena es nula, usamos "N/A".
+        // === MODELO DEL VEHÍCULO ===
         String vehiculoModelo = (entidad.getPresupuesto() != null
                 && entidad.getPresupuesto().getOrden() != null
                 && entidad.getPresupuesto().getOrden().getVehiculo() != null)
                 ? entidad.getPresupuesto().getOrden().getVehiculo().getModelo()
                 : "N/A";
 
-        // 2. Mapeo de campos directos
-        String idTareaStr = entidad.getId() != null ? String.valueOf(entidad.getId()) : null;
+        // === PLACAS DEL VEHÍCULO ===
+        String vehiculoPlacas = (entidad.getPresupuesto() != null
+                && entidad.getPresupuesto().getOrden() != null
+                && entidad.getPresupuesto().getOrden().getVehiculo() != null)
+                ? entidad.getPresupuesto().getOrden().getVehiculo().getPlacas()
+                : "N/A";
 
-        // Asegurarse que el costo no sea nulo antes de la conversión a String
-        String costoStr = entidad.getCosto() != null ? entidad.getCosto() : "0";
+        // === CAMPOS DIRECTOS ===
+        String idTareaStr = entidad.getId() != null ? entidad.getId().toString() : "0";
+        String costoStr = entidad.getCosto() != null ? entidad.getCosto().toString() : "0";
+        String estadoStr = entidad.getEstado() != null ? entidad.getEstado() : "N/A";
 
-        // 3. Construcción del DTO
+        // === CREACIÓN DEL DTO EN ORDEN CORRECTO ===
         return new TareaDTO(
                 idTareaStr,
                 entidad.getDescripcion(),
                 costoStr,
-                entidad.getEstado(),
+                estadoStr,
                 idOrden,
-                vehiculoModelo
+                vehiculoModelo,
+                vehiculoPlacas
         );
     }
 
@@ -58,13 +65,12 @@ public class TareaMapper implements ITareaMapper {
         List<TareaDTO> dtos = new ArrayList<>();
         if (entidades != null) {
             for (Tarea t : entidades) {
-                // Si aquí ocurre una excepción, la lista se detiene. 
-                // Asegúrate de revisar la consola para LazyInitializationException.
                 dtos.add(toDTO(t));
             }
         }
         return dtos;
     }
+}
 //    @Override
 //    public TareaDTO toDTO(Tarea entidad) {
 //        if (entidad == null) {
@@ -118,4 +124,4 @@ public class TareaMapper implements ITareaMapper {
 //        }
 //        return dtos;
 //    }
-}
+
