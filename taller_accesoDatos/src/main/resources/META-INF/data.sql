@@ -32,23 +32,16 @@ INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_
 
 INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-10', 1200.00, 0, 3);
 
-INSERT INTO Cliente (nombre, apellidoP, apellidoM, telefono, correo, calle, colonia, numExt, activo)
-VALUES ('Luis', 'García', 'Hernández', '6441888888', 'luis@test.com', 'Av Reforma', 'Centro', '55', 1);
+INSERT INTO Cliente (nombre, apellidoP, apellidoM, telefono, correo, calle, colonia, numExt, activo) VALUES ('Luis', 'García', 'Hernández', '6441888888', 'luis@test.com', 'Av Reforma', 'Centro', '55', 1);
 
-INSERT INTO Vehiculo (tipo, marca, modelo, anio, placas, km, color, id_cliente)
-VALUES ('SUV', 'Toyota', 'RAV4', '2020', 'XYZ-123', '45000', 'Rojo', 2);
+INSERT INTO Vehiculo (tipo, marca, modelo, anio, placas, km, color, id_cliente) VALUES ('SUV', 'Toyota', 'RAV4', '2020', 'XYZ-123', '45000', 'Rojo', 2);
 
-INSERT INTO Orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo)
-VALUES ('2023-12-20', 'Vibración al acelerar', 'Diagnóstico de transmisión', 0, 2, 2);
+INSERT INTO Orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-20', 'Vibración al acelerar', 'Diagnóstico de transmisión', 0, 2, 2);
 
-INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden)
-VALUES ('2023-12-21', 1800.00, 0, 4);
+INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-21', 1800.00, 0, 4);
 
-INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado)
-VALUES ('Diagnóstico transmisión', '600.00', 'Por realizar', 4, NULL);
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Diagnóstico transmisión', '600.00', 'Por realizar', 4, NULL);
 
-INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado)
-VALUES ('Revisión de vibración', '300.00', 'Por realizar', 4, NULL);
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Revisión de vibración', '300.00', 'Por realizar', 4, NULL);
 
-INSERT INTO Refaccion (nombre, descripcion, precioUnitario, stock, estado)
-VALUES ('Bujía Iridium', 'Bujía premium', 250.00, 40, 'Disponible');
+INSERT INTO Refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía premium', 250.00, 40, 'Disponible');

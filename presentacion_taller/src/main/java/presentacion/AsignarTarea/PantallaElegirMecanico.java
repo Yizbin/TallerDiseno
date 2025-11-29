@@ -182,7 +182,8 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-
+        navegacion.mostrarMenuPrincipalAdmin();
+        this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

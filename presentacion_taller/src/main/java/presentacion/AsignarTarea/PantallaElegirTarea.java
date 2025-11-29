@@ -98,8 +98,15 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
     }
 
     private void confirmarSeleccionTarea(String idTarea, String descripcion) {
+
+        // Obtener la fila seleccionada en la tabla
+        int fila = tablaTareas.getSelectedRow();
+        String placas = (String) modeloTablaTareas.getValueAt(fila, 3);
+
         Boolean confirmar = mensajes.mostrarConfirmacion(this,
-                "¿Deseas asignar la tarea:\n" + descripcion + "\n al mecánico seleccionado?",
+                "¿Deseas asignar la tarea:\n" + descripcion
+                + "\nPlacas del vehículo: " + placas
+                + "\nAl mecánico seleccionado?",
                 "Confirmar Asignación");
 
         if (confirmar) {
@@ -183,7 +190,8 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-
+        navegacion.mostrarPantallaElegirMecanico();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

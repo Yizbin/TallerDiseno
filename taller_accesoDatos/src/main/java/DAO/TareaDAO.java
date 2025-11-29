@@ -238,12 +238,16 @@ public class TareaDAO implements ITareaDAO {
         EntityManager em = Conexion.crearConexion();
         try {
             TypedQuery<Tarea> query = em.createQuery(
-                    "SELECT t FROM Tarea t ",
-                    Tarea.class);
+                    "SELECT t FROM Tarea t "
+                    + "WHERE t.estado = 'Por realizar' "
+                    + "AND t.empleado IS NULL",
+                    Tarea.class
+            );
+
             List<Tarea> listaTareas = query.getResultList();
             System.out.println("DAO → Tareas sin asignar encontradas: " + listaTareas.size());
 
-            return listaTareas; // [Corregido] Retorna la lista
+            return listaTareas;
         } catch (Exception e) {
             throw new PersistenciaException("Error: " + e.getMessage(), e);
         } finally {
