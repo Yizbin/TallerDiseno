@@ -104,6 +104,9 @@ public class TareaBO implements ITareaBO {
     public List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException {
         try {
             List<Tarea> tareas = tareaDAO.buscarTareasSinAsignar();
+            // AÑADE ESTA LÍNEA DE DEBUGGING
+            System.out.println("BO → Tareas encontradas por DAO: " + tareas.size());
+
             return mapper.toListDTO(tareas);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al obtener tareas sin asignar: " + e.getMessage(), e);
