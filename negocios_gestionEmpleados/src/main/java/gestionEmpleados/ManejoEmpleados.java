@@ -32,11 +32,11 @@ public class ManejoEmpleados implements IManejoEmpleados {
     @Override
     public Boolean autenticarUsuario(String usuario, String contrasena) throws NegocioException {
         if (usuario == null || usuario.trim().isEmpty()) {
-            throw new NegocioException("El usuario no puede estar vacio");
+            throw new NegocioException("El usuario no puede estar vacío");
         }
 
         if (contrasena == null || contrasena.trim().isEmpty()) {
-            throw new NegocioException("La contrasena no puede estar vacio");
+            throw new NegocioException("La contraseña no puede estar vacía");
         }
 
         return empleadoBO.autenticarEmpleado(usuario, contrasena);
@@ -48,16 +48,51 @@ public class ManejoEmpleados implements IManejoEmpleados {
     }
 
     @Override
-    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException {
-        return empleadoBO.buscarTodosLosMecanicosActivos();
+    public List<EmpleadoDTO> obtenerMecanicosParaTabla() throws NegocioException {
+        return empleadoBO.obtenerMecanicosParaTabla();
     }
 
     @Override
-    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException {
-        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-             throw new NegocioException("El ID del mecánico no puede estar vacío.");
+    public Boolean autenticarEmpleado(String usuario, String contrasena) throws NegocioException {
+        if (usuario == null || usuario.trim().isEmpty()) {
+            throw new NegocioException("El usuario no puede estar vacío");
         }
-        return empleadoBO.seleccionarMecanico(idEmpleado);
+
+        if (contrasena == null || contrasena.trim().isEmpty()) {
+            throw new NegocioException("La contraseña no puede estar vacía");
+        }
+
+        return empleadoBO.autenticarEmpleado(usuario, contrasena);
     }
 
+    @Override
+    public EmpleadoDTO obtenerEmpleadoPorUsuario(String usuario) throws NegocioException {
+        if (usuario == null || usuario.trim().isEmpty()) {
+            throw new NegocioException("El usuario no puede estar vacío");
+        }
+
+        return empleadoBO.obtenerEmpleadoPorUsuario(usuario);
+    }
+
+    @Override
+    public EmpleadoDTO actualizarEstadoEmpleado(String idEmpleado, Boolean activo) throws NegocioException {
+        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
+            throw new NegocioException("El ID del empleado no puede estar vacío");
+        }
+
+        if (activo == null) {
+            throw new NegocioException("El estado activo/inactivo no puede ser nulo");
+        }
+
+        return empleadoBO.actualizarEstadoEmpleado(idEmpleado, activo);
+    }
+
+    @Override
+    public EmpleadoDTO buscarPorId(String idEmpleado) throws NegocioException {
+        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
+            throw new NegocioException("El ID del empleado no puede estar vacío");
+        }
+
+        return empleadoBO.buscarPorId(idEmpleado);
+    }
 }

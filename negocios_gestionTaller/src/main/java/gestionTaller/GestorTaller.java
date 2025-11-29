@@ -69,16 +69,6 @@ public class GestorTaller implements IGestorTaller {
     }
 
     @Override
-    public EmpleadoDTO obtenerDatosUsuario(String usuario) {
-        try {
-            return this.manejoEmpleados.obtenerDatosUsuario(usuario);
-        } catch (NegocioException ex) {
-            System.err.println("Error obteniendo el usuario: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    @Override
     public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException {
         return manejoPresupuestos.obtenerPresupuestosNoPagados();
     }
@@ -104,42 +94,68 @@ public class GestorTaller implements IGestorTaller {
     }
 
     @Override
-    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException {
-        return this.manejoEmpleados.buscarTodosLosMecanicosActivos();
+    public List<EmpleadoDTO> obtenerMecanicosParaTabla() throws NegocioException {
+        return manejoEmpleados.obtenerMecanicosParaTabla();
     }
 
     @Override
-    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException {
+    public List<TareaDTO> obtenerTareasParaTabla() throws NegocioException {
+        return manejoTareas.obtenerTareasParaTabla();
+    }
+
+    @Override
+    public Boolean autenticarEmpleado(String usuario, String contrasena) {
         try {
-            return this.manejoEmpleados.seleccionarMecanico(idEmpleado);
-        } catch (NegocioException ex) {
-            throw new NegocioException("Error al seleccionar el mecánico: " + ex.getMessage(), ex);
+            return manejoEmpleados.autenticarEmpleado(usuario, contrasena);
+        } catch (Exception ex) {
+            System.err.println("Error al autenticar empleado: " + ex.getMessage());
+            return false;
         }
     }
 
     @Override
-    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException {
-        return manejoTareas.buscarTareasDisponibles();
-    }
-
-    @Override
-    public Boolean asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException {
-        if (idTarea == null || idTarea.trim().isEmpty()) {
-            throw new NegocioException("El ID de la tarea no puede estar vacío.");
-        }
-
-        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-            throw new NegocioException("El ID del mecánico no puede estar vacío.");
-        }
-
+    public EmpleadoDTO obtenerEmpleadoPorUsuario(String usuario) {
         try {
-            // Llamada directa con String
-            manejoTareas.asignarTareaAMecanico(idTarea, idEmpleado);
-            return true;
-
-        } catch (Exception e) {
-            throw new NegocioException("No se pudo asignar la tarea: " + e.getMessage(), e);
+            return manejoEmpleados.obtenerEmpleadoPorUsuario(usuario);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener empleado por usuario: " + ex.getMessage());
+            return null;
         }
+    }
+
+    @Override
+    public EmpleadoDTO actualizarEstadoEmpleado(String idEmpleado, Boolean activo) {
+        try {
+            return manejoEmpleados.actualizarEstadoEmpleado(idEmpleado, activo);
+        } catch (Exception ex) {
+            System.err.println("Error al actualizar estado del empleado con ID " + idEmpleado + ": " + ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public EmpleadoDTO buscarPorId(String idEmpleado) {
+        try {
+            return manejoEmpleados.buscarPorId(idEmpleado);
+        } catch (Exception ex) {
+            System.err.println("Error al buscar empleado con ID " + idEmpleado + ": " + ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public EmpleadoDTO obtenerDatosUsuario(String usuario) {
+        return obtenerEmpleadoPorUsuario(usuario);
+    }
+
+    @Override
+    public boolean asignarTareaAMecanico(String idTarea, String idMecanico) throws NegocioException {
+        return manejoTareas.asignarTareaAMecanico(idTarea, idMecanico);
+    }
+
+    @Override
+    public List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException {
+        return manejoTareas.obtenerTareasSinAsignar();
     }
 
 }

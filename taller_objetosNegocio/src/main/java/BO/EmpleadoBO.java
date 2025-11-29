@@ -9,6 +9,7 @@ import DAO.EmpleadoDAO;
 import DAO.interfaces.IEmpleadoDAO;
 import Excepciones.EntidadNoEncontradaException;
 import Excepciones.PersistenciaException;
+import Mappers.EmpleadoMapper;
 import Mappers.interfaces.IEmpleadoMapper;
 import dto.EmpleadoDTO;
 import entidades.Empleado;
@@ -23,10 +24,12 @@ import java.util.stream.Collectors;
 public class EmpleadoBO implements IEmpleadoBO {
 
     private static IEmpleadoBO instancia;
+
     private final IEmpleadoDAO empleadoDAO = EmpleadoDAO.getInstancia();
-    private IEmpleadoMapper mapper;
+    private final IEmpleadoMapper mapper;
 
     private EmpleadoBO() {
+        this.mapper = new EmpleadoMapper();
     }
 
     public static IEmpleadoBO getInstancia() {
@@ -70,51 +73,56 @@ public class EmpleadoBO implements IEmpleadoBO {
     }
 
     @Override
-    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos() throws NegocioException {
+    public List<EmpleadoDTO> obtenerMecanicosParaTabla() throws NegocioException {
         try {
-            List<Empleado> mecanicos = empleadoDAO.buscarMecanicosActivos();
-            return mecanicos.stream().map(e -> new EmpleadoDTO(
-                    e.getId().toString(),
-                    e.getNombre(),
-                    e.getApellidoP(),
-                    e.getApellidoM(),
-                    e.getRol(),
-                    e.getUsuario(),
-                    null,
-                    e.getActivo()
-            )).collect(Collectors.toList());
-        } catch (EntidadNoEncontradaException e) {
-            throw new NegocioException("No se encontró ningún mecánico activo en el sistema.", e);
+            List<Empleado> mecanicos = empleadoDAO.obtenerMecanicos();
+            return mapper.toListDTO(mecanicos);
         } catch (PersistenciaException e) {
-            throw new NegocioException("Error al consultar mecánicos: " + e.getMessage(), e);
+            throw new NegocioException("Error al obtener mecánicos: " + e.getMessage());
         }
     }
 
     @Override
-    public EmpleadoDTO seleccionarMecanico(String idEmpleado) throws NegocioException {
-        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-            throw new NegocioException("El ID del mecánico no puede estar vacío.");
-        }
+    public EmpleadoDTO buscarPorId(String idEmpleado) throws NegocioException {
         try {
-            Long id = Long.valueOf(idEmpleado); 
-            
-            Empleado e = empleadoDAO.buscarPorId(id);
-
-            return new EmpleadoDTO(
-                    e.getId().toString(),
-                    e.getNombre(),
-                    e.getApellidoP(),
-                    e.getApellidoM(),
-                    e.getRol(),
-                    e.getUsuario(),
-                    null,
-                    e.getActivo()
-            );
+            Long id = Long.valueOf(idEmpleado);
+            Empleado empleado = empleadoDAO.buscarPorId(id);
+            return mapper.toDTO(empleado);
         } catch (NumberFormatException e) {
-            throw new NegocioException("El ID proporcionado no es un formato numérico válido.", e);
-        } catch (EntidadNoEncontradaException | PersistenciaException ex) {
-            throw new NegocioException("Error al buscar el mecánico con ID " + idEmpleado + ": " + ex.getMessage(), ex);
+            throw new NegocioException("El ID proporcionado no es válido: " + idEmpleado, e);
+        } catch (EntidadNoEncontradaException e) {
+            throw new NegocioException("No se encontró el empleado con ID: " + idEmpleado, e);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar empleado por ID: " + e.getMessage(), e);
         }
     }
-}
 
+    @Override
+    public EmpleadoDTO actualizarEstadoEmpleado(String idEmpleado, Boolean activo) throws NegocioException {
+        try {
+            if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
+                throw new NegocioException("El ID del empleado no puede estar vacío");
+            }
+
+            if (activo == null) {
+                throw new NegocioException("El estado activo/inactivo no puede ser nulo");
+            }
+
+            Long id = Long.valueOf(idEmpleado);
+
+            empleadoDAO.actualizarEstadoEmpleado(id, activo);
+
+            Empleado actualizado = empleadoDAO.buscarPorId(id);
+
+            return mapper.toDTO(actualizado);
+
+        } catch (NumberFormatException e) {
+            throw new NegocioException("El ID proporcionado no es válido: " + idEmpleado, e);
+        } catch (EntidadNoEncontradaException e) {
+            throw new NegocioException("No se encontró el empleado con ID: " + idEmpleado, e);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar estado del empleado: " + e.getMessage(), e);
+        }
+    }
+
+}

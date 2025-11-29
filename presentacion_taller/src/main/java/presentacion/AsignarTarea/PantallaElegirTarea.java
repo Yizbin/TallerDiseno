@@ -5,11 +5,9 @@
 package presentacion.AsignarTarea;
 
 import dto.TareaDTO;
-import dto.EmpleadoDTO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
@@ -22,45 +20,32 @@ import presentacion.controles.IControlTareas;
  */
 public class PantallaElegirTarea extends javax.swing.JFrame {
 
-    private final IControlNavegacion navegacion;
+    private final IControlTareas controlTareas;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
-    private final IControlTareas controlTareas;
-    private final EmpleadoDTO empleadoContexto;
+    private final IControlNavegacion navegacion;
+    private final String idMecanico;
 
-    private List<TareaDTO> listaTareas;
     private DefaultTableModel modeloTablaTareas;
 
-    public PantallaElegirTarea(IControlNavegacion navegacion,
-            IControlMensajes mensajes,
-            IControlCreacionUI creacion,
-            IControlTareas controlTareas,
-            EmpleadoDTO empleadoContexto) {
-
-        this.navegacion = navegacion;
+    public PantallaElegirTarea(String idMecanico, IControlTareas controlTareas,
+            IControlMensajes mensajes, IControlCreacionUI creacion,
+            IControlNavegacion navegacion) {
+        this.idMecanico = idMecanico;
+        this.controlTareas = controlTareas;
         this.mensajes = mensajes;
         this.creacion = creacion;
-        this.controlTareas = controlTareas;
-        this.empleadoContexto = empleadoContexto;
+        this.navegacion = navegacion;
 
         initComponents();
         configurarModeloTabla();
         estilizarTabla();
-        configurarVentana();
-        cargarTareas();
+        cargarTareasSinAsignar();
         agregarListenerTabla();
     }
 
-    private void configurarVentana() {
-        this.setLocationRelativeTo(null);
-    }
-
-    private void estilizarTabla() {
-        creacion.aplicarEstiloTabla(scrollPaneTareas, tablaTareas);
-    }
-
     private void configurarModeloTabla() {
-        String[] columnas = {"Descripción", "Estado", "Costo", "Vehículo"};
+        String[] columnas = {"ID", "Descripción", "Vehículo"};
         modeloTablaTareas = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -68,47 +53,29 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
             }
         };
         tablaTareas.setModel(modeloTablaTareas);
+
+        // Ocultar columna ID
+        tablaTareas.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaTareas.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaTareas.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tablaTareas.getColumnModel().getColumn(0).setResizable(false);
     }
 
-    private void cargarTareas() {
-        modeloTablaTareas.setRowCount(0); // Limpiar tabla
+    private void estilizarTabla() {
+        creacion.aplicarEstiloTabla(scrollPaneTareas, tablaTareas);
+    }
 
-        try {
-            listaTareas = controlTareas.buscarTareasDisponibles();
+    private void cargarTareasSinAsignar() {
+        modeloTablaTareas.setRowCount(0);
 
-            if (listaTareas == null || listaTareas.isEmpty()) {
-                System.out.println("No se encontraron tareas disponibles.");
-                return;
-            }
+        List<TareaDTO> tareas = controlTareas.obtenerTareasSinAsignar();
 
-            System.out.println("Tareas obtenidas: " + listaTareas.size()); // Para depuración
-
-            for (TareaDTO t : listaTareas) {
-                String estadoTxt = (t.getEstado() != null && t.getEstado().equalsIgnoreCase("completada"))
-                        ? "Completada"
-                        : (t.getEstado() != null ? t.getEstado() : "Pendiente");
-
-                String costoTxt = (t.getCosto() == null || t.getCosto().trim().isEmpty())
-                        ? "-"
-                        : t.getCosto();
-
-                String vehiculoTxt = (t.getVehiculoModelo() == null || t.getVehiculoModelo().trim().isEmpty())
-                        ? "-"
-                        : t.getVehiculoModelo();
-
-                modeloTablaTareas.addRow(new Object[]{
-                    t.getDescripcion(),
-                    estadoTxt,
-                    costoTxt,
-                    vehiculoTxt
-                });
-
-                System.out.println("Fila agregada: " + t.getDescripcion()); // Para depuración
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace(); // Para ver la excepción completa en consola
-            mensajes.mostrarError(this, "Error al cargar las tareas: " + e.getMessage());
+        for (TareaDTO t : tareas) {
+            modeloTablaTareas.addRow(new Object[]{
+                t.getIdTarea(),
+                t.getDescripcion(),
+                t.getVehiculoModelo()
+            });
         }
     }
 
@@ -119,45 +86,27 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
                 if (e.getClickCount() == 2) {
                     int fila = tablaTareas.getSelectedRow();
                     if (fila != -1) {
-                        TareaDTO tareaSeleccionada = listaTareas.get(fila);
-                        mostrarConfirmacionTarea(tareaSeleccionada);
+                        String idTarea = (String) modeloTablaTareas.getValueAt(fila, 0);
+                        String descripcion = (String) modeloTablaTareas.getValueAt(fila, 1);
+
+                        confirmarSeleccionTarea(idTarea, descripcion);
                     }
                 }
             }
         });
     }
 
-    private void mostrarConfirmacionTarea(TareaDTO tarea) {
-        String mensaje = "El mecánico "
-                + empleadoContexto.getNombre() + " "
-                + empleadoContexto.getApellidoP() + " "
-                + empleadoContexto.getApellidoM()
-                + " hará la tarea:\n" + tarea.getDescripcion()
-                + "\n¿Desea confirmar?";
+    private void confirmarSeleccionTarea(String idTarea, String descripcion) {
+        Boolean confirmar = mensajes.mostrarConfirmacion(this,
+                "¿Deseas asignar la tarea:\n" + descripcion + "\n al mecánico seleccionado?",
+                "Confirmar Asignación");
 
-        Boolean confirmar = mensajes.mostrarConfirmacion(this, mensaje, "Confirmar Asignación");
-
-        if (!confirmar) {
-            return;
-        }
-
-        try {
-            // Asignar tarea
-            boolean exito = controlTareas.asignarTareaAMecanico(
-                    tarea.getIdTarea(),
-                    empleadoContexto.getId_empleado()
-            );
-
+        if (confirmar) {
+            boolean exito = controlTareas.asignarTareaAMecanico(idTarea, idMecanico);
             if (exito) {
                 mensajes.mostrarExito("Tarea asignada correctamente.");
-                cargarTareas(); // ← actualiza la tabla
-            } else {
-                mensajes.mostrarError(this, "No se pudo asignar la tarea.");
+                cargarTareasSinAsignar();
             }
-
-        } catch (Exception ex) {
-            ex.printStackTrace(); // útil para depurar
-            mensajes.mostrarError(this, "Error inesperado: " + ex.getMessage());
         }
     }
 
@@ -173,6 +122,7 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         scrollPaneTareas = new javax.swing.JScrollPane();
         tablaTareas = new javax.swing.JTable();
+        btnRegresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,10 +139,30 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollPaneTareas.setViewportView(tablaTareas);
 
         jPanel1.add(scrollPaneTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 150, 470, 210));
+
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.setDefaultCapable(false);
+        btnRegresar.setFocusPainted(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaElegirTareas.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -211,7 +181,12 @@ public class PantallaElegirTarea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scrollPaneTareas;

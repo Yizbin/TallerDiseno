@@ -48,31 +48,30 @@ public class ManejoTareas implements IManejoTareas {
     }
 
     @Override
-    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException {
+    public List<TareaDTO> obtenerTareasParaTabla() throws NegocioException {
+        return tareaBO.obtenerTareasParaTabla();
+    }
+
+    @Override
+    public boolean asignarTareaAMecanico(String idTarea, String idMecanico) throws NegocioException {
         try {
-            return tareaBO.buscarTareasDisponibles();
-        } catch (Exception e) {
-            throw new NegocioException("Error al obtener tareas disponibles: " + e.getMessage(), e);
+            if (idTarea == null || idMecanico == null) {
+                throw new NegocioException("El ID de la tarea y del mecánico no pueden ser nulos.");
+            }
+
+            Long tareaId = Long.valueOf(idTarea);
+            Long mecanicoId = Long.valueOf(idMecanico);
+
+            return tareaBO.asignarTareaAMecanico(tareaId, mecanicoId);
+
+        } catch (NumberFormatException e) {
+            throw new NegocioException("IDs inválidos: tarea=" + idTarea + ", mecánico=" + idMecanico, e);
         }
     }
 
     @Override
-    public void asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException {
-        if (idTarea == null || idTarea.trim().isEmpty()) {
-            throw new NegocioException("El ID de la tarea no puede estar vacío.");
-        }
-
-        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-            throw new NegocioException("El ID del mecánico no puede estar vacío.");
-        }
-
-        try {
-      
-            tareaBO.asignarTareaAMecanico(idTarea, idEmpleado);
-
-        } catch (Exception e) {
-            throw new NegocioException("No se pudo asignar la tarea: " + e.getMessage(), e);
-        }
+    public List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException {
+        return tareaBO.obtenerTareasSinAsignar();
     }
 
 }

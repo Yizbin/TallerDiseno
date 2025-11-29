@@ -26,12 +26,15 @@ public interface IEmpleadoDAO {
     public List<Empleado> buscarTodosLosEmpleados() throws PersistenciaException;
 
     public List<Empleado> buscarTodosLosEmpleadosActivos() throws PersistenciaException;
-    
+
     public Empleado autenticarEmpleado(String usuario, String contrasena) throws EntidadNoEncontradaException, PersistenciaException;
-    
+
     Empleado buscarPorUsuario(String usuario) throws EntidadNoEncontradaException, PersistenciaException;
-    
-    public List<Empleado> buscarMecanicosActivos() throws PersistenciaException, EntidadNoEncontradaException;
-    
-    public Empleado buscarPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+
+    List<Empleado> obtenerMecanicos() throws PersistenciaException;
+
+    void actualizarEstadoEmpleado(Long idEmpleado, Boolean activo) throws EntidadNoEncontradaException, PersistenciaException;
+
+    Empleado buscarPorId(Long idEmpleado) throws EntidadNoEncontradaException, PersistenciaException;
+
 }

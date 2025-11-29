@@ -49,54 +49,31 @@ public class ControlTareas implements IControlTareas {
     }
 
     @Override
-    public List<TareaDTO> buscarTareasDisponibles() {
+    public List<TareaDTO> obtenerTareasParaTabla() {
         try {
-            List<TareaDTO> tareasDisponibles = taller.buscarTareasDisponibles();
-
-            if (tareasDisponibles.isEmpty()) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "No hay tareas disponibles sin mecánico asignado.",
-                        "Información",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-            }
-
-            return tareasDisponibles;
-
-        } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Error al buscar tareas disponibles: " + ex.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+            return taller.obtenerTareasParaTabla();
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return new ArrayList<>();
         }
     }
 
     @Override
-    public Boolean asignarTareaAMecanico(String idTarea, String idEmpleado) {
+    public List<TareaDTO> obtenerTareasSinAsignar() {
         try {
-            // Validación opcional
-            if (idTarea == null || idTarea.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El ID de la tarea no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+            return taller.obtenerTareasSinAsignar();
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al obtener tareas sin asignar: ", JOptionPane.ERROR_MESSAGE);
+            return new ArrayList<>();
+        }
+    }
 
-            if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El ID del mecánico no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-
-            // Llamada directa con String
-            taller.asignarTareaAMecanico(idTarea, idEmpleado);
-
-            JOptionPane.showMessageDialog(null, "¡Tarea asignada correctamente al mecánico!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-
-        } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo asignar la tarea: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    @Override
+    public boolean asignarTareaAMecanico(String idTarea, String idMecanico) {
+        try {
+            return taller.asignarTareaAMecanico(idTarea, idMecanico);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al asignar tarea: ", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

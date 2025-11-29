@@ -8,13 +8,11 @@ import dto.EmpleadoDTO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlEmpleados;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
-import presentacion.controles.IControlTareas;
 
 /**
  *
@@ -22,74 +20,60 @@ import presentacion.controles.IControlTareas;
  */
 public class PantallaElegirMecanico extends javax.swing.JFrame {
 
-    private final IControlNavegacion navegacion;
+    private final IControlEmpleados controlEmpleados;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
-    private final IControlEmpleados controlEmpleados;
-    private final EmpleadoDTO empleadoContexto;
-    private List<EmpleadoDTO> listaMecanicos;
+    private final IControlNavegacion navegacion;
 
     private DefaultTableModel modeloTablaMecanicos;
 
-    public PantallaElegirMecanico(IControlNavegacion navegacion,
-            IControlMensajes mensajes,
-            IControlCreacionUI creacion,
-            IControlEmpleados controlEmpleados,
-            EmpleadoDTO empleadoContexto) {
-
-        this.navegacion = navegacion;
+    public PantallaElegirMecanico(IControlEmpleados controlEmpleados, IControlMensajes mensajes,
+            IControlCreacionUI creacion, IControlNavegacion navegacion) {
+        this.controlEmpleados = controlEmpleados;
         this.mensajes = mensajes;
         this.creacion = creacion;
-        this.controlEmpleados = controlEmpleados;
-        this.empleadoContexto = empleadoContexto;
+        this.navegacion = navegacion;
 
         initComponents();
         configurarModeloTabla();
         estilizarTabla();
-        configurarVentana();
         cargarMecanicos();
         agregarListenerTabla();
     }
 
-    private void configurarVentana() {
-        this.setLocationRelativeTo(null);
-    }
-
-    private void estilizarTabla() {
-        creacion.aplicarEstiloTabla(scrollPaneMecanicos, tablaMecanicos);
-    }
-
     private void configurarModeloTabla() {
-
-        String[] columnas = {"Nombre", "Estado", "Especialidad"};
-
+        String[] columnas = {"ID", "Nombre", "Estado", "Rol"};
         modeloTablaMecanicos = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
         tablaMecanicos.setModel(modeloTablaMecanicos);
+
+        // Ocultar columna ID completamente
+        tablaMecanicos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaMecanicos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaMecanicos.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tablaMecanicos.getColumnModel().getColumn(0).setResizable(false);
+    }
+
+    private void estilizarTabla() {
+        creacion.aplicarEstiloTabla(scrollPaneMecanicos, tablaMecanicos);
     }
 
     private void cargarMecanicos() {
-        modeloTablaMecanicos.setRowCount(0); // limpiar tabla
+        modeloTablaMecanicos.setRowCount(0);
 
-        try {
-            listaMecanicos = controlEmpleados.buscarTodosLosMecanicosActivos();
+        List<EmpleadoDTO> lista = controlEmpleados.obtenerMecanicosParaTabla();
 
-            for (EmpleadoDTO m : listaMecanicos) {
-                // Mostramos Nombre, Estado y Especialidad (Rol)
-                modeloTablaMecanicos.addRow(new Object[]{
-                    m.getNombre() + " " + m.getApellidoP() + " " + m.getApellidoM(), // Nombre completo
-                    m.getActivo() ? "Activo" : "Inactivo", // Estado
-                    m.getRol() // Especialidad
-                });
-            }
-
-        } catch (Exception e) {
-            mensajes.mostrarError(this, "Error al cargar los mecánicos: " + e.getMessage());
+        for (EmpleadoDTO m : lista) {
+            modeloTablaMecanicos.addRow(new Object[]{
+                m.getId_empleado(),
+                m.getNombre() + " " + m.getApellidoP(),
+                m.getActivo() ? "Activo" : "Inactivo",
+                m.getRol()
+            });
         }
     }
 
@@ -100,25 +84,24 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
                 if (e.getClickCount() == 2) {
                     int fila = tablaMecanicos.getSelectedRow();
                     if (fila != -1) {
-                        // Obtenemos el EmpleadoDTO directamente desde la lista
-                        EmpleadoDTO mecanicoSeleccionado = listaMecanicos.get(fila);
-                        manejarSeleccionMecanico(mecanicoSeleccionado);
+                        String id = (String) modeloTablaMecanicos.getValueAt(fila, 0);
+                        String nombre = (String) modeloTablaMecanicos.getValueAt(fila, 1);
+
+                        confirmarSeleccionMecanico(id, nombre);
                     }
                 }
             }
         });
     }
 
-    private void manejarSeleccionMecanico(EmpleadoDTO mecanico) {
-        Boolean confirmar = mensajes.mostrarConfirmacion(
-                this,
-                "¿Deseas elegir este mecánico:\n" + mecanico.getNombre() + "?",
-                "Confirmar Asignación"
-        );
+    private void confirmarSeleccionMecanico(String idMecanico, String nombre) {
+        Boolean confirmar = mensajes.mostrarConfirmacion(this,
+                "¿Deseas continuar con el mecánico:\n" + nombre + "?",
+                "Confirmar Selección");
 
         if (confirmar) {
-            navegacion.mostrarPantallaElegirTarea(mecanico);
-            this.dispose(); // cerrar pantalla (opcional)
+            navegacion.mostrarPantallaElegirTarea(idMecanico);
+            this.dispose();
         }
     }
 
@@ -135,6 +118,7 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         scrollPaneMecanicos = new javax.swing.JScrollPane();
         tablaMecanicos = new javax.swing.JTable();
+        btnAtras = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +150,20 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
 
         jPanel1.add(scrollPaneMecanicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 150, 470, 210));
 
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        btnAtras.setToolTipText("");
+        btnAtras.setBorderPainted(false);
+        btnAtras.setContentAreaFilled(false);
+        btnAtras.setDefaultCapable(false);
+        btnAtras.setFocusPainted(false);
+        btnAtras.setFocusable(false);
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 50));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaElegirMecanico.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
 
@@ -183,7 +181,12 @@ public class PantallaElegirMecanico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private presentacion.utilerias.CreacionTablas creacionTablas1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

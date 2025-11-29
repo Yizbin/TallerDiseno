@@ -13,16 +13,16 @@ import java.awt.Component;
 public interface IControlMensajes {
 
     public void mostrarErrorCamposConPadre(Component padre, String mensajeError);
-    
+
     public void mostrarErrorCampos(String mensajeError);
-    
+
     public void mostrarMensajeInformativo(Component padre, String mensaje, String titulo);
-    
+
     public void mostrarExito(String mensajeExito);
-    
+
     public Boolean mostrarConfirmacion(Component padre, String mensaje, String titulo);
-    
+
     void mostrarError(Component padre, String mensaje);
     
-    
+
 }

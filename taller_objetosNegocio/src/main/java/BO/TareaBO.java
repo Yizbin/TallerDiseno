@@ -14,7 +14,6 @@ import Excepciones.PersistenciaException;
 import Mappers.TareaMapper;
 import Mappers.interfaces.ITareaMapper;
 import dto.TareaDTO;
-import entidades.Empleado;
 import entidades.Tarea;
 import excepciones.NegocioException;
 import java.util.List;
@@ -76,53 +75,38 @@ public class TareaBO implements ITareaBO {
     }
 
     @Override
-    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException {
+    public List<TareaDTO> obtenerTareasParaTabla() throws NegocioException {
         try {
-            List<Tarea> tareas = tareaDAO.buscarTareasDisponibles();
-
-            return tareas.stream().map(t -> {
-                String vehiculoModelo = null;
-
-                if (t.getPresupuesto() != null && t.getPresupuesto().getVehiculo() != null) {
-                    vehiculoModelo = t.getPresupuesto().getVehiculo().getModelo();
-                }
-
-                return new TareaDTO(
-                        t.getId().toString(),
-                        t.getDescripcion(),
-                        t.getCosto(),
-                        t.getEstado(),
-                        t.getPresupuesto() != null ? t.getPresupuesto().getId().toString() : null,
-                        vehiculoModelo
-                );
-            }).collect(Collectors.toList());
-
-        } catch (PersistenciaException | EntidadNoEncontradaException e) {
-            throw new NegocioException("Error al consultar tareas: " + e.getMessage(), e);
+            List<Tarea> tareas = tareaDAO.obtenerTareas();
+            return mapper.toListDTO(tareas);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al obtener tareas: " + e.getMessage());
         }
     }
 
     @Override
-    public Boolean asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException {
-        if (idTarea == null || idTarea.trim().isEmpty()) {
-            throw new NegocioException("El ID de la tarea no puede estar vacío.");
-        }
-
-        if (idEmpleado == null || idEmpleado.trim().isEmpty()) {
-            throw new NegocioException("El ID del mecánico no puede estar vacío.");
-        }
-
+    public boolean asignarTareaAMecanico(Long idTarea, Long idMecanico) throws NegocioException {
         try {
-            Long tareaId = Long.valueOf(idTarea);
-            Long empleadoId = Long.valueOf(idEmpleado);
+            if (idTarea == null || idMecanico == null) {
+                throw new NegocioException("El ID de la tarea y del mecánico no pueden ser nulos.");
+            }
 
-            tareaDAO.asignarTareaAMecanico(tareaId, empleadoId);
-            return true;
+            return tareaDAO.asignarTareaAMecanico(idTarea, idMecanico);
 
-        } catch (NumberFormatException e) {
-            throw new NegocioException("Los IDs deben ser números válidos.", e);
-        } catch (EntidadNoEncontradaException | PersistenciaException e) {
-            throw new NegocioException("No se pudo asignar la tarea: " + e.getMessage(), e);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al asignar la tarea al mecánico: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new NegocioException("Error inesperado al asignar tarea: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException {
+        try {
+            List<Tarea> tareas = tareaDAO.buscarTareasSinAsignar();
+            return mapper.toListDTO(tareas);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al obtener tareas sin asignar: " + e.getMessage(), e);
         }
     }
 

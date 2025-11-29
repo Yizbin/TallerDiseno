@@ -16,8 +16,9 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     public MenuPrincipalAdmin(IControlNavegacion navegacion) {
         this.navegacion = navegacion;
+
         initComponents();
-        configurarVentana();
+
     }
 
     /**
@@ -129,6 +130,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         this.dispose();
     }
 
+    private void navegarPantallaElegirMecanico() {
+        navegacion.mostrarPantallaElegirMecanico();
+        this.dispose();
+    }
+
 
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
         this.navegarClientesRegistrados();
@@ -151,12 +157,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void asignarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarTareaActionPerformed
-        navegacion.mostrarPantallaElegirMecanico();
-        this.dispose();
+        this.navegarPantallaElegirMecanico();
     }//GEN-LAST:event_asignarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-        navegacion.mostrarPantallaSeleccionarCliente();
+
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 

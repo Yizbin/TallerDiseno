@@ -218,30 +218,24 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarPantallaElegirMecanico() {
         PantallaElegirMecanico pantalla = new PantallaElegirMecanico(
-                this,
+                this.controlEmpleados,
                 this.mensajes,
                 this.creacion,
-                this.controlEmpleados,
-                this.empleadoActivo
+                this
         );
         pantalla.setVisible(true);
+
     }
 
     @Override
-    public void mostrarPantallaElegirTarea(EmpleadoDTO empleado) {
-        if (empleado == null) {
-            mensajes.mostrarErrorCampos("No se recibió el empleado para asignar tareas.");
-            return;
-        }
-
+    public void mostrarPantallaElegirTarea(String idMecanico) {
         PantallaElegirTarea pantalla = new PantallaElegirTarea(
-                this,
+                idMecanico,
+                this.tareas,
                 this.mensajes,
                 this.creacion,
-                this.tareas,
-                empleado
+                this
         );
-
         pantalla.setVisible(true);
     }
 

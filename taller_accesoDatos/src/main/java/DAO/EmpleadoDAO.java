@@ -223,21 +223,16 @@ public class EmpleadoDAO implements IEmpleadoDAO {
     }
 
     @Override
-    public List<Empleado> buscarMecanicosActivos() throws PersistenciaException, EntidadNoEncontradaException {
+    public List<Empleado> obtenerMecanicos() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             TypedQuery<Empleado> query = em.createQuery(
-                    "SELECT e FROM Empleado e WHERE e.rol = 'Mecanico' AND e.activo = true", Empleado.class);
-            List<Empleado> resultados = query.getResultList();
-            if (resultados.isEmpty()) {
-                throw new EntidadNoEncontradaException("No se encontró ningún mecánico activo en el sistema.");
-            }
-            return resultados;
-        } catch (EntidadNoEncontradaException e) {
-            throw e;
+                    "SELECT e FROM Empleado e WHERE e.rol = :rol", Empleado.class
+            );
+            query.setParameter("rol", "Mecanico");
+            return query.getResultList();
         } catch (Exception e) {
-
-            throw new PersistenciaException("Error al consultar mecánicos activos: " + e.getMessage(), e);
+            throw new PersistenciaException("Error al obtener mecánicos: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();
@@ -246,12 +241,46 @@ public class EmpleadoDAO implements IEmpleadoDAO {
     }
 
     @Override
-    public Empleado buscarPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException {
+    public void actualizarEstadoEmpleado(Long idEmpleado, Boolean activo) throws EntidadNoEncontradaException, PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            Empleado empleado = em.find(Empleado.class, id);
+            em.getTransaction().begin();
+
+            Empleado empleado = em.find(Empleado.class, idEmpleado);
             if (empleado == null) {
-                throw new EntidadNoEncontradaException("Empleado no encontrado con ID: " + id);
+                throw new EntidadNoEncontradaException("Empleado no encontrado con ID: " + idEmpleado);
+            }
+
+            empleado.setActivo(activo);
+
+            em.merge(empleado);
+            em.getTransaction().commit();
+
+        } catch (EntidadNoEncontradaException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al actualizar estado del empleado: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+    }
+
+    @Override
+    public Empleado buscarPorId(Long idEmpleado) throws EntidadNoEncontradaException, PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            Empleado empleado = em.find(Empleado.class, idEmpleado);
+            if (empleado == null) {
+                throw new EntidadNoEncontradaException("Empleado no encontrado con ID: " + idEmpleado);
             }
             return empleado;
         } catch (EntidadNoEncontradaException e) {
@@ -264,5 +293,4 @@ public class EmpleadoDAO implements IEmpleadoDAO {
             }
         }
     }
-
 }

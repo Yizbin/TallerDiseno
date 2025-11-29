@@ -12,9 +12,17 @@ import java.util.List;
  * @author Angel Servin
  */
 public interface IControlEmpleados {
-    
-    public List<EmpleadoDTO> buscarTodosLosMecanicosActivos();
-    
-    public EmpleadoDTO seleccionarMecanico(String idEmpleado);
-    
+
+    Boolean autenticarEmpleado(String usuario, String contrasena);
+
+    EmpleadoDTO obtenerEmpleadoPorUsuario(String usuario);
+
+    List<EmpleadoDTO> obtenerMecanicosParaTabla();
+
+    EmpleadoDTO actualizarEstadoEmpleado(String idEmpleado, Boolean activo);
+
+    EmpleadoDTO buscarPorId(String idEmpleado);
+
+    boolean asignarTareaAMecanico(String idTarea, String idMecanico);
+
 }

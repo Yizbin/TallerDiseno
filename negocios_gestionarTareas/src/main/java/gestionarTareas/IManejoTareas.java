@@ -17,8 +17,11 @@ public interface IManejoTareas {
     public List<TareaDTO> buscarTareasAsignadas(String idMecanico) throws NegocioException;
 
     public void marcarTareaComoCompletada(String idTarea) throws NegocioException;
-    
-    public List<TareaDTO> buscarTareasDisponibles() throws NegocioException;
 
-    public void asignarTareaAMecanico(String idTarea, String idEmpleado) throws NegocioException;
+    public List<TareaDTO> obtenerTareasParaTabla() throws NegocioException;
+
+    public boolean asignarTareaAMecanico(String idTarea, String idMecanico) throws NegocioException;
+    
+    List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException;
+
 }

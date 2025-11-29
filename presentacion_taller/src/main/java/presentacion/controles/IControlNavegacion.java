@@ -57,8 +57,9 @@ public interface IControlNavegacion {
 
     public void setUsuarioActivo(EmpleadoDTO empleado);
 
-    void mostrarPantallaElegirMecanico();
-    
-    void mostrarPantallaElegirTarea(EmpleadoDTO empleado);
+    public void mostrarPantallaElegirMecanico();
+
+    public void mostrarPantallaElegirTarea(String idMecanico);
+
 
 }

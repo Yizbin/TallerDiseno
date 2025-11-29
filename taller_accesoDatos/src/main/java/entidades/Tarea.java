@@ -44,7 +44,7 @@ public class Tarea implements Serializable {
     private Presupuesto presupuesto;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_empleado", nullable = false)
+    @JoinColumn(name = "id_empleado", nullable = true)
     private Empleado empleado;
 
     @OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL, orphanRemoval = true)

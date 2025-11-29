@@ -184,21 +184,12 @@ public class TareaDAO implements ITareaDAO {
     }
 
     @Override
-    public List<Tarea> buscarTareasDisponibles() throws PersistenciaException, EntidadNoEncontradaException {
+    public List<Tarea> obtenerTareas() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            TypedQuery<Tarea> query = em.createQuery(
-                    "SELECT t FROM Tarea t "
-                    + "LEFT JOIN FETCH t.presupuesto p "
-                    + "LEFT JOIN FETCH p.vehiculo "
-                    + "WHERE t.estado <> 'Completada' AND t.empleado IS NULL",
-                    Tarea.class
-            );
-
-            return query.getResultList();
-
+            return em.createQuery("SELECT t FROM Tarea t", Tarea.class).getResultList();
         } catch (Exception e) {
-            throw new PersistenciaException("Error al consultar tareas: " + e.getMessage(), e);
+            throw new PersistenciaException("Error al obtener tareas: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();
@@ -207,39 +198,53 @@ public class TareaDAO implements ITareaDAO {
     }
 
     @Override
-    public void asignarTareaAMecanico(Long idTarea, Long idEmpleado) throws EntidadNoEncontradaException, PersistenciaException {
+    public boolean asignarTareaAMecanico(Long idTarea, Long idMecanico) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
-
         try {
             em.getTransaction().begin();
 
-            Tarea tarea = validarTareaExistente(em, idTarea);
-
-            Empleado empleado = em.find(Empleado.class, idEmpleado);
-            if (empleado == null) {
-                throw new EntidadNoEncontradaException(
-                        "Empleado no encontrado con ID: " + idEmpleado
-                );
+            Tarea tarea = em.find(Tarea.class, idTarea);
+            if (tarea == null) {
+                throw new PersistenciaException("No se encontró la tarea con ID: " + idTarea);
             }
 
-            tarea.setEmpleado(empleado);
+            Empleado mecanico = em.find(Empleado.class, idMecanico);
+            if (mecanico == null) {
+                throw new PersistenciaException("No se encontró el mecánico con ID: " + idMecanico);
+            }
+
+            tarea.setEmpleado(mecanico);
             tarea.setEstado("Asignada");
 
             em.merge(tarea);
             em.getTransaction().commit();
-
-        } catch (EntidadNoEncontradaException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            throw e;
+            return true;
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             throw new PersistenciaException("Error al asignar tarea al mecánico: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
 
+    }
+
+    @Override
+    public List<Tarea> buscarTareasSinAsignar() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Tarea> query = em.createQuery(
+                    "SELECT t FROM Tarea t WHERE t.empleado IS NULL",
+                    Tarea.class
+            );
+
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error: " + e.getMessage(), e);
         } finally {
             if (em != null) {
                 em.close();

@@ -28,9 +28,11 @@ public interface ITareaDAO {
     public List<Tarea> buscarTareasPorEmpleado(Long idEmpleado) throws PersistenciaException;
 
     public Tarea buscarTareaPorId(Long id) throws PersistenciaException;
-    
-    public List<Tarea> buscarTareasDisponibles() throws PersistenciaException, EntidadNoEncontradaException;
 
-    public void asignarTareaAMecanico(Long idTarea, Long idEmpleado) throws EntidadNoEncontradaException, PersistenciaException;
+    boolean asignarTareaAMecanico(Long idTarea, Long idMecanico) throws PersistenciaException;
+
+    List<Tarea> obtenerTareas() throws PersistenciaException;
+
+    List<Tarea> buscarTareasSinAsignar() throws PersistenciaException;
 
 }
