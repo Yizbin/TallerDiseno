@@ -22,7 +22,6 @@ import presentacion.controles.IControlNavegacion;
  * @author payde
  */
 public class PantallaClientesRegistrados extends javax.swing.JFrame {
-
     private final IControlOrdenes control;
     private final IControlClientes clientes;
     private final IControlNavegacion navegacion;

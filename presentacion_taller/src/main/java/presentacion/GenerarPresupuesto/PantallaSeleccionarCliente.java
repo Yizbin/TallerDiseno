@@ -4,7 +4,17 @@
  */
 package presentacion.GenerarPresupuesto;
 
+import dto.ClienteDTO;
+import dto.PresupuestoDTO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import presentacion.controles.IControlClientes;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlPresupuestos;
 
 /**
  *
@@ -12,14 +22,68 @@ import presentacion.controles.IControlNavegacion;
  */
 public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
+    private final IControlClientes clientes;
+    private final IControlCreacionUI creacion;
+    private final IControlPresupuestos control;
     /**
      * Creates new form PantallaSeleccionarCliente
      */
-    public PantallaSeleccionarCliente(IControlNavegacion navegacion) {
+    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control) {
         initComponents();
+        
         this.navegacion = navegacion;
+        this.control= control;
+        this.clientes = clientes;
+        this.creacion = creacion;
+        
+        configurarVentana();
+        generarListaClientes();
+        
+        scrollPaneClientes.setOpaque(false);
+        scrollPaneClientes.getViewport().setOpaque(false);
+        scrollPaneClientes.setBorder(null);
+        scrollPaneClientes.getViewport().setBorder(null);
     }
 
+    private void generarListaClientes() {
+        List<ClienteDTO> listaClientes = clientes.buscarTodosLosClientesActivos();
+
+        JPanel contenedor = new JPanel();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+        contenedor.setOpaque(false);
+
+        for (ClienteDTO cliente : listaClientes) {
+
+            String texto = cliente.getNombre() + " "
+                    + cliente.getApellidoP() + " "
+                    + cliente.getApellidoM() + " | "
+                    + cliente.getTelefono();
+
+            JPanel panel = creacion.crearPanelCliente(texto);
+
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    clienteSeleccionado(cliente);
+                }
+            });
+
+            contenedor.add(panel);
+        }
+
+        scrollPaneClientes.setViewportView(contenedor);
+    }
+    
+    private void clienteSeleccionado(ClienteDTO cliente) {
+        PresupuestoDTO presupuestoNuevo = control.crearPresupuestoConCliente(cliente);
+        navegacion.mostrarPantallaSeleccionarOrden();
+        this.dispose();
+    }
+     
+      private void configurarVentana() {
+        this.setLocationRelativeTo(null);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +97,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        scrollPaneClientes = new javax.swing.JScrollPane();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +120,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        getContentPane().add(scrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 460, 260));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaSeleccionarClienteCUA.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
@@ -64,6 +130,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         navegacion.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -79,6 +146,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JScrollPane scrollPaneClientes;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.ClienteDTO;
 import dto.PresupuestoDTO;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public interface IControlPresupuestos {
 
     public PresupuestoDTO crearPresupuesto(PresupuestoDTO presupuesto);
+    
+     public PresupuestoDTO crearPresupuestoConCliente(ClienteDTO cliente);
     
     public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden);
     

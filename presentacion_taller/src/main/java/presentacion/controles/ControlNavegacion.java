@@ -161,7 +161,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarCliente() {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this);
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto);
         pantalla.setVisible(true);
     }
 

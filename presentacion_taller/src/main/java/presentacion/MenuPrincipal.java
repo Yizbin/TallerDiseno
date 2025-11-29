@@ -135,6 +135,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void navegarSeleccionarCliente(){
+        navegacion.mostrarPantallaSeleccionarCliente();
+        this.dispose();
+    }
     
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
         this.navegarClientesRegistrados();
@@ -161,7 +165,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-        navegacion.mostrarPantallaSeleccionarCliente();
+       this.navegarSeleccionarCliente();
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 

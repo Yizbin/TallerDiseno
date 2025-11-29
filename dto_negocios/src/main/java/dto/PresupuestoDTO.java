@@ -21,16 +21,19 @@ public class PresupuestoDTO {
     private Boolean estado;
 
     private OrdenDTO orden;
+    
+    private ClienteDTO cliente;
 
     public PresupuestoDTO() {
     }
 
-    public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, OrdenDTO orden) {
+    public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, OrdenDTO orden, ClienteDTO cliente) {
         this.idPresupuesto = idPresupuesto;
         this.fechaCreacion = fechaCreacion;
         this.costoTotal = costoTotal;
         this.estado = estado;
         this.orden = orden;
+        this.cliente = cliente;
     }
 
     public String getIdPresupuesto() {
@@ -73,4 +76,13 @@ public class PresupuestoDTO {
         this.orden = orden;
     }
 
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    
 }

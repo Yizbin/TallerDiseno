@@ -4,7 +4,11 @@
  */
 package presentacion.controles;
 
+import BO.PresupuestoBO;
+import BO.interfaces.IPresupuestoBO;
+import dto.ClienteDTO;
 import dto.PresupuestoDTO;
+import excepciones.EntidadDuplicadaNegocioException;
 import excepciones.NegocioException;
 import gestionTaller.IGestorTaller;
 import java.util.ArrayList;
@@ -46,6 +50,26 @@ public class ControlPresupuestos implements IControlPresupuestos {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public PresupuestoDTO crearPresupuestoConCliente(ClienteDTO cliente) {
+        try {
+        
+        PresupuestoDTO presupuesto = new PresupuestoDTO();
+        presupuesto.setCliente(cliente);
+        
+        
+       
+        IPresupuestoBO bo = PresupuestoBO.getInstancia();
+        return bo.crearPresupuesto(presupuesto);
+    } catch (Exception ex) {
+        
+        JOptionPane.showMessageDialog(null,
+                "Error inesperado al crear presupuesto: " + ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
     }
 
 }
