@@ -124,27 +124,26 @@ public class PresupuestoDAO implements IPresupuestoDAO {
     }
 
     @Override
-    public List<Presupuesto> buscarPresupuestoPorId(Long id) throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
+    public Presupuesto buscarPresupuestoPorId(Long id) throws PersistenciaException {
+         EntityManager em = Conexion.crearConexion();
+         
+          try {
+        Presupuesto presupuesto = em.find(Presupuesto.class, id);
 
-        try {
-            TypedQuery<Presupuesto> query = em.createQuery(
-                    "SELECT p FROM Presupuesto p WHERE p.id_presupuesto = :id",
-                    Presupuesto.class
-            );
-
-            query.setParameter("id", id);
-
-            return query.getResultList();
-
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al obtener presupuesto por ID: " + e.getMessage(), e);
-
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        if (presupuesto == null) {
+            throw new EntidadNoEncontradaException("No existe presupuesto con ID: " + id);
         }
+
+        return presupuesto;
+
+    } catch (EntidadNoEncontradaException e) {
+        throw new PersistenciaException("Error al obtener presupuesto por ID: " + e.getMessage(), e);
+
+    } finally {
+        if (em != null) {
+            em.close();
+        }
+    }
     }
 
     @Override

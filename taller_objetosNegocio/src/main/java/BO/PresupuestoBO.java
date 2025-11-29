@@ -7,6 +7,9 @@ package BO;
 import BO.interfaces.IPresupuestoBO;
 import DAO.PresupuestoDAO;
 import DAO.interfaces.IPresupuestoDAO;
+import Excepciones.EntidadDuplicadaException;
+import Excepciones.EntidadNoEncontradaException;
+
 import Excepciones.PersistenciaException;
 import Mappers.PresupuestoMapper;
 import Mappers.interfaces.IPresupuestoMapper;
@@ -40,22 +43,56 @@ public class PresupuestoBO implements IPresupuestoBO {
 
     @Override
     public PresupuestoDTO crearPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadDuplicadaNegocioException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      try {
+            Presupuesto presupuestoEntidad = this.mapper.toEntity(presupuestoDTO);
+
+            Presupuesto presupuestoNuevo = this.presupuestoDAO.crearPresupuesto(presupuestoEntidad);
+
+            return this.mapper.toDTO(presupuestoNuevo);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @Override
     public PresupuestoDTO actualizarPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadNoEncontradaNegocioException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      try {
+            Presupuesto presupuestoEntidad = this.mapper.toEntity(presupuestoDTO);
+
+            Presupuesto presupuestoActualizado = this.presupuestoDAO.actualizarPresupuesto(presupuestoEntidad);
+
+            return this.mapper.toDTO(presupuestoActualizado);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @Override
     public List<PresupuestoDTO> buscarTodosLosPresupuestos() throws EntidadDuplicadaNegocioException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       try {
+            List<Presupuesto> lista = this.presupuestoDAO.buscarTodosLosPresupuestos();
+            return this.mapper.toListDTO(lista);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @Override
     public PresupuestoDTO buscarPresupuestoPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       try {
+            Long idLong = Long.valueOf(id);
+
+            Presupuesto presupuesto = this.presupuestoDAO.buscarPresupuestoPorId(idLong);
+
+            return this.mapper.toDTO(presupuesto);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+
     }
 
     @Override
