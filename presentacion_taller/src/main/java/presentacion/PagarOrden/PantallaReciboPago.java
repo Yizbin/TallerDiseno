@@ -40,19 +40,15 @@ public class PantallaReciboPago extends javax.swing.JFrame {
 
     private void llenarDatos() {
         if (this.presupuesto != null && this.presupuesto.getOrden() != null) {
-            // 1. Numero de Orden
             lblOrdenValor.setText(this.presupuesto.getOrden().getIdOrden());
 
-            // 2. Cliente (Nombre completo)
             String nombreCliente = this.presupuesto.getOrden().getCliente().getNombre() + " "
                     + this.presupuesto.getOrden().getCliente().getApellidoP();
             lblClienteValor.setText(nombreCliente);
 
-            // 3. Vehiculo (Modelo)
-            String datosVehiculo = this.presupuesto.getOrden().getVehiculo().getModelo(); // Puedes agregar marca si quieres
+            String datosVehiculo = this.presupuesto.getOrden().getVehiculo().getModelo(); 
             lblVehiculoValor.setText(datosVehiculo);
-
-            // 4. Estado (Fijo según storyboard)
+            
             lblEstadoValor.setText("Pago exitoso.");
         }
     }

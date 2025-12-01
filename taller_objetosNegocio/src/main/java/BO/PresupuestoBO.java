@@ -7,9 +7,6 @@ package BO;
 import BO.interfaces.IPresupuestoBO;
 import DAO.PresupuestoDAO;
 import DAO.interfaces.IPresupuestoDAO;
-import Excepciones.EntidadDuplicadaException;
-import Excepciones.EntidadNoEncontradaException;
-
 import Excepciones.PersistenciaException;
 import Mappers.PresupuestoMapper;
 import Mappers.interfaces.IPresupuestoMapper;

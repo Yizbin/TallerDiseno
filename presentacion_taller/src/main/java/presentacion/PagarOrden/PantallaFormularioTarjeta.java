@@ -72,7 +72,6 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
         datosPago.put("numeroTarjeta", textCorreo.getText());
         datosPago.put("cvv", textContra.getText());
 
-        // Monto real del DTO
         return new SolicitudPagoDTO(presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.TARJETA, datosPago);
     }
 

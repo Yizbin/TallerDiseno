@@ -26,6 +26,21 @@ public class PantallaSeleccionMetodoPago extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    private void seleccionPaypal() {
+        navegacion.mostrarFormularioPaypal(idOrden);
+        this.dispose();
+    }
+
+    private void seleccionMercado() {
+        navegacion.mostrarFormularioMercadoPago(idOrden);
+        this.dispose();
+    }
+
+    private void seleccionTarjeta() {
+        navegacion.mostrarFormularioTarjeta(idOrden);
+        this.dispose();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -117,18 +132,15 @@ public class PantallaSeleccionMetodoPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnPaypalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaypalActionPerformed
-        navegacion.mostrarFormularioPaypal(idOrden);
-        this.dispose();
+        seleccionPaypal();
     }//GEN-LAST:event_btnPaypalActionPerformed
 
     private void btnMercadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMercadoActionPerformed
-        navegacion.mostrarFormularioMercadoPago(idOrden);
-        this.dispose();
+        seleccionMercado();
     }//GEN-LAST:event_btnMercadoActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
-        navegacion.mostrarFormularioTarjeta(idOrden);
-        this.dispose();
+        seleccionTarjeta();
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
 
