@@ -158,4 +158,9 @@ public class GestorTaller implements IGestorTaller {
         return manejoTareas.obtenerTareasSinAsignar();
     }
 
+    @Override
+    public List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException {
+        return manejoTareas.obtenerTareasCompletadasPorMecanico(idMecanico);
+    }
+
 }

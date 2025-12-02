@@ -23,4 +23,6 @@ public interface IControlTareas {
 
     boolean asignarTareaAMecanico(String idTarea, String idMecanico);
 
+    List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico);
+
 }

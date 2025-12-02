@@ -257,4 +257,30 @@ public class TareaDAO implements ITareaDAO {
         }
     }
 
+    @Override
+    public List<Tarea> buscarTareasCompletadasPorEmpleado(Long idEmpleado) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Tarea> query = em.createQuery(
+                    "SELECT t FROM Tarea t "
+                    + "WHERE t.estado = 'COMPLETADA' "
+                    + "AND t.empleado.id_empleado = :idEmpleado",
+                    Tarea.class
+            );
+
+            query.setParameter("idEmpleado", idEmpleado);
+
+            List<Tarea> listaTareas = query.getResultList();
+            System.out.println("DAO → Tareas COMPLETADAS del empleado " + idEmpleado + ": " + listaTareas.size());
+
+            return listaTareas;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar tareas completadas del empleado: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

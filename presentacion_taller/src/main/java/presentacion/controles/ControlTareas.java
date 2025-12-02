@@ -78,4 +78,14 @@ public class ControlTareas implements IControlTareas {
         }
     }
 
+    @Override
+    public List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) {
+        try {
+            return taller.obtenerTareasCompletadasPorMecanico(idMecanico);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener tareas completadas: " + ex.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
 }

@@ -74,4 +74,9 @@ public class ManejoTareas implements IManejoTareas {
         return tareaBO.obtenerTareasSinAsignar();
     }
 
+    @Override
+    public List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException {
+        return tareaBO.obtenerTareasCompletadasPorMecanico(idMecanico);
+    }
+
 }

@@ -34,5 +34,8 @@ public interface ITareaDAO {
     List<Tarea> obtenerTareas() throws PersistenciaException;
 
     List<Tarea> buscarTareasSinAsignar() throws PersistenciaException;
+    
+    List<Tarea> buscarTareasCompletadasPorEmpleado(Long idEmpleado)throws PersistenciaException;
+
 
 }

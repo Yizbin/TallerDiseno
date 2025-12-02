@@ -24,4 +24,6 @@ public interface ITareaBO {
 
     List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException;
 
+    List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException;
+
 }

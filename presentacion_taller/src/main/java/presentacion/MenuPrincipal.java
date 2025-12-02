@@ -11,9 +11,8 @@ import presentacion.controles.IControlNavegacion;
  * @author Abraham Coronel
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    
-    private final IControlNavegacion navegacion;
 
+    private final IControlNavegacion navegacion;
 
     public MenuPrincipal(IControlNavegacion navegacion) {
         this.navegacion = navegacion;
@@ -33,7 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         crearOrden = new javax.swing.JButton();
         generarPresupuesto = new javax.swing.JButton();
         pagarOrden = new javax.swing.JButton();
-        auditarCitaCliente = new javax.swing.JButton();
+        verHistorial = new javax.swing.JButton();
         reclamarGarantia = new javax.swing.JButton();
         visualizarTarea = new javax.swing.JButton();
         venderRefacciones = new javax.swing.JButton();
@@ -70,14 +69,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(pagarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
-        auditarCitaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7.png"))); // NOI18N
-        auditarCitaCliente.setContentAreaFilled(false);
-        auditarCitaCliente.addActionListener(new java.awt.event.ActionListener() {
+        verHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVerHistorial.png"))); // NOI18N
+        verHistorial.setContentAreaFilled(false);
+        verHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                auditarCitaClienteActionPerformed(evt);
+                verHistorialActionPerformed(evt);
             }
         });
-        getContentPane().add(auditarCitaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
+        getContentPane().add(verHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
 
         reclamarGarantia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8.png"))); // NOI18N
         reclamarGarantia.setContentAreaFilled(false);
@@ -119,27 +118,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void configurarVentana() {
         this.setLocationRelativeTo(null);
     }
-    
+
     private void navegarClientesRegistrados() {
         navegacion.mostrarClientesRegistrados();
         this.dispose();
     }
-    
+
     private void navegarOrdenesPendientes() {
         navegacion.mostrarOrdenesPendientes();
         this.dispose();
     }
-    
+
     private void navegarTareasMecanico() {
         navegacion.mostrarTareasMecanico();
         this.dispose();
     }
-    
-    private void navegarSeleccionarCliente(){
+
+    private void navegarSeleccionarCliente() {
         navegacion.mostrarPantallaSeleccionarCliente();
         this.dispose();
     }
-    
+
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
         this.navegarClientesRegistrados();
     }//GEN-LAST:event_crearOrdenActionPerformed
@@ -148,9 +147,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.navegarOrdenesPendientes();
     }//GEN-LAST:event_pagarOrdenActionPerformed
 
-    private void auditarCitaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auditarCitaClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_auditarCitaClienteActionPerformed
+    private void verHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verHistorialActionPerformed
+        navegacion.mostrarPantallaHistorialTareas();
+        this.dispose();
+    }//GEN-LAST:event_verHistorialActionPerformed
 
     private void venderRefaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venderRefaccionesActionPerformed
         // TODO add your handling code here:
@@ -165,12 +165,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-       this.navegarSeleccionarCliente();
+        this.navegarSeleccionarCliente();
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton auditarCitaCliente;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton crearOrden;
     private javax.swing.JButton generarPresupuesto;
@@ -178,6 +177,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton pagarOrden;
     private javax.swing.JButton reclamarGarantia;
     private javax.swing.JButton venderRefacciones;
+    private javax.swing.JButton verHistorial;
     private javax.swing.JButton visualizarTarea;
     // End of variables declaration//GEN-END:variables
 }

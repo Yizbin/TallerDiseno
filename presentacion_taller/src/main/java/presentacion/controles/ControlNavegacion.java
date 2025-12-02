@@ -28,6 +28,7 @@ import presentacion.PagarOrden.PantallaReciboPago;
 import presentacion.PagarOrden.PantallaSeleccionMetodoPago;
 import presentacion.TareaCompletada.PantallaTareasMecanico;
 import presentacion.PantallaVehiculosRegistrados;
+import presentacion.VerHistorial.PantallaVerHistorial;
 
 /**
  *
@@ -236,6 +237,24 @@ public class ControlNavegacion implements IControlNavegacion {
                 this.creacion,
                 this
         );
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaHistorialTareas() {
+        if (empleadoActivo == null) {
+            mensajes.mostrarErrorCampos("No se ha detectado una sesión activa.");
+            return;
+        }
+
+        PantallaVerHistorial pantalla = new PantallaVerHistorial(
+                this,
+                this.mensajes,
+                this.creacion,
+                this.tareas,
+                this.empleadoActivo // 🔥 le pasamos el mecánico actual
+        );
+
         pantalla.setVisible(true);
     }
 

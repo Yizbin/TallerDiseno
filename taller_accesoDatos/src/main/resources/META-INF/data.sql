@@ -45,3 +45,5 @@ INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALU
 INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Revisión de vibración', '300.00', 'Por realizar', 4, NULL);
 
 INSERT INTO Refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía premium', 250.00, 40, 'Disponible');
+
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Cambio de aceite y filtro', '350.00', 'Por realizar', 1, 2);

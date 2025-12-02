@@ -22,33 +22,28 @@ public class TareaMapper implements ITareaMapper {
             return null;
         }
 
-        // === ID DE ORDEN ===
         String idOrden = (entidad.getPresupuesto() != null
                 && entidad.getPresupuesto().getOrden() != null
                 && entidad.getPresupuesto().getOrden().getId_orden() != null)
                 ? String.valueOf(entidad.getPresupuesto().getOrden().getId_orden())
                 : "N/A";
 
-        // === MODELO DEL VEHÍCULO ===
         String vehiculoModelo = (entidad.getPresupuesto() != null
                 && entidad.getPresupuesto().getOrden() != null
                 && entidad.getPresupuesto().getOrden().getVehiculo() != null)
                 ? entidad.getPresupuesto().getOrden().getVehiculo().getModelo()
                 : "N/A";
 
-        // === PLACAS DEL VEHÍCULO ===
         String vehiculoPlacas = (entidad.getPresupuesto() != null
                 && entidad.getPresupuesto().getOrden() != null
                 && entidad.getPresupuesto().getOrden().getVehiculo() != null)
                 ? entidad.getPresupuesto().getOrden().getVehiculo().getPlacas()
                 : "N/A";
 
-        // === CAMPOS DIRECTOS ===
         String idTareaStr = entidad.getId() != null ? entidad.getId().toString() : "0";
         String costoStr = entidad.getCosto() != null ? entidad.getCosto().toString() : "0";
         String estadoStr = entidad.getEstado() != null ? entidad.getEstado() : "N/A";
 
-        // === CREACIÓN DEL DTO EN ORDEN CORRECTO ===
         return new TareaDTO(
                 idTareaStr,
                 entidad.getDescripcion(),

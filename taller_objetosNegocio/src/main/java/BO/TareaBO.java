@@ -113,4 +113,20 @@ public class TareaBO implements ITareaBO {
         }
     }
 
+    @Override
+    public List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException {
+        try {
+            Long id = Long.valueOf(idMecanico);
+
+            List<Tarea> tareas = tareaDAO.buscarTareasCompletadasPorEmpleado(id);
+
+            return mapper.toListDTO(tareas);
+
+        } catch (NumberFormatException e) {
+            throw new NegocioException("ID de mecánico inválido.");
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al obtener tareas completadas: " + e.getMessage());
+        }
+    }
+
 }
