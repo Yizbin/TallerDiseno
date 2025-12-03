@@ -41,11 +41,11 @@ public interface IControlNavegacion {
 
     public void mostrarPantallaSeleccionarCliente();
 
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto);
 
-    public void mostrarPantallaGenerarPresupuesto(IControlCreacionUI creacion,OrdenDTO orden,ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio);
+    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto);
 
-    public void mostrarPantallaPresupuestoGenerado();
+    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto);
 
     public void mostrarPantallaSeleccionMetodoPago(String idOrden);
 

@@ -7,6 +7,7 @@ package presentacion.GenerarPresupuesto;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,9 @@ import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlPresupuestos;
+import presentacion.controles.IControlRefacciones;
+import presentacion.controles.IControlServicios;
 
 /**
  *
@@ -24,20 +28,32 @@ import presentacion.controles.IControlOrdenes;
  */
 public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
-    private final IControlOrdenes orden; 
+    private final IControlOrdenes controlOrdenes; 
     private final IControlCreacionUI creacion;
     private final ClienteDTO clienteSeleccionado;
-  
+    private final OrdenDTO orden;
+    private final PresupuestoDTO presupuesto;
+    private final ServicioDTO servicio;
+    private final IControlServicios controlServicios;
+    private final IControlRefacciones controlRefacciones;
+    private final IControlPresupuestos controlPresupuesto;
+    
     /**
      * Creates new form PantallaPresupuestoGenerado
      */
-    public PantallaSeleccionarOrden(IControlNavegacion navegacion, IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado) {
+    public PantallaSeleccionarOrden(IControlNavegacion navegacion, IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado,OrdenDTO orden, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
-        this.orden = orden;      
+        this.controlOrdenes = controlOrdenes;      
         this.creacion = creacion;
         this.clienteSeleccionado = clienteSeleccionado;
+        this.orden = orden;
+        this.presupuesto=presupuesto;
+        this.servicio=servicio;
+        this.controlServicios= controlServicios;
+        this.controlRefacciones=controlRefacciones;
+        this.controlPresupuesto=controlPresupuesto;
         
         scrollPaneOrdenes.setOpaque(false);
         scrollPaneOrdenes.getViewport().setOpaque(false);
@@ -48,7 +64,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     }
 
    private void generarListaOrdenes() {
-    List<OrdenDTO> ordenes = orden.buscarOrdenesPorCliente(clienteSeleccionado);
+    List<OrdenDTO> ordenes = controlOrdenes.buscarOrdenesPorCliente(clienteSeleccionado);
 
 
     JPanel contenedor = new JPanel();
@@ -73,8 +89,8 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
             panelOrden.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    navegacion.mostrarPantallaGenerarPresupuesto(creacion, null, clienteSeleccionado, null, null);
-                    
+                    navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, o, clienteSeleccionado, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+                    dispose();
                 }
             });
 

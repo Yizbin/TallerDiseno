@@ -5,6 +5,7 @@
 package presentacion.GenerarPresupuesto;
 
 import dto.ClienteDTO;
+import dto.OrdenDTO;
 import dto.PresupuestoDTO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,20 +27,22 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private final IControlClientes clientes;
     private final IControlCreacionUI creacion;
     private final IControlPresupuestos control;
-    private final IControlOrdenes orden;
+    private final IControlOrdenes controlOrdenes;
     private final IControlPresupuestos presupuesto;
+    private final OrdenDTO orden;
     /**
      * Creates new form PantallaSeleccionarCliente
      */
-    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes orden, IControlPresupuestos presupuesto) {
+    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
         this.control= control;
         this.clientes = clientes;
         this.creacion = creacion;
-        this.orden= orden; 
+        this.controlOrdenes= controlOrdenes; 
         this.presupuesto=presupuesto;
+        this.orden=orden;
         
         
         generarListaClientes();
@@ -80,7 +83,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     }
     
     private void clienteSeleccionado(ClienteDTO cliente) {
-        navegacion.mostrarPantallaSeleccionarOrden(orden, creacion, cliente);
+        navegacion.mostrarPantallaSeleccionarOrden(controlOrdenes, creacion, cliente, orden, presupuesto);
         this.dispose();
 }
      

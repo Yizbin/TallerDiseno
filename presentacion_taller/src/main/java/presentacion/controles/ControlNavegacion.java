@@ -53,6 +53,9 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlRefacciones controlRefacciones;
     
     private EmpleadoDTO empleadoActivo;
+    private OrdenDTO orden;
+    private ServicioDTO servicio;
+    private PresupuestoDTO presupuestoDTO;
 
     public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios, IControlRefacciones controlRefacciones) {
         this.controlOrdenes = controlOrdenes;
@@ -169,13 +172,13 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarCliente() {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto);
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto, orden);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO) {
-        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, orden, creacion, clienteDTO);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto) {
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO, orden, presupuestoDTO, servicio, controlServicios, controlRefacciones, controlPresupuesto);
         pantalla.setVisible(true);
     }
 
@@ -257,14 +260,15 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaGenerarPresupuesto(IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio) {
-        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones);
+    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlOrdenes, controlPresupuesto);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPresupuestoGenerado() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
+        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+        pantalla.setVisible(true);
     }
 
 }
