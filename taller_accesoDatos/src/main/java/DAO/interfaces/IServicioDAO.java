@@ -20,7 +20,5 @@ public interface IServicioDAO {
 
     public Servicio eliminarServicio(Long id) throws PersistenciaException;
 
-    public Servicio buscarPorId(Long id) throws PersistenciaException;
-
     public List<Servicio> obtenerTodos() throws PersistenciaException;
 }

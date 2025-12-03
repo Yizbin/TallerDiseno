@@ -49,10 +49,10 @@ import java.util.List;
         List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException;
 
         //Servicios
-        ServicioDTO crearServicio(ServicioDTO dto) throws NegocioException;
-        ServicioDTO actualizarServicio(ServicioDTO dto) throws NegocioException;
-        ServicioDTO eliminarServicio(String id) throws NegocioException;
-        ServicioDTO buscarServicioPorId(String id) throws NegocioException;
-        List<ServicioDTO> buscarTodosLosServicios() throws NegocioException;
+        public ServicioDTO crearServicio(ServicioDTO dto) throws NegocioException;
+        public ServicioDTO actualizarServicio(ServicioDTO dto) throws NegocioException;
+        public ServicioDTO eliminarServicio(String id) throws NegocioException;
+        public List<ServicioDTO> obtenerTodos() throws NegocioException;
+        
         
     }

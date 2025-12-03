@@ -90,18 +90,6 @@ public class ServicioDAO implements IServicioDAO{
     }
 
     @Override
-    public Servicio buscarPorId(Long id) throws PersistenciaException {
-       EntityManager em = Conexion.crearConexion();
-        try {
-            return em.find(Servicio.class, id);
-        } catch (Exception ex) {
-            throw new PersistenciaException("Error al buscar servicio: " + ex.getMessage());
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
     public List<Servicio> obtenerTodos() throws PersistenciaException {
        EntityManager em = Conexion.crearConexion();
         try {

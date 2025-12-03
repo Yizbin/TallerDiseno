@@ -81,20 +81,6 @@ public class ServicioBO implements IServicioBO{
     }
 
     @Override
-    public ServicioDTO buscarPorId(Long id) throws NegocioException {
-         try {
-            Long idLong = Long.valueOf(id);
-            Servicio entidad = servicioDAO.buscarPorId(id);
-            return mapper.toDTO(entidad);
-
-        } catch (NumberFormatException e) {
-            throw new NegocioException("El ID de servicio no tiene un formato válido.");
-        } catch (PersistenciaException e) {
-            throw new NegocioException(e.getMessage());
-        }
-    }
-
-    @Override
     public List<ServicioDTO> obtenerTodos() throws NegocioException {
          try {
             List<Servicio> lista = servicioDAO.obtenerTodos();

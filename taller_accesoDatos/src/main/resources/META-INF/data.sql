@@ -47,3 +47,23 @@ INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALU
 INSERT INTO Refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía premium', 250.00, 40, 'Disponible');
 
 INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Cambio de aceite y filtro', '350.00', 'Por realizar', 1, 2);
+
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Cambio de Aceite', 'Cambio y revisión de aceite del motor', 650.00);
+
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Alineación y Balanceo', 'Alineación de ruedas y balanceo profesional', 450.00);
+
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Servicio de Frenos', 'Revisión, rectificación y cambio de frenos', 1200.00);
+
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Diagnóstico Computarizado', 'Escaneo electrónico del vehículo', 500.00);
+
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Afinación Mayor', 'Cambio de bujías, filtros y revisión general', 1800.00);
+
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Filtro de Aceite', 'Filtro para motor 4 cilindros', 150.00, 25, 'Nuevo');
+
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Pastillas de Frenos', 'Juego de pastillas delanteras', 380.00, 15, 'Nuevo');
+
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía de iridio de alto rendimiento', 120.00, 40, 'Nuevo');
+
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Batería 12V', 'Batería automotriz 600CCA', 1800.00, 8, 'Nuevo');
+
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Amortiguador Delantero', 'Amortiguador hidráulico para sedán', 950.00, 12, 'Nuevo');

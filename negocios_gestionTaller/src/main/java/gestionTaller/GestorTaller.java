@@ -188,13 +188,8 @@ public class GestorTaller implements IGestorTaller {
     }
 
     @Override
-    public ServicioDTO buscarServicioPorId(String id) throws NegocioException {
-        return manejoServicios.buscarServicioPorId(id);
+    public List<ServicioDTO> obtenerTodos() throws NegocioException {
+       return manejoServicios.obtenerTodos();
     }
-
-    @Override
-    public List<ServicioDTO> buscarTodosLosServicios() throws NegocioException {
-       return manejoServicios.buscarTodosLosServicios();
-    }
-
+    
 }

@@ -19,8 +19,6 @@ public interface IControlServicios {
 
     public ServicioDTO eliminarServicio(String id);
 
-    public ServicioDTO buscarServicioPorId(String id);
-
-    public List<ServicioDTO> buscarTodosLosServicios();
+    public List<ServicioDTO> obtenerTodos();
     
 }

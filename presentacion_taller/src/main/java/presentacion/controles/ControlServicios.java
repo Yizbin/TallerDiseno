@@ -53,20 +53,11 @@ public class ControlServicios implements IControlServicios{
         }
     }
 
-    @Override
-    public ServicioDTO buscarServicioPorId(String id) {
-         try {
-            return taller.buscarServicioPorId(id);
-        } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            return null;
-        }
-    }
 
     @Override
-    public List<ServicioDTO> buscarTodosLosServicios() {
+    public List<ServicioDTO> obtenerTodos() {
          try {
-            return taller.buscarTodosLosServicios();
+            return taller.obtenerTodos();
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return new ArrayList<>();

@@ -20,7 +20,5 @@ public interface IServicioBO {
 
     public ServicioDTO eliminarServicio(Long id) throws NegocioException;
 
-    public ServicioDTO buscarPorId(Long id) throws NegocioException;
-
     public List<ServicioDTO> obtenerTodos() throws NegocioException;
 }
