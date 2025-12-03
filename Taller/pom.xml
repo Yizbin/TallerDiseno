@@ -19,6 +19,8 @@
         <module>../negocios_gestionEmpleados</module>
         <module>../negocios_gestionPresupuestos</module>
         <module>../negocios_gestionarTareas</module>
+        <module>../negocios_gestionServicios</module>
+        <module>../negocios_gestionRefacciones</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

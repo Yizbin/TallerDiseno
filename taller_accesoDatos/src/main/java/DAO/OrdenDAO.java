@@ -159,4 +159,24 @@ public class OrdenDAO implements IOrdenDAO {
         }
     }
 
+    @Override
+    public List<Orden> buscarOrdenesPorCliente(Long idCliente) throws PersistenciaException {
+         EntityManager em = Conexion.crearConexion();
+         try {
+            TypedQuery<Orden> query = em.createQuery(
+                "SELECT o FROM Orden o WHERE o.cliente.id_cliente = :idCliente",
+                Orden.class
+            );
+            query.setParameter("idCliente", idCliente);
+            return query.getResultList();
+
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar ordenes por cliente: " + e.getMessage(), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

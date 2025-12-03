@@ -96,4 +96,9 @@ public class ManejoOrdenes implements IManejoOrdenes {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public List<OrdenDTO> buscarOrdenesPorCliente(String idCliente) throws NegocioException {
+        return ordenes.buscarOrdenesPorCliente(idCliente);
+    }
+
 }

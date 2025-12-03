@@ -3,23 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package presentacion.GenerarPresupuesto;
+import dto.OrdenDTO;
+import presentacion.controles.IControlClientes;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
 /**
  *
  * @author Pride Factor Black
  */
 public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
-    /**
-     * Creates new form PantallaGenerarPresupuesto
-     */
+    private final IControlOrdenes orden;
+    private final IControlClientes cliente;
+    private final IControlCreacionUI creacion;
+    
     
 
-    public PantallaGenerarPresupuesto(IControlNavegacion navegacion) {
+    public PantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlOrdenes orden, IControlClientes cliente, IControlCreacionUI creacion) {
         initComponents();
+        configurarVentana();
         this.navegacion = navegacion;
+        this.orden = orden;
+        this.cliente = cliente;
+        this.creacion = creacion;
+        
+        
     }
 
+        private void configurarVentana() {
+         this.setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,7 +85,7 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaSeleccionarOrden();
+//        navegacion.mostrarPantallaSeleccionarOrden(clienteDTO);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

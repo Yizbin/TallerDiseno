@@ -4,7 +4,10 @@
  */
 package presentacion.GenerarPresupuesto;
 
+import dto.ClienteDTO;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
 
 /**
  *
@@ -12,14 +15,24 @@ import presentacion.controles.IControlNavegacion;
  */
 public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
-    /**
-     * Creates new form PantallaSeleccionarOrden
-     */
-    public PantallaPresupuestoGenerado(IControlNavegacion navegacion) {
+    private final IControlOrdenes orden;
+    private final IControlCreacionUI creacion;
+    private final ClienteDTO clienteSeleccionado;
+    
+    public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado) {
         initComponents();
+        configurarVentana();
         this.navegacion = navegacion;
+        this.orden = orden;
+        this.creacion = creacion;
+        this.clienteSeleccionado = clienteSeleccionado;
+        
+        
     }
 
+        private void configurarVentana() {
+         this.setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +76,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaGenerarPresupuesto();
+        navegacion.mostrarPantallaGenerarPresupuesto(orden);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed

@@ -7,6 +7,7 @@ package presentacion.controles;
 import dto.ClienteDTO;
 import dto.OrdenDTO;
 import dto.VehiculoDTO;
+import java.util.List;
 
 public interface IControlOrdenes {
 
@@ -16,4 +17,5 @@ public interface IControlOrdenes {
     
     public OrdenDTO crearOrdenConVehiculo(VehiculoDTO vehiculo);
     
+    public List<OrdenDTO> buscarOrdenesPorCliente(ClienteDTO cliente);
 }

@@ -11,18 +11,12 @@ import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
-/**
- *
- * @author Abraham Coronel
- */
+
     public interface IGestorTaller {
 
         // Órdenes
         public OrdenDTO crearOrden(OrdenDTO orden) throws DatosFaltantesEnOrdenException, FechaInvalidaException, NegocioException;
+        public List<OrdenDTO> buscarOrdenesPorCliente(ClienteDTO cliente) throws NegocioException;
 
         // Autenticación general
         public Boolean autenticarUsuario(String usuario, String contrasena);
@@ -54,4 +48,5 @@ import java.util.List;
         List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException;
 
 
+        
     }

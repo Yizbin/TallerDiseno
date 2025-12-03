@@ -163,4 +163,9 @@ public class GestorTaller implements IGestorTaller {
         return manejoTareas.obtenerTareasCompletadasPorMecanico(idMecanico);
     }
 
+    @Override
+    public List<OrdenDTO> buscarOrdenesPorCliente(ClienteDTO cliente) throws NegocioException {
+        return manejoOrdenes.buscarOrdenesPorCliente(cliente.getId_cliente());
+    }
+
 }

@@ -26,4 +26,7 @@ public interface IOrdenDAO {
     public List<Orden> buscarTodosLasOrdenesPendientes() throws PersistenciaException;
     
     public Orden buscarOrdenPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+    
+    public List<Orden> buscarOrdenesPorCliente(Long idCliente) throws PersistenciaException;
+
 }

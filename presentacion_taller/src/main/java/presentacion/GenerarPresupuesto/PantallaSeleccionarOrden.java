@@ -4,7 +4,18 @@
  */
 package presentacion.GenerarPresupuesto;
     
+import dto.ClienteDTO;
+import dto.OrdenDTO;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import presentacion.controles.IControlClientes;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
 
 /**
  *
@@ -12,14 +23,69 @@ import presentacion.controles.IControlNavegacion;
  */
 public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
+    private final IControlOrdenes orden; 
+    private final IControlCreacionUI creacion;
+    private final ClienteDTO clienteSeleccionado;
+    
     /**
      * Creates new form PantallaPresupuestoGenerado
      */
-    public PantallaSeleccionarOrden(IControlNavegacion navegacion) {
+    public PantallaSeleccionarOrden(IControlNavegacion navegacion, IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado) {
         initComponents();
+        configurarVentana();
         this.navegacion = navegacion;
+        this.orden = orden;      
+        this.creacion = creacion;
+        this.clienteSeleccionado = clienteSeleccionado;
+        
+        scrollPaneOrdenes.setOpaque(false);
+        scrollPaneOrdenes.getViewport().setOpaque(false);
+        scrollPaneOrdenes.setBorder(null);
+        scrollPaneOrdenes.getViewport().setBorder(null);
+        
+        generarListaOrdenes();
     }
 
+   private void generarListaOrdenes() {
+    List<OrdenDTO> ordenes = orden.buscarOrdenesPorCliente(clienteSeleccionado);
+
+
+    JPanel contenedor = new JPanel();
+    contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+    contenedor.setOpaque(false);
+
+    if (ordenes == null || ordenes.isEmpty()) {
+        JPanel panelVacio = creacion.crearPanelInformativo("Este cliente no tiene órdenes registradas.", true);
+        contenedor.add(panelVacio);
+
+    } else {
+        
+        for (OrdenDTO o : ordenes) {
+
+            String texto =
+                    "Folio: " + o.getIdOrden() +
+                    "  |  Falla: " + o.getFallaReportada();
+
+            JPanel panelOrden = creacion.crearPanelOrden(texto);
+
+            panelOrden.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            panelOrden.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    navegacion.mostrarPantallaGenerarPresupuesto(orden);
+                }
+            });
+
+            contenedor.add(panelOrden);
+            contenedor.add(creacion.crearSeparador(8));
+        }
+    }
+    scrollPaneOrdenes.setViewportView(contenedor);
+}
+   
+     private void configurarVentana() {
+         this.setLocationRelativeTo(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,6 +96,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     private void initComponents() {
 
         btnRegresar = new javax.swing.JButton();
+        scrollPaneOrdenes = new javax.swing.JScrollPane();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,6 +110,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, 50));
+        getContentPane().add(scrollPaneOrdenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 300, 260));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaSeleccionarOrdenCUA.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -52,6 +120,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         navegacion.mostrarPantallaSeleccionarCliente();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -62,5 +131,6 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JScrollPane scrollPaneOrdenes;
     // End of variables declaration//GEN-END:variables
 }

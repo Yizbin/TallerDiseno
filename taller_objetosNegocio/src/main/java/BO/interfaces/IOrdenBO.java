@@ -26,4 +26,6 @@ public interface IOrdenBO {
     public List<OrdenDTO> buscarTodasLasOrdenes() throws NegocioException;
     
     public List<OrdenDTO> buscarTodasLasOrdenesPendientes() throws NegocioException;
+    
+    public List<OrdenDTO> buscarOrdenesPorCliente(String idCliente) throws NegocioException;
 }

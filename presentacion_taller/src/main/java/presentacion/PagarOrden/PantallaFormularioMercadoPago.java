@@ -148,7 +148,6 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
 
         panelBotones.setOpaque(false);
 
-        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
         btnCancelar.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(198, 40, 40));
         btnCancelar.setText("Cancelar");
@@ -183,7 +182,6 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
         jLabel2.setText("Correo Electronico:");
         panelMercadoPago.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
 
-        textCorreo.setBackground(new java.awt.Color(255, 255, 255));
         textCorreo.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         panelMercadoPago.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 190, -1));
 

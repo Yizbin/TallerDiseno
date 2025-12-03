@@ -115,4 +115,15 @@ public class OrdenBO implements IOrdenBO {
         }
     }
 
+    @Override
+    public List<OrdenDTO> buscarOrdenesPorCliente(String idCliente) throws NegocioException {
+         try {
+        List<Orden> lista = ordenDAO.buscarOrdenesPorCliente(Long.valueOf(idCliente));
+        return ordenMapper.toListDTO(lista);
+
+        }catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar ordenes del cliente: " + e.getMessage());
+        }
+    }
+
 }

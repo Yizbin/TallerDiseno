@@ -4,6 +4,7 @@
  */
 package presentacion.main;
 
+import dto.OrdenDTO;
 import gestionEmpleados.IManejoEmpleados;
 import gestionEmpleados.ManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
@@ -83,13 +84,15 @@ public class ContenedorDependencias {
     private final IControlEmpleados controlEmpleados;
 
     private final IControlNavegacion controlNavegacion;
+    
+    
 
     public ContenedorDependencias() {
         this.validacionServicio = new ValidacionesPresentacion();
         this.creacionPaneles = new CreacionPaneles();
         this.creacionTablas = new CreacionTablas();
         this.gestorPagos = new GestorPagos();
-
+        
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
                 manejoClientes,
@@ -123,6 +126,7 @@ public class ContenedorDependencias {
                 controlPagos,
                 controlTareas,
                 controlEmpleados
+               
         );
     }
 

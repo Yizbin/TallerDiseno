@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
@@ -46,6 +47,7 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlPagos pagos;
     private final IControlTareas tareas;
     private final IControlEmpleados controlEmpleados;
+    
 
     private EmpleadoDTO empleadoActivo;
 
@@ -60,6 +62,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.pagos = pagos;
         this.tareas = tareas;
         this.controlEmpleados = controlEmpleados;
+       
     }
 
     @Override
@@ -162,23 +165,14 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarCliente() {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto);
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaSeleccionarOrden() {
-        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this);
-    }
-
-    @Override
-    public void mostrarPantallaGenerarPresupuesto() {
-        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this);
-    }
-
-    @Override
-    public void mostrarPantallaPresupuestoGenerado() {
-        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(this);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO) {
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO);
+        pantalla.setVisible(true);
     }
 
     @Override
@@ -252,10 +246,20 @@ public class ControlNavegacion implements IControlNavegacion {
                 this.mensajes,
                 this.creacion,
                 this.tareas,
-                this.empleadoActivo // 🔥 le pasamos el mecánico actual
+                this.empleadoActivo
         );
 
         pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaGenerarPresupuesto(IControlOrdenes orden) {
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this, orden, clientes, creacion);
+    }
+
+    @Override
+    public void mostrarPantallaPresupuestoGenerado() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

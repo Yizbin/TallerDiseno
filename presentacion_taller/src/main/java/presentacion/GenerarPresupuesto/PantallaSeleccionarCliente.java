@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPresupuestos;
 
 /**
@@ -25,18 +26,20 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private final IControlClientes clientes;
     private final IControlCreacionUI creacion;
     private final IControlPresupuestos control;
+    private final IControlOrdenes orden;
     /**
      * Creates new form PantallaSeleccionarCliente
      */
-    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control) {
+    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes orden) {
         initComponents();
-        
+        configurarVentana();
         this.navegacion = navegacion;
         this.control= control;
         this.clientes = clientes;
         this.creacion = creacion;
+        this.orden= orden; 
         
-        configurarVentana();
+        
         generarListaClientes();
         
         scrollPaneClientes.setOpaque(false);
@@ -52,19 +55,19 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
         contenedor.setOpaque(false);
 
-        for (ClienteDTO cliente : listaClientes) {
+        for (ClienteDTO clienteDTO : listaClientes) {
 
-            String texto = cliente.getNombre() + " "
-                    + cliente.getApellidoP() + " "
-                    + cliente.getApellidoM() + " | "
-                    + cliente.getTelefono();
+            String texto = clienteDTO.getNombre() + " "
+                    + clienteDTO.getApellidoP() + " "
+                    + clienteDTO.getApellidoM() + " | "
+                    + clienteDTO.getTelefono();
 
             JPanel panel = creacion.crearPanelCliente(texto);
 
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    clienteSeleccionado(cliente);
+                    clienteSeleccionado(clienteDTO);
                 }
             });
 
@@ -75,10 +78,9 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     }
     
     private void clienteSeleccionado(ClienteDTO cliente) {
-        PresupuestoDTO presupuestoNuevo = control.crearPresupuestoConCliente(cliente);
-        navegacion.mostrarPantallaSeleccionarOrden();
+        navegacion.mostrarPantallaSeleccionarOrden(orden, creacion, cliente);
         this.dispose();
-    }
+}
      
       private void configurarVentana() {
         this.setLocationRelativeTo(null);

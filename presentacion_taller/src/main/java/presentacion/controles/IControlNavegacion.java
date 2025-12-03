@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
@@ -39,9 +40,9 @@ public interface IControlNavegacion {
 
     public void mostrarPantallaSeleccionarCliente();
 
-    public void mostrarPantallaSeleccionarOrden();
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO );
 
-    public void mostrarPantallaGenerarPresupuesto();
+    public void mostrarPantallaGenerarPresupuesto(IControlOrdenes orden);
 
     public void mostrarPantallaPresupuestoGenerado();
 

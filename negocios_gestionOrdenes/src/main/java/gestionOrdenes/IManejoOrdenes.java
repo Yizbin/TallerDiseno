@@ -29,4 +29,6 @@ public interface IManejoOrdenes {
     
     public List<OrdenDTO> buscarTodasLasOrdenesPendientes(String id) throws NegocioException;
     
+    public List<OrdenDTO> buscarOrdenesPorCliente(String idCliente) throws NegocioException;
+    
 }

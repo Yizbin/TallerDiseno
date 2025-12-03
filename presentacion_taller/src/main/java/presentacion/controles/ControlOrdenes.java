@@ -11,6 +11,7 @@ import dto.OrdenDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import gestionTaller.IGestorTaller;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -57,6 +58,28 @@ public class ControlOrdenes implements IControlOrdenes {
         OrdenDTO ordenNueva = new OrdenDTO();
         ordenNueva.setVehiculo(vehiculo);
         return ordenNueva;
+    }
+
+    @Override
+    public List<OrdenDTO> buscarOrdenesPorCliente(ClienteDTO cliente) {
+        try {
+        if (cliente == null || cliente.getId_cliente()== null) {
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar un cliente válido.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        return taller.buscarOrdenesPorCliente(cliente);
+
+    } catch (NegocioException ex) {
+        JOptionPane.showMessageDialog(null,
+                "Error al buscar las órdenes del cliente: " + ex.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
     }
 
 }
