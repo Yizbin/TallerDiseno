@@ -8,6 +8,7 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import dto.enums.NavegacionOrigen;
 
 /**
@@ -40,9 +41,9 @@ public interface IControlNavegacion {
 
     public void mostrarPantallaSeleccionarCliente();
 
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO );
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO);
 
-    public void mostrarPantallaGenerarPresupuesto(IControlOrdenes orden);
+    public void mostrarPantallaGenerarPresupuesto(IControlCreacionUI creacion,OrdenDTO orden,ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio);
 
     public void mostrarPantallaPresupuestoGenerado();
 

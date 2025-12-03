@@ -6,6 +6,7 @@ package presentacion.GenerarPresupuesto;
     
 import dto.ClienteDTO;
 import dto.OrdenDTO;
+import dto.PresupuestoDTO;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,7 +27,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     private final IControlOrdenes orden; 
     private final IControlCreacionUI creacion;
     private final ClienteDTO clienteSeleccionado;
-    
+  
     /**
      * Creates new form PantallaPresupuestoGenerado
      */
@@ -72,7 +73,8 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
             panelOrden.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    navegacion.mostrarPantallaGenerarPresupuesto(orden);
+                    navegacion.mostrarPantallaGenerarPresupuesto(creacion, null, clienteSeleccionado, null, null);
+                    
                 }
             });
 
@@ -82,7 +84,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     }
     scrollPaneOrdenes.setViewportView(contenedor);
 }
-   
+  
      private void configurarVentana() {
          this.setLocationRelativeTo(null);
     }

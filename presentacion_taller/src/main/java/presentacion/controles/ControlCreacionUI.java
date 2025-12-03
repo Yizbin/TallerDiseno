@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.ServicioDTO;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +19,7 @@ public class ControlCreacionUI implements IControlCreacionUI {
 
     private final ICreacionPaneles creacionPaneles;
     private final ICreacionTablas creacionTablas;
+    private ServicioDTO servicio;
 
     public ControlCreacionUI(ICreacionPaneles creacionPaneles, ICreacionTablas creacionTablas) {
         this.creacionPaneles = creacionPaneles;
@@ -57,5 +59,15 @@ public class ControlCreacionUI implements IControlCreacionUI {
     @Override
     public void aplicarEstiloTabla(JScrollPane scrollpane, JTable tabla) {
         creacionTablas.aplicarEstiloTabla(scrollpane, tabla);
+    }
+
+    @Override
+    public JPanel crearPanelServicio(String nombre, double precio, String descripcion) {
+        return creacionPaneles.crearPanelServicio(nombre, precio, descripcion);
+    }
+
+    @Override
+    public JPanel crearPanelRefaccion(String nombre, double precio, int stock) {
+        return creacionPaneles.crearPanelRefaccion(nombre, precio, stock);
     }
 }

@@ -8,7 +8,6 @@ import BO.PresupuestoBO;
 import BO.interfaces.IPresupuestoBO;
 import dto.ClienteDTO;
 import dto.PresupuestoDTO;
-import excepciones.EntidadDuplicadaNegocioException;
 import excepciones.NegocioException;
 import gestionTaller.IGestorTaller;
 import java.util.ArrayList;
@@ -70,6 +69,6 @@ public class ControlPresupuestos implements IControlPresupuestos {
                 "Error", JOptionPane.ERROR_MESSAGE);
         return null;
     }
-    }
+  }
 
 }

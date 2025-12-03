@@ -4,6 +4,7 @@
  */
 package presentacion.utilerias;
 
+import dto.ServicioDTO;
 import javax.swing.JPanel;
 
 /**
@@ -24,4 +25,7 @@ public interface ICreacionPaneles {
 
     public JPanel crearSeparador(int altura);
 
+    public JPanel crearPanelServicio(String nombre, double precio, String descripcion);
+    
+    public JPanel crearPanelRefaccion(String nombre, double precio, int stock);
 }

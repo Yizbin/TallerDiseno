@@ -27,10 +27,11 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private final IControlCreacionUI creacion;
     private final IControlPresupuestos control;
     private final IControlOrdenes orden;
+    private final IControlPresupuestos presupuesto;
     /**
      * Creates new form PantallaSeleccionarCliente
      */
-    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes orden) {
+    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes orden, IControlPresupuestos presupuesto) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
@@ -38,6 +39,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
         this.clientes = clientes;
         this.creacion = creacion;
         this.orden= orden; 
+        this.presupuesto=presupuesto;
         
         
         generarListaClientes();

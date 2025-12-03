@@ -4,12 +4,17 @@
  */
 package presentacion.utilerias;
 
+import dto.ServicioDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -126,6 +131,8 @@ public class CreacionPaneles implements ICreacionPaneles {
 
         return panel;
     }
+    
+    
 
     @Override
     public JPanel crearSeparador(int altura) {
@@ -148,4 +155,98 @@ public class CreacionPaneles implements ICreacionPaneles {
         return FUENTE_PEQUENA;
     }
 
+    @Override
+    public JPanel crearPanelServicio(String nombre, double precio, String descripcion) {
+         JPanel panel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+           
+            g.setColor(Color.WHITE);
+            g.drawLine(0, 0, getWidth(), 0);
+            g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
+        }
+    };
+        panel.setLayout(new BorderLayout());
+        panel.setOpaque(false);
+        panel.setPreferredSize(new Dimension(450, 90));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+
+
+        JLabel lblNombre = new JLabel(nombre);
+        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblNombre.setForeground(Color.WHITE);
+
+        JLabel lblDescripcion = new JLabel(descripcion);
+        lblDescripcion.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblDescripcion.setForeground(Color.WHITE);
+
+        JLabel lblPrecio = new JLabel("$" + precio);
+        lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        lblPrecio.setForeground(Color.WHITE);
+
+
+        JPanel panelTexto = new JPanel();
+        panelTexto.setOpaque(false);
+        panelTexto.setLayout(new GridLayout(3, 1));
+        panelTexto.add(lblNombre);
+        panelTexto.add(lblDescripcion);
+        panelTexto.add(lblPrecio);
+
+        JCheckBox chkSeleccion = new JCheckBox();
+        chkSeleccion.setOpaque(false);
+        chkSeleccion.setForeground(Color.WHITE); 
+
+        panel.add(panelTexto, BorderLayout.CENTER);
+        panel.add(chkSeleccion, BorderLayout.EAST);
+
+        return panel;
+    }
+
+    @Override
+    public JPanel crearPanelRefaccion(String nombre, double precio, int stock) {
+        JPanel panel = new JPanel() {
+       
+            @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.WHITE);
+            g.drawLine(0, 0, getWidth(), 0);
+            g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
+        }
+    };
+
+        panel.setLayout(new BorderLayout());
+        panel.setOpaque(false);
+        panel.setPreferredSize(new Dimension(450, 90));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+
+        JLabel lblNombre = new JLabel(nombre);
+        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblNombre.setForeground(Color.WHITE);
+
+        JLabel lblPrecio = new JLabel("Precio: $" + precio);
+        lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lblPrecio.setForeground(Color.WHITE);
+
+        JLabel lblStock = new JLabel("Stock: " + stock);
+        lblStock.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lblStock.setForeground(Color.WHITE);
+
+        JPanel panelTexto = new JPanel();
+        panelTexto.setOpaque(false);
+        panelTexto.setLayout(new GridLayout(3, 1));
+        panelTexto.add(lblNombre);
+        panelTexto.add(lblPrecio);
+        panelTexto.add(lblStock);
+
+        JPanel panelDerecho = new JPanel();
+        panelDerecho.setOpaque(false);
+        panelDerecho.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        panel.add(panelTexto, BorderLayout.CENTER);
+        panel.add(panelDerecho, BorderLayout.EAST);
+
+        return panel;
+    }
 }

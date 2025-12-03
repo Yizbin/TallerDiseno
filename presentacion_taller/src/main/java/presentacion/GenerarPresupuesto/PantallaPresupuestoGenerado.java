@@ -5,6 +5,9 @@
 package presentacion.GenerarPresupuesto;
 
 import dto.ClienteDTO;
+import dto.OrdenDTO;
+import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
@@ -15,18 +18,22 @@ import presentacion.controles.IControlOrdenes;
  */
 public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     private final IControlNavegacion navegacion;
-    private final IControlOrdenes orden;
     private final IControlCreacionUI creacion;
     private final ClienteDTO clienteSeleccionado;
+    private final PresupuestoDTO presupuesto;
+    private final OrdenDTO orden;
+    private final ServicioDTO servicio;
     
-    public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado) {
+    public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO clienteSeleccionado, PresupuestoDTO presupuesto, ServicioDTO servicio) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
-        this.orden = orden;
-        this.creacion = creacion;
-        this.clienteSeleccionado = clienteSeleccionado;
         
+        this.creacion = creacion;
+        this.orden = orden;
+        this.clienteSeleccionado = clienteSeleccionado;
+        this.presupuesto=presupuesto;
+        this.servicio=servicio;
         
     }
 
@@ -76,7 +83,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaGenerarPresupuesto(orden);
+        navegacion.mostrarPantallaGenerarPresupuesto(creacion, orden, clienteSeleccionado, presupuesto, servicio);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed

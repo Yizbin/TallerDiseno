@@ -8,6 +8,7 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import dto.enums.NavegacionOrigen;
 import presentacion.GenerarPresupuesto.PantallaGenerarPresupuesto;
 import presentacion.GenerarPresupuesto.PantallaPresupuestoGenerado;
@@ -168,13 +169,13 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarCliente() {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes);
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto);
         pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaSeleccionarOrden(IControlOrdenes orden, IControlCreacionUI creacion, ClienteDTO clienteDTO) {
-        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO);
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, orden, creacion, clienteDTO);
         pantalla.setVisible(true);
     }
 
@@ -256,8 +257,9 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaGenerarPresupuesto(IControlOrdenes orden) {
-        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this, orden, clientes, creacion);
+    public void mostrarPantallaGenerarPresupuesto(IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio) {
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(this, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones);
+        pantalla.setVisible(true);
     }
 
     @Override

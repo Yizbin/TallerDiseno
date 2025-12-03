@@ -4,6 +4,7 @@
  */
 package presentacion.controles;
 
+import dto.ServicioDTO;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,4 +28,8 @@ public interface IControlCreacionUI {
     public JPanel crearSeparador(int altura);
     
     public void aplicarEstiloTabla(JScrollPane scrollpane, JTable tabla);
+    
+    public JPanel crearPanelServicio(String nombre, double precio, String descripcion);
+    
+    public JPanel crearPanelRefaccion(String nombre, double precio, int stock);
 }
