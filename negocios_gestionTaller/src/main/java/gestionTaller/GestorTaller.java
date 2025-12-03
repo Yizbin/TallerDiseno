@@ -10,13 +10,17 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.ServicioDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
+import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
 import gestionEmpleados.IManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
 import gestionPresupuestos.IManejoPresupuestos;
+import gestionRefacciones.IManejoRefacciones;
 import gestionServicios.IManejoServicios;
 import gestionarClientes.IManejoClientes;
 import gestionarTareas.IManejoTareas;
@@ -36,8 +40,9 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoPresupuestos manejoPresupuestos;
     private final IManejoTareas manejoTareas;
     private final IManejoServicios manejoServicios;
+    private final IManejoRefacciones manejoRefacciones;
     
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas, IManejoServicios manejoServicios) {
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas, IManejoServicios manejoServicios, IManejoRefacciones manejoRefacciones) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
@@ -45,6 +50,7 @@ public class GestorTaller implements IGestorTaller {
         this.manejoPresupuestos = manejoPresupuestos;
         this.manejoTareas = manejoTareas;
         this.manejoServicios = manejoServicios;
+        this.manejoRefacciones = manejoRefacciones;
     }
 
     @Override
@@ -190,6 +196,26 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public List<ServicioDTO> obtenerTodos() throws NegocioException {
        return manejoServicios.obtenerTodos();
+    }
+
+    @Override
+    public RefaccionDTO crearRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadDuplicadaNegocioException {
+        return manejoRefacciones.crearRefaccion(refaccionDTO);
+    }
+
+    @Override
+    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadNoEncontradaNegocioException {
+        return manejoRefacciones.actualizarRefaccion(refaccionDTO);
+    }
+
+    @Override
+    public List<RefaccionDTO> buscarTodasLasRefacciones() throws NegocioException, EntidadDuplicadaNegocioException {
+        return manejoRefacciones.buscarTodasLasRefacciones();
+    }
+
+    @Override
+    public RefaccionDTO buscarRefaccionPorId(String id) throws NegocioException, EntidadNoEncontradaNegocioException {
+        return manejoRefacciones.buscarRefaccionPorId(id);
     }
     
 }

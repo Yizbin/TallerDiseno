@@ -4,10 +4,23 @@
  */
 package gestionRefacciones;
 
+
+import dto.RefaccionDTO;
+import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
+import excepciones.NegocioException;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public interface IManejoRefacciones {
+    public RefaccionDTO crearRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadDuplicadaNegocioException;
     
+    public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadNoEncontradaNegocioException;
+    
+    public List<RefaccionDTO> buscarTodasLasRefacciones() throws NegocioException,EntidadDuplicadaNegocioException;
+    
+    public RefaccionDTO buscarRefaccionPorId(String id) throws NegocioException,  EntidadNoEncontradaNegocioException;
 }

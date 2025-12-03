@@ -11,6 +11,8 @@ import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
 import gestionPresupuestos.IManejoPresupuestos;
 import gestionPresupuestos.ManejoPresupuestos;
+import gestionRefacciones.IManejoRefacciones;
+import gestionRefacciones.ManejoRefacciones;
 import gestionServicios.IManejoServicios;
 import interfaz.IGestorPagos;
 import gestionTaller.GestorTaller;
@@ -34,6 +36,7 @@ import presentacion.controles.ControlPagos;
 import presentacion.controles.ControlPresupuestos;
 import presentacion.controles.ControlServicios;
 import presentacion.controles.ControlTareas;
+import presentacion.controles.ControlRefacciones;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
@@ -45,6 +48,7 @@ import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPagos;
 import presentacion.controles.IControlPresupuestos;
+import presentacion.controles.IControlRefacciones;
 import presentacion.controles.IControlServicios;
 import presentacion.controles.IControlTareas;
 import presentacion.controles.IControlValidaciones;
@@ -69,7 +73,8 @@ public class ContenedorDependencias {
     private final IManejoPresupuestos manejoPresupuestos = ManejoPresupuestos.getInstancia();
     private final IManejoTareas manejoTareas = ManejoTareas.getInstancia();
     private final IManejoServicios manejoServicios = ManejoServicios.getInstancia();
-            
+    private final IManejoRefacciones manejoRefacciones = ManejoRefacciones.getInstancia();
+    
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
@@ -88,6 +93,7 @@ public class ContenedorDependencias {
     private final IControlTareas controlTareas;
     private final IControlEmpleados controlEmpleados;
     private final IControlServicios controlServicios;
+    private final IControlRefacciones controlRefacciones;
     
     private final IControlNavegacion controlNavegacion;
     
@@ -106,7 +112,8 @@ public class ContenedorDependencias {
                 manejoEmpleados,
                 manejoPresupuestos,
                 manejoTareas,
-                manejoServicios
+                manejoServicios,
+                manejoRefacciones
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
@@ -115,7 +122,7 @@ public class ContenedorDependencias {
         this.controlAutenticacion = new ControlAutenticacion(tallerServicio);
         this.controlPagos = new ControlPagos(gestorPagos);
         this.controlServicios = new ControlServicios(tallerServicio);
-        
+        this.controlRefacciones = new ControlRefacciones(tallerServicio);
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
         this.controlMensajes = new ControlMensajes();
@@ -134,7 +141,8 @@ public class ContenedorDependencias {
                 controlPagos,
                 controlTareas,
                 controlEmpleados,
-                controlServicios
+                controlServicios,
+                controlRefacciones
         );
     }
 
@@ -228,6 +236,10 @@ public class ContenedorDependencias {
 
     public IControlEmpleados getControlEmpleados() {
         return controlEmpleados;
+    }
+
+    public IControlServicios getControlServicios() {
+        return controlServicios;
     }
 
 }

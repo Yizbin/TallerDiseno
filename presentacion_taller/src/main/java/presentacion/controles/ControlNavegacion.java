@@ -31,6 +31,7 @@ import presentacion.TareaCompletada.PantallaTareasMecanico;
 import presentacion.PantallaVehiculosRegistrados;
 import presentacion.VerHistorial.PantallaVerHistorial;
 
+
 /**
  *
  * @author Abraham Coronel
@@ -48,10 +49,11 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlTareas tareas;
     private final IControlEmpleados controlEmpleados;
     private final IControlServicios controlServicios;
-
+    private final IControlRefacciones controlRefacciones;
+    
     private EmpleadoDTO empleadoActivo;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios, IControlRefacciones controlRefacciones) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -63,6 +65,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.tareas = tareas;
         this.controlEmpleados = controlEmpleados;
         this.controlServicios = controlServicios;
+        this.controlRefacciones = controlRefacciones;
     }
 
     @Override
