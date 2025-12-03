@@ -4,7 +4,6 @@
  */
 package presentacion.main;
 
-import dto.OrdenDTO;
 import gestionEmpleados.IManejoEmpleados;
 import gestionEmpleados.ManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
@@ -12,6 +11,7 @@ import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
 import gestionPresupuestos.IManejoPresupuestos;
 import gestionPresupuestos.ManejoPresupuestos;
+import gestionServicios.IManejoServicios;
 import interfaz.IGestorPagos;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
@@ -19,6 +19,8 @@ import gestionarClientes.IManejoClientes;
 import gestionarClientes.ManejoClientes;
 import gestionarTareas.IManejoTareas;
 import gestionarTareas.ManejoTareas;
+import gestionServicios.ManejoServicios;
+import gestionServicios.IManejoServicios;
 import gestionarVehiculos.IManejoVehiculos;
 import gestionarVehiculos.ManejoVehiculos;
 import presentacion.controles.ControlAutenticacion;
@@ -30,6 +32,7 @@ import presentacion.controles.ControlNavegacion;
 import presentacion.controles.ControlOrdenes;
 import presentacion.controles.ControlPagos;
 import presentacion.controles.ControlPresupuestos;
+import presentacion.controles.ControlServicios;
 import presentacion.controles.ControlTareas;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
@@ -42,6 +45,7 @@ import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPagos;
 import presentacion.controles.IControlPresupuestos;
+import presentacion.controles.IControlServicios;
 import presentacion.controles.IControlTareas;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
@@ -64,7 +68,8 @@ public class ContenedorDependencias {
     private final IManejoEmpleados manejoEmpleados = ManejoEmpleados.getInstancia();
     private final IManejoPresupuestos manejoPresupuestos = ManejoPresupuestos.getInstancia();
     private final IManejoTareas manejoTareas = ManejoTareas.getInstancia();
-
+    private final IManejoServicios manejoServicios = ManejoServicios.getInstancia();
+            
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
@@ -82,24 +87,26 @@ public class ContenedorDependencias {
     private final IControlPresupuestos controlPresupuestos;
     private final IControlTareas controlTareas;
     private final IControlEmpleados controlEmpleados;
-
+    private final IControlServicios controlServicios;
+    
     private final IControlNavegacion controlNavegacion;
     
-    
+   
 
     public ContenedorDependencias() {
         this.validacionServicio = new ValidacionesPresentacion();
         this.creacionPaneles = new CreacionPaneles();
         this.creacionTablas = new CreacionTablas();
         this.gestorPagos = new GestorPagos();
-        
+      
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
                 manejoClientes,
                 manejoVehiculos,
                 manejoEmpleados,
                 manejoPresupuestos,
-                manejoTareas
+                manejoTareas,
+                manejoServicios
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
@@ -107,7 +114,8 @@ public class ContenedorDependencias {
         this.controlVehiculos = new ControlVehiculos(tallerServicio);
         this.controlAutenticacion = new ControlAutenticacion(tallerServicio);
         this.controlPagos = new ControlPagos(gestorPagos);
-
+        this.controlServicios = new ControlServicios(tallerServicio);
+        
         this.controlValidaciones = new ControlValidaciones(validacionServicio);
         this.controlCreacionUI = new ControlCreacionUI(creacionPaneles, creacionTablas);
         this.controlMensajes = new ControlMensajes();
@@ -125,8 +133,8 @@ public class ContenedorDependencias {
                 controlPresupuestos,
                 controlPagos,
                 controlTareas,
-                controlEmpleados
-               
+                controlEmpleados,
+                controlServicios
         );
     }
 

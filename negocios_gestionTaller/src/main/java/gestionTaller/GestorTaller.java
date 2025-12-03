@@ -10,12 +10,14 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
 import gestionEmpleados.IManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
 import gestionPresupuestos.IManejoPresupuestos;
+import gestionServicios.IManejoServicios;
 import gestionarClientes.IManejoClientes;
 import gestionarTareas.IManejoTareas;
 import gestionarVehiculos.IManejoVehiculos;
@@ -33,14 +35,16 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoEmpleados manejoEmpleados;
     private final IManejoPresupuestos manejoPresupuestos;
     private final IManejoTareas manejoTareas;
-
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas) {
+    private final IManejoServicios manejoServicios;
+    
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas, IManejoServicios manejoServicios) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
         this.manejoEmpleados = manejoEmpleados;
         this.manejoPresupuestos = manejoPresupuestos;
         this.manejoTareas = manejoTareas;
+        this.manejoServicios = manejoServicios;
     }
 
     @Override
@@ -166,6 +170,31 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public List<OrdenDTO> buscarOrdenesPorCliente(ClienteDTO cliente) throws NegocioException {
         return manejoOrdenes.buscarOrdenesPorCliente(cliente.getId_cliente());
+    }
+
+    @Override
+    public ServicioDTO crearServicio(ServicioDTO dto) throws NegocioException {
+        return manejoServicios.crearServicio(dto);
+    }
+
+    @Override
+    public ServicioDTO actualizarServicio(ServicioDTO dto) throws NegocioException {
+        return manejoServicios.actualizarServicio(dto);
+    }
+
+    @Override
+    public ServicioDTO eliminarServicio(String id) throws NegocioException {
+        return manejoServicios.eliminarServicio(id);
+    }
+
+    @Override
+    public ServicioDTO buscarServicioPorId(String id) throws NegocioException {
+        return manejoServicios.buscarServicioPorId(id);
+    }
+
+    @Override
+    public List<ServicioDTO> buscarTodosLosServicios() throws NegocioException {
+       return manejoServicios.buscarTodosLosServicios();
     }
 
 }

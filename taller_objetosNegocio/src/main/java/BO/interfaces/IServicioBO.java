@@ -4,10 +4,23 @@
  */
 package BO.interfaces;
 
+import dto.ServicioDTO;
+import excepciones.NegocioException;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public interface IServicioBO {
-    
+   
+    public ServicioDTO crearServicio(ServicioDTO dto) throws NegocioException;
+
+    public ServicioDTO actualizarServicio(ServicioDTO dto) throws NegocioException;
+
+    public ServicioDTO eliminarServicio(Long id) throws NegocioException;
+
+    public ServicioDTO buscarPorId(Long id) throws NegocioException;
+
+    public List<ServicioDTO> obtenerTodos() throws NegocioException;
 }

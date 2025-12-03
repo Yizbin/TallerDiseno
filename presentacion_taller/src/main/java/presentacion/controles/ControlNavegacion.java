@@ -47,11 +47,11 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlPagos pagos;
     private final IControlTareas tareas;
     private final IControlEmpleados controlEmpleados;
-    
+    private final IControlServicios controlServicios;
 
     private EmpleadoDTO empleadoActivo;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -62,7 +62,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.pagos = pagos;
         this.tareas = tareas;
         this.controlEmpleados = controlEmpleados;
-       
+        this.controlServicios = controlServicios;
     }
 
     @Override

@@ -6,6 +6,7 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.ServicioDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
 import excepciones.NegocioException;
@@ -47,6 +48,11 @@ import java.util.List;
         List<TareaDTO> obtenerTareasSinAsignar() throws NegocioException;
         List<TareaDTO> obtenerTareasCompletadasPorMecanico(String idMecanico) throws NegocioException;
 
-
+        //Servicios
+        ServicioDTO crearServicio(ServicioDTO dto) throws NegocioException;
+        ServicioDTO actualizarServicio(ServicioDTO dto) throws NegocioException;
+        ServicioDTO eliminarServicio(String id) throws NegocioException;
+        ServicioDTO buscarServicioPorId(String id) throws NegocioException;
+        List<ServicioDTO> buscarTodosLosServicios() throws NegocioException;
         
     }
