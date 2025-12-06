@@ -32,7 +32,6 @@ import presentacion.TareaCompletada.PantallaTareasMecanico;
 import presentacion.PantallaVehiculosRegistrados;
 import presentacion.VerHistorial.PantallaVerHistorial;
 
-
 /**
  *
  * @author Abraham Coronel
@@ -51,13 +50,14 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlEmpleados controlEmpleados;
     private final IControlServicios controlServicios;
     private final IControlRefacciones controlRefacciones;
-    
+    private final IControlDocumentos controlDocumentos;
+
     private EmpleadoDTO empleadoActivo;
     private OrdenDTO orden;
     private ServicioDTO servicio;
     private PresupuestoDTO presupuestoDTO;
 
-    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios, IControlRefacciones controlRefacciones) {
+    public ControlNavegacion(IControlOrdenes controlOrdenes, IControlClientes clientes, IControlVehiculos vehiculos, IControlValidaciones validaciones, IControlMensajes mensajes, IControlCreacionUI creacion, IControlPresupuestos presupuesto, IControlPagos pagos, IControlTareas tareas, IControlEmpleados controlEmpleados, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlDocumentos controlDocumentos) {
         this.controlOrdenes = controlOrdenes;
         this.clientes = clientes;
         this.vehiculos = vehiculos;
@@ -70,6 +70,7 @@ public class ControlNavegacion implements IControlNavegacion {
         this.controlEmpleados = controlEmpleados;
         this.controlServicios = controlServicios;
         this.controlRefacciones = controlRefacciones;
+        this.controlDocumentos = controlDocumentos;
     }
 
     @Override
@@ -208,7 +209,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarReciboPago(String idTransaccion, PresupuestoDTO presupuesto) {
-        PantallaReciboPago pantalla = new PantallaReciboPago(this, idTransaccion, presupuesto);
+        PantallaReciboPago pantalla = new PantallaReciboPago(this, idTransaccion, presupuesto, this.controlDocumentos, this.mensajes);
         pantalla.setVisible(true);
     }
 

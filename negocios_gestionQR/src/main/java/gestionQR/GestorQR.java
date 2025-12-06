@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package presentacion.utilerias;
+package gestionQR;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -10,25 +10,23 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 
 /**
  *
  * @author Abraham Coronel
  */
-public class GeneradorQR {
+public class GestorQR implements IGestorQR {
 
-    public static ImageIcon generarQR(String texto, int ancho, int alto) {
+    @Override
+    public BufferedImage generarCodigoQR(String texto, int ancho, int alto) {
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(texto, BarcodeFormat.QR_CODE, ancho, alto);
-
-            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
-            return new ImageIcon(bufferedImage);
+            return MatrixToImageWriter.toBufferedImage(bitMatrix);
         } catch (WriterException e) {
-            System.err.println("Error al generar el QR: " + e.getMessage());
+            System.err.println("Error en el subsistema de generacion de QR: " + e.getMessage());
             return null;
         }
     }
+
 }

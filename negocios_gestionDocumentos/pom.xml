@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
-    <artifactId>negocios_gestionRefacciones</artifactId>
+    <artifactId>negocios_gestionDocumentos</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
@@ -12,14 +12,20 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>taller_objetosNegocio</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>7.2.5</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>com.mycompany.negocios_gestionrefacciones.Negocios_gestionRefacciones</exec.mainClass>
+        <exec.mainClass>com.mycompany.negocios_gestiondocumentos.Negocios_gestionDocumentos</exec.mainClass>
     </properties>
 </project>

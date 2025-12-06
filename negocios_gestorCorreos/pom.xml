@@ -2,24 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
-    <artifactId>negocios_gestionRefacciones</artifactId>
+    <artifactId>negocios_gestorCorreos</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>dto_negocios</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>taller_objetosNegocio</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>com.mycompany.negocios_gestionrefacciones.Negocios_gestionRefacciones</exec.mainClass>
+        <exec.mainClass>com.mycompany.negocios_gestorcorreos.Negocios_gestorCorreos</exec.mainClass>
     </properties>
+    <name>negocios_gestionCorreos</name>
 </project>

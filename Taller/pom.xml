@@ -21,6 +21,9 @@
         <module>../negocios_gestionarTareas</module>
         <module>../negocios_gestionServicios</module>
         <module>../negocios_gestionRefacciones</module>
+        <module>../negocios_gestionDocumentos</module>
+        <module>../negocios_gestionQR</module>
+        <module>../negocios_gestorCorreos</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

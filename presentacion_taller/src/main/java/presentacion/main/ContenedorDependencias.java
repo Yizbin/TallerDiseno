@@ -4,6 +4,10 @@
  */
 package presentacion.main;
 
+import gestionCorreos.GestorCorreo;
+import gestionCorreos.IGestorCorreo;
+import gestionDocumentos.GestorPDF;
+import gestionDocumentos.IGestorPDF;
 import gestionEmpleados.IManejoEmpleados;
 import gestionEmpleados.ManejoEmpleados;
 import gestionOrdenes.IManejoOrdenes;
@@ -11,9 +15,10 @@ import gestionOrdenes.ManejoOrdenes;
 import gestionPagos.GestorPagos;
 import gestionPresupuestos.IManejoPresupuestos;
 import gestionPresupuestos.ManejoPresupuestos;
+import gestionQR.GestorQR;
+import gestionQR.IGestorQR;
 import gestionRefacciones.IManejoRefacciones;
 import gestionRefacciones.ManejoRefacciones;
-import gestionServicios.IManejoServicios;
 import interfaz.IGestorPagos;
 import gestionTaller.GestorTaller;
 import gestionTaller.IGestorTaller;
@@ -28,6 +33,7 @@ import gestionarVehiculos.ManejoVehiculos;
 import presentacion.controles.ControlAutenticacion;
 import presentacion.controles.ControlClientes;
 import presentacion.controles.ControlCreacionUI;
+import presentacion.controles.ControlDocumentos;
 import presentacion.controles.ControlEmpleados;
 import presentacion.controles.ControlMensajes;
 import presentacion.controles.ControlNavegacion;
@@ -42,6 +48,7 @@ import presentacion.controles.ControlVehiculos;
 import presentacion.controles.IControlAutenticacion;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlEmpleados;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
@@ -74,12 +81,15 @@ public class ContenedorDependencias {
     private final IManejoTareas manejoTareas = ManejoTareas.getInstancia();
     private final IManejoServicios manejoServicios = ManejoServicios.getInstancia();
     private final IManejoRefacciones manejoRefacciones = ManejoRefacciones.getInstancia();
-    
+
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
     private final ICreacionPaneles creacionPaneles;
     private final ICreacionTablas creacionTablas;
+    private final IGestorQR gestorQR;
+    private final IGestorPDF gestorPDF;
+    private final IGestorCorreo gestorCorreos;
 
     private final IControlOrdenes controlOrdenes;
     private final IControlClientes controlClientes;
@@ -94,17 +104,19 @@ public class ContenedorDependencias {
     private final IControlEmpleados controlEmpleados;
     private final IControlServicios controlServicios;
     private final IControlRefacciones controlRefacciones;
-    
+    private final IControlDocumentos controlDocumentos;
+
     private final IControlNavegacion controlNavegacion;
-    
-   
 
     public ContenedorDependencias() {
         this.validacionServicio = new ValidacionesPresentacion();
         this.creacionPaneles = new CreacionPaneles();
         this.creacionTablas = new CreacionTablas();
         this.gestorPagos = new GestorPagos();
-      
+        this.gestorQR = new GestorQR();
+        this.gestorPDF = new GestorPDF();
+        this.gestorCorreos = new GestorCorreo();
+
         this.tallerServicio = new GestorTaller(
                 manejoOrdenes,
                 manejoClientes,
@@ -129,6 +141,7 @@ public class ContenedorDependencias {
         this.controlPresupuestos = new ControlPresupuestos(tallerServicio);
         this.controlTareas = new ControlTareas(tallerServicio);
         this.controlEmpleados = new ControlEmpleados(tallerServicio);
+        this.controlDocumentos = new ControlDocumentos(gestorQR, gestorPDF, gestorCorreos);
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,
@@ -142,7 +155,8 @@ public class ContenedorDependencias {
                 controlTareas,
                 controlEmpleados,
                 controlServicios,
-                controlRefacciones
+                controlRefacciones,
+                controlDocumentos
         );
     }
 
@@ -240,6 +254,30 @@ public class ContenedorDependencias {
 
     public IControlServicios getControlServicios() {
         return controlServicios;
+    }
+
+    public IManejoServicios getManejoServicios() {
+        return manejoServicios;
+    }
+
+    public IManejoRefacciones getManejoRefacciones() {
+        return manejoRefacciones;
+    }
+
+    public IGestorQR getGestorQR() {
+        return gestorQR;
+    }
+
+    public IGestorPDF getGestorPDF() {
+        return gestorPDF;
+    }
+
+    public IControlRefacciones getControlRefacciones() {
+        return controlRefacciones;
+    }
+
+    public IControlDocumentos getControlDocumentos() {
+        return controlDocumentos;
     }
 
 }

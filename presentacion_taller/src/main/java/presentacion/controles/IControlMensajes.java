@@ -22,7 +22,9 @@ public interface IControlMensajes {
 
     public Boolean mostrarConfirmacion(Component padre, String mensaje, String titulo);
 
-    void mostrarError(Component padre, String mensaje);
+    public void mostrarError(Component padre, String mensaje);
+    
+    public String solicitarDato(String mensaje, String titulo, String valorDefecto);
     
 
 }

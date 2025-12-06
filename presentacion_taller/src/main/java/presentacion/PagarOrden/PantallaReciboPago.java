@@ -5,9 +5,11 @@
 package presentacion.PagarOrden;
 
 import dto.PresupuestoDTO;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import presentacion.controles.IControlDocumentos;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
-import presentacion.utilerias.GeneradorQR;
 
 /**
  *
@@ -16,22 +18,22 @@ import presentacion.utilerias.GeneradorQR;
 public class PantallaReciboPago extends javax.swing.JFrame {
 
     private final IControlNavegacion navegacion;
+    private final IControlDocumentos documentos;
+    private final IControlMensajes mensajes;
     private final String idTransaccion;
     private final PresupuestoDTO presupuesto;
 
-    public PantallaReciboPago(IControlNavegacion navegacion, String idTransaccion, PresupuestoDTO presupuesto) {
+    public PantallaReciboPago(IControlNavegacion navegacion, String idTransaccion, PresupuestoDTO presupuesto, IControlDocumentos documentos, IControlMensajes mensajes) {
         this.navegacion = navegacion;
         this.idTransaccion = idTransaccion;
         this.presupuesto = presupuesto;
+        this.documentos = documentos;
+        this.mensajes = mensajes;
 
         initComponents();
         configurarVentana();
         llenarDatos();
-        mostrarQR();
-    }
-
-    public PantallaReciboPago() {
-        this(null, "N/A", null);
+        generarYMostrarDocumentos();
     }
 
     private void configurarVentana() {
@@ -46,22 +48,74 @@ public class PantallaReciboPago extends javax.swing.JFrame {
                     + this.presupuesto.getOrden().getCliente().getApellidoP();
             lblClienteValor.setText(nombreCliente);
 
-            String datosVehiculo = this.presupuesto.getOrden().getVehiculo().getModelo(); 
+            String datosVehiculo = this.presupuesto.getOrden().getVehiculo().getModelo();
             lblVehiculoValor.setText(datosVehiculo);
-            
+
             lblEstadoValor.setText("Pago exitoso.");
         }
     }
 
-    private void mostrarQR() {
-        String contenidoQR = "ORDEN:" + (presupuesto != null ? presupuesto.getOrden().getIdOrden() : "N/A")
-                + "|REF:" + this.idTransaccion;
+    private void generarYMostrarDocumentos() {
+        String contenidoQR = "=== COMPROBANTE DE PAGO ===\n"
+                + "Orden No: " + (presupuesto.getOrden() != null ? presupuesto.getOrden().getIdOrden() : "N/A") + "\n"
+                + "Monto: $" + String.format("%.2f", presupuesto.getCostoTotal()) + "\n"
+                + "Ref: " + this.idTransaccion + "\n"
+                + "Estado: PAGADO";
 
-        ImageIcon iconoQR = GeneradorQR.generarQR(contenidoQR, 180, 180);
+        BufferedImage imagenQR = documentos.generarQR(contenidoQR, 200, 200);
 
-        if (iconoQR != null) {
-            lblEspacioQR.setIcon(iconoQR);
+        if (imagenQR != null) {
+            lblEspacioQR.setIcon(new ImageIcon(imagenQR));
             lblEspacioQR.setText("");
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500);
+                    System.out.println("Solicitando generacion de PDF...");
+
+                    documentos.generarPDF(presupuesto, imagenQR, idTransaccion);
+
+                } catch (InterruptedException e) {
+                    mensajes.mostrarError(this, "Error en la generacion del QR o Documentos");
+                }
+            }).start();
+        } else {
+            lblEspacioQR.setText("Error al generar QR");
+        }
+    }
+
+    private void enviarCorreo() {
+        String correoSugerido = "";
+        if (presupuesto.getCliente() != null && presupuesto.getCliente().getCorreo() != null) {
+            correoSugerido = presupuesto.getCliente().getCorreo();
+        }
+
+        String correoInput = mensajes.solicitarDato("Ingrese el correo electronico", "Enviar recibo", correoSugerido);
+
+        if (correoInput != null && !correoInput.trim().isEmpty()) {
+            final String emailFinal = correoInput.trim();
+
+            new Thread(() -> {
+                try {
+                    String contenidoQR
+                            = "ORDEN: " + (presupuesto.getOrden() != null ? presupuesto.getOrden().getIdOrden() : "N/A") + "\n"
+                            + "REF: " + this.idTransaccion + "\n"
+                            + "MONTO: $" + String.format("%.2f", presupuesto.getCostoTotal());
+
+                    BufferedImage qr = documentos.generarQR(contenidoQR, 200, 200);
+
+                    if (qr != null) {
+                        documentos.enviarPDFPorCorreo(presupuesto, qr, idTransaccion, emailFinal);
+
+                        mensajes.mostrarExito("Correo enviado correctamente a: " + emailFinal);
+                    } else {
+                        mensajes.mostrarError(this, "Error interno: No se pudo generar el codigo QR.");
+                    }
+
+                } catch (Exception e) {
+                    mensajes.mostrarError(this, "Error al enviar el correo: " + e.getMessage());
+                }
+            }).start();
         }
     }
 
@@ -167,11 +221,13 @@ public class PantallaReciboPago extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        enviarCorreo();
         navegacion.mostrarMenuPrincipal();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        enviarCorreo();
         navegacion.mostrarMenuPrincipal();
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed

@@ -47,4 +47,10 @@ public class ControlMensajes implements IControlMensajes {
         JOptionPane.showMessageDialog(padre, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    @Override
+    public String solicitarDato(String mensaje, String titulo, String valorDefecto) {
+        Object respuesta = JOptionPane.showInputDialog(null, mensaje, titulo, JOptionPane.QUESTION_MESSAGE, null, null, valorDefecto);
+        return (String) respuesta;
+    }
+
 }
