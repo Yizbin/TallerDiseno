@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlTareas;
@@ -26,15 +27,17 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
     private final IControlCreacionUI creacion;
     private final IControlTareas controlTareas;
     private final EmpleadoDTO mecanicoActual;
+    private final IControlDocumentos controlDocumentos;
 
     private DefaultTableModel modeloTablaTareas;
 
-    public PantallaTareasMecanico(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion, IControlTareas controlTareas, EmpleadoDTO mecanicoActual) {
+    public PantallaTareasMecanico(IControlNavegacion navegacion, IControlMensajes mensajes, IControlCreacionUI creacion, IControlTareas controlTareas, EmpleadoDTO mecanicoActual, IControlDocumentos controlDocumentos) {
         this.navegacion = navegacion;
         this.mensajes = mensajes;
         this.creacion = creacion;
         this.controlTareas = controlTareas;
         this.mecanicoActual = mecanicoActual;
+        this.controlDocumentos = controlDocumentos;
 
         initComponents();
         configurarModeloTabla();
@@ -112,7 +115,7 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         if (confirmar) {
             boolean exito = controlTareas.completarTarea(idTarea);
             if (exito) {
-                cargarTareas(); 
+                cargarTareas();
             }
         }
     }
@@ -124,6 +127,7 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         panelIzquierdo = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
         panelDerecho = new javax.swing.JPanel();
+        btnImprimirPDF = new javax.swing.JButton();
         panelCentro = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         scrollPaneOrdenes = new javax.swing.JScrollPane();
@@ -150,6 +154,18 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         panelDerecho.setBackground(new java.awt.Color(198, 40, 40));
         panelDerecho.setPreferredSize(new java.awt.Dimension(150, 0));
         panelDerecho.setLayout(new java.awt.BorderLayout());
+
+        btnImprimirPDF.setBackground(new java.awt.Color(198, 40, 40));
+        btnImprimirPDF.setFont(new java.awt.Font("JetBrains Mono NL", 1, 14)); // NOI18N
+        btnImprimirPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnImprimirPDF.setText("Imprimir PDF");
+        btnImprimirPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirPDFActionPerformed(evt);
+            }
+        });
+        panelDerecho.add(btnImprimirPDF, java.awt.BorderLayout.PAGE_END);
+
         getContentPane().add(panelDerecho, java.awt.BorderLayout.LINE_END);
 
         panelCentro.setBackground(new java.awt.Color(142, 0, 0));
@@ -186,8 +202,27 @@ public class PantallaTareasMecanico extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnImprimirPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirPDFActionPerformed
+        if (mecanicoActual == null) {
+            mensajes.mostrarError(this, "No hay un mecanico identificado.");
+            return;
+        }
+
+        List<TareaDTO> tareasCompletadas = controlTareas.obtenerTareasCompletadasPorMecanico(mecanicoActual.getId_empleado());
+
+        if (tareasCompletadas == null || tareasCompletadas.isEmpty()) {
+            mensajes.mostrarError(this, "No tienes tareas completadas para generar un reporte.");
+            return;
+        }
+
+        String nombreMecanico = mecanicoActual.getNombre() + " " + mecanicoActual.getApellidoP();
+
+        controlDocumentos.guardarReporteTareas(tareasCompletadas, nombreMecanico);
+    }//GEN-LAST:event_btnImprimirPDFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimirPDF;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel panelCentro;
     private javax.swing.JPanel panelDerecho;

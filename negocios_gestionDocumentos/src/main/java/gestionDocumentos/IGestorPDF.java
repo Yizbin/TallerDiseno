@@ -5,7 +5,9 @@
 package gestionDocumentos;
 
 import dto.PresupuestoDTO;
+import dto.TareaDTO;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  *
@@ -14,7 +16,9 @@ import java.awt.image.BufferedImage;
 public interface IGestorPDF {
 
     public void generarReportePago(PresupuestoDTO presupuesto, BufferedImage imagenQR, String idTransaccion);
-    
+
     public byte[] generarReportePagoEnMemoria(PresupuestoDTO presupuesto, BufferedImage imagenQR, String idTransaccion);
+
+    public byte[] generarReporteTareas(List<TareaDTO> tareas, String nombreMecanico);
 
 }

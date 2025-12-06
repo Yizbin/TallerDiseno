@@ -5,10 +5,19 @@
 package presentacion.controles;
 
 import dto.PresupuestoDTO;
+import dto.TareaDTO;
 import gestionCorreos.IGestorCorreo;
 import gestionDocumentos.IGestorPDF;
 import gestionQR.IGestorQR;
+import java.awt.Desktop;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -42,10 +51,47 @@ public class ControlDocumentos implements IControlDocumentos {
 
         if (pdfBytes != null) {
             String asunto = "Comprobante de Pago - Orden " + presupuesto.getOrden().getIdOrden();
-            String mensaje = "Hola, adjunto encontrarás tu comprobante de pago.\nGracias por tu preferencia.";
+            String mensaje = "Hola, adjunto encontraras tu comprobante de pago.\nGracias por tu preferencia.";
             String nombreArchivo = "Recibo_" + idTransaccion + ".pdf";
 
             gestorCorreo.enviarCorreoConAdjunto(correoDestino, asunto, mensaje, pdfBytes, nombreArchivo);
+        }
+    }
+
+    @Override
+    public void guardarReporteTareas(List<TareaDTO> tareas, String nombreMecanico) {
+        byte[] pdfBytes = gestorPDF.generarReporteTareas(tareas, nombreMecanico);
+
+        if (pdfBytes != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar Reporte de Tareas");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF", "pdf"));
+
+            fileChooser.setSelectedFile(new File("Reporte_Tareas_" + nombreMecanico.replace(" ", "_") + ".pdf"));
+
+            int userSelection = fileChooser.showSaveDialog(null);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+
+                if (!fileToSave.getAbsolutePath().endsWith(".pdf")) {
+                    fileToSave = new File(fileToSave.getAbsolutePath() + ".pdf");
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(fileToSave)) {
+                    fos.write(pdfBytes);
+                    JOptionPane.showMessageDialog(null, "Reporte guardado exitosamente en:\n" + fileToSave.getAbsolutePath());
+
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(fileToSave);
+                    }
+
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error al guardar el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

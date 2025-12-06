@@ -17,12 +17,14 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import dto.PresupuestoDTO;
+import dto.TareaDTO;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 /**
@@ -193,5 +195,63 @@ public class GestorPDF implements IGestorPDF {
     private void agregarFila(Table table, String titulo, String valor) {
         table.addCell(new Cell().add(new Paragraph(titulo).setBold()));
         table.addCell(new Cell().add(new Paragraph(valor != null ? valor : "")));
+    }
+
+    @Override
+    public byte[] generarReporteTareas(List<TareaDTO> tareas, String nombreMecanico) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter writer = new PdfWriter(baos);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            Paragraph titulo = new Paragraph("REPORTE DE ACTIVIDAD - MECANICO")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(18)
+                    .setBold();
+            document.add(titulo);
+            document.add(new Paragraph("\n"));
+
+            String fechaHoy = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            document.add(new Paragraph("Mecanico: " + nombreMecanico).setBold());
+            document.add(new Paragraph("Fecha de Emision: " + fechaHoy));
+            document.add(new Paragraph("Total de Tareas Completadas: " + tareas.size()));
+            document.add(new Paragraph("\n"));
+
+            Table table = new Table(UnitValue.createPercentArray(new float[]{15, 25, 40, 20}));
+            table.setWidth(UnitValue.createPercentValue(100));
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Orden").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY));
+            table.addHeaderCell(new Cell().add(new Paragraph("Vehículo").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY));
+            table.addHeaderCell(new Cell().add(new Paragraph("Descripción").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY));
+            table.addHeaderCell(new Cell().add(new Paragraph("Estado").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY));
+
+            for (TareaDTO t : tareas) {
+                table.addCell(new Cell().add(new Paragraph(t.getIdOrden() != null ? t.getIdOrden() : "N/A")));
+
+                String vehiculo = (t.getVehiculoModelo() != null ? t.getVehiculoModelo() : "")
+                        + (t.getVehiculoPlacas() != null ? " (" + t.getVehiculoPlacas() + ")" : "");
+                table.addCell(new Cell().add(new Paragraph(vehiculo)));
+
+                table.addCell(new Cell().add(new Paragraph(t.getDescripcion())));
+                table.addCell(new Cell().add(new Paragraph(t.getEstado())));
+            }
+
+            document.add(table);
+
+            document.add(new Paragraph("\nFin del reporte.").setTextAlignment(TextAlignment.CENTER).setFontSize(10).setItalic());
+
+            document.close();
+            return baos.toByteArray();
+
+        } catch (Exception e) {
+            System.err.println("Error generando reporte de tareas: " + e.getMessage());
+            return null;
+        }
     }
 }

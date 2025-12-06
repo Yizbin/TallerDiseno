@@ -160,7 +160,8 @@ public class ControlNavegacion implements IControlNavegacion {
                 this.mensajes,
                 this.creacion,
                 this.tareas,
-                this.empleadoActivo
+                this.empleadoActivo,
+                this.controlDocumentos
         );
         pantalla.setVisible(true);
     }
