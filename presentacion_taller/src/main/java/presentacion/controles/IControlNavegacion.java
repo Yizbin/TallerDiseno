@@ -64,5 +64,7 @@ public interface IControlNavegacion {
     public void mostrarPantallaElegirTarea(String idMecanico);
 
     public void mostrarPantallaHistorialTareas();
+    
+    public void mostrarPantallaSeleccionarRefacciones();
 
 }

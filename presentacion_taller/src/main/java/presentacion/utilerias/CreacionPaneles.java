@@ -205,48 +205,52 @@ public class CreacionPaneles implements ICreacionPaneles {
 
     @Override
     public JPanel crearPanelRefaccion(String nombre, double precio, int stock) {
-        JPanel panel = new JPanel() {
-       
-            @Override
+         JPanel panel = new JPanel() {
+
+        @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.setColor(Color.WHITE);
             g.drawLine(0, 0, getWidth(), 0);
             g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
-        }
-    };
+            }
+        };
+         
+            panel.setLayout(new BorderLayout());
+            panel.setPreferredSize(new Dimension(450, 90));
 
-        panel.setLayout(new BorderLayout());
-        panel.setOpaque(false);
-        panel.setPreferredSize(new Dimension(450, 90));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+          
+            panel.setBackground(new Color(0, 0, 0, 120)); // semitransparente
+            panel.setOpaque(true);
 
-        JLabel lblNombre = new JLabel(nombre);
-        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        lblNombre.setForeground(Color.WHITE);
+            panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-        JLabel lblPrecio = new JLabel("Precio: $" + precio);
-        lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        lblPrecio.setForeground(Color.WHITE);
+            JLabel lblNombre = new JLabel(nombre);
+            lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            lblNombre.setForeground(Color.WHITE);
 
-        JLabel lblStock = new JLabel("Stock: " + stock);
-        lblStock.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        lblStock.setForeground(Color.WHITE);
+            JLabel lblPrecio = new JLabel("Precio: $" + precio);
+            lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            lblPrecio.setForeground(Color.WHITE);
 
-        JPanel panelTexto = new JPanel();
-        panelTexto.setOpaque(false);
-        panelTexto.setLayout(new GridLayout(3, 1));
-        panelTexto.add(lblNombre);
-        panelTexto.add(lblPrecio);
-        panelTexto.add(lblStock);
+            JLabel lblStock = new JLabel("Stock: " + stock);
+            lblStock.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            lblStock.setForeground(Color.WHITE);
 
-        JPanel panelDerecho = new JPanel();
-        panelDerecho.setOpaque(false);
-        panelDerecho.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            JPanel panelTexto = new JPanel();
+            panelTexto.setOpaque(false);
+            panelTexto.setLayout(new GridLayout(3, 1));
+            panelTexto.add(lblNombre);
+            panelTexto.add(lblPrecio);
+            panelTexto.add(lblStock);
 
-        panel.add(panelTexto, BorderLayout.CENTER);
-        panel.add(panelDerecho, BorderLayout.EAST);
+            JPanel panelDerecho = new JPanel();
+            panelDerecho.setOpaque(false);
+            panelDerecho.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        return panel;
+            panel.add(panelTexto, BorderLayout.CENTER);
+            panel.add(panelDerecho, BorderLayout.EAST);
+
+            return panel;
     }
 }

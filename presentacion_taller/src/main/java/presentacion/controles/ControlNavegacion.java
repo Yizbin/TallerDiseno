@@ -16,6 +16,7 @@ import presentacion.GenerarPresupuesto.PantallaSeleccionarCliente;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarOrden;
 import presentacion.AsignarTarea.PantallaElegirMecanico;
 import presentacion.AsignarTarea.PantallaElegirTarea;
+import presentacion.ComprarRefaccion.PantallaSeleccionarRefacciones;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
 import presentacion.PagarOrden.PantallaFormularioMercadoPago;
@@ -271,6 +272,12 @@ public class ControlNavegacion implements IControlNavegacion {
     public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
         PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
         pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaSeleccionarRefacciones() {
+       PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion);
+       pantalla.setVisible(true);
     }
 
 }

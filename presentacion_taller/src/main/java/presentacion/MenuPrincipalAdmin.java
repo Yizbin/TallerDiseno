@@ -70,7 +70,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         });
         getContentPane().add(pagarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
-        auditarCitaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/6.png"))); // NOI18N
+        auditarCitaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/7.png"))); // NOI18N
         auditarCitaCliente.setContentAreaFilled(false);
         auditarCitaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

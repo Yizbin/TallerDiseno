@@ -21,9 +21,9 @@ public class RefaccionMapper implements IRefaccionMapper {
         if (dto == null) {
             return null;
         }
-
+        
         Refaccion entidad = new Refaccion();
-        entidad.setId_refaccion(dto.getId_refaccion());
+        entidad.setId_refaccion(Long.valueOf(dto.getId_refaccion()));
         entidad.setNombre(dto.getNombre());
         entidad.setDescripcion(dto.getDescripcion());
         entidad.setPrecioUnitario(dto.getPrecioUnitario());
@@ -39,7 +39,7 @@ public class RefaccionMapper implements IRefaccionMapper {
         }
 
         RefaccionDTO dto = new RefaccionDTO();
-        dto.setId_refaccion(entidad.getId_refaccion());
+        dto.setId_refaccion(String.valueOf(entidad.getId_refaccion()));
         dto.setNombre(entidad.getNombre());
         dto.setDescripcion(entidad.getDescripcion());
         dto.setPrecioUnitario(entidad.getPrecioUnitario());

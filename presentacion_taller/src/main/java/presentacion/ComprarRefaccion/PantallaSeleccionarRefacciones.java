@@ -4,19 +4,110 @@
  */
 package presentacion.ComprarRefaccion;
 
+import dto.RefaccionDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlRefacciones;
+
 /**
  *
  * @author Pride Factor Black
  */
 public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
-
+    private final IControlRefacciones controlRefacciones;
+    private final IControlCreacionUI creacion;
+    private JPanel panelListaRefacciones;
+    
+    
     /**
      * Creates new form PantallaSeleccionarRefacciones
      */
-    public PantallaSeleccionarRefacciones() {
+    public PantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion) {
+        this.controlRefacciones = controlRefacciones;
+        this.creacion=creacion;
+        
         initComponents();
+        inicializarPanelLista();
+        
+        cargarRefacciones();
+        
+        scrollPaneRefacciones.setOpaque(false);
+        scrollPaneRefacciones.getViewport().setOpaque(false);
+        scrollPaneRefacciones.setBorder(null);
+        scrollPaneRefacciones.getViewport().setBorder(null);
     }
 
+    private void inicializarPanelLista() {
+        panelListaRefacciones = new JPanel();
+        panelListaRefacciones.setLayout(
+        new javax.swing.BoxLayout(panelListaRefacciones, javax.swing.BoxLayout.Y_AXIS)
+        );
+
+        panelListaRefacciones.setOpaque(false);
+
+        scrollPaneRefacciones.setViewportView(panelListaRefacciones);
+    }
+    
+    private void cargarRefacciones() {
+         panelListaRefacciones.removeAll();
+
+        var lista = controlRefacciones.buscarTodasLasRefacciones();
+
+        for (RefaccionDTO r : lista) {
+            JPanel panel = creacion.crearPanelRefaccion(
+                    r.getNombre(),
+                    r.getPrecioUnitario(),
+                    r.getStock()
+            );
+
+            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, r.getStock(), 1));
+            spinner.setPreferredSize(new java.awt.Dimension(60, 25));
+
+            JPanel panelDerecho = (JPanel) panel.getComponent(1);
+            panelDerecho.add(spinner);
+
+            panel.putClientProperty("refaccion", r);
+            panel.putClientProperty("spinner", spinner);
+
+            panelListaRefacciones.add(panel);
+        }
+
+        panelListaRefacciones.revalidate();
+        panelListaRefacciones.repaint();
+    }
+    
+    public List<RefaccionDTO> getRefaccionesSeleccionadas() {
+        List<RefaccionDTO> seleccionadas = new ArrayList<>();
+
+        for (var comp : panelListaRefacciones.getComponents()) {
+            if (comp instanceof JPanel panel) {
+
+                RefaccionDTO r = (RefaccionDTO) panel.getClientProperty("refaccion");
+                JSpinner spinner = (JSpinner) panel.getClientProperty("spinner");
+
+                int cantidad = (int) spinner.getValue();
+
+                if (cantidad > 0) {
+
+                    RefaccionDTO copia = new RefaccionDTO(
+                            r.getId_refaccion(),
+                            r.getNombre(),
+                            r.getDescripcion(),
+                            r.getPrecioUnitario(),
+                            cantidad, 
+                            r.getEstado()
+                    );
+                    seleccionadas.add(copia);
+                }
+            }
+        }
+
+    return seleccionadas;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,12 +117,16 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scrollPaneRefacciones = new javax.swing.JScrollPane();
+        scrollPaneRefaccionesSeleccionados = new javax.swing.JScrollPane();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(scrollPaneRefacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 500, 240));
+        getContentPane().add(scrollPaneRefaccionesSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 170, 210, 240));
 
-        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaSeleccionarRefacciones.png"))); // NOI18N
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaSelñeccionarRefacciones.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
 
         pack();
@@ -40,39 +135,11 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaSeleccionarRefacciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaSeleccionarRefacciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaSeleccionarRefacciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaSeleccionarRefacciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PantallaSeleccionarRefacciones().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JScrollPane scrollPaneRefacciones;
+    private javax.swing.JScrollPane scrollPaneRefaccionesSeleccionados;
     // End of variables declaration//GEN-END:variables
 }

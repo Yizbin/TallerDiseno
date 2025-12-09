@@ -93,6 +93,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         venderRefacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/10.png"))); // NOI18N
         venderRefacciones.setContentAreaFilled(false);
+        venderRefacciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                venderRefaccionesMouseClicked(evt);
+            }
+        });
         venderRefacciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 venderRefaccionesActionPerformed(evt);
@@ -138,6 +143,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         navegacion.mostrarPantallaSeleccionarCliente();
         this.dispose();
     }
+    
+    private void navegarVenderRefacciones(){
+        navegacion.mostrarPantallaSeleccionarRefacciones();
+    }
 
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
         this.navegarClientesRegistrados();
@@ -153,7 +162,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_verHistorialActionPerformed
 
     private void venderRefaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venderRefaccionesActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_venderRefaccionesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -167,6 +176,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
         this.navegarSeleccionarCliente();
     }//GEN-LAST:event_generarPresupuestoActionPerformed
+
+    private void venderRefaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderRefaccionesMouseClicked
+        this.navegarVenderRefacciones();
+        this.dispose();
+    }//GEN-LAST:event_venderRefaccionesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

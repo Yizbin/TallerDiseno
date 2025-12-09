@@ -10,7 +10,7 @@ package dto;
  */
 public class RefaccionDTO {
 
-    private Long id_refaccion;
+    private String id_refaccion;
     private String nombre;
     private String descripcion;
     private double precioUnitario;
@@ -20,8 +20,7 @@ public class RefaccionDTO {
     public RefaccionDTO() {
     }
 
-    public RefaccionDTO(Long id_refaccion, String nombre, String descripcion,
-            double precioUnitario, int stock, String estado) {
+    public RefaccionDTO(String id_refaccion, String nombre, String descripcion, double precioUnitario, int stock, String estado) {
         this.id_refaccion = id_refaccion;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -30,8 +29,7 @@ public class RefaccionDTO {
         this.estado = estado;
     }
 
-    public RefaccionDTO(String nombre, String descripcion,
-            double precioUnitario, int stock, String estado) {
+    public RefaccionDTO(String nombre, String descripcion, double precioUnitario, int stock, String estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
@@ -39,11 +37,11 @@ public class RefaccionDTO {
         this.estado = estado;
     }
 
-    public Long getId_refaccion() {
+    public String getId_refaccion() {
         return id_refaccion;
     }
 
-    public void setId_refaccion(Long id_refaccion) {
+    public void setId_refaccion(String id_refaccion) {
         this.id_refaccion = id_refaccion;
     }
 
@@ -86,4 +84,6 @@ public class RefaccionDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
 }
