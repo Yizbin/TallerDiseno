@@ -8,14 +8,19 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.ServicioDTO;
 import dto.enums.NavegacionOrigen;
+import java.util.List;
 import presentacion.GenerarPresupuesto.PantallaGenerarPresupuesto;
 import presentacion.GenerarPresupuesto.PantallaPresupuestoGenerado;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarCliente;
 import presentacion.GenerarPresupuesto.PantallaSeleccionarOrden;
 import presentacion.AsignarTarea.PantallaElegirMecanico;
 import presentacion.AsignarTarea.PantallaElegirTarea;
+import presentacion.ComprarRefaccion.PantallaPagoMercadoLibre;
+import presentacion.ComprarRefaccion.PantallaPagoPayPal;
+import presentacion.ComprarRefaccion.PantallaPagoTarjeta;
 import presentacion.ComprarRefaccion.PantallaSeleccionarRefacciones;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
@@ -277,8 +282,26 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaSeleccionarRefacciones() {
-       PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion);
+    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion) {
+       PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, this);
+       pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total) {
+       PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total);
+       pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total) {
+        PantallaPagoPayPal pantalla = new PantallaPagoPayPal(lista, total);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total) {
+       PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total);
        pantalla.setVisible(true);
     }
 

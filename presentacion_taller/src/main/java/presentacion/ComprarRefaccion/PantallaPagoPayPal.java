@@ -4,17 +4,23 @@
  */
 package presentacion.ComprarRefaccion;
 
+import dto.RefaccionDTO;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public class PantallaPagoPayPal extends javax.swing.JFrame {
-
+    private List<RefaccionDTO> listaCompra;
+    private double total;
     /**
      * Creates new form PantallaPagoPayPal
      */
-    public PantallaPagoPayPal() {
+    public PantallaPagoPayPal(List<RefaccionDTO> lista, double total) {
         initComponents();
+        this.listaCompra = lista;
+        this.total = total;
     }
 
     /**

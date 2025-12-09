@@ -4,17 +4,23 @@
  */
 package presentacion.ComprarRefaccion;
 
+import dto.RefaccionDTO;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public class PantallaPagoTarjeta extends javax.swing.JFrame {
-
+    private List<RefaccionDTO> listaCompra;
+    private double total;
     /**
      * Creates new form PantallaPagoTarjeta
      */
-    public PantallaPagoTarjeta() {
+    public PantallaPagoTarjeta(List<RefaccionDTO> lista, double total) {
         initComponents();
+        this.listaCompra = lista;
+        this.total = total;
     }
 
     /**
@@ -28,8 +34,8 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
 
         txtNmnTarjeta = new javax.swing.JTextField();
         txtCvv = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,18 +49,18 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
         });
         getContentPane().add(txtCvv, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 160, 30));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonCancelarPago.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, 20));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonCancelarPago.png"))); // NOI18N
+        btnCancelar.setContentAreaFilled(false);
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, 20));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptarPago.png"))); // NOI18N
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptarPago.png"))); // NOI18N
+        btnAceptar.setContentAreaFilled(false);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, 20));
+        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, 20));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaTarjeta.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, -1));
@@ -66,9 +72,10 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCvvActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+       String numero = txtNmnTarjeta.getText();
+       String cvv = txtCvv.getText();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,8 +83,8 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JTextField txtCvv;
     private javax.swing.JTextField txtNmnTarjeta;

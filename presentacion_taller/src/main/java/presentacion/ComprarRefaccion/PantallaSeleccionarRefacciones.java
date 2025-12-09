@@ -22,6 +22,8 @@ import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlRefacciones;
 import dto.RefaccionDTO; 
 import javax.swing.table.DefaultTableModel;
+import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
 /**
  *
  * @author Pride Factor Black
@@ -29,17 +31,19 @@ import javax.swing.table.DefaultTableModel;
 public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
     private final IControlRefacciones controlRefacciones;
     private final IControlCreacionUI creacion;
-   
+    private final IControlMensajes mensajes;
+    private final IControlNavegacion navegacion;
     private JPanel panelListaRefacciones;
     private JPanel panelListaSeleccionados;
     
     /**
      * Creates new form PantallaSeleccionarRefacciones
      */
-    public PantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion) {
+    public PantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion) {
         this.controlRefacciones = controlRefacciones;
         this.creacion=creacion;
-        
+        this.mensajes=mensajes;
+        this.navegacion=navegacion;
         initComponents();
         inicializarPanelesListas();
         
@@ -225,8 +229,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
             totalCalculado += (r.getPrecioUnitario() * r.getStock());
         }
 
-        PantallaResumenDeCompra proximaPantalla = new PantallaResumenDeCompra(listaAEnviar, totalCalculado);
-
+        PantallaResumenDeCompra proximaPantalla = new PantallaResumenDeCompra(listaAEnviar, totalCalculado, navegacion, mensajes);
         proximaPantalla.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnContinuarActionPerformed

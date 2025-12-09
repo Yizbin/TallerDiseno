@@ -4,6 +4,8 @@
  */
 package presentacion.ComprarRefaccion;
 
+import dto.RefaccionDTO;
+import java.util.List;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlPagos;
@@ -16,36 +18,24 @@ import presentacion.validaciones.ValidacionException;
  */
 public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
 
-    private final IControlNavegacion navegacion;
-    private final IControlPagos controlPagos;
-    private final IControlValidaciones validaciones;
-    private final IControlMensajes mensajes;
     
-    public PantallaPagoMercadoLibre(IControlNavegacion navegacion, IControlPagos controlPagos, IControlValidaciones validaciones, IControlMensajes mensajes) {     
-        this.navegacion=navegacion;
-        this.controlPagos=controlPagos;
-        this.validaciones=validaciones;
-        this.mensajes=mensajes;
+    
+    private List<RefaccionDTO> listaCompra;
+    private double total;
+    
+    public PantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total) {     
+        this.listaCompra = lista;
+        this.total = total;
         initComponents();
         
-        configurarVentana();
-        validarCampos();
+        configurarVentana();   
     }
 
     private void configurarVentana(){
         this.setLocationRelativeTo(null);
     }
     
-    private Boolean validarCampos() {
-        try {
-            validaciones.validarCampoVacio(txtCorreoElectronico.getText(), "Usuario/Correo MP");
-            validaciones.validarCampoVacio(txtContraseña.getText(), "Contraseña");
-            return true;
-        } catch (ValidacionException ex) {
-            mensajes.mostrarErrorCampos(ex.getMessage());
-            return false;
-        }
-    } 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

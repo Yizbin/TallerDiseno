@@ -43,6 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         crearOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4.png"))); // NOI18N
+        crearOrden.setBorderPainted(false);
         crearOrden.setContentAreaFilled(false);
         crearOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +53,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(crearOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
         generarPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5.png"))); // NOI18N
+        generarPresupuesto.setBorderPainted(false);
         generarPresupuesto.setContentAreaFilled(false);
         generarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,6 +63,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(generarPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
 
         pagarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/6.png"))); // NOI18N
+        pagarOrden.setBorderPainted(false);
         pagarOrden.setContentAreaFilled(false);
         pagarOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +73,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(pagarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, -1, -1));
 
         verHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVerHistorial.png"))); // NOI18N
+        verHistorial.setBorderPainted(false);
         verHistorial.setContentAreaFilled(false);
         verHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,10 +83,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(verHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 190, -1, -1));
 
         reclamarGarantia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/8.png"))); // NOI18N
+        reclamarGarantia.setBorderPainted(false);
         reclamarGarantia.setContentAreaFilled(false);
         getContentPane().add(reclamarGarantia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, 120));
 
         visualizarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/9.png"))); // NOI18N
+        visualizarTarea.setBorderPainted(false);
         visualizarTarea.setContentAreaFilled(false);
         visualizarTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +98,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(visualizarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
 
         venderRefacciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/10.png"))); // NOI18N
+        venderRefacciones.setBorderPainted(false);
         venderRefacciones.setContentAreaFilled(false);
         venderRefacciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

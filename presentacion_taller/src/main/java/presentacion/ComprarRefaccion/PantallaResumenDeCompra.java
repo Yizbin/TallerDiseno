@@ -1,11 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package presentacion.ComprarRefaccion;
 
 import dto.RefaccionDTO;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
 
 /**
  *
@@ -14,20 +15,59 @@ import java.util.List;
 public class PantallaResumenDeCompra extends javax.swing.JFrame {
     private List<RefaccionDTO> listaDeCompras; 
     private double totalPagar;
+    
+    private final IControlMensajes mensajes; 
+    private final IControlNavegacion navegacion;
     /**
      * Creates new form PantallaResumenDeCompra
      */
-    public PantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total) {
+    public PantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes) {
         initComponents();
         
         this.listaDeCompras = productosSeleccionados;
         this.totalPagar = total;
+        this.navegacion = navegacion;
+        
+        this.mensajes = mensajes;
+        
         cargarDatosEnTabla();
+        
+        ScrollPane_Resumen.setOpaque(false);
+        ScrollPane_Resumen.getViewport().setOpaque(false);
+        ScrollPane_Resumen.setBorder(null);
+        ScrollPane_Resumen.getViewport().setBorder(null);
+
     }
     
     private void cargarDatosEnTabla() {
-        
-        System.out.println("Total a pagar recibido: " + this.totalPagar);
+        String[] columnas = {"Producto", "Cant.", "Precio Unit.", "Subtotal"};
+
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        for (RefaccionDTO r : this.listaDeCompras) {       
+            double importe = r.getPrecioUnitario() * r.getStock();
+
+            Object[] fila = {
+                r.getNombre(),           
+                r.getStock(),            
+                "$" + r.getPrecioUnitario(), 
+                "$" + importe            
+            };
+
+            modelo.addRow(fila);
+        }
+        modelo.addRow(new Object[]{"", "", "TOTAL:", "$" + this.totalPagar});
+
+        JTable tablaResumen = new JTable(modelo);
+
+        tablaResumen.setRowHeight(25); 
+        tablaResumen.getTableHeader().setReorderingAllowed(false); 
+
+        ScrollPane_Resumen.setViewportView(tablaResumen);
     }
 
     /**
@@ -40,26 +80,88 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     private void initComponents() {
 
         ScrollPane_Resumen = new javax.swing.JScrollPane();
-        ScrollPaneMetodosPago = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
+        Tarjeta = new javax.swing.JLabel();
+        PayPal = new javax.swing.JLabel();
+        MercadoPago = new javax.swing.JLabel();
+        btnTarjeta = new javax.swing.JButton();
+        btnPayPal = new javax.swing.JButton();
+        bntMercadoPago = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(ScrollPane_Resumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 330, 190));
-        getContentPane().add(ScrollPaneMetodosPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 330, 180));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, -1, 50));
 
+        Tarjeta.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        Tarjeta.setText("Tarjeta");
+        getContentPane().add(Tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, 50, 30));
+
+        PayPal.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        PayPal.setText("PayPal");
+        getContentPane().add(PayPal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, -1, -1));
+
+        MercadoPago.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        MercadoPago.setText("Mercado Pago");
+        getContentPane().add(MercadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, -1, 30));
+
+        btnTarjeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagoSiguiente.png"))); // NOI18N
+        btnTarjeta.setBorderPainted(false);
+        btnTarjeta.setContentAreaFilled(false);
+        btnTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTarjetaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, -1, 40));
+
+        btnPayPal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagoSiguiente.png"))); // NOI18N
+        btnPayPal.setBorderPainted(false);
+        btnPayPal.setContentAreaFilled(false);
+        btnPayPal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayPalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPayPal, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, -1, -1));
+
+        bntMercadoPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagoSiguiente.png"))); // NOI18N
+        bntMercadoPago.setBorderPainted(false);
+        bntMercadoPago.setContentAreaFilled(false);
+        bntMercadoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntMercadoPagoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bntMercadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
+
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaResumen.png"))); // NOI18N
         lblFondo.setToolTipText("");
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 960, 500));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayPalActionPerformed
+        navegacion.mostrarPantallaPagoPayPal(this.listaDeCompras, this.totalPagar);
+        this.dispose();
+      
+    }//GEN-LAST:event_btnPayPalActionPerformed
+
+    private void bntMercadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMercadoPagoActionPerformed
+       navegacion.mostrarPantallaPagoMercadoLibre(this.listaDeCompras, this.totalPagar);
+       this.dispose();
+    }//GEN-LAST:event_bntMercadoPagoActionPerformed
+
+    private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
+       navegacion.mostrarPantallaPagoTarjeta(this.listaDeCompras, this.totalPagar);     
+       this.dispose();
+    }//GEN-LAST:event_btnTarjetaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -67,8 +169,13 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane ScrollPaneMetodosPago;
+    private javax.swing.JLabel MercadoPago;
+    private javax.swing.JLabel PayPal;
     private javax.swing.JScrollPane ScrollPane_Resumen;
+    private javax.swing.JLabel Tarjeta;
+    private javax.swing.JButton bntMercadoPago;
+    private javax.swing.JButton btnPayPal;
+    private javax.swing.JButton btnTarjeta;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables

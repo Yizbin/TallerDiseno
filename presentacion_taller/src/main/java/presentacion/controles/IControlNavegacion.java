@@ -8,8 +8,10 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.ServicioDTO;
 import dto.enums.NavegacionOrigen;
+import java.util.List;
 
 /**
  *
@@ -65,6 +67,12 @@ public interface IControlNavegacion {
 
     public void mostrarPantallaHistorialTareas();
     
-    public void mostrarPantallaSeleccionarRefacciones();
+    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion);
+    
+    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total);
+    
+    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total);
+    
+    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total);
 
 }
