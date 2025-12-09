@@ -10,6 +10,8 @@ import dto.RefaccionDTO;
 import dto.ServicioDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
+import dto.VentaDTO;
+import dto.VentaRefaccionDTO;
 import excepciones.EntidadDuplicadaNegocioException;
 import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
@@ -63,4 +65,14 @@ import java.util.List;
         public List<RefaccionDTO> buscarTodasLasRefacciones() throws NegocioException,EntidadDuplicadaNegocioException;
         public RefaccionDTO buscarRefaccionPorId(String id) throws NegocioException,  EntidadNoEncontradaNegocioException;
 
+        //ventas
+        VentaDTO crearVenta(List<VentaRefaccionDTO> detalles) throws NegocioException;
+        VentaDTO buscarVentaPorId(Long id) throws NegocioException;
+        List<VentaDTO> buscarTodasLasVentas() throws NegocioException;
+        
+        //venta refaccion
+        public VentaRefaccionDTO crearVentaRefaccion(VentaRefaccionDTO dto) throws EntidadDuplicadaNegocioException, NegocioException;
+        public VentaRefaccionDTO actualizarVentaRefaccion(VentaRefaccionDTO dto) throws EntidadNoEncontradaNegocioException, NegocioException;
+        public VentaRefaccionDTO buscarVentaRefaccionPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
+        public List<VentaRefaccionDTO> buscarPorIdVenta(String idVenta) throws NegocioException;
 }

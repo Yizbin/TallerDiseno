@@ -14,6 +14,8 @@ import dto.RefaccionDTO;
 import dto.ServicioDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
+import dto.VentaDTO;
+import dto.VentaRefaccionDTO;
 import excepciones.EntidadDuplicadaNegocioException;
 import excepciones.EntidadNoEncontradaNegocioException;
 import excepciones.NegocioException;
@@ -22,6 +24,7 @@ import gestionOrdenes.IManejoOrdenes;
 import gestionPresupuestos.IManejoPresupuestos;
 import gestionRefacciones.IManejoRefacciones;
 import gestionServicios.IManejoServicios;
+import gestionVentas.IManejoVentas;
 import gestionarClientes.IManejoClientes;
 import gestionarTareas.IManejoTareas;
 import gestionarVehiculos.IManejoVehiculos;
@@ -41,8 +44,10 @@ public class GestorTaller implements IGestorTaller {
     private final IManejoTareas manejoTareas;
     private final IManejoServicios manejoServicios;
     private final IManejoRefacciones manejoRefacciones;
+    private final IManejoVentas manejoVentas;
     
-    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas, IManejoServicios manejoServicios, IManejoRefacciones manejoRefacciones) {
+    
+    public GestorTaller(IManejoOrdenes manejoOrdenes, IManejoClientes manejoClientes, IManejoVehiculos manejoVehiculos, IManejoEmpleados manejoEmpleados, IManejoPresupuestos manejoPresupuestos, IManejoTareas manejoTareas, IManejoServicios manejoServicios, IManejoRefacciones manejoRefacciones, IManejoVentas manejoVentas) {
         this.manejoOrdenes = manejoOrdenes;
         this.manejoClientes = manejoClientes;
         this.manejoVehiculos = manejoVehiculos;
@@ -51,6 +56,7 @@ public class GestorTaller implements IGestorTaller {
         this.manejoTareas = manejoTareas;
         this.manejoServicios = manejoServicios;
         this.manejoRefacciones = manejoRefacciones;
+        this.manejoVentas = manejoVentas;
     }
 
     @Override
@@ -216,6 +222,41 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public RefaccionDTO buscarRefaccionPorId(String id) throws NegocioException, EntidadNoEncontradaNegocioException {
         return manejoRefacciones.buscarRefaccionPorId(id);
+    }
+
+    @Override
+    public VentaDTO crearVenta(List<VentaRefaccionDTO> detalles) throws NegocioException {
+        return manejoVentas.crearVenta(detalles);
+    }
+
+    @Override
+    public VentaDTO buscarVentaPorId(Long id) throws NegocioException {
+        return manejoVentas.buscarVentaPorId(id);
+    }
+
+    @Override
+    public List<VentaDTO> buscarTodasLasVentas() throws NegocioException {
+       return manejoVentas.buscarTodasLasVentas();
+    }
+
+    @Override
+    public VentaRefaccionDTO crearVentaRefaccion(VentaRefaccionDTO dto) throws EntidadDuplicadaNegocioException, NegocioException {
+       return manejoVentas.crearVentaRefaccion(dto);
+    }
+
+    @Override
+    public VentaRefaccionDTO actualizarVentaRefaccion(VentaRefaccionDTO dto) throws EntidadNoEncontradaNegocioException, NegocioException {
+        return manejoVentas.actualizarVentaRefaccion(dto);
+    }
+
+    @Override
+    public VentaRefaccionDTO buscarVentaRefaccionPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException {
+        return manejoVentas.buscarVentaRefaccionPorId(id);
+    }
+
+    @Override
+    public List<VentaRefaccionDTO> buscarPorIdVenta(String idVenta) throws NegocioException {
+        return manejoVentas.buscarPorIdVenta(idVenta);
     }
     
 }

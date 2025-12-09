@@ -16,6 +16,7 @@ import java.util.List;
  * @author Pride Factor Black
  */
 public interface IManejoRefacciones {
+    
     public RefaccionDTO crearRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadDuplicadaNegocioException;
     
     public RefaccionDTO actualizarRefaccion(RefaccionDTO refaccionDTO) throws NegocioException, EntidadNoEncontradaNegocioException;

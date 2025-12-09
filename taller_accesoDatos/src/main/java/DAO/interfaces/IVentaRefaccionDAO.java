@@ -4,10 +4,25 @@
  */
 package DAO.interfaces;
 
+import Excepciones.EntidadDuplicadaException;
+import Excepciones.EntidadNoEncontradaException;
+import Excepciones.PersistenciaException;
+import entidades.VentaRefaccion;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public interface IVentaRefaccionDAO {
     
+    public VentaRefaccion crearVentaRefaccion(VentaRefaccion ventaRefaccion)throws EntidadDuplicadaException, PersistenciaException;
+
+    public VentaRefaccion actualizarVentaRefaccion(VentaRefaccion ventaRefaccion) throws EntidadNoEncontradaException, PersistenciaException;
+
+    public VentaRefaccion buscarVentaRefaccionPorId(Long id) throws EntidadNoEncontradaException, PersistenciaException;
+
+    public List<VentaRefaccion> buscarTodasLasVentaRefacciones() throws PersistenciaException;
+
+    public List<VentaRefaccion> buscarPorIdVenta(Long idVenta)throws PersistenciaException;
 }

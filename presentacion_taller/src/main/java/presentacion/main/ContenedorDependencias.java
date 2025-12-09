@@ -28,6 +28,8 @@ import gestionarTareas.IManejoTareas;
 import gestionarTareas.ManejoTareas;
 import gestionServicios.ManejoServicios;
 import gestionServicios.IManejoServicios;
+import gestionVentas.IManejoVentas;
+import gestionVentas.ManejoVentas;
 import gestionarVehiculos.IManejoVehiculos;
 import gestionarVehiculos.ManejoVehiculos;
 import presentacion.controles.ControlAutenticacion;
@@ -45,6 +47,7 @@ import presentacion.controles.ControlTareas;
 import presentacion.controles.ControlRefacciones;
 import presentacion.controles.ControlValidaciones;
 import presentacion.controles.ControlVehiculos;
+import presentacion.controles.ControlVentas;
 import presentacion.controles.IControlAutenticacion;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
@@ -60,6 +63,7 @@ import presentacion.controles.IControlServicios;
 import presentacion.controles.IControlTareas;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVehiculos;
+import presentacion.controles.IControlVentas;
 import presentacion.utilerias.CreacionPaneles;
 import presentacion.utilerias.CreacionTablas;
 import presentacion.utilerias.ICreacionPaneles;
@@ -81,7 +85,8 @@ public class ContenedorDependencias {
     private final IManejoTareas manejoTareas = ManejoTareas.getInstancia();
     private final IManejoServicios manejoServicios = ManejoServicios.getInstancia();
     private final IManejoRefacciones manejoRefacciones = ManejoRefacciones.getInstancia();
-
+    private final IManejoVentas manejoVentas = ManejoVentas.getInstacia();
+    
     private final IGestorTaller tallerServicio;
     private final IGestorPagos gestorPagos;
     private final IValidacionesPresentacion validacionServicio;
@@ -105,7 +110,8 @@ public class ContenedorDependencias {
     private final IControlServicios controlServicios;
     private final IControlRefacciones controlRefacciones;
     private final IControlDocumentos controlDocumentos;
-
+    private final IControlVentas controlVentas;
+    
     private final IControlNavegacion controlNavegacion;
 
     public ContenedorDependencias() {
@@ -125,7 +131,8 @@ public class ContenedorDependencias {
                 manejoPresupuestos,
                 manejoTareas,
                 manejoServicios,
-                manejoRefacciones
+                manejoRefacciones,
+                manejoVentas
         );
 
         this.controlOrdenes = new ControlOrdenes(tallerServicio);
@@ -142,6 +149,7 @@ public class ContenedorDependencias {
         this.controlTareas = new ControlTareas(tallerServicio);
         this.controlEmpleados = new ControlEmpleados(tallerServicio);
         this.controlDocumentos = new ControlDocumentos(gestorQR, gestorPDF, gestorCorreos);
+        this.controlVentas = new ControlVentas();
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,
@@ -156,7 +164,8 @@ public class ContenedorDependencias {
                 controlEmpleados,
                 controlServicios,
                 controlRefacciones,
-                controlDocumentos
+                controlDocumentos,
+                controlVentas
         );
     }
 
