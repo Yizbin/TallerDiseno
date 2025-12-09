@@ -22,4 +22,6 @@ public interface IControlDocumentos {
     public void enviarPDFPorCorreo(PresupuestoDTO presupuesto, BufferedImage qr, String idTransaccion, String correoDestino);
     
     public void guardarReporteTareas(List<TareaDTO> tareas, String nombreMecanico);
+    
+    public void imprimirReporteTareasCompletadas(List<TareaDTO> tareas, String nombreMecanico);
 }

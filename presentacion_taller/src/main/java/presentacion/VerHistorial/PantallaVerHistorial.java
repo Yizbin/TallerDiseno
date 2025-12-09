@@ -6,9 +6,12 @@ package presentacion.VerHistorial;
 
 import dto.EmpleadoDTO;
 import dto.TareaDTO;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlTareas;
@@ -20,6 +23,7 @@ import presentacion.controles.IControlTareas;
 public class PantallaVerHistorial extends javax.swing.JFrame {
 
     private final IControlNavegacion navegacion;
+    private final IControlDocumentos controlDocumentos;
     private final IControlMensajes mensajes;
     private final IControlCreacionUI creacion;
     private final IControlTareas controlTareas;
@@ -31,12 +35,14 @@ public class PantallaVerHistorial extends javax.swing.JFrame {
             IControlMensajes mensajes,
             IControlCreacionUI creacion,
             IControlTareas controlTareas,
+            IControlDocumentos controlDocumentos,
             EmpleadoDTO mecanicoActual) {
 
         this.navegacion = navegacion;
         this.mensajes = mensajes;
         this.creacion = creacion;
         this.controlTareas = controlTareas;
+        this.controlDocumentos = controlDocumentos;
         this.mecanicoActual = mecanicoActual;
 
         initComponents();
@@ -44,6 +50,26 @@ public class PantallaVerHistorial extends javax.swing.JFrame {
         estilizarTabla();
         cargarHistorial();
         this.setLocationRelativeTo(null);
+    }
+
+    private List<TareaDTO> obtenerTareasDeLaTabla() {
+        List<TareaDTO> lista = new ArrayList<>();
+
+        int filas = modeloTabla.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            TareaDTO tarea = new TareaDTO();
+
+            tarea.setIdTarea((String) modeloTabla.getValueAt(i, 0));
+            tarea.setDescripcion((String) modeloTabla.getValueAt(i, 1));
+            tarea.setVehiculoModelo((String) modeloTabla.getValueAt(i, 2));
+            tarea.setIdOrden((String) modeloTabla.getValueAt(i, 3));
+            tarea.setEstado((String) modeloTabla.getValueAt(i, 4));
+
+            lista.add(tarea);
+        }
+
+        return lista;
     }
 
     private void configurarModeloTabla() {
@@ -104,6 +130,7 @@ public class PantallaVerHistorial extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
+        btnImprimirReporte = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,6 +165,17 @@ public class PantallaVerHistorial extends javax.swing.JFrame {
         });
         jPanel1.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
 
+        btnImprimirReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimirReporte.png"))); // NOI18N
+        btnImprimirReporte.setBorderPainted(false);
+        btnImprimirReporte.setContentAreaFilled(false);
+        btnImprimirReporte.setDefaultCapable(false);
+        btnImprimirReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirReporteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnImprimirReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 430, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaHistorial.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
 
@@ -159,8 +197,21 @@ public class PantallaVerHistorial extends javax.swing.JFrame {
         navegacion.mostrarMenuPrincipal();
         this.dispose();    }//GEN-LAST:event_btnAtrasActionPerformed
 
+    private void btnImprimirReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirReporteActionPerformed
+
+        List<TareaDTO> tareas = obtenerTareasDeLaTabla();
+
+        if (tareas.isEmpty()) {
+            mensajes.mostrarError(this, "No hay tareas para imprimir.");
+            return;
+        }
+        String nombre = mecanicoActual != null ? mecanicoActual.getNombre() : "Mecánico";
+        controlDocumentos.imprimirReporteTareasCompletadas(tareas, nombre);
+    }//GEN-LAST:event_btnImprimirReporteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnImprimirReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -95,4 +95,45 @@ public class ControlDocumentos implements IControlDocumentos {
         }
     }
 
+    @Override
+    public void imprimirReporteTareasCompletadas(List<TareaDTO> tareas, String nombreMecanico) {
+        if (tareas == null || tareas.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "No hay tareas completadas para imprimir.",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try {
+            byte[] pdfBytes = gestorPDF.generarReporteTareas(tareas, nombreMecanico);
+
+            if (pdfBytes == null) {
+                JOptionPane.showMessageDialog(null,
+                        "No se pudo generar el reporte.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            File tempFile = File.createTempFile("Reporte_Tareas_", ".pdf");
+            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                fos.write(pdfBytes);
+            }
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(tempFile);
+
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "No se pudo abrir el archivo automáticamente.\n"
+                        + "Ubicación del archivo temporal:\n" + tempFile.getAbsolutePath(),
+                        "Aviso",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar o abrir el reporte: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

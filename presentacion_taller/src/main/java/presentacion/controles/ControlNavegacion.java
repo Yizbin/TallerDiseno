@@ -58,7 +58,7 @@ public class ControlNavegacion implements IControlNavegacion {
     private final IControlRefacciones controlRefacciones;
     private final IControlDocumentos controlDocumentos;
     private final IControlVentas controlVentas;
-    
+
     private EmpleadoDTO empleadoActivo;
     private OrdenDTO orden;
     private ServicioDTO servicio;
@@ -263,6 +263,7 @@ public class ControlNavegacion implements IControlNavegacion {
                 this.mensajes,
                 this.creacion,
                 this.tareas,
+                this.controlDocumentos,
                 this.empleadoActivo
         );
 
@@ -283,14 +284,14 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion) {
-       PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, this);
-       pantalla.setVisible(true);
+        PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, this);
+        pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total) {
-       PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total);
-       pantalla.setVisible(true);
+        PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total);
+        pantalla.setVisible(true);
     }
 
     @Override
@@ -301,8 +302,8 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total) {
-       PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total);
-       pantalla.setVisible(true);
+        PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total);
+        pantalla.setVisible(true);
     }
 
 }

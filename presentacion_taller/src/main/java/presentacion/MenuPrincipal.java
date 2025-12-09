@@ -152,7 +152,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     private void navegarVenderRefacciones(){
-        navegacion.mostrarPantallaSeleccionarRefacciones();
+//        navegacion.mostrarPantallaSeleccionarRefacciones();
+        this.dispose();
     }
 
     private void crearOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearOrdenActionPerformed
