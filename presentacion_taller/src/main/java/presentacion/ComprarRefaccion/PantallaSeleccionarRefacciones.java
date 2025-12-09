@@ -5,14 +5,23 @@
 package presentacion.ComprarRefaccion;
 
 import dto.RefaccionDTO;
+import entidades.Refaccion;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlRefacciones;
-
+import dto.RefaccionDTO; 
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Pride Factor Black
@@ -20,8 +29,9 @@ import presentacion.controles.IControlRefacciones;
 public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
     private final IControlRefacciones controlRefacciones;
     private final IControlCreacionUI creacion;
+   
     private JPanel panelListaRefacciones;
-    
+    private JPanel panelListaSeleccionados;
     
     /**
      * Creates new form PantallaSeleccionarRefacciones
@@ -31,7 +41,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         this.creacion=creacion;
         
         initComponents();
-        inicializarPanelLista();
+        inicializarPanelesListas();
         
         cargarRefacciones();
         
@@ -39,21 +49,29 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         scrollPaneRefacciones.getViewport().setOpaque(false);
         scrollPaneRefacciones.setBorder(null);
         scrollPaneRefacciones.getViewport().setBorder(null);
+        
+        scrollPaneRefaccionesSeleccionados.setOpaque(false);
+        scrollPaneRefaccionesSeleccionados.getViewport().setOpaque(false);
+        scrollPaneRefaccionesSeleccionados.setBorder(null);
+        scrollPaneRefaccionesSeleccionados.getViewport().setBorder(null);
     }
 
-    private void inicializarPanelLista() {
+    private void inicializarPanelesListas() {
+     
         panelListaRefacciones = new JPanel();
-        panelListaRefacciones.setLayout(
-        new javax.swing.BoxLayout(panelListaRefacciones, javax.swing.BoxLayout.Y_AXIS)
-        );
-
+        panelListaRefacciones.setLayout(new BoxLayout(panelListaRefacciones, BoxLayout.Y_AXIS));
         panelListaRefacciones.setOpaque(false);
-
         scrollPaneRefacciones.setViewportView(panelListaRefacciones);
+        
+        panelListaSeleccionados = new JPanel();
+        panelListaSeleccionados.setLayout(new BoxLayout(panelListaSeleccionados, BoxLayout.Y_AXIS));
+        panelListaSeleccionados.setOpaque(false);
+        scrollPaneRefaccionesSeleccionados.setViewportView(panelListaSeleccionados);
     }
     
+    
     private void cargarRefacciones() {
-         panelListaRefacciones.removeAll();
+        panelListaRefacciones.removeAll();
 
         var lista = controlRefacciones.buscarTodasLasRefacciones();
 
@@ -65,7 +83,14 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
             );
 
             JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, r.getStock(), 1));
-            spinner.setPreferredSize(new java.awt.Dimension(60, 25));
+            spinner.setPreferredSize(new Dimension(60, 25));
+
+            spinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    actualizarListaSeleccionados(); 
+                }
+            });
 
             JPanel panelDerecho = (JPanel) panel.getComponent(1);
             panelDerecho.add(spinner);
@@ -80,6 +105,49 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         panelListaRefacciones.repaint();
     }
     
+    private void actualizarListaSeleccionados() {
+        panelListaSeleccionados.removeAll(); 
+        
+        List<RefaccionDTO> seleccionados = getRefaccionesSeleccionadas();
+        
+        double totalEstimado = 0;
+
+        for (RefaccionDTO r : seleccionados) {
+            JPanel itemPanel = new JPanel();
+            itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+            itemPanel.setOpaque(true);
+            itemPanel.setBackground(new Color(255, 255, 255, 180)); 
+            itemPanel.setBorder(new EmptyBorder(5, 10, 5, 10));
+            itemPanel.setMaximumSize(new Dimension(200, 60));
+            
+            JLabel lblNombre = new JLabel(r.getNombre());
+            lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            
+
+            double subtotal = r.getPrecioUnitario() * r.getStock(); 
+            totalEstimado += subtotal;
+            
+            JLabel lblDetalle = new JLabel(r.getStock() + " x $" + r.getPrecioUnitario() + " = $" + subtotal);
+            lblDetalle.setFont(new java.awt.Font("Segoe UI", 0, 11));
+
+            itemPanel.add(lblNombre);
+            itemPanel.add(lblDetalle);
+
+            panelListaSeleccionados.add(itemPanel);
+            panelListaSeleccionados.add(javax.swing.Box.createRigidArea(new Dimension(0, 5)));
+        }
+        
+        if (!seleccionados.isEmpty()) {
+             JLabel lblTotal = new JLabel("Total: $" + totalEstimado);
+             lblTotal.setForeground(Color.WHITE);
+             lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 14));
+             panelListaSeleccionados.add(lblTotal);
+        }
+
+        panelListaSeleccionados.revalidate();
+        panelListaSeleccionados.repaint();
+    }
+    
     public List<RefaccionDTO> getRefaccionesSeleccionadas() {
         List<RefaccionDTO> seleccionadas = new ArrayList<>();
 
@@ -92,7 +160,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
                 int cantidad = (int) spinner.getValue();
 
                 if (cantidad > 0) {
-
+                  
                     RefaccionDTO copia = new RefaccionDTO(
                             r.getId_refaccion(),
                             r.getNombre(),
@@ -105,9 +173,10 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
                 }
             }
         }
-
-    return seleccionadas;
+        return seleccionadas;
     }
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,6 +188,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
 
         scrollPaneRefacciones = new javax.swing.JScrollPane();
         scrollPaneRefaccionesSeleccionados = new javax.swing.JScrollPane();
+        btnContinuar = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,11 +196,40 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         getContentPane().add(scrollPaneRefacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 500, 240));
         getContentPane().add(scrollPaneRefaccionesSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 170, 210, 240));
 
+        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
+        btnContinuar.setBorderPainted(false);
+        btnContinuar.setContentAreaFilled(false);
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 460, -1, -1));
+
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaSelñeccionarRefacciones.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+       List<RefaccionDTO> listaAEnviar = getRefaccionesSeleccionadas();
+
+        if (listaAEnviar.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor selecciona una cantidad mayor a 0 en alguna refacción.");
+            return;
+        }
+        double totalCalculado = 0.0;
+        for (RefaccionDTO r : listaAEnviar) {
+
+            totalCalculado += (r.getPrecioUnitario() * r.getStock());
+        }
+
+        PantallaResumenDeCompra proximaPantalla = new PantallaResumenDeCompra(listaAEnviar, totalCalculado);
+
+        proximaPantalla.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +237,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContinuar;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JScrollPane scrollPaneRefacciones;
     private javax.swing.JScrollPane scrollPaneRefaccionesSeleccionados;

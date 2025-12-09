@@ -16,7 +16,7 @@ import java.util.List;
  * @author Pride Factor Black
  */
 public interface IVentaMapper {
-        public Venta toEntity(VentaDTO dto, List<VentaRefaccion> detalles);
+        public Venta toEntity(VentaDTO dto);
         
         public VentaDTO toDTO(Venta e);
 }

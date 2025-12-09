@@ -4,17 +4,30 @@
  */
 package presentacion.ComprarRefaccion;
 
+import dto.RefaccionDTO;
+import java.util.List;
+
 /**
  *
  * @author Pride Factor Black
  */
 public class PantallaResumenDeCompra extends javax.swing.JFrame {
-
+    private List<RefaccionDTO> listaDeCompras; 
+    private double totalPagar;
     /**
      * Creates new form PantallaResumenDeCompra
      */
-    public PantallaResumenDeCompra() {
+    public PantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total) {
         initComponents();
+        
+        this.listaDeCompras = productosSeleccionados;
+        this.totalPagar = total;
+        cargarDatosEnTabla();
+    }
+    
+    private void cargarDatosEnTabla() {
+        
+        System.out.println("Total a pagar recibido: " + this.totalPagar);
     }
 
     /**
@@ -26,10 +39,20 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ScrollPane_Resumen = new javax.swing.JScrollPane();
+        ScrollPaneMetodosPago = new javax.swing.JScrollPane();
+        jButton1 = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(ScrollPane_Resumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 330, 190));
+        getContentPane().add(ScrollPaneMetodosPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 330, 180));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonSiguiente.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, -1, 50));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaResumen.png"))); // NOI18N
         lblFondo.setToolTipText("");
@@ -44,6 +67,9 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollPaneMetodosPago;
+    private javax.swing.JScrollPane ScrollPane_Resumen;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables
 }

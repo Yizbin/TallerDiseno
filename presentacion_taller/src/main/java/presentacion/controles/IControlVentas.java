@@ -13,8 +13,14 @@ import java.util.List;
  * @author Pride Factor Black
  */
 public interface IControlVentas {
-    
+    //venta
     public VentaDTO crearVenta(List<VentaRefaccionDTO> detalles);
     public VentaDTO buscarVentaPorId(Long id);
     public List<VentaDTO> buscarTodasLasVentas();
+    
+    //venta refaccion
+    public VentaRefaccionDTO crearVentaRefaccion(VentaRefaccionDTO dto);
+    public VentaRefaccionDTO actualizarVentaRefaccion(VentaRefaccionDTO dto);
+    public VentaRefaccionDTO buscarVentaRefaccionPorId(String id);
+    public List<VentaRefaccionDTO> buscarPorIdVenta(String idVenta);
 }

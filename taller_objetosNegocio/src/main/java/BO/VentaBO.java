@@ -5,27 +5,15 @@
 package BO;
 
 import BO.interfaces.IVentaBO;
-import BO.interfaces.IVentaRefaccionBO;
-import DAO.RefaccionDAO;
 import DAO.VentaDAO;
-import DAO.VentaRefaccionDAO;
-import DAO.interfaces.IRefaccionDAO;
 import DAO.interfaces.IVentaDAO;
-import DAO.interfaces.IVentaRefaccionDAO;
-import Excepciones.PersistenciaException;
 import Mappers.VentaMapper;
-import Mappers.VentaRefaccionMapper;
 import Mappers.interfaces.IVentaMapper;
-import Mappers.interfaces.IVentaRefaccionMapper;
-import dto.RefaccionDTO;
 import dto.VentaDTO;
 import dto.VentaRefaccionDTO;
-import entidades.Refaccion;
 import entidades.Venta;
-import entidades.VentaRefaccion;
 import excepciones.NegocioException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,21 +34,59 @@ public class VentaBO implements IVentaBO{
         return instancia;
     }
      
-    
-  
+ 
     @Override
-    public VentaDTO crearVenta(List<VentaRefaccionDTO> detalles) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     public VentaDTO crearVenta(List<VentaRefaccionDTO> detalles) throws NegocioException {
+        try {
+            if (detalles == null || detalles.isEmpty()) {
+                throw new NegocioException("La venta debe incluir al menos una refacción.");
+            }
+
+            VentaDTO dto = new VentaDTO();
+            dto.setFecha(LocalDateTime.now());
+            dto.setRefacciones(detalles);
+
+            double total = detalles.stream()
+                    .mapToDouble(vr -> vr.getPrecioUnitario() * vr.getCantidad())
+                    .sum();
+
+            dto.setTotal(total);
+
+            Venta entidad = mapper.toEntity(dto);
+
+            Venta nueva = ventaDAO.crearVenta(entidad);
+
+            return mapper.toDTO(nueva);
+
+        } catch (Exception e) {
+            throw new NegocioException("Error al crear la venta: " + e.getMessage());
+        }
+   
     }
 
     @Override
     public VentaDTO buscarVentaPorId(Long id) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Venta venta = ventaDAO.buscarVentaPorId(id);
+            return mapper.toDTO(venta);
+
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar la venta: " + e.getMessage());
+        }
     }
 
+
     @Override
-    public List<VentaDTO> buscarTodasLasVentas() throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   public List<VentaDTO> buscarTodasLasVentas() throws NegocioException {
+        try {
+            List<Venta> lista = ventaDAO.buscarTodasLasVentas();
+            return lista.stream()
+                    .map(mapper::toDTO)
+                    .toList();
+
+        } catch (Exception e) {
+            throw new NegocioException("Error al obtener las ventas: " + e.getMessage());
+        }
     }
     
     
