@@ -5,6 +5,7 @@
 package presentacion.controles;
 
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.TareaDTO;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -28,4 +29,8 @@ public interface IControlDocumentos {
     public void generarPDFPresupuesto(PresupuestoDTO presupuesto);
     
     public void enviarPresupuestoPorCorreo(PresupuestoDTO presupuesto, String correoDestino);
+    
+    public void generarPDFCompra(List<RefaccionDTO> lista, double total);
+    
+    public void enviarCompraPorCorreo(List<RefaccionDTO> lista, double total, String correoDestino);
 }

@@ -322,24 +322,26 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaResumenRe(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion) {
-       pantallaResumenRe pantalla = new pantallaResumenRe(productosSeleccionados, total, navegacion);
-       pantalla.setVisible(true);
+    public void mostrarPantallaResumenRe(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlDocumentos documentos, 
+                             IControlMensajes mensajes) {
+       IControlDocumentos docsParaUsar = (documentos != null) ? documentos : this.controlDocumentos;
+        IControlMensajes msgsParaUsar = (mensajes != null) ? mensajes : this.mensajes;
+
+        if (docsParaUsar == null || msgsParaUsar == null) {
+            System.err.println("¡ADVERTENCIA! Se abrirá la pantalla ResumenRe sin controles de documentos o mensajes.");
+        }
+        pantallaResumenRe pantalla = new pantallaResumenRe(productosSeleccionados, total, navegacion, docsParaUsar, msgsParaUsar);
+        pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos, IControlMensajes mensajes) {
-        // CORRECCIÓN:
-        // Si el parámetro 'documentos' viene nulo (que es lo que te está pasando),
-        // usamos 'this.controlDocumentos' que ya fue inicializado en el constructor de esta clase.
+    public void mostrarPantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos, IControlMensajes mensajes,  IControlNavegacion navegacion) {
         IControlDocumentos docsParaUsar = (documentos != null) ? documentos : this.controlDocumentos;
         
-        // Verificación de seguridad para depuración
         if (docsParaUsar == null) {
             System.err.println("¡ERROR GRAVE! Tanto el parámetro como this.controlDocumentos son NULL.");
         }
-
-        pantallaResumen pantalla = new pantallaResumen(presupuesto, docsParaUsar, mensajes);
+        pantallaResumen pantalla = new pantallaResumen(presupuesto, docsParaUsar, mensajes, navegacion);
         pantalla.setVisible(true);
     }
 

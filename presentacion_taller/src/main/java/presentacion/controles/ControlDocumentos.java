@@ -5,6 +5,7 @@
 package presentacion.controles;
 
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.TareaDTO;
 import gestionCorreos.IGestorCorreo;
 import gestionDocumentos.IGestorPDF;
@@ -216,6 +217,69 @@ public class ControlDocumentos implements IControlDocumentos {
             JOptionPane.showMessageDialog(null, "Error al enviar correo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void generarPDFCompra(List<RefaccionDTO> lista, double total) {
+        byte[] pdfBytes = gestorPDF.generarReporteCompra(lista, total);
+        
+        if (pdfBytes == null) {
+            JOptionPane.showMessageDialog(null, "Error al generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Resumen de Compra");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF", "pdf"));
+        fileChooser.setSelectedFile(new File("Compra_Refacciones.pdf"));
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getAbsolutePath().endsWith(".pdf")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".pdf");
+            }
+
+            try (FileOutputStream fos = new FileOutputStream(fileToSave)) {
+                fos.write(pdfBytes);
+                
+                int opcion = JOptionPane.showConfirmDialog(null, 
+                        "Archivo guardado correctamente.\n¿Desea abrirlo?", 
+                        "Éxito", JOptionPane.YES_NO_OPTION);
+                
+                if (opcion == JOptionPane.YES_OPTION && Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(fileToSave);
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error al guardar: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void enviarCompraPorCorreo(List<RefaccionDTO> lista, double total, String correoDestino) {
+       try {
+            byte[] pdfBytes = gestorPDF.generarReporteCompra(lista, total);
+
+            if (pdfBytes == null) {
+                throw new Exception("El PDF no se pudo generar.");
+            }
+
+            String asunto = "Resumen de Compra - Refacciones";
+            String cuerpo = "Estimado cliente:\n\n"
+                    + "Adjunto encontrará el resumen de su compra de refacciones.\n"
+                    + "Total pagado: $" + String.format("%.2f", total) + "\n\n"
+                    + "Gracias por su preferencia.";
+            
+            String nombreArchivo = "Resumen_Compra.pdf";
+
+            gestorCorreo.enviarCorreoConAdjunto(correoDestino, asunto, cuerpo, pdfBytes, nombreArchivo);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    
     }
 
 }

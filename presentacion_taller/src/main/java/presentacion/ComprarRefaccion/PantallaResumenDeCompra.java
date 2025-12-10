@@ -5,6 +5,7 @@ import dto.RefaccionDTO;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlRefacciones;
@@ -24,6 +25,7 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     private final IControlRefacciones controlRefacciones;
     private final IControlVentas controlVentas;
     private final IControlValidaciones validaciones;
+    private IControlCreacionUI creacion;
     /**
      * Creates new form PantallaResumenDeCompra
      */
@@ -95,6 +97,7 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
         btnTarjeta = new javax.swing.JButton();
         btnPayPal = new javax.swing.JButton();
         bntMercadoPago = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,6 +154,16 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
         });
         getContentPane().add(bntMercadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaResumen.png"))); // NOI18N
         lblFondo.setToolTipText("");
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 490));
@@ -174,6 +187,11 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        navegacion.mostrarPantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, navegacion, controlVentas, validaciones);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,6 +206,7 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnPayPal;
     private javax.swing.JButton btnTarjeta;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables
 }

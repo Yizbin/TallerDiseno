@@ -200,6 +200,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         scrollPaneRefacciones = new javax.swing.JScrollPane();
         scrollPaneRefaccionesSeleccionados = new javax.swing.JScrollPane();
         btnContinuar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -216,6 +217,16 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 460, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pantallaSelñeccionarRefacciones.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
@@ -239,6 +250,11 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       navegacion.mostrarMenuPrincipal();
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,6 +262,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JScrollPane scrollPaneRefacciones;
     private javax.swing.JScrollPane scrollPaneRefaccionesSeleccionados;

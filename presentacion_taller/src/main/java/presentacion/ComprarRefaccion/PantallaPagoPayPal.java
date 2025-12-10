@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlRefacciones;
@@ -34,6 +35,7 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
     private IControlRefacciones controlRefacciones;
     private IControlVentas controlVentas;
     private IControlValidaciones validaciones;
+    private IControlDocumentos documentos;
     /**
      * Creates new form PantallaPagoPayPal
      */
@@ -159,6 +161,7 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
        navegacion.mostrarMenuPrincipal();
+       this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     
@@ -193,7 +196,7 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
 
             if (respuesta.getExito()) {
                 finalizarVenta(respuesta.getIdtransaccion());
-                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion);
+                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion, documentos, mensajes);
             } else {
                 mensajes.mostrarError(this, "PayPal rechazó el pago: " + respuesta.getMensaje());
             }

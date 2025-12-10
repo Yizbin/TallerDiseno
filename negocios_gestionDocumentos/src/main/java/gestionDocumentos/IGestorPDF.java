@@ -5,6 +5,7 @@
 package gestionDocumentos;
 
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.TareaDTO;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface IGestorPDF {
     public byte[] generarReporteTareas(List<TareaDTO> tareas, String nombreMecanico);
 
     public byte[] generarPresupuesto(PresupuestoDTO presupuesto);
+    
+    public byte[] generarReporteCompra(List<RefaccionDTO> productos, double total);
 }

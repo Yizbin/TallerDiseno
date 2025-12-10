@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlPagos;
@@ -36,6 +37,7 @@ public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
     private IControlRefacciones controlRefacciones;
     private IControlVentas controlVentas;
     private IControlValidaciones validaciones;
+    private IControlDocumentos documentos;
     
     public PantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
                                IControlVentas controlVentas, IControlValidaciones validaciones) {       
@@ -79,7 +81,7 @@ public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
 
             if (ventaRegistrada != null) {
                 mensajes.mostrarExito("¡Pago con MercadoPago Exitoso!\nID Pago: " + idTransaccion);
-                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion);
+                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion, documentos, mensajes);
                 this.dispose();
             } else {
                 mensajes.mostrarError(this, "El pago pasó, pero no se pudo registrar la venta.");
@@ -153,6 +155,7 @@ public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         navegacion.mostrarMenuPrincipal();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed

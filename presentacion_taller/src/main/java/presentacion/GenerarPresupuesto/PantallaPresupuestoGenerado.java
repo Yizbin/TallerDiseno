@@ -172,9 +172,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
             lblTotal.setText(String.format("Total: $ %.2f", total));
         }
     }  
-        
-
-    
+ 
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,11 +229,9 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         PresupuestoDTO creado = controlPresupuestos.crearPresupuesto(presupuesto);
-
         if (creado != null) {
-            // Usamos tu control de mensajes inyectado
             mensajes.mostrarExito("¡Presupuesto guardado con éxito! ID: " + creado.getIdPresupuesto());
-            navegacion.mostrarPantallaResumen(presupuesto, controlDocumentos, mensajes);
+            navegacion.mostrarPantallaResumen(presupuesto, controlDocumentos, mensajes, navegacion);
         } else {
             mensajes.mostrarError(this, "No se pudo guardar el presupuesto.");
         }

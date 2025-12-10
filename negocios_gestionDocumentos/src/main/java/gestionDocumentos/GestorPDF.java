@@ -17,6 +17,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import dto.PresupuestoDTO;
+import dto.RefaccionDTO;
 import dto.TareaDTO;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
@@ -359,4 +360,71 @@ public class GestorPDF implements IGestorPDF {
             return null;
         }
     }
+
+    @Override
+    public byte[] generarReporteCompra(List<RefaccionDTO> productos, double total) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter writer = new PdfWriter(baos);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            Paragraph titulo = new Paragraph("RESUMEN DE COMPRA - REFACCIONES")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(18)
+                    .setBold()
+                    .setFontColor(ColorConstants.DARK_GRAY);
+            document.add(titulo);
+
+            document.add(new Paragraph("\n"));
+
+            String fecha = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            document.add(new Paragraph("Fecha de Emisión: " + fecha).setTextAlignment(TextAlignment.RIGHT));
+            document.add(new Paragraph("\n"));
+
+            Table table = new Table(UnitValue.createPercentArray(new float[]{4, 1, 2, 2}));
+            table.setWidth(UnitValue.createPercentValue(100));
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Producto").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Cant.").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("P. Unit").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Importe").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+
+            // Llenado de datos
+            if (productos != null) {
+                for (RefaccionDTO r : productos) {
+                    double importe = r.getPrecioUnitario() * r.getStock(); // Usamos stock como cantidad comprada
+
+                    table.addCell(new Cell().add(new Paragraph(r.getNombre())));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(r.getStock()))).setTextAlignment(TextAlignment.CENTER));
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", r.getPrecioUnitario()))).setTextAlignment(TextAlignment.RIGHT));
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", importe))).setTextAlignment(TextAlignment.RIGHT));
+                }
+            }
+
+            document.add(table);
+            Paragraph totalParrafo = new Paragraph("\nTOTAL PAGADO: $" + String.format("%.2f", total))
+                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setFontSize(14)
+                    .setBold()
+                    .setFontColor(ColorConstants.BLUE);
+            document.add(totalParrafo);
+
+            document.add(new Paragraph("\n\nGracias por su compra.")
+                    .setTextAlignment(TextAlignment.CENTER).setItalic());
+
+            document.close();
+            return baos.toByteArray();
+
+        } catch (Exception e) {
+            System.err.println("Error generando PDF de Compra: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }

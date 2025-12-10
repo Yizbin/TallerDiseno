@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
 
 /**
  *
@@ -24,13 +25,15 @@ public class pantallaResumen extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private IControlDocumentos documentos;
     private IControlMensajes mensajes;
+    private IControlNavegacion navegacion;
     /**
      * Creates new form pantallaResumen
      */
-    public pantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos,IControlMensajes mensajes) {
+    public pantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos,IControlMensajes mensajes, IControlNavegacion navegacion) {
         this.presupuesto = presupuesto;
         this.documentos=documentos;
         this.mensajes=mensajes;
+        this.navegacion=navegacion;
         initComponents();
         configurarVentana();
         configurarTabla();
@@ -137,6 +140,7 @@ public class pantallaResumen extends javax.swing.JFrame {
 
         ScrollPaneResumen = new javax.swing.JScrollPane();
         descarga = new javax.swing.JButton();
+        Menu = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,29 +157,72 @@ public class pantallaResumen extends javax.swing.JFrame {
         });
         getContentPane().add(descarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
+        Menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonRegresar.png"))); // NOI18N
+        Menu.setContentAreaFilled(false);
+        Menu.setDefaultCapable(false);
+        Menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, 50));
+
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/resumen.png"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, -1, 480));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void descargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descargaActionPerformed
-        if (presupuesto == null) {
-            mensajes.mostrarError(this, "No hay información del presupuesto para descargar.");
-            return;
-        }
+        if (documentos == null || presupuesto == null) {
+        mensajes.mostrarError(this, "Error interno: Faltan datos o controles.");
+        return;
+    }
+
+    String correoSugerido = (presupuesto.getCliente() != null && presupuesto.getCliente().getCorreo() != null) 
+            ? presupuesto.getCliente().getCorreo() 
+            : "";
+    
+    String correoDestino = (String) javax.swing.JOptionPane.showInputDialog(
+            this, 
+            "Ingrese el correo electrónico del cliente:", 
+            "Enviar Cotización", 
+            javax.swing.JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            null, 
+            correoSugerido);
+
+    if (correoDestino != null && !correoDestino.trim().isEmpty()) {
+        
+
+        this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+        
         new Thread(() -> {
             try {
-
-                documentos.generarPDFPresupuesto(presupuesto);
+                documentos.enviarPresupuestoPorCorreo(presupuesto, correoDestino);
+                
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    this.setCursor(java.awt.Cursor.getDefaultCursor());
+                    mensajes.mostrarExito( "El presupuesto ha sido enviado correctamente.");
+                });
                 
             } catch (Exception e) {
-                mensajes.mostrarError(this, "Ocurrió un error al intentar guardar el PDF: " + e.getMessage());
+
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    this.setCursor(java.awt.Cursor.getDefaultCursor());
+                    mensajes.mostrarError(this, "Error al enviar el correo: " + e.getMessage());
+                    e.printStackTrace();
+                });
             }
         }).start();
         this.dispose();
-        
+    }
     }//GEN-LAST:event_descargaActionPerformed
+
+    private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed
+        navegacion.mostrarMenuPrincipal();
+        this.dispose();
+    }//GEN-LAST:event_MenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +230,7 @@ public class pantallaResumen extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Menu;
     private javax.swing.JScrollPane ScrollPaneResumen;
     private javax.swing.JButton descarga;
     private javax.swing.JLabel lblFondo;
