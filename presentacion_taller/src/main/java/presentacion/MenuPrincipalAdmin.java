@@ -4,7 +4,20 @@
  */
 package presentacion;
 
+import dto.ClienteDTO;
+import dto.OrdenDTO;
+import dto.PresupuestoDTO;
+import dto.ServicioDTO;
+import presentacion.controles.IControlClientes;
+import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlPresupuestos;
+import presentacion.controles.IControlRefacciones;
+import presentacion.controles.IControlServicios;
+import presentacion.controles.IControlValidaciones;
+import presentacion.controles.IControlVentas;
 
 /**
  *
@@ -13,7 +26,21 @@ import presentacion.controles.IControlNavegacion;
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private final IControlNavegacion navegacion;
-
+      
+    private  IControlCreacionUI creacion;
+    private OrdenDTO orden;
+    private  ClienteDTO cliente;
+    private PresupuestoDTO presupuesto;
+    private ServicioDTO servicio;
+    private  IControlServicios controlServicios;
+    private  IControlRefacciones controlRefacciones;
+    private  IControlOrdenes controlOrdenes;
+    private IControlPresupuestos controlPresupuesto;
+    private IControlMensajes mensajes;
+    private  IControlClientes clientes;
+    private IControlVentas controlVentas;
+    private IControlValidaciones validaciones;
+    
     public MenuPrincipalAdmin(IControlNavegacion navegacion) {
         this.navegacion = navegacion;
 
@@ -149,7 +176,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_auditarCitaClienteActionPerformed
 
     private void venderRefaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venderRefaccionesActionPerformed
-        // TODO add your handling code here:
+        navegacion.mostrarPantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, navegacion, controlVentas, validaciones);
     }//GEN-LAST:event_venderRefaccionesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -161,7 +188,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_asignarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-
+        navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 
