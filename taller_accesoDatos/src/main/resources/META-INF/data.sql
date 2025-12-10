@@ -11,7 +11,6 @@ INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUE
 
 INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-11-01', 'Requiere servicio de rutina', 'Afinación y cambio de aceite', 0, 1, 1);
 
-INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-11-02', 1000.00, 0, 1);
 
 INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Mano de obra por afinación', '400.00', 'Por realizar', 1, 1);
 
@@ -21,7 +20,6 @@ INSERT INTO tarea_refaccion (id_tarea, id_refaccion, cantidadUsada) VALUES (1, 2
 
 INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-01', 'Ruido al frenar', 'Cambio de balatas y rectificación', 0, 1, 1);
 
-INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-02', 1500.00, 0, 2);
 
 INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Mano de obra frenos', '500.00', 'Por realizar', 2, 1);
 
@@ -30,15 +28,12 @@ INSERT INTO empleado (nombre, apellidoP, apellidoM, rol, usuario, contrasenia, a
 
 INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-10', 'Problemas de encendido', 'Revisión eléctrica y cambio de bujías', 0, 1, 1);
 
-INSERT INTO presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-10', 1200.00, 0, 3);
 
 INSERT INTO Cliente (nombre, apellidoP, apellidoM, telefono, correo, calle, colonia, numExt, activo) VALUES ('Luis', 'García', 'Hernández', '6441888888', 'luis@test.com', 'Av Reforma', 'Centro', '55', 1);
 
 INSERT INTO Vehiculo (tipo, marca, modelo, anio, placas, km, color, id_cliente) VALUES ('SUV', 'Toyota', 'RAV4', '2020', 'XYZ-123', '45000', 'Rojo', 2);
 
 INSERT INTO Orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-20', 'Vibración al acelerar', 'Diagnóstico de transmisión', 0, 2, 2);
-
-INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden) VALUES ('2023-12-21', 1800.00, 0, 4);
 
 INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Diagnóstico transmisión', '600.00', 'Por realizar', 4, NULL);
 

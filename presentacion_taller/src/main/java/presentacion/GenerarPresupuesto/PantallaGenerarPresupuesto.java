@@ -4,12 +4,12 @@
  */
 package presentacion.GenerarPresupuesto;
 import dto.ClienteDTO;
-import dto.ItemRefaccionDTO;
-import dto.ItemServicioDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.PresupuestoRefaccionDTO;
 import dto.RefaccionDTO;
 import dto.ServicioDTO;
+import dto.ServicioPresupuestoDTO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -22,11 +22,13 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPresupuestos;
 import presentacion.controles.IControlRefacciones;
 import presentacion.controles.IControlServicios;
+
 /**
  *
  * @author Pride Factor Black
@@ -42,18 +44,32 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
     private final IControlRefacciones controlRefacciones;
     private final IControlOrdenes controlOrdenes;
     private final IControlPresupuestos controlPresupuesto;
+    private final IControlMensajes mensajes;
+    private final IControlClientes clientes;
     
-    public PantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones,IControlOrdenes controlOrdenes, IControlPresupuestos controlPresupuesto) {  
+    public PantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
+            ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones,IControlOrdenes controlOrdenes, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {  
         this.navegacion = navegacion;
         this.creacion = creacion;
         this.orden = orden;        
         this.cliente = cliente;
-        this.presupuesto = presupuesto;
+        
+        if (presupuesto == null) {
+            this.presupuesto = new PresupuestoDTO();
+            this.presupuesto.setCliente(cliente);
+            this.presupuesto.setOrden(orden);
+        } else {
+            this.presupuesto = presupuesto;
+        }
+        
+        
         this.servicio = servicio;
         this.controlServicios = controlServicios;
         this.controlRefacciones = controlRefacciones;
         this.controlOrdenes=controlOrdenes;
         this.controlPresupuesto = controlPresupuesto;
+        this.mensajes=mensajes;
+        this.clientes=clientes;
         
         initComponents();
         configurarVentana();
@@ -62,8 +78,7 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
         jScrollPane3_Servicios.getViewport().setOpaque(false);
         jScrollPane3_Servicios.setBorder(null);
         jScrollPane3_Servicios.getViewport().setBorder(null);
-        cargarInformacionOrden();
-        cargarServicios();
+       
         
         jScrollPane2_Refacciones.setOpaque(false);
         jScrollPane2_Refacciones.getViewport().setOpaque(false);
@@ -71,6 +86,8 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
         jScrollPane2_Refacciones.getViewport().setBorder(null);
         
         cargarRefacciones();
+        cargarInformacionOrden();
+        cargarServicios();
     }
 
         private void configurarVentana() {
@@ -90,42 +107,49 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
     }
        
         private void cargarServicios() {
-            List<ServicioDTO> listaServicios = controlServicios.obtenerTodos();
+        List<ServicioDTO> listaServicios = controlServicios.obtenerTodos();
 
-            JPanel contenedor = new JPanel();
-            contenedor.setOpaque(false);
-            contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+        JPanel contenedor = new JPanel();
+        contenedor.setOpaque(false);
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
 
-            for (ServicioDTO serv : listaServicios) {
+        for (ServicioDTO serv : listaServicios) {
 
-                String nombre = serv.getNombre();
-                String descripcion = serv.getDescripcion();
-                double precio = serv.getPrecio();
+            String nombre = serv.getNombre();
+            String descripcion = serv.getDescripcion();
+            double precio = serv.getPrecio();
+            JPanel panelServicio = creacion.crearPanelServicio(nombre, precio, descripcion);
+            panelServicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-                JPanel panelServicio = creacion.crearPanelServicio(nombre, precio, descripcion);
-                panelServicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            MouseAdapter listenerSeleccion = new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {                 
+                    ServicioPresupuestoDTO item = new ServicioPresupuestoDTO();
+                    item.setIdServicio(String.valueOf(serv.getId_servicio())); 
+                    item.setNombreServicio(nombre);
+                    item.setCosto(precio);
+                    item.setDescripcion(descripcion);
 
-                panelServicio.addMouseListener(new MouseAdapter() {
-                    @Override
-            public void mouseClicked(MouseEvent e) {
+                    presupuesto.addServicio(item);
+                    
+                    System.out.println("Servicio seleccionado: " + nombre);
+                }
+            };
 
-                ItemServicioDTO item = new ItemServicioDTO(nombre, 1, precio);
-
-                presupuesto.addServicio(item);
-
-                panelServicio.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+            panelServicio.addMouseListener(listenerSeleccion);
+            
+            for (java.awt.Component c : panelServicio.getComponents()) {
+                c.addMouseListener(listenerSeleccion);
             }
-        });
 
-        contenedor.add(panelServicio);
-        contenedor.add(creacion.crearSeparador(8));
+            contenedor.add(panelServicio);
+            contenedor.add(creacion.crearSeparador(8));
+        }
+
+        jScrollPane3_Servicios.setViewportView(contenedor);
     }
-
-    jScrollPane3_Servicios.setViewportView(contenedor);
-}
         
     private void cargarRefacciones() {
-
         List<RefaccionDTO> refacciones = controlRefacciones.buscarTodasLasRefacciones();
 
         JPanel contenedor = new JPanel();
@@ -133,7 +157,6 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
         contenedor.setOpaque(false);
 
         for (RefaccionDTO ref : refacciones) {
-
             JPanel panel = creacion.crearPanelRefaccion(
                     ref.getNombre(),
                     ref.getPrecioUnitario(),
@@ -143,33 +166,27 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
             JSpinner spinner = new JSpinner(
                     new SpinnerNumberModel(0, 0, Math.max(1, ref.getStock()), 1)
             );
-
-            spinner.setName("spinner_" + ref.getId_refaccion());
-
+            
             try {
                 ((JPanel) panel.getComponent(1)).add(spinner);
             } catch (Exception ex) {
                 panel.add(spinner);
             }
 
-            panel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                    int cantidad = (int) spinner.getValue();
-
-                    ItemRefaccionDTO item = new ItemRefaccionDTO(
-                            ref.getNombre(),
-                            cantidad,
-                            ref.getPrecioUnitario()
-                    );
+            spinner.addChangeListener(e -> {
+                int cantidad = (int) spinner.getValue();
+                if (cantidad > 0) {
+                    PresupuestoRefaccionDTO item = new PresupuestoRefaccionDTO();
+                    
+                    item.setIdRefaccion(String.valueOf(ref.getId_refaccion())); 
+                    item.setNombreRefaccion(ref.getNombre());
+                    item.setCantidad(cantidad);
+                    item.setPrecioUnitario(ref.getPrecioUnitario());
 
                     presupuesto.addRefaccion(item);
-
-                    panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
-                }
+                    System.out.println("Seleccionado: " + ref.getNombre() + " Cantidad: " + cantidad);
+                } 
             });
-
             contenedor.add(panel);
         }
 
@@ -249,11 +266,38 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-       navegacion.mostrarPantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+       if (presupuesto == null) {
+            mensajes.mostrarError(this, "Error interno: El presupuesto no se ha inicializado.");
+            return;
+        }
+        boolean hayRefacciones = (presupuesto.getRefacciones() != null && !presupuesto.getRefacciones().isEmpty());
+        boolean hayServicios = (presupuesto.getServicios() != null && !presupuesto.getServicios().isEmpty());
+
+        if (!hayRefacciones && !hayServicios) {
+            mensajes.mostrarError(this, "Debes seleccionar al menos una refacción o un servicio para continuar.");
+            return;
+        }
+
+        presupuesto.calcularTotal();
+        navegacion.mostrarPantallaPresupuestoGenerado(
+                navegacion, 
+                creacion, 
+                orden, 
+                cliente, 
+                presupuesto, 
+                servicio, 
+                controlServicios, 
+                controlRefacciones, 
+                controlPresupuesto,
+                mensajes,
+                clientes
+        );
+        this.dispose();
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaSeleccionarOrden(controlOrdenes, creacion, cliente, orden, controlPresupuesto);
+        navegacion.mostrarPantallaSeleccionarOrden(controlOrdenes, creacion, cliente, orden, controlPresupuesto, mensajes, clientes);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

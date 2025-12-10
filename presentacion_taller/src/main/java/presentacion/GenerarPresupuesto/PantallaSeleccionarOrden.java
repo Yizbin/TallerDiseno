@@ -16,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPresupuestos;
@@ -37,11 +38,13 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     private final IControlServicios controlServicios;
     private final IControlRefacciones controlRefacciones;
     private final IControlPresupuestos controlPresupuesto;
-    
+    private final IControlMensajes mensajes;
+    private final IControlClientes clientes;
     /**
      * Creates new form PantallaPresupuestoGenerado
      */
-    public PantallaSeleccionarOrden(IControlNavegacion navegacion, IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado,OrdenDTO orden, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
+    public PantallaSeleccionarOrden(IControlNavegacion navegacion, IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteSeleccionado,OrdenDTO orden, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, 
+            IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
@@ -54,6 +57,8 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
         this.controlServicios= controlServicios;
         this.controlRefacciones=controlRefacciones;
         this.controlPresupuesto=controlPresupuesto;
+        this.mensajes=mensajes;
+        this.clientes=clientes;
         
         scrollPaneOrdenes.setOpaque(false);
         scrollPaneOrdenes.getViewport().setOpaque(false);
@@ -89,7 +94,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
             panelOrden.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, o, clienteSeleccionado, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+                    navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, o, clienteSeleccionado, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
                     dispose();
                 }
             });
@@ -137,7 +142,7 @@ public class PantallaSeleccionarOrden extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaSeleccionarCliente();
+        navegacion.mostrarPantallaSeleccionarCliente(navegacion, clientes, creacion, controlPresupuesto, controlOrdenes, controlPresupuesto, orden, mensajes);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 

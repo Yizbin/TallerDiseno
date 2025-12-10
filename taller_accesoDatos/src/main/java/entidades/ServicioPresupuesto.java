@@ -4,10 +4,13 @@
  */
 package entidades;
 
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,34 +20,41 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "ServicioPresupuesto")
-public class ServicioPresupuesto {
-    
+@Table(name = "serviciopresupuesto")
+public class ServicioPresupuesto implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_servicio_presupuesto;
-    
-    @ManyToOne
-    private Servicio servicio;
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_presupuesto", nullable = false)
     private Presupuesto presupuesto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_servicio", nullable = false)
+    private Servicio servicio;
+
+    @Column(name = "costo", nullable = false)
+    private Double costo;
 
     public ServicioPresupuesto() {
     }
 
-    public ServicioPresupuesto(Long id_servicio_presupuesto, Servicio servicio, Presupuesto presupuesto) {
-        this.id_servicio_presupuesto = id_servicio_presupuesto;
-        this.servicio = servicio;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
         this.presupuesto = presupuesto;
-    }
-
-    public Long getId_servicio_presupuesto() {
-        return id_servicio_presupuesto;
-    }
-
-    public void setId_servicio_presupuesto(Long id_servicio_presupuesto) {
-        this.id_servicio_presupuesto = id_servicio_presupuesto;
     }
 
     public Servicio getServicio() {
@@ -55,13 +65,14 @@ public class ServicioPresupuesto {
         this.servicio = servicio;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
+    public Double getCosto() {
+        return costo;
     }
 
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
+    public void setCosto(Double costo) {
+        this.costo = costo;
     }
+
     
     
 }

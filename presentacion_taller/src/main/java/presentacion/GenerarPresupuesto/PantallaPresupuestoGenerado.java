@@ -5,11 +5,11 @@
 package presentacion.GenerarPresupuesto;
 
 import dto.ClienteDTO;
-import dto.ItemRefaccionDTO;
-import dto.ItemServicioDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.PresupuestoRefaccionDTO;
 import dto.ServicioDTO;
+import dto.ServicioPresupuestoDTO;
 import java.awt.Color;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -19,7 +19,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.ControlRefacciones;
 import presentacion.controles.ControlServicios;
+import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPresupuestos;
@@ -40,15 +42,16 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     private final IControlServicios controlServicios;
     private final IControlRefacciones controlRefacciones;
     private final IControlPresupuestos controlPresupuestos;
-    
+    private final IControlMensajes mensajes;
+    private final IControlClientes clientes;
     private DefaultTableModel modeloTabla;
     private JTable tabla;
     
-    public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuestos) {
+    public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, 
+            PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuestos,IControlMensajes mensajes, IControlClientes clientes) {
         initComponents();
         configurarVentana();
-        this.navegacion = navegacion;
-        
+        this.navegacion = navegacion;     
         this.creacion = creacion;
         this.orden = orden;
         this.cliente =cliente;
@@ -57,127 +60,116 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
         this.controlServicios = controlServicios;
         this.controlRefacciones = controlRefacciones;
         this.controlPresupuestos = controlPresupuestos;
-        
+        this.mensajes=mensajes;
+        this.clientes=clientes;
         configurarTabla();
-        crearPanelClienteYTotal();
-        cargarDatosDePresupuesto();
+        
         
         jScrollPaneCliente.setOpaque(false);
         jScrollPaneCliente.getViewport().setOpaque(false);
         jScrollPaneCliente.setBorder(null);
         jScrollPaneCliente.getViewport().setBorder(null);
 
-        tabla.setShowGrid(false);                             // Quitamos líneas de la tabla
-        tabla.setForeground(Color.WHITE);                     // Texto blanco en la tabla
-        tabla.setBackground(new Color(0, 0, 0, 0));           // Fondo 100% transparente
+        tabla.setShowGrid(false);                           
+        tabla.setForeground(Color.WHITE);                  
+        tabla.setBackground(new Color(0, 0, 0, 0));           
 
-        tabla.setSelectionBackground(new Color(255, 255, 255, 40));  // Selección semi-transparente
+        tabla.setSelectionBackground(new Color(255, 255, 255, 40));  
         tabla.setSelectionForeground(Color.WHITE);  
+        
+        crearPanelClienteYTotal();
+        cargarDatosDePresupuesto();
     }
 
         private void configurarVentana() {
          this.setLocationRelativeTo(null);
     }
         
-        private void configurarTabla() {
+     private void configurarTabla() {
+        modeloTabla = new DefaultTableModel(
+                new Object[]{"Tipo", "Nombre", "Cantidad", "Precio Unitario", "Subtotal"},
+                0
+        );
+        tabla = new JTable(modeloTabla);
+        tabla.setFillsViewportHeight(true);
+        tabla.setOpaque(false);
+        tabla.setBackground(new Color(0, 0, 0, 0));
+        tabla.setForeground(Color.WHITE);
+        tabla.setShowGrid(false);
 
-    modeloTabla = new DefaultTableModel(
-        new Object[]{"Tipo", "Nombre", "Cantidad", "Precio Unitario", "Subtotal"},
-        0
-    );
-
-    tabla = new JTable(modeloTabla);
-    tabla.setFillsViewportHeight(true);
-
-    // ------- HACER LA TABLA 100% TRANSPARENTE -------
-    tabla.setOpaque(false);
-    tabla.setBackground(new Color(0, 0, 0, 0));
-    tabla.setForeground(Color.WHITE);
-
-    tabla.setShowGrid(false); // Quitar líneas
-
-    jScrollPane1.setOpaque(false);
-    jScrollPane1.getViewport().setOpaque(false);
-    jScrollPane1.setBorder(null);
-
-    // selección bonita y transparente
-    tabla.setSelectionBackground(new Color(255, 255, 255, 40));
-    tabla.setSelectionForeground(Color.WHITE);
-
-    jScrollPane1.setViewportView(tabla);
-}
-        
-        private void crearPanelClienteYTotal() {
-
-    JPanel panelInternoCliente = new JPanel();
-    panelInternoCliente.setOpaque(false);
-    panelInternoCliente.setLayout(new BoxLayout(panelInternoCliente, BoxLayout.Y_AXIS));
-
-    if (cliente != null) {
-
-        JLabel n = new JLabel("Nombre: " + safeString(cliente.getNombre()));
-        JLabel a = new JLabel("Apellido: " + safeString(cliente.getApellidoP()));
-        JLabel t = new JLabel("Teléfono: " + safeString(cliente.getTelefono()));
-        JLabel c = new JLabel("Correo: " + safeString(cliente.getCorreo()));
-
-        n.setForeground(Color.WHITE);
-        a.setForeground(Color.WHITE);
-        t.setForeground(Color.WHITE);
-        c.setForeground(Color.WHITE);
-
-        panelInternoCliente.add(n);
-        panelInternoCliente.add(a);
-        panelInternoCliente.add(t);
-        panelInternoCliente.add(c);
-
-    } else {
-        JLabel lbl = new JLabel("No hay cliente seleccionado");
-        lbl.setForeground(Color.WHITE);
-        panelInternoCliente.add(lbl);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setViewportView(tabla);
     }
 
-    jScrollPaneCliente.setViewportView(panelInternoCliente);
-}
+    private void crearPanelClienteYTotal() {
+        JPanel panelInternoCliente = new JPanel();
+        panelInternoCliente.setOpaque(false);
+        panelInternoCliente.setLayout(new BoxLayout(panelInternoCliente, BoxLayout.Y_AXIS));
 
-        private String safeString(String s) {
-            return s == null ? "" : s;
+        if (cliente != null) {
+            JLabel n = new JLabel("Nombre: " + safeString(cliente.getNombre()));
+            JLabel a = new JLabel("Apellido: " + safeString(cliente.getApellidoP()));
+            JLabel t = new JLabel("Teléfono: " + safeString(cliente.getTelefono()));
+            JLabel c = new JLabel("Correo: " + safeString(cliente.getCorreo()));
+
+            n.setForeground(Color.WHITE);
+            a.setForeground(Color.WHITE);
+            t.setForeground(Color.WHITE);
+            c.setForeground(Color.WHITE);
+
+            panelInternoCliente.add(n);
+            panelInternoCliente.add(a);
+            panelInternoCliente.add(t);
+            panelInternoCliente.add(c);
+        } else {
+            JLabel lbl = new JLabel("No hay cliente seleccionado");
+            lbl.setForeground(Color.WHITE);
+            panelInternoCliente.add(lbl);
+        }
+        jScrollPaneCliente.setViewportView(panelInternoCliente);
     }
 
-        private void cargarDatosDePresupuesto() {
+    private String safeString(String s) {
+        return s == null ? "" : s;
+    }
 
+    private void cargarDatosDePresupuesto() {
         modeloTabla.setRowCount(0);
 
-            if (presupuesto != null) {
-
-
-            for (ItemServicioDTO s : presupuesto.getServicios()) {
-
-                modeloTabla.addRow(new Object[]{
-                    "Servicio",
-                    s.getNombre(),
-                    s.getCantidad(),
-                    String.format("%.2f", s.getPrecioUnitario()),
-                    String.format("%.2f", s.getTotal())
-                });
+        if (presupuesto != null) {
+            
+            if (presupuesto.getServicios() != null) {
+                for (ServicioPresupuestoDTO s : presupuesto.getServicios()) {
+                    modeloTabla.addRow(new Object[]{
+                        "Servicio",
+                        s.getNombreServicio(),
+                        1, 
+                        String.format("$ %.2f", s.getCosto()),
+                        String.format("$ %.2f", s.getCosto())
+                    });
+                }
             }
 
-
-            for (ItemRefaccionDTO r : presupuesto.getRefacciones()) {
-
-                modeloTabla.addRow(new Object[]{
-                    "Refacción",
-                    r.getNombre(),
-                    r.getCantidad(),
-                    String.format("%.2f", r.getPrecioUnitario()),
-                    String.format("%.2f", r.getTotal())
-                });
+            if (presupuesto.getRefacciones() != null) {
+                for (PresupuestoRefaccionDTO r : presupuesto.getRefacciones()) {
+                    modeloTabla.addRow(new Object[]{
+                        "Refacción",
+                        r.getNombreRefaccion(),
+                        r.getCantidad(),
+                        String.format("$ %.2f", r.getPrecioUnitario()),
+                        String.format("$ %.2f", r.getTotal())
+                    });
+                }
+            }
+            presupuesto.calcularTotal();
+            double total = presupuesto.getCostoTotal() == null ? 0.0 : presupuesto.getCostoTotal();
+            lblTotal.setText(String.format("Total: $ %.2f", total));
         }
+    }  
+        
 
-        presupuesto.calcularTotal();
-        double total = presupuesto.getCostoTotal() == null ? 0.0 : presupuesto.getCostoTotal();
-        lblTotal.setText(String.format("Total: %.2f", total));
-    }
-}
     
         
     /**
@@ -229,16 +221,21 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuestos);
+        navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuestos, mensajes, clientes);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         PresupuestoDTO creado = controlPresupuestos.crearPresupuesto(presupuesto);
 
-    if (creado != null) {
-        JOptionPane.showMessageDialog(this, "Presupuesto creado correctamente");
-        navegacion.mostrarMenuPrincipal();
-    }
+        if (creado != null) {
+            // Usamos tu control de mensajes inyectado
+            mensajes.mostrarExito("¡Presupuesto guardado con éxito! ID: " + creado.getIdPresupuesto());
+            navegacion.mostrarMenuPrincipal();
+        } else {
+            mensajes.mostrarError(this, "No se pudo guardar el presupuesto.");
+        }
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**

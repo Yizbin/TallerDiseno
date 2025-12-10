@@ -6,8 +6,10 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.PresupuestoRefaccionDTO;
 import dto.RefaccionDTO;
 import dto.ServicioDTO;
+import dto.ServicioPresupuestoDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
 import dto.VentaDTO;
@@ -44,6 +46,15 @@ import java.util.List;
         // Presupuestos
         public List<PresupuestoDTO> buscarPresupuestosPendientes() throws NegocioException;
         public PresupuestoDTO buscarPresupuestoPorOrden(String idOrden) throws NegocioException;
+        public PresupuestoDTO crearPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadDuplicadaNegocioException, NegocioException;
+        public PresupuestoDTO actualizarPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadNoEncontradaNegocioException, NegocioException;  
+        public List<PresupuestoDTO> buscarTodosLosPresupuestos() throws EntidadDuplicadaNegocioException, NegocioException;   
+        public PresupuestoDTO buscarPresupuestoPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException;
+        public List<PresupuestoDTO> buscarPresupuestosNoPagados() throws NegocioException;
+    
+
+        List<ServicioPresupuestoDTO> buscarPorIdPresupuesto(String idPresupuesto) throws NegocioException;
+        List<PresupuestoRefaccionDTO> buscarPorIdPresupuestoPR(String idPresupuesto) throws NegocioException;
 
         // Tareas
         public List<TareaDTO> obtenerTareasDeMecanico(String usuario) throws NegocioException;

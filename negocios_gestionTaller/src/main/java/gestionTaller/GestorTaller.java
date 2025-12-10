@@ -10,8 +10,10 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.OrdenDTO;
 import dto.PresupuestoDTO;
+import dto.PresupuestoRefaccionDTO;
 import dto.RefaccionDTO;
 import dto.ServicioDTO;
+import dto.ServicioPresupuestoDTO;
 import dto.TareaDTO;
 import dto.VehiculoDTO;
 import dto.VentaDTO;
@@ -257,6 +259,41 @@ public class GestorTaller implements IGestorTaller {
     @Override
     public List<VentaRefaccionDTO> buscarPorIdVenta(String idVenta) throws NegocioException {
         return manejoVentas.buscarPorIdVenta(idVenta);
+    }
+
+    @Override
+    public List<ServicioPresupuestoDTO> buscarPorIdPresupuesto(String idPresupuesto) throws NegocioException {
+        return manejoPresupuestos.buscarPorIdPresupuesto(idPresupuesto);
+    }
+
+    @Override
+    public List<PresupuestoRefaccionDTO> buscarPorIdPresupuestoPR(String idPresupuesto) throws NegocioException {
+       return manejoPresupuestos.buscarPorIdPresupuestoPR(idPresupuesto);
+    }
+
+    @Override
+    public PresupuestoDTO crearPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadDuplicadaNegocioException, NegocioException {
+        return manejoPresupuestos.crearPresupuesto(presupuestoDTO);
+    }
+
+    @Override
+    public PresupuestoDTO actualizarPresupuesto(PresupuestoDTO presupuestoDTO) throws EntidadNoEncontradaNegocioException, NegocioException {
+        return manejoPresupuestos.actualizarPresupuesto(presupuestoDTO);
+    }
+
+    @Override
+    public List<PresupuestoDTO> buscarTodosLosPresupuestos() throws EntidadDuplicadaNegocioException, NegocioException {
+        return manejoPresupuestos.buscarTodosLosPresupuestos();
+    }
+
+    @Override
+    public PresupuestoDTO buscarPresupuestoPorId(String id) throws EntidadNoEncontradaNegocioException, NegocioException {
+       return manejoPresupuestos.buscarPresupuestoPorId(id);
+    }
+
+    @Override
+    public List<PresupuestoDTO> buscarPresupuestosNoPagados() throws NegocioException {
+        return manejoPresupuestos.obtenerPresupuestosNoPagados();
     }
     
 }

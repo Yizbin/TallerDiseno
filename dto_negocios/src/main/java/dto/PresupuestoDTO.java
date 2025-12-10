@@ -15,33 +15,73 @@ import java.util.List;
 public class PresupuestoDTO {
 
     private String idPresupuesto;
-
     private LocalDate fechaCreacion;
-
     private Double costoTotal;
-
-    private Boolean estado;
-
+    private Boolean estado; 
+    
     private OrdenDTO orden;
-    
     private ClienteDTO cliente;
-    
 
-    private List<ItemServicioDTO> servicios = new ArrayList<>();
-    private List<ItemRefaccionDTO> refacciones = new ArrayList<>();
+    private List<PresupuestoRefaccionDTO> refacciones;
+    private List<ServicioPresupuestoDTO> servicios;
 
     public PresupuestoDTO() {
-        this.servicios = new ArrayList<>();
         this.refacciones = new ArrayList<>();
+        this.servicios = new ArrayList<>();
         this.costoTotal = 0.0;
+        this.estado = true;
+        this.fechaCreacion = LocalDate.now(); 
     }
-      public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, OrdenDTO orden, ClienteDTO cliente) {
+
+    public PresupuestoDTO(String idPresupuesto, LocalDate fechaCreacion, Double costoTotal, Boolean estado, OrdenDTO orden, ClienteDTO cliente) {
         this.idPresupuesto = idPresupuesto;
         this.fechaCreacion = fechaCreacion;
         this.costoTotal = costoTotal;
         this.estado = estado;
         this.orden = orden;
         this.cliente = cliente;
+        this.refacciones = new ArrayList<>();
+        this.servicios = new ArrayList<>();
+    }
+
+    public void calcularTotal() {
+        double total = 0.0;
+
+        if (this.refacciones != null) {
+            for (PresupuestoRefaccionDTO r : this.refacciones) {
+                if (r.getTotal() != null) {
+                    total += r.getTotal();
+                } else if (r.getCantidad() != null && r.getPrecioUnitario() != null) {
+                    total += (r.getCantidad() * r.getPrecioUnitario());
+                }
+            }
+        }
+
+        if (this.servicios != null) {
+            for (ServicioPresupuestoDTO s : this.servicios) {
+                if (s.getCosto() != null) {
+                    total += s.getCosto();
+                }
+            }
+        }
+
+        this.costoTotal = total;
+    }
+
+    public void addRefaccion(PresupuestoRefaccionDTO ref) {
+        if (this.refacciones == null) {
+            this.refacciones = new ArrayList<>();
+        }
+        this.refacciones.add(ref);
+        calcularTotal(); 
+    }
+
+    public void addServicio(ServicioPresupuestoDTO serv) {
+        if (this.servicios == null) {
+            this.servicios = new ArrayList<>();
+        }
+        this.servicios.add(serv);
+        calcularTotal(); 
     }
 
     public String getIdPresupuesto() {
@@ -92,55 +132,22 @@ public class PresupuestoDTO {
         this.cliente = cliente;
     }
 
-    public List<ItemServicioDTO> getServicios() {
-        return servicios;
-    }
-
-    public void setServicios(List<ItemServicioDTO> servicios) {
-        this.servicios = servicios;
-    }
-
-    public List<ItemRefaccionDTO> getRefacciones() {
+    public List<PresupuestoRefaccionDTO> getRefacciones() {
         return refacciones;
     }
 
-    public void setRefacciones(List<ItemRefaccionDTO> refacciones) {
+    public void setRefacciones(List<PresupuestoRefaccionDTO> refacciones) {
         this.refacciones = refacciones;
+        calcularTotal(); 
     }
 
-     public void addRefaccion(ItemRefaccionDTO item) {
-        if (refacciones == null) {
-            refacciones = new ArrayList<>();
-        }
-        refacciones.add(item);
+    public List<ServicioPresupuestoDTO> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<ServicioPresupuestoDTO> servicios) {
+        this.servicios = servicios;
+        calcularTotal();
     }
      
-     public void addServicio(ItemServicioDTO item) {
-        if (servicios == null) {
-            servicios = new ArrayList<>();
-        }
-        servicios.add(item);
-}
-
-
-     
-    public void calcularTotal() {
-        double suma = 0;
-
-        for (ItemServicioDTO s : servicios) {
-            suma += s.getTotal();
-        }
-
-        for (ItemRefaccionDTO r : refacciones) {
-            suma += r.getTotal();
-        }
-
-        this.costoTotal = suma;
-    }
-
-    public double getTotal() {
-        return costoTotal;
-    }
-    
-   
 }

@@ -84,7 +84,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarMenuPrincipal() {
-        MenuPrincipal menu = new MenuPrincipal(this, controlRefacciones, creacion, mensajes, controlVentas, validaciones);
+        MenuPrincipal menu = new MenuPrincipal(this, controlRefacciones, creacion, mensajes, controlVentas, validaciones, clientes, presupuesto, controlOrdenes, presupuesto);
         menu.setVisible(true);
     }
 
@@ -182,14 +182,15 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaSeleccionarCliente() {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto, orden);
+    public void mostrarPantallaSeleccionarCliente(IControlNavegacion navegacion, IControlClientes clientes, 
+            IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden, IControlMensajes mensajes) {
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto, orden, mensajes);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto) {
-        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO, orden, presupuestoDTO, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO, orden, presupuestoDTO, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
         pantalla.setVisible(true);
     }
 
@@ -272,14 +273,16 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
-        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlOrdenes, controlPresupuesto);
+    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
+            ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto,IControlMensajes mensajes, IControlClientes clientes) {
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlOrdenes, controlPresupuesto, mensajes, clientes);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto) {
-        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto);
+    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
+            ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {
+        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
         pantalla.setVisible(true);
     }
 

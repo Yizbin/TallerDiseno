@@ -4,9 +4,13 @@
  */
 package presentacion;
 
+import dto.OrdenDTO;
+import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlOrdenes;
+import presentacion.controles.IControlPresupuestos;
 import presentacion.controles.IControlRefacciones;
 import presentacion.controles.IControlValidaciones;
 import presentacion.controles.IControlVentas;
@@ -23,16 +27,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private final IControlMensajes mensajes;
     private final IControlVentas controlVentas;
     private final IControlValidaciones validaciones;
+    private final IControlClientes clientes;
+    private final IControlPresupuestos control;
+    private final IControlOrdenes controlOrdenes;
+    private final IControlPresupuestos presupuesto;
+    private OrdenDTO orden;
     
-    public MenuPrincipal(IControlNavegacion navegacion,IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlVentas controlVentas, IControlValidaciones validaciones) {
+    public MenuPrincipal(IControlNavegacion navegacion,IControlRefacciones controlRefacciones, IControlCreacionUI creacion, 
+            IControlMensajes mensajes, IControlVentas controlVentas, IControlValidaciones validaciones, IControlClientes clientes, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto) {
         this.navegacion = navegacion;
         this.controlRefacciones=controlRefacciones;
         this.creacion=creacion;
         this.mensajes=mensajes;
         this.controlVentas=controlVentas;
         this.validaciones=validaciones;
-                
-                
+        this.clientes=clientes;
+        this.control=control;
+        this.controlOrdenes=controlOrdenes;
+        this.presupuesto=presupuesto;
+           
         initComponents();
         configurarVentana();
     }
@@ -164,7 +177,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     private void navegarSeleccionarCliente() {
-        navegacion.mostrarPantallaSeleccionarCliente();
+        navegacion.mostrarPantallaSeleccionarCliente(navegacion, clientes, creacion, control, controlOrdenes, presupuesto, orden, mensajes);
         this.dispose();
     }
     

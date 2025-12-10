@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
 import presentacion.controles.IControlPresupuestos;
@@ -30,10 +31,12 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     private final IControlOrdenes controlOrdenes;
     private final IControlPresupuestos presupuesto;
     private final OrdenDTO orden;
+    private final IControlMensajes mensajes;
     /**
      * Creates new form PantallaSeleccionarCliente
      */
-    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden) {
+    public PantallaSeleccionarCliente( IControlNavegacion navegacion, IControlClientes clientes, 
+            IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden, IControlMensajes mensajes) {
         initComponents();
         configurarVentana();
         this.navegacion = navegacion;
@@ -43,6 +46,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
         this.controlOrdenes= controlOrdenes; 
         this.presupuesto=presupuesto;
         this.orden=orden;
+        this.mensajes=mensajes;
         
         
         generarListaClientes();
@@ -83,7 +87,7 @@ public class PantallaSeleccionarCliente extends javax.swing.JFrame {
     }
     
     private void clienteSeleccionado(ClienteDTO cliente) {
-        navegacion.mostrarPantallaSeleccionarOrden(controlOrdenes, creacion, cliente, orden, presupuesto);
+        navegacion.mostrarPantallaSeleccionarOrden(controlOrdenes, creacion, cliente, orden, presupuesto, mensajes, clientes);
         this.dispose();
 }
      

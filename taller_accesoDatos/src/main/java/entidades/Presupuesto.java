@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,18 +46,26 @@ public class Presupuesto implements Serializable {
     @JoinColumn(name = "id_orden", unique = true, nullable = false)
     private Orden orden;
 
-    @ManyToOne(fetch = FetchType.LAZY) //AGREGUE ESTA RELACION PARA SACAR EL MODELO DEL VEHICULO
+    @ManyToOne(fetch = FetchType.LAZY) 
     @JoinColumn(name = "id_vehiculo")
     private Vehiculo vehiculo;
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
 
     @OneToMany(mappedBy = "presupuesto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tarea> tareas;
 
+
+    @OneToMany(mappedBy = "presupuesto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PresupuestoRefaccion> refacciones = new ArrayList<>();
+
+    @OneToMany(mappedBy = "presupuesto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServicioPresupuesto> servicios = new ArrayList<>();
+
+
     public Presupuesto() {
+        this.refacciones = new ArrayList<>();
+        this.servicios = new ArrayList<>();
+        this.tareas = new ArrayList<>();
     }
 
     public Presupuesto(Long id_presupuesto, LocalDate fechaCreacion, double costoTotal, Boolean estado, Orden orden, List<Tarea> tareas) {
@@ -66,6 +75,8 @@ public class Presupuesto implements Serializable {
         this.estado = estado;
         this.orden = orden;
         this.tareas = tareas;
+        this.refacciones = new ArrayList<>();
+        this.servicios = new ArrayList<>();
     }
 
     public Presupuesto(LocalDate fechaCreacion, double costoTotal, Boolean estado, Orden orden, List<Tarea> tareas) {
@@ -74,6 +85,8 @@ public class Presupuesto implements Serializable {
         this.estado = estado;
         this.orden = orden;
         this.tareas = tareas;
+        this.refacciones = new ArrayList<>();
+        this.servicios = new ArrayList<>();
     }
 
     public Long getId() {
@@ -123,6 +136,14 @@ public class Presupuesto implements Serializable {
     public void setOrden(Orden orden) {
         this.orden = orden;
     }
+    
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 
     public List<Tarea> getTareas() {
         return tareas;
@@ -132,4 +153,29 @@ public class Presupuesto implements Serializable {
         this.tareas = tareas;
     }
 
+    public List<PresupuestoRefaccion> getRefacciones() {
+        return refacciones;
+    }
+
+    public void setRefacciones(List<PresupuestoRefaccion> refacciones) {
+        this.refacciones = refacciones;
+        if (refacciones != null) {
+            for (PresupuestoRefaccion pr : refacciones) {
+                pr.setPresupuesto(this);
+            }
+        }
+    }
+
+    public List<ServicioPresupuesto> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<ServicioPresupuesto> servicios) {
+        this.servicios = servicios;
+        if (servicios != null) {
+            for (ServicioPresupuesto sp : servicios) {
+                sp.setPresupuesto(this);
+            }
+        }
+    }
 }

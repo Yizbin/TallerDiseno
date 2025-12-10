@@ -17,6 +17,7 @@
     <class>entidades.ServicioPresupuesto</class>
     <class>entidades.VentaRefaccion</class>
     <class>entidades.Venta</class>
+    <class>entidades.PresupuestoRefaccion</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/taller_db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

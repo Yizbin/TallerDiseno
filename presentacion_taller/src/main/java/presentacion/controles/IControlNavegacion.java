@@ -41,13 +41,16 @@ public interface IControlNavegacion {
 
     public void mostrarTareasMecanico();
 
-    public void mostrarPantallaSeleccionarCliente();
+    public void mostrarPantallaSeleccionarCliente(IControlNavegacion navegacion, IControlClientes clientes, 
+            IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden, IControlMensajes mensajes);
 
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes);
 
-    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto);
+    public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
+            ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto,IControlMensajes mensajes, IControlClientes clientes);
 
-    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto);
+    public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
+            ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes);
 
     public void mostrarPantallaSeleccionMetodoPago(String idOrden);
 
