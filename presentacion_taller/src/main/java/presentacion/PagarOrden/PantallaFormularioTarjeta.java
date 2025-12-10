@@ -69,10 +69,17 @@ public class PantallaFormularioTarjeta extends javax.swing.JFrame {
         }
 
         Map<String, String> datosPago = new HashMap<>();
-        datosPago.put("numeroTarjeta", textCorreo.getText());
+        datosPago.put("numeroTarjeta", textCorreo.getText()); 
         datosPago.put("cvv", textContra.getText());
-
-        return new SolicitudPagoDTO(presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.TARJETA, datosPago);
+        
+        // 2. Crear el DTO
+        return new SolicitudPagoDTO(
+            presupuestoActual.getCostoTotal(), 
+            this.idOrden, 
+            MetodoPago.TARJETA, 
+            datosPago,
+            false 
+        );
     }
 
     private void procesarPago() {

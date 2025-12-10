@@ -36,14 +36,41 @@ public class PagoBO implements IPagoBO {
 
     @Override
     public PagoDTO registrarPago(PagoDTO pago) throws NegocioException {
+        // Redirigimos a guardarPago para centralizar las validaciones
+        return guardarPago(pago);
+    }
+
+    @Override
+   public PagoDTO guardarPago(PagoDTO pagoDTO) throws NegocioException {
         try {
-            Pago pagoEntidad = pagoMapper.toEntity(pago);
+            if (pagoDTO == null) {
+                throw new NegocioException("La información del pago no puede ser nula.");
+            }
+            if (pagoDTO.getMonto() == null || pagoDTO.getMonto() <= 0) {
+                throw new NegocioException("El monto del pago debe ser mayor a 0.");
+            }
 
-            Pago pagoRegistrado = pagoDAO.registrarPago(pagoEntidad);
+            Pago pagoEntidad = pagoMapper.toEntity(pagoDTO);
 
-            return pagoMapper.toDTO(pagoRegistrado);
-        } catch (PersistenciaException e) {
-            throw new NegocioException("Error al registrar el pago: " + e.getMessage());
+            boolean tieneVenta = pagoEntidad.getVenta() != null && pagoEntidad.getVenta().getId() != null;
+            boolean tienePresupuesto = pagoEntidad.getPresupuesto() != null && pagoEntidad.getPresupuesto().getId() != null;
+            boolean esVentaRefaccionesEnProceso = pagoDTO.getIdPresupuesto() != null && pagoDTO.getIdPresupuesto().startsWith("ORD-");
+
+            if (!tieneVenta && !tienePresupuesto && !esVentaRefaccionesEnProceso) {
+                throw new NegocioException("El pago debe estar asociado a una Venta o a un Presupuesto existente.");
+            }
+            
+            if (tieneVenta && tienePresupuesto) {
+                pagoEntidad.setPresupuesto(null); 
+            }
+
+            Pago pagoGuardado = pagoDAO.guardarPago(pagoEntidad);
+
+            return pagoMapper.toDTO(pagoGuardado);
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            throw new NegocioException("Error inesperado al guardar el pago: " + e.getMessage());
         }
     }
 }

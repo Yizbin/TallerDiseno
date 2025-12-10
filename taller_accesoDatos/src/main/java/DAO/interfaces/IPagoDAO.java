@@ -14,4 +14,6 @@ import entidades.Pago;
 public interface IPagoDAO {
 
     public Pago registrarPago(Pago pago) throws PersistenciaException;
+    
+    public Pago guardarPago(Pago pago) throws PersistenciaException;
 }

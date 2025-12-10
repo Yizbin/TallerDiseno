@@ -5,7 +5,22 @@
 package presentacion.ComprarRefaccion;
 
 import dto.RefaccionDTO;
+import dto.RespuestaPagoDTO;
+import dto.SolicitudPagoDTO;
+import dto.VentaDTO;
+import dto.VentaRefaccionDTO;
+import dto.enums.MetodoPago;
+import gestionPagos.GestorPagos;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import presentacion.controles.IControlMensajes;
+import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlRefacciones;
+import presentacion.controles.IControlValidaciones;
+import presentacion.controles.IControlVentas;
+import presentacion.validaciones.ValidacionException;
 
 /**
  *
@@ -14,15 +29,65 @@ import java.util.List;
 public class PantallaPagoPayPal extends javax.swing.JFrame {
     private List<RefaccionDTO> listaCompra;
     private double total;
+    private IControlMensajes mensajes;
+    private IControlNavegacion navegacion;
+    private IControlRefacciones controlRefacciones;
+    private IControlVentas controlVentas;
+    private IControlValidaciones validaciones;
     /**
      * Creates new form PantallaPagoPayPal
      */
-    public PantallaPagoPayPal(List<RefaccionDTO> lista, double total) {
+    public PantallaPagoPayPal(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones) {
         initComponents();
         this.listaCompra = lista;
         this.total = total;
+        this.navegacion = navegacion;
+        this.mensajes = mensajes;
+        this.controlRefacciones = controlRefacciones;
+        this.controlVentas = controlVentas;
+        this.validaciones = validaciones;
     }
 
+    private void finalizarVenta(String idTransaccion) {
+        try {
+            for (RefaccionDTO itemCarrito : this.listaCompra) {
+                RefaccionDTO refaccionEnBD = controlRefacciones.buscarRefaccionPorId(itemCarrito.getId_refaccion());
+
+                if (refaccionEnBD != null) {
+                    int cantidadComprada = itemCarrito.getStock();
+                    int nuevoStock = refaccionEnBD.getStock() - cantidadComprada;
+
+                    refaccionEnBD.setStock(nuevoStock);
+                    controlRefacciones.actualizarRefaccion(refaccionEnBD);
+                }
+            }
+
+            List<VentaRefaccionDTO> detallesVenta = new ArrayList<>();
+
+            for (RefaccionDTO item : this.listaCompra) {
+                VentaRefaccionDTO detalle = new VentaRefaccionDTO();
+                detalle.setId_refaccion(item.getId_refaccion());
+                detalle.setCantidad(item.getStock());
+                detalle.setPrecioUnitario(item.getPrecioUnitario());
+                detallesVenta.add(detalle);
+            }
+
+            VentaDTO ventaRegistrada = controlVentas.crearVenta(detallesVenta);
+
+            if (ventaRegistrada != null) {
+                mensajes.mostrarExito("¡Compra Exitosa!\nID Pago: " + idTransaccion);
+                navegacion.mostrarMenuPrincipal();
+                this.dispose();
+            } else {
+                mensajes.mostrarError(this, "El pago pasó, pero no se pudo registrar la venta.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensajes.mostrarError(this, "Error finalizando compra: " + e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +136,11 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptarPago.png"))); // NOI18N
         btnAceptar.setContentAreaFilled(false);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 80, 20));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaPayPal.png"))); // NOI18N
@@ -90,6 +160,46 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String correo = txtCorreoElectronico.getText();
+        String pass = txtContraseña.getText();
+
+        try {
+            validaciones.validarCampoVacio(correo, "Correo Electrónico");
+            validaciones.validarCampoVacio(pass, "Contraseña");
+            validaciones.validarEmail(correo);
+        } catch (ValidacionException ex) {
+            mensajes.mostrarErrorCamposConPadre(this, ex.getMessage());
+            return;
+        }
+
+        Map<String, String> datosPago = new HashMap<>();
+        datosPago.put("correo", correo);
+        datosPago.put("contrasena", pass);
+
+        SolicitudPagoDTO solicitud = new SolicitudPagoDTO(
+            this.total, 
+            "ORD-" + System.currentTimeMillis(), 
+            MetodoPago.PAYPAL, 
+            datosPago,
+            true 
+        );
+
+        try {
+            GestorPagos gestor = new GestorPagos();
+            RespuestaPagoDTO respuesta = gestor.procesarPago(solicitud);
+
+            if (respuesta.getExito()) {
+                finalizarVenta(respuesta.getIdtransaccion());
+            } else {
+                mensajes.mostrarError(this, "PayPal rechazó el pago: " + respuesta.getMensaje());
+            }
+        } catch (Exception e) {
+            mensajes.mostrarError(this, "Error técnico: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments

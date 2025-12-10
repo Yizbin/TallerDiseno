@@ -67,12 +67,16 @@ public interface IControlNavegacion {
 
     public void mostrarPantallaHistorialTareas();
     
-    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion);
+    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion, IControlVentas controlVentas, IControlValidaciones validaciones);
     
-    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total);
+    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones);
     
-    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total);
+    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones);
     
-    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total);
+    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones);
 
+    public void mostrarPantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, IControlVentas controlVentas, IControlValidaciones validaciones);
 }

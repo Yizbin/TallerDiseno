@@ -38,8 +38,11 @@ public class VentaRefaccionBO implements IVentaRefaccionBO{
     }
 
     public static IVentaRefaccionBO getInstancia() {
-        return instancia;
-    }
+        if (instancia == null) {
+            instancia = new VentaRefaccionBO();
+        }
+      return instancia;
+}
     
     
     @Override

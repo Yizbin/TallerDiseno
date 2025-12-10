@@ -38,9 +38,9 @@ public class VentaMapper implements IVentaMapper{
             for (VentaRefaccionDTO d : dto.getRefacciones()) {
                 VentaRefaccion vr = new VentaRefaccion();
 
-                if (d.getId() != null && !d.getId().isEmpty()) {
-                    vr.setId(Long.valueOf(d.getId()));
-                }
+//                if (d.getId() != null && !d.getId().isEmpty()) {
+//                    vr.setId(Long.valueOf(d.getId()));
+//                }
                 Refaccion ref = new Refaccion();
                 ref.setId(Long.valueOf(d.getId_refaccion()));
 

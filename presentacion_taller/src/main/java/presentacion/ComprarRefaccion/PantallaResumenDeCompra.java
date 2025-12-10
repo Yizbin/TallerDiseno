@@ -7,6 +7,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlRefacciones;
+import presentacion.controles.IControlValidaciones;
+import presentacion.controles.IControlVentas;
 
 /**
  *
@@ -18,17 +21,22 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     
     private final IControlMensajes mensajes; 
     private final IControlNavegacion navegacion;
+    private final IControlRefacciones controlRefacciones;
+    private final IControlVentas controlVentas;
+    private final IControlValidaciones validaciones;
     /**
      * Creates new form PantallaResumenDeCompra
      */
-    public PantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes) {
+    public PantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, IControlVentas controlVentas, IControlValidaciones validaciones) {
         initComponents();
         
         this.listaDeCompras = productosSeleccionados;
         this.totalPagar = total;
-        this.navegacion = navegacion;
-        
+        this.navegacion = navegacion;       
         this.mensajes = mensajes;
+        this.controlRefacciones=controlRefacciones;
+        this.controlVentas=controlVentas;
+        this.validaciones=validaciones;
         
         cargarDatosEnTabla();
         
@@ -99,14 +107,17 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, -1, 50));
 
         Tarjeta.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        Tarjeta.setForeground(new java.awt.Color(255, 255, 255));
         Tarjeta.setText("Tarjeta");
         getContentPane().add(Tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, 50, 30));
 
         PayPal.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        PayPal.setForeground(new java.awt.Color(255, 255, 255));
         PayPal.setText("PayPal");
         getContentPane().add(PayPal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, -1, -1));
 
         MercadoPago.setFont(new java.awt.Font("Nirmala Text Semilight", 1, 14)); // NOI18N
+        MercadoPago.setForeground(new java.awt.Color(255, 255, 255));
         MercadoPago.setText("Mercado Pago");
         getContentPane().add(MercadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, -1, 30));
 
@@ -148,18 +159,18 @@ public class PantallaResumenDeCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPayPalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayPalActionPerformed
-        navegacion.mostrarPantallaPagoPayPal(this.listaDeCompras, this.totalPagar);
+        navegacion.mostrarPantallaPagoPayPal(listaDeCompras, totalPagar, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
         this.dispose();
       
     }//GEN-LAST:event_btnPayPalActionPerformed
 
     private void bntMercadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMercadoPagoActionPerformed
-       navegacion.mostrarPantallaPagoMercadoLibre(this.listaDeCompras, this.totalPagar);
+       navegacion.mostrarPantallaPagoMercadoLibre(listaDeCompras, totalPagar, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
        this.dispose();
     }//GEN-LAST:event_bntMercadoPagoActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
-       navegacion.mostrarPantallaPagoTarjeta(this.listaDeCompras, this.totalPagar);     
+       navegacion.mostrarPantallaPagoTarjeta(listaDeCompras, totalPagar, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
        this.dispose();
     }//GEN-LAST:event_btnTarjetaActionPerformed
 

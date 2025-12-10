@@ -59,19 +59,24 @@ public class PantallaFormularioPaypal extends javax.swing.JFrame {
     }
 
     private SolicitudPagoDTO recuperarDatosPago() {
-        this.presupuestoActual = presupuestos.buscarPresupuestoPorOrden(this.idOrden);
+       this.presupuestoActual = presupuestos.buscarPresupuestoPorOrden(this.idOrden);
         
         if (this.presupuestoActual == null) {
             mensajes.mostrarErrorCampos("No se encontro el presupuesto.");
             return null;
         }
 
-
         Map<String, String> datosPago = new HashMap<>();
         datosPago.put("correo", textCorreo.getText());
-        datosPago.put("contrasena", textContra.getText());
-
-        return new SolicitudPagoDTO(this.presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.PAYPAL, datosPago);
+        datosPago.put("contrasena", textContra.getText()); 
+      
+        return new SolicitudPagoDTO(
+            this.presupuestoActual.getCostoTotal(), 
+            this.idOrden, 
+            MetodoPago.PAYPAL, 
+            datosPago,
+            false 
+        );
     }
 
     private void procesarPago() {
@@ -149,7 +154,6 @@ public class PantallaFormularioPaypal extends javax.swing.JFrame {
 
         panelBotones.setOpaque(false);
 
-        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
         btnCancelar.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(198, 40, 40));
         btnCancelar.setText("Cancelar");
@@ -184,7 +188,6 @@ public class PantallaFormularioPaypal extends javax.swing.JFrame {
         jLabel2.setText("Correo Electronico:");
         panelPaypal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
 
-        textCorreo.setBackground(new java.awt.Color(255, 255, 255));
         textCorreo.setFont(new java.awt.Font("JetBrains Mono NL", 0, 14)); // NOI18N
         panelPaypal.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 190, -1));
 

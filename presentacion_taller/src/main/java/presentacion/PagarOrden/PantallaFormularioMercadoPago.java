@@ -67,9 +67,15 @@ public class PantallaFormularioMercadoPago extends javax.swing.JFrame {
 
         Map<String, String> datosPago = new HashMap<>();
         datosPago.put("correo", textCorreo.getText());
-        datosPago.put("contrasena", textContra.getText());
+        datosPago.put("contrasena", textContra.getText()); 
 
-        return new SolicitudPagoDTO(presupuestoActual.getCostoTotal(), this.idOrden, MetodoPago.MERCADOPAGO, datosPago);
+        return new SolicitudPagoDTO(
+            presupuestoActual.getCostoTotal(), 
+            this.idOrden, 
+            MetodoPago.MERCADOPAGO, 
+            datosPago, 
+            false
+        );
     }
 
     private void procesarPago() {

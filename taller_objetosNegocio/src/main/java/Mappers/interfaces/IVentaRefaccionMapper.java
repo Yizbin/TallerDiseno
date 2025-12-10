@@ -7,13 +7,18 @@ package Mappers.interfaces;
 import dto.VentaRefaccionDTO;
 import entidades.Refaccion;
 import entidades.VentaRefaccion;
+import java.util.List;
 
 /**
  *
  * @author Pride Factor Black
  */
 public interface IVentaRefaccionMapper {
-    public VentaRefaccion toEntity(VentaRefaccionDTO dto, Refaccion refaccion);
+    public VentaRefaccion toEntity(VentaRefaccionDTO dto);
     
     public VentaRefaccionDTO toDTO(VentaRefaccion e);
+    
+     public List<VentaRefaccionDTO> toListDTO(List<VentaRefaccion> entidades);
+     
+     public VentaRefaccion toEntity(VentaRefaccionDTO dto, Refaccion refaccion);
 }

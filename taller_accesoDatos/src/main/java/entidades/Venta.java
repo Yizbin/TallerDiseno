@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
@@ -46,6 +47,19 @@ public class Venta implements Serializable {
         asignarVentaARefacciones();
     }
 
+    @PrePersist
+    public void antesDePersistir() {
+        System.out.println("--- EJECUTANDO PRE-PERSIST EN VENTA ---");
+        if (this.refacciones != null) {
+            for (VentaRefaccion vr : this.refacciones) {
+                vr.setVenta(this);
+                System.out.println("Vinculando refacción a venta. Objeto Venta: " + this);
+            }
+        } else {
+            System.out.println("La lista de refacciones es NULL");
+        }
+    }
+    
     public Venta(LocalDateTime fecha, Double total, List<VentaRefaccion> refacciones) {
         this.fecha = fecha;
         this.total = total;

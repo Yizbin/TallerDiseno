@@ -18,14 +18,17 @@ public class SolicitudPagoDTO {
     private MetodoPago metodo;
     private Map<String, String> datosPago;
 
+    private boolean esVentaRefacciones;
+    
     public SolicitudPagoDTO() {
     }
 
-    public SolicitudPagoDTO(double monto, String ordenId, MetodoPago metodo, Map<String, String> datosPago) {
+    public SolicitudPagoDTO(double monto, String ordenId, MetodoPago metodo, Map<String, String> datosPago, boolean esVentaRefacciones) {
         this.monto = monto;
         this.ordenId = ordenId;
         this.metodo = metodo;
         this.datosPago = datosPago;
+        this.esVentaRefacciones=esVentaRefacciones;
     }
 
     public double getMonto() {
@@ -58,6 +61,10 @@ public class SolicitudPagoDTO {
 
     public void setDatosPago(Map<String, String> datosPago) {
         this.datosPago = datosPago;
+    }
+
+    public SolicitudPagoDTO(boolean esVentaRefacciones) {
+        this.esVentaRefacciones = esVentaRefacciones;
     }
 
 }

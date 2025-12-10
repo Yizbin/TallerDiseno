@@ -24,17 +24,20 @@ public class PagoDTO {
     private String referencia;
 
     private String idPresupuesto;
+    
+    private String idVenta;
 
     public PagoDTO() {
     }
 
-    public PagoDTO(String idPago, Double monto, LocalDateTime fechaPago, MetodoPago metodoPago, String referencia, String idPresupuesto) {
+    public PagoDTO(String idPago, Double monto, LocalDateTime fechaPago, MetodoPago metodoPago, String referencia, String idPresupuesto, String idVenta) {
         this.idPago = idPago;
         this.monto = monto;
         this.fechaPago = fechaPago;
         this.metodoPago = metodoPago;
         this.referencia = referencia;
         this.idPresupuesto = idPresupuesto;
+        this.idVenta= idVenta;
     }
 
     public String getIdPago() {
@@ -83,6 +86,14 @@ public class PagoDTO {
 
     public void setIdPresupuesto(String idPresupuesto) {
         this.idPresupuesto = idPresupuesto;
+    }
+
+    public String getIdVenta() {
+        return idVenta;
+    }
+
+    public void setIdVenta(String idVenta) {
+        this.idVenta = idVenta;
     }
 
 }

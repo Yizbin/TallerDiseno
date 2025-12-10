@@ -14,4 +14,6 @@ import excepciones.NegocioException;
  */
 public interface IPagoBO {
     public PagoDTO registrarPago(PagoDTO pago) throws NegocioException;
+    
+    public PagoDTO guardarPago(PagoDTO pagoDTO) throws NegocioException;
 }

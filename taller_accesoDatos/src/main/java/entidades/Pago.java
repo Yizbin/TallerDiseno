@@ -41,19 +41,14 @@ public class Pago implements Serializable {
     private String referencia;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_presupuesto", nullable = false, unique = true)
+    @JoinColumn(name = "id_presupuesto", nullable = true) 
     private Presupuesto presupuesto;
 
-    public Pago() {
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_venta", nullable = true)
+    private Venta venta;
 
-    public Pago(Long id, Double monto, LocalDateTime fechaPago, String metodoPago, String referencia, Presupuesto presupuesto) {
-        this.id = id;
-        this.monto = monto;
-        this.fechaPago = fechaPago;
-        this.metodoPago = metodoPago;
-        this.referencia = referencia;
-        this.presupuesto = presupuesto;
+    public Pago() {
     }
 
     public Pago(Double monto, LocalDateTime fechaPago, String metodoPago, String referencia, Presupuesto presupuesto) {
@@ -62,6 +57,16 @@ public class Pago implements Serializable {
         this.metodoPago = metodoPago;
         this.referencia = referencia;
         this.presupuesto = presupuesto;
+        this.venta = null;
+    }
+
+    public Pago(Double monto, LocalDateTime fechaPago, String metodoPago, String referencia, Venta venta) {
+        this.monto = monto;
+        this.fechaPago = fechaPago;
+        this.metodoPago = metodoPago;
+        this.referencia = referencia;
+        this.venta = venta;
+        this.presupuesto = null; 
     }
 
     public Long getId() {
@@ -110,6 +115,22 @@ public class Pago implements Serializable {
 
     public void setPresupuesto(Presupuesto presupuesto) {
         this.presupuesto = presupuesto;
+        // Si asignamos presupuesto, nos aseguramos que venta sea null (opcional, por seguridad)
+        if(presupuesto != null) {
+            this.venta = null;
+        }
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+        // Si asignamos venta, nos aseguramos que presupuesto sea null (opcional, por seguridad)
+        if(venta != null) {
+            this.presupuesto = null;
+        }
     }
 
 }

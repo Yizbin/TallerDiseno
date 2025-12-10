@@ -21,6 +21,7 @@ import presentacion.AsignarTarea.PantallaElegirTarea;
 import presentacion.ComprarRefaccion.PantallaPagoMercadoLibre;
 import presentacion.ComprarRefaccion.PantallaPagoPayPal;
 import presentacion.ComprarRefaccion.PantallaPagoTarjeta;
+import presentacion.ComprarRefaccion.PantallaResumenDeCompra;
 import presentacion.ComprarRefaccion.PantallaSeleccionarRefacciones;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
@@ -83,7 +84,7 @@ public class ControlNavegacion implements IControlNavegacion {
 
     @Override
     public void mostrarMenuPrincipal() {
-        MenuPrincipal menu = new MenuPrincipal(this);
+        MenuPrincipal menu = new MenuPrincipal(this, controlRefacciones, creacion, mensajes, controlVentas, validaciones);
         menu.setVisible(true);
     }
 
@@ -283,26 +284,35 @@ public class ControlNavegacion implements IControlNavegacion {
     }
 
     @Override
-    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion) {
-        PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, this);
+    public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion, IControlVentas controlVentas, IControlValidaciones validaciones) {
+        PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, navegacion, controlVentas, validaciones);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total) {
-        PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total);
+    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+        PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total) {
-        PantallaPagoPayPal pantalla = new PantallaPagoPayPal(lista, total);
+    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+        PantallaPagoPayPal pantalla = new PantallaPagoPayPal(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total) {
-        PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total);
+    public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+        PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, IControlVentas controlVentas, IControlValidaciones validaciones) {
+        PantallaResumenDeCompra pantalla = new PantallaResumenDeCompra(productosSeleccionados, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
         pantalla.setVisible(true);
     }
 

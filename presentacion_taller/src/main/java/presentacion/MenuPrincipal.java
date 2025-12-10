@@ -4,7 +4,12 @@
  */
 package presentacion;
 
+import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlRefacciones;
+import presentacion.controles.IControlValidaciones;
+import presentacion.controles.IControlVentas;
 
 /**
  *
@@ -13,9 +18,21 @@ import presentacion.controles.IControlNavegacion;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private final IControlNavegacion navegacion;
-
-    public MenuPrincipal(IControlNavegacion navegacion) {
+    private final IControlRefacciones controlRefacciones;
+    private final IControlCreacionUI creacion;
+    private final IControlMensajes mensajes;
+    private final IControlVentas controlVentas;
+    private final IControlValidaciones validaciones;
+    
+    public MenuPrincipal(IControlNavegacion navegacion,IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlVentas controlVentas, IControlValidaciones validaciones) {
         this.navegacion = navegacion;
+        this.controlRefacciones=controlRefacciones;
+        this.creacion=creacion;
+        this.mensajes=mensajes;
+        this.controlVentas=controlVentas;
+        this.validaciones=validaciones;
+                
+                
         initComponents();
         configurarVentana();
     }
@@ -152,7 +169,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     private void navegarVenderRefacciones(){
-//        navegacion.mostrarPantallaSeleccionarRefacciones();
+        navegacion.mostrarPantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, navegacion, controlVentas, validaciones);
         this.dispose();
     }
 

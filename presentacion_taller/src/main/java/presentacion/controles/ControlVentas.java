@@ -6,47 +6,102 @@ package presentacion.controles;
 
 import dto.VentaDTO;
 import dto.VentaRefaccionDTO;
+import excepciones.EntidadDuplicadaNegocioException;
+import excepciones.EntidadNoEncontradaNegocioException;
+import excepciones.NegocioException;
+import gestionTaller.IGestorTaller;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Pride Factor Black
  */
 public class ControlVentas implements IControlVentas{
+ 
+    private final IGestorTaller taller;
 
+    public ControlVentas(IGestorTaller taller) {
+        this.taller = taller;
+    }
+    
+    
     @Override
     public VentaDTO crearVenta(List<VentaRefaccionDTO> detalles) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return taller.crearVenta(detalles);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public VentaDTO buscarVentaPorId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return taller.buscarVentaPorId(id);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public List<VentaDTO> buscarTodasLasVentas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return taller.buscarTodasLasVentas();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public VentaRefaccionDTO crearVentaRefaccion(VentaRefaccionDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return taller.crearVentaRefaccion(dto);
+        } catch (EntidadDuplicadaNegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public VentaRefaccionDTO actualizarVentaRefaccion(VentaRefaccionDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            taller.actualizarVentaRefaccion(dto);
+        } catch (EntidadNoEncontradaNegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public VentaRefaccionDTO buscarVentaRefaccionPorId(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return taller.buscarVentaRefaccionPorId(id);
+        } catch (EntidadNoEncontradaNegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public List<VentaRefaccionDTO> buscarPorIdVenta(String idVenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        try {
+            return taller.buscarPorIdVenta(idVenta);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }

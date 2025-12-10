@@ -24,6 +24,8 @@ import dto.RefaccionDTO;
 import javax.swing.table.DefaultTableModel;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
+import presentacion.controles.IControlValidaciones;
+import presentacion.controles.IControlVentas;
 /**
  *
  * @author Pride Factor Black
@@ -33,18 +35,23 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
     private final IControlCreacionUI creacion;
     private final IControlMensajes mensajes;
     private final IControlNavegacion navegacion;
+    private final IControlVentas controlVentas;
+    private final IControlValidaciones validaciones;
     private JPanel panelListaRefacciones;
     private JPanel panelListaSeleccionados;
     
     /**
      * Creates new form PantallaSeleccionarRefacciones
      */
-    public PantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion) {
+    public PantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion, IControlVentas controlVentas, IControlValidaciones validaciones) {
+        initComponents();
         this.controlRefacciones = controlRefacciones;
         this.creacion=creacion;
         this.mensajes=mensajes;
         this.navegacion=navegacion;
-        initComponents();
+        this.controlVentas=controlVentas;
+        this.validaciones=validaciones;
+        
         inicializarPanelesListas();
         
         cargarRefacciones();
@@ -228,9 +235,7 @@ public class PantallaSeleccionarRefacciones extends javax.swing.JFrame {
 
             totalCalculado += (r.getPrecioUnitario() * r.getStock());
         }
-
-        PantallaResumenDeCompra proximaPantalla = new PantallaResumenDeCompra(listaAEnviar, totalCalculado, navegacion, mensajes);
-        proximaPantalla.setVisible(true);
+        navegacion.mostrarPantallaResumenDeCompra(listaAEnviar, totalCalculado, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
         this.dispose();
     }//GEN-LAST:event_btnContinuarActionPerformed
 

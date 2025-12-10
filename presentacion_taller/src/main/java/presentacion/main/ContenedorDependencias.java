@@ -149,7 +149,7 @@ public class ContenedorDependencias {
         this.controlTareas = new ControlTareas(tallerServicio);
         this.controlEmpleados = new ControlEmpleados(tallerServicio);
         this.controlDocumentos = new ControlDocumentos(gestorQR, gestorPDF, gestorCorreos);
-        this.controlVentas = new ControlVentas();
+        this.controlVentas = new ControlVentas(tallerServicio);
 
         this.controlNavegacion = new ControlNavegacion(
                 controlOrdenes,

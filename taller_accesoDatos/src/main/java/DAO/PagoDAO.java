@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DAO;
 
 import DAO.interfaces.IPagoDAO;
@@ -9,6 +6,7 @@ import Excepciones.PersistenciaException;
 import conexion.Conexion;
 import entidades.Pago;
 import entidades.Presupuesto;
+import entidades.Venta;
 import javax.persistence.EntityManager;
 
 /**
@@ -30,25 +28,45 @@ public class PagoDAO implements IPagoDAO {
     }
 
     @Override
-    public Pago registrarPago(Pago pago) throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
+   public Pago registrarPago(Pago pago) throws PersistenciaException {
+        return guardarPago(pago);
+    }
+
+    @Override
+    public Pago guardarPago(Pago pago) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion(); 
         try {
             em.getTransaction().begin();
 
-            Long idPresupuesto = pago.getPresupuesto().getId();
+            if (pago.getPresupuesto() != null && pago.getPresupuesto().getId() != null) {
+                Long idPresupuesto = pago.getPresupuesto().getId();
+                Presupuesto presupuestoReal = em.find(Presupuesto.class, idPresupuesto);
 
-            Presupuesto presupuestoReal = em.find(Presupuesto.class, idPresupuesto);
+                if (presupuestoReal == null) {
+                    throw new PersistenciaException("No se encontro el presupuesto con ID: " + idPresupuesto);
+                }
 
-            if (presupuestoReal == null) {
-                throw new PersistenciaException("No se encontro el presupuesto con ID: " + idPresupuesto);
+                presupuestoReal.setEstado(true); 
+                pago.setPresupuesto(presupuestoReal);
+                pago.setVenta(null); 
+            } 
+            else if (pago.getVenta() != null && pago.getVenta().getId() != null) {
+                Long idVenta = pago.getVenta().getId();
+                Venta ventaReal = em.find(Venta.class, idVenta);
+
+                if (ventaReal == null) {
+                    throw new PersistenciaException("No se encontro la venta con ID: " + idVenta);
+                }
+
+                pago.setVenta(ventaReal);
+                pago.setPresupuesto(null);
+            } 
+            else {
+                pago.setPresupuesto(null);
+                pago.setVenta(null);
             }
 
-            presupuestoReal.setEstado(true);
-
-            pago.setPresupuesto(presupuestoReal);
-
             em.persist(pago);
-
             em.getTransaction().commit();
 
             return pago;
@@ -57,6 +75,7 @@ public class PagoDAO implements IPagoDAO {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
+            e.printStackTrace(); // Agregado para ver errores en consola
             throw new PersistenciaException("Error al registrar el pago: " + e.getMessage(), e);
         } finally {
             if (em != null) {
