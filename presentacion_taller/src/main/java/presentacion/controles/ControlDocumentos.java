@@ -136,4 +136,86 @@ public class ControlDocumentos implements IControlDocumentos {
         }
     }
 
+    @Override
+    public void generarPDFPresupuesto(PresupuestoDTO presupuesto) {
+        try {
+            byte[] pdfBytes = gestorPDF.generarPresupuesto(presupuesto);
+
+            if (pdfBytes == null) {
+                JOptionPane.showMessageDialog(null, "Error: El reporte se generó vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar Cotización");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF", "pdf"));
+
+            String nombreSugerido = "Cotizacion_Orden_" + 
+                    (presupuesto.getOrden() != null ? presupuesto.getOrden().getIdOrden() : "Nueva") + 
+                    ".pdf";
+            fileChooser.setSelectedFile(new File(nombreSugerido));
+
+            int userSelection = fileChooser.showSaveDialog(null);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+
+                // Asegurar extensión .pdf
+                if (!fileToSave.getAbsolutePath().toLowerCase().endsWith(".pdf")) {
+                    fileToSave = new File(fileToSave.getAbsolutePath() + ".pdf");
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(fileToSave)) {
+                    fos.write(pdfBytes);
+                    
+                    int opcion = JOptionPane.showConfirmDialog(null, 
+                            "Presupuesto guardado exitosamente.\nUbicación: " + fileToSave.getAbsolutePath() + "\n\n¿Deseas abrirlo ahora?",
+                            "Éxito",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    if (opcion == JOptionPane.YES_OPTION && Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(fileToSave);
+                    }
+
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error al guardar en disco: " + e.getMessage(), "Error IO", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error interno: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void enviarPresupuestoPorCorreo(PresupuestoDTO presupuesto, String correoDestino) {
+        try {
+            byte[] pdfBytes = gestorPDF.generarPresupuesto(presupuesto);
+
+            if (pdfBytes == null) {
+                JOptionPane.showMessageDialog(null, "Error: No se pudo generar el PDF para enviar.");
+                return;
+            }
+            String asunto = "Cotización de Servicio - Taller Automotriz";
+            
+            String cuerpo = "Estimado(a) " + presupuesto.getCliente().getNombre() + ":\n\n"
+                    + "Adjunto a este correo encontrará la cotización solicitada para el servicio de su vehículo "
+                    + presupuesto.getOrden().getVehiculo().getModelo() + ".\n\n"
+                    + "Total cotizado: $" + String.format("%.2f", presupuesto.getCostoTotal()) + "\n\n"
+                    + "Quedamos a sus órdenes.\n"
+                    + "Atte. Taller Diseño 77";
+
+            String nombreArchivo = "Cotizacion_" + presupuesto.getOrden().getIdOrden() + ".pdf";
+
+            gestorCorreo.enviarCorreoConAdjunto(correoDestino, asunto, cuerpo, pdfBytes, nombreArchivo);
+
+            JOptionPane.showMessageDialog(null, "Correo enviado exitosamente a: " + correoDestino);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al enviar correo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
 }

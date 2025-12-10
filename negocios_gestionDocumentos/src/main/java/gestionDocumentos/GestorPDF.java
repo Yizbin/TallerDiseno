@@ -254,4 +254,109 @@ public class GestorPDF implements IGestorPDF {
             return null;
         }
     }
+
+    @Override
+   public byte[] generarPresupuesto(PresupuestoDTO presupuesto) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter writer = new PdfWriter(baos);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+
+            Paragraph titulo = new Paragraph("COTIZACIÓN DE SERVICIO")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(20)
+                    .setBold()
+                    .setFontColor(ColorConstants.DARK_GRAY);
+            document.add(titulo);
+
+            document.add(new Paragraph("\n"));
+
+            Table infoTable = new Table(UnitValue.createPercentArray(new float[]{1, 2}));
+            infoTable.setWidth(UnitValue.createPercentValue(100));
+
+            String nombreCliente = (presupuesto.getCliente() != null) 
+                    ? presupuesto.getCliente().getNombre() + " " + presupuesto.getCliente().getApellidoP() 
+                    : "N/A";
+            agregarFila(infoTable, "Cliente:", nombreCliente);
+
+            String datosVehiculo = "N/A";
+            if (presupuesto.getOrden() != null && presupuesto.getOrden().getVehiculo() != null) {
+                datosVehiculo = presupuesto.getOrden().getVehiculo().getMarca() + " " +
+                                presupuesto.getOrden().getVehiculo().getModelo() + " - " +
+                                presupuesto.getOrden().getVehiculo().getPlacas();
+            }
+            agregarFila(infoTable, "Vehículo:", datosVehiculo);
+
+            String fecha = (presupuesto.getFechaCreacion() != null) 
+                    ? presupuesto.getFechaCreacion().toString() 
+                    : java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            agregarFila(infoTable, "Fecha de Emisión:", fecha);
+
+            document.add(infoTable);
+            document.add(new Paragraph("\n"));
+
+            Table table = new Table(UnitValue.createPercentArray(new float[]{4, 1.5f, 2, 2.5f}));
+            table.setWidth(UnitValue.createPercentValue(100));
+
+ 
+            table.addHeaderCell(new Cell().add(new Paragraph("Concepto").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Cant.").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("P. Unit").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+            table.addHeaderCell(new Cell().add(new Paragraph("Importe").setBold().setFontColor(ColorConstants.WHITE))
+                    .setBackgroundColor(ColorConstants.GRAY).setTextAlignment(TextAlignment.CENTER));
+
+
+            if (presupuesto.getServicios() != null) {
+                for (dto.ServicioPresupuestoDTO s : presupuesto.getServicios()) {
+                    table.addCell(new Cell().add(new Paragraph("(S) " + s.getNombreServicio())));
+                    table.addCell(new Cell().add(new Paragraph("1")).setTextAlignment(TextAlignment.CENTER));
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", s.getCosto()))).setTextAlignment(TextAlignment.RIGHT));
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", s.getCosto()))).setTextAlignment(TextAlignment.RIGHT));
+                }
+            }
+
+            if (presupuesto.getRefacciones() != null) {
+                for (dto.PresupuestoRefaccionDTO r : presupuesto.getRefacciones()) {
+                    table.addCell(new Cell().add(new Paragraph("(R) " + r.getNombreRefaccion())));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(r.getCantidad()))).setTextAlignment(TextAlignment.CENTER));
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", r.getPrecioUnitario()))).setTextAlignment(TextAlignment.RIGHT));
+                    
+                    double subtotal = r.getCantidad() * r.getPrecioUnitario();
+                    table.addCell(new Cell().add(new Paragraph("$" + String.format("%.2f", subtotal))).setTextAlignment(TextAlignment.RIGHT));
+                }
+            }
+
+            document.add(table);
+
+            presupuesto.calcularTotal();
+            Paragraph totalParrafo = new Paragraph("\nTOTAL A PAGAR: $" + String.format("%.2f", presupuesto.getCostoTotal()))
+                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setFontSize(14)
+                    .setBold()
+                    .setFontColor(ColorConstants.BLUE);
+            document.add(totalParrafo);
+
+            document.add(new Paragraph("\n\nEste documento es una estimación de costos y tiene una vigencia de 15 días.\nNo representa un comprobante fiscal.")
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setItalic()
+                    .setFontSize(9)
+                    .setFontColor(ColorConstants.GRAY));
+
+            document.close();
+            System.out.println("PDF de Presupuesto generado en memoria.");
+            
+            return baos.toByteArray();
+
+        } catch (Exception e) {
+            System.err.println("Error generando PDF de presupuesto: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -24,4 +24,8 @@ public interface IControlDocumentos {
     public void guardarReporteTareas(List<TareaDTO> tareas, String nombreMecanico);
     
     public void imprimirReporteTareasCompletadas(List<TareaDTO> tareas, String nombreMecanico);
+    
+    public void generarPDFPresupuesto(PresupuestoDTO presupuesto);
+    
+    public void enviarPresupuestoPorCorreo(PresupuestoDTO presupuesto, String correoDestino);
 }

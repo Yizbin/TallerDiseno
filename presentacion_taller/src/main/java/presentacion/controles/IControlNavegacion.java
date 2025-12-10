@@ -82,4 +82,8 @@ public interface IControlNavegacion {
                                IControlVentas controlVentas, IControlValidaciones validaciones);
 
     public void mostrarPantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, IControlVentas controlVentas, IControlValidaciones validaciones);
+
+    public void mostrarPantallaResumenRe(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion);
+    
+    public void mostrarPantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos, IControlMensajes mensajes);
 }

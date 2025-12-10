@@ -21,4 +21,5 @@ public interface IGestorPDF {
 
     public byte[] generarReporteTareas(List<TareaDTO> tareas, String nombreMecanico);
 
+    public byte[] generarPresupuesto(PresupuestoDTO presupuesto);
 }

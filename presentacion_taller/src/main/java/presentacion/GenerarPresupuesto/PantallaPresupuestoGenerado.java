@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import presentacion.controles.ControlDocumentos;
 import presentacion.controles.ControlRefacciones;
 import presentacion.controles.ControlServicios;
 import presentacion.controles.IControlClientes;
 import presentacion.controles.IControlCreacionUI;
+import presentacion.controles.IControlDocumentos;
 import presentacion.controles.IControlMensajes;
 import presentacion.controles.IControlNavegacion;
 import presentacion.controles.IControlOrdenes;
@@ -46,6 +48,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
     private final IControlClientes clientes;
     private DefaultTableModel modeloTabla;
     private JTable tabla;
+    private IControlDocumentos controlDocumentos;
     
     public PantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, 
             PresupuestoDTO presupuesto, ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuestos,IControlMensajes mensajes, IControlClientes clientes) {
@@ -62,6 +65,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
         this.controlPresupuestos = controlPresupuestos;
         this.mensajes=mensajes;
         this.clientes=clientes;
+        
         configurarTabla();
         
         
@@ -231,7 +235,7 @@ public class PantallaPresupuestoGenerado extends javax.swing.JFrame {
         if (creado != null) {
             // Usamos tu control de mensajes inyectado
             mensajes.mostrarExito("¡Presupuesto guardado con éxito! ID: " + creado.getIdPresupuesto());
-            navegacion.mostrarMenuPrincipal();
+            navegacion.mostrarPantallaResumen(presupuesto, controlDocumentos, mensajes);
         } else {
             mensajes.mostrarError(this, "No se pudo guardar el presupuesto.");
         }

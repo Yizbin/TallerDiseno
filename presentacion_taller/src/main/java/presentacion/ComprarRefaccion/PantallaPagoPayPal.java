@@ -158,7 +158,7 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+       navegacion.mostrarMenuPrincipal();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     
@@ -193,6 +193,7 @@ public class PantallaPagoPayPal extends javax.swing.JFrame {
 
             if (respuesta.getExito()) {
                 finalizarVenta(respuesta.getIdtransaccion());
+                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion);
             } else {
                 mensajes.mostrarError(this, "PayPal rechazó el pago: " + respuesta.getMensaje());
             }

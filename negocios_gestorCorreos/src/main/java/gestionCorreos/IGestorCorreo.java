@@ -11,4 +11,6 @@ package gestionCorreos;
 public interface IGestorCorreo {
 
     public void enviarCorreoConAdjunto(String destinatario, String asunto, String mensaje, byte[] archivoAdjunto, String nombreArchivo);
+    
+    
 }

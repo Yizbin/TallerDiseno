@@ -23,6 +23,8 @@ import presentacion.ComprarRefaccion.PantallaPagoPayPal;
 import presentacion.ComprarRefaccion.PantallaPagoTarjeta;
 import presentacion.ComprarRefaccion.PantallaResumenDeCompra;
 import presentacion.ComprarRefaccion.PantallaSeleccionarRefacciones;
+import presentacion.ComprarRefaccion.pantallaResumenRe;
+import presentacion.GenerarPresupuesto.pantallaResumen;
 import presentacion.MenuPrincipal;
 import presentacion.MenuPrincipalAdmin;
 import presentacion.PagarOrden.PantallaFormularioMercadoPago;
@@ -316,6 +318,28 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarPantallaResumenDeCompra(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, IControlVentas controlVentas, IControlValidaciones validaciones) {
         PantallaResumenDeCompra pantalla = new PantallaResumenDeCompra(productosSeleccionados, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
+        pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaResumenRe(List<RefaccionDTO> productosSeleccionados, double total, IControlNavegacion navegacion) {
+       pantallaResumenRe pantalla = new pantallaResumenRe(productosSeleccionados, total, navegacion);
+       pantalla.setVisible(true);
+    }
+
+    @Override
+    public void mostrarPantallaResumen(PresupuestoDTO presupuesto, IControlDocumentos documentos, IControlMensajes mensajes) {
+        // CORRECCIÓN:
+        // Si el parámetro 'documentos' viene nulo (que es lo que te está pasando),
+        // usamos 'this.controlDocumentos' que ya fue inicializado en el constructor de esta clase.
+        IControlDocumentos docsParaUsar = (documentos != null) ? documentos : this.controlDocumentos;
+        
+        // Verificación de seguridad para depuración
+        if (docsParaUsar == null) {
+            System.err.println("¡ERROR GRAVE! Tanto el parámetro como this.controlDocumentos son NULL.");
+        }
+
+        pantallaResumen pantalla = new pantallaResumen(presupuesto, docsParaUsar, mensajes);
         pantalla.setVisible(true);
     }
 

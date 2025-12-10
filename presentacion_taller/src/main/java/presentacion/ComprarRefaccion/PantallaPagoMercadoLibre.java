@@ -79,7 +79,7 @@ public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
 
             if (ventaRegistrada != null) {
                 mensajes.mostrarExito("¡Pago con MercadoPago Exitoso!\nID Pago: " + idTransaccion);
-                navegacion.mostrarMenuPrincipal();
+                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion);
                 this.dispose();
             } else {
                 mensajes.mostrarError(this, "El pago pasó, pero no se pudo registrar la venta.");
@@ -152,7 +152,7 @@ public class PantallaPagoMercadoLibre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        navegacion.mostrarMenuPrincipal();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed

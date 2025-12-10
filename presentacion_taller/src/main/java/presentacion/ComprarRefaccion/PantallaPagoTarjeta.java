@@ -77,7 +77,7 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
 
             if (ventaRegistrada != null) {
                 mensajes.mostrarExito("¡Compra Exitosa!\nID Pago: " + idTransaccion);
-                navegacion.mostrarMenuPrincipal();
+                navegacion.mostrarPantallaResumenRe(listaCompra, total, navegacion);
                 this.dispose();
             } else {
                 mensajes.mostrarError(this, "El pago pasó, pero no se pudo registrar la venta.");
@@ -116,6 +116,11 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonCancelarPago.png"))); // NOI18N
         btnCancelar.setContentAreaFilled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, 20));
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonAceptarPago.png"))); // NOI18N
@@ -176,6 +181,10 @@ public class PantallaPagoTarjeta extends javax.swing.JFrame {
             mensajes.mostrarError(this, "Error técnico: " + e.getMessage());
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       navegacion.mostrarMenuPrincipal();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
