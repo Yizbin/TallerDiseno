@@ -1,0 +1,61 @@
+INSERT INTO empleado (nombre, apellidoP, apellidoM, rol, usuario, contrasenia, activo) VALUES ('Pepe', 'Admin', 'Sistema', 'ADMINISTRADOR', 'pepe', '123', 1);
+
+CON ESTOS INSERTS FUNCIONA LOS CU:
+CREAR ORDEN DE TRABAJO
+ASIGNAR TAREA LA MECANICO
+VER HISTORIAL
+MARCAR TAREA COMO COMPLETADA
+PAGAR ORDEN
+
+
+INSERT INTO empleado (nombre, apellidoP, apellidoM, rol, usuario, contrasenia, activo) VALUES ('Carlos', 'Ruiz', 'Méndez', 'MECANICO', 'carlos', '123', 1);
+INSERT INTO cliente (nombre, apellidoP, apellidoM, telefono, correo, calle, colonia, numExt, activo) VALUES ('Juan', 'Pérez', 'López', '6441999999', 'cliente@test.com', 'Calle Falsa', 'Centro', '123', 1);
+INSERT INTO cliente (nombre, apellidoP, apellidoM, telefono, correo, calle, colonia, numExt, activo) VALUES ('Luis', 'García', 'Hernández', '6441888888', 'luis@test.com', 'Av Reforma', 'Centro', '55', 1);
+INSERT INTO vehiculo (tipo, marca, modelo, anio, placas, km, color, id_cliente) VALUES ('Sedan', 'Nissan', 'Sentra', '2018', 'SON-999', '80000', 'Gris', 1);
+INSERT INTO Vehiculo (tipo, marca, modelo, anio, placas, km, color, id_cliente) VALUES ('SUV', 'Toyota', 'RAV4', '2020', 'XYZ-123', '45000', 'Rojo', 2);
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Aceite Sintético 5W-30', 'Garrafa de 5 litros', 450.00, 20, 'Disponible');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Filtro de Aceite', 'Filtro estándar para sedán', 150.00, 50, 'Disponible');
+INSERT INTO Refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía premium', 250.00, 40, 'Disponible');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Filtro de Aceite', 'Filtro para motor 4 cilindros', 150.00, 25, 'Nuevo');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Pastillas de Frenos', 'Juego de pastillas delanteras', 380.00, 15, 'Nuevo');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Bujía Iridium', 'Bujía de iridio de alto rendimiento', 120.00, 40, 'Nuevo');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Batería 12V', 'Batería automotriz 600CCA', 1800.00, 8, 'Nuevo');
+INSERT INTO refaccion (nombre, descripcion, precioUnitario, stock, estado) VALUES ('Amortiguador Delantero', 'Amortiguador hidráulico para sedán', 950.00, 12, 'Nuevo');
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Cambio de Aceite', 'Cambio y revisión de aceite del motor', 650.00);
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Alineación y Balanceo', 'Alineación de ruedas y balanceo profesional', 450.00);
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Servicio de Frenos', 'Revisión, rectificación y cambio de frenos', 1200.00);
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Diagnóstico Computarizado', 'Escaneo electrónico del vehículo', 500.00);
+INSERT INTO servicio (nombre, descripcion, precio) VALUES ('Afinación Mayor', 'Cambio de bujías, filtros y revisión general', 1800.00);
+
+INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-11-01', 'Requiere servicio de rutina', 'Afinación y cambio de aceite', 0, 1, 1);
+INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden, id_vehiculo) VALUES ('2023-11-01', 0.00, 0, 1, 1);
+
+INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-01', 'Ruido al frenar', 'Cambio de balatas y rectificación', 0, 1, 1);
+INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden, id_vehiculo) VALUES ('2023-12-01', 0.00, 0, 2, 1);
+
+
+INSERT INTO orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-10', 'Problemas de encendido', 'Revisión eléctrica y cambio de bujías', 0, 1, 1);
+INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden, id_vehiculo) VALUES ('2023-12-10', 0.00, 0, 3, 1);
+
+INSERT INTO Orden (fechaIngreso, fallaReportada, servicioSolicitado, estado, id_cliente, id_vehiculo) VALUES ('2023-12-20', 'Vibración al acelerar', 'Diagnóstico de transmisión', 0, 2, 2);
+INSERT INTO Presupuesto (fechaCreacion, costoTotal, estado, id_orden, id_vehiculo) VALUES ('2023-12-20', 0.00, 0, 4, 2);
+
+
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Mano de obra por afinación', '400.00', 'Por realizar', 1, 1);
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Cambio de aceite y filtro', '350.00', 'Por realizar', 1, 2);
+
+
+INSERT INTO tarea_refaccion (id_tarea, id_refaccion, cantidadUsada) VALUES (1, 1, 1);
+INSERT INTO tarea_refaccion (id_tarea, id_refaccion, cantidadUsada) VALUES (1, 2, 1);
+
+INSERT INTO tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Mano de obra frenos', '500.00', 'Por realizar', 2, 1);
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Inspección detallada sistema de frenos', '250.00', 'En proceso', 2, 2);
+
+
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Diagnóstico transmisión', '600.00', 'Por realizar', 4, NULL);
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Revisión de vibración', '300.00', 'Por realizar', 4, NULL);
+
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Reemplazo de bujías (problemas de encendido)', '450.00', 'Por realizar', 3, NULL);
+INSERT INTO Tarea (descripcion, costo, estado, id_presupuesto, id_empleado) VALUES ('Revisión de sistema eléctrico', '700.00', 'Por realizar', 3, 2);
+
+
