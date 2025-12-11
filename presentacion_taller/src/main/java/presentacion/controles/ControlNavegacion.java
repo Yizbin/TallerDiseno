@@ -186,13 +186,49 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarPantallaSeleccionarCliente(IControlNavegacion navegacion, IControlClientes clientes, 
             IControlCreacionUI creacion, IControlPresupuestos control, IControlOrdenes controlOrdenes, IControlPresupuestos presupuesto, OrdenDTO orden, IControlMensajes mensajes) {
-        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(this, clientes, creacion, presupuesto, controlOrdenes, presupuesto, orden, mensajes);
+        
+        IControlClientes clientesSeguro = (clientes != null) ? clientes : this.clientes;
+        
+        IControlCreacionUI creacionSegura = (creacion != null) ? creacion : this.creacion;
+        
+        PantallaSeleccionarCliente pantalla = new PantallaSeleccionarCliente(
+                navegacion, 
+                clientesSeguro, 
+                creacionSegura, 
+                control, 
+                controlOrdenes, 
+                presupuesto, 
+                orden, 
+                mensajes
+        );
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {
-        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(this, controlOrdenes, creacion, clienteDTO, orden, presupuestoDTO, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
+    public void mostrarPantallaSeleccionarOrden(IControlOrdenes controlOrdenes, IControlCreacionUI creacion, ClienteDTO clienteDTO, OrdenDTO orden, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {      
+        IControlOrdenes ordenesSeguro = (controlOrdenes != null) ? controlOrdenes : this.controlOrdenes;
+
+
+        IControlCreacionUI creacionSegura = (creacion != null) ? creacion : this.creacion;
+
+        IControlPresupuestos presupuestoSeguro = (controlPresupuesto != null) ? controlPresupuesto : this.presupuesto;
+
+        IControlClientes clientesSeguro = (clientes != null) ? clientes : this.clientes;
+        
+        PantallaSeleccionarOrden pantalla = new PantallaSeleccionarOrden(
+                this, 
+                ordenesSeguro,    
+                creacionSegura,  
+                clienteDTO, 
+                orden, 
+                this.presupuestoDTO, 
+                this.servicio, 
+                this.controlServicios, 
+                this.controlRefacciones, 
+                presupuestoSeguro, 
+                mensajes, 
+                clientesSeguro    
+        );
         pantalla.setVisible(true);
     }
 
@@ -277,41 +313,125 @@ public class ControlNavegacion implements IControlNavegacion {
     @Override
     public void mostrarPantallaGenerarPresupuesto(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
             ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto,IControlMensajes mensajes, IControlClientes clientes) {
-        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlOrdenes, controlPresupuesto, mensajes, clientes);
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+       
+        IControlCreacionUI creacionSegura = (creacion != null) ? creacion : this.creacion;
+
+        IControlServicios serviciosSeguros = (controlServicios != null) ? controlServicios : this.controlServicios;
+
+        if (creacionSegura == null) System.err.println("ERROR CRITICO: creacionUI es NULL en ControlNavegacion");
+
+        PantallaGenerarPresupuesto pantalla = new PantallaGenerarPresupuesto(
+                navegacion, 
+                creacionSegura, 
+                orden, 
+                cliente, 
+                presupuesto, 
+                servicio, 
+                serviciosSeguros, 
+                refaccionesSeguras, 
+                controlOrdenes, 
+                controlPresupuesto, 
+                mensajes, 
+                clientes
+        );
         pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaPresupuestoGenerado(IControlNavegacion navegacion, IControlCreacionUI creacion, OrdenDTO orden, ClienteDTO cliente, PresupuestoDTO presupuesto, 
             ServicioDTO servicio, IControlServicios controlServicios, IControlRefacciones controlRefacciones, IControlPresupuestos controlPresupuesto, IControlMensajes mensajes, IControlClientes clientes) {
-        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
+
+        IControlMensajes mensajesSeguro = (mensajes != null) ? mensajes : this.mensajes;
+
+        IControlPresupuestos presupuestoSeguro = (controlPresupuesto != null) ? controlPresupuesto : this.presupuesto;
+
+        IControlCreacionUI creacionSegura = (creacion != null) ? creacion : this.creacion;
+
+        IControlServicios serviciosSeguros = (controlServicios != null) ? controlServicios : this.controlServicios;
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+        
+    
+
+        PantallaPresupuestoGenerado pantalla = new PantallaPresupuestoGenerado(
+                navegacion, 
+                creacionSegura, 
+                orden, 
+                cliente, 
+                presupuesto, 
+                servicio, 
+                serviciosSeguros, 
+                refaccionesSeguras, 
+                presupuestoSeguro, 
+                mensajesSeguro,   
+                clientes
+        );
         pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaSeleccionarRefacciones(IControlRefacciones controlRefacciones, IControlCreacionUI creacion, IControlMensajes mensajes, IControlNavegacion navegacion, IControlVentas controlVentas, IControlValidaciones validaciones) {
-        PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(controlRefacciones, creacion, mensajes, navegacion, controlVentas, validaciones);
+        
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+        
+        IControlCreacionUI creacionSegura = (creacion != null) ? creacion : this.creacion;
+
+        PantallaSeleccionarRefacciones pantalla = new PantallaSeleccionarRefacciones(
+            refaccionesSeguras, 
+            creacionSegura,    
+            mensajes, 
+            navegacion, 
+            controlVentas, 
+            validaciones
+        );
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
-                               IControlVentas controlVentas, IControlValidaciones validaciones) {
-        PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
+   public void mostrarPantallaPagoMercadoLibre(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+       
+        IControlValidaciones validacionesSeguras = (validaciones != null) ? validaciones : this.validaciones;
+        IControlMensajes mensajesSeguros = (mensajes != null) ? mensajes : this.mensajes;
+        IControlVentas ventasSeguras = (controlVentas != null) ? controlVentas : this.controlVentas;
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+
+        PantallaPagoMercadoLibre pantalla = new PantallaPagoMercadoLibre(lista, total, navegacion, mensajesSeguros, refaccionesSeguras, ventasSeguras, validacionesSeguras);
         pantalla.setVisible(true);
     }
 
     @Override
-    public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
-                               IControlVentas controlVentas, IControlValidaciones validaciones) {
-        PantallaPagoPayPal pantalla = new PantallaPagoPayPal(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
+   public void mostrarPantallaPagoPayPal(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
+                                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+        
+        IControlValidaciones validacionesSeguras = (validaciones != null) ? validaciones : this.validaciones;
+        IControlMensajes mensajesSeguros = (mensajes != null) ? mensajes : this.mensajes;
+        IControlVentas ventasSeguras = (controlVentas != null) ? controlVentas : this.controlVentas;
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+
+        PantallaPagoPayPal pantalla = new PantallaPagoPayPal(lista, total, navegacion, mensajesSeguros, refaccionesSeguras, ventasSeguras, validacionesSeguras);
         pantalla.setVisible(true);
     }
 
     @Override
     public void mostrarPantallaPagoTarjeta(List<RefaccionDTO> lista, double total, IControlNavegacion navegacion, IControlMensajes mensajes, IControlRefacciones controlRefacciones, 
-                               IControlVentas controlVentas, IControlValidaciones validaciones) {
-        PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(lista, total, navegacion, mensajes, controlRefacciones, controlVentas, validaciones);
+                                               IControlVentas controlVentas, IControlValidaciones validaciones) {
+        
+        IControlValidaciones validacionesSeguras = (validaciones != null) ? validaciones : this.validaciones;
+        IControlMensajes mensajesSeguros = (mensajes != null) ? mensajes : this.mensajes;
+        IControlVentas ventasSeguras = (controlVentas != null) ? controlVentas : this.controlVentas;
+        IControlRefacciones refaccionesSeguras = (controlRefacciones != null) ? controlRefacciones : this.controlRefacciones;
+
+
+        PantallaPagoTarjeta pantalla = new PantallaPagoTarjeta(
+                lista, 
+                total, 
+                navegacion, 
+                mensajesSeguros,   
+                refaccionesSeguras,  
+                ventasSeguras,       
+                validacionesSeguras  
+        );
         pantalla.setVisible(true);
     }
 

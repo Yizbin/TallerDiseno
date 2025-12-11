@@ -212,7 +212,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_visualizarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-        this.navegarSeleccionarCliente();
+        navegacion.mostrarPantallaSeleccionarCliente(navegacion, clientes, creacion, control, controlOrdenes, presupuesto, orden, mensajes);
+        this.dispose();
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
     private void venderRefaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderRefaccionesMouseClicked

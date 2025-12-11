@@ -54,6 +54,7 @@ public class PantallaGenerarPresupuesto extends javax.swing.JFrame {
         this.orden = orden;        
         this.cliente = cliente;
         
+        
         if (presupuesto == null) {
             this.presupuesto = new PresupuestoDTO();
             this.presupuesto.setCliente(cliente);

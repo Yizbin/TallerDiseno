@@ -215,7 +215,7 @@ public class pantallaResumen extends javax.swing.JFrame {
                 });
             }
         }).start();
-        this.dispose();
+       
     }
     }//GEN-LAST:event_descargaActionPerformed
 

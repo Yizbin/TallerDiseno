@@ -188,7 +188,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_asignarTareaActionPerformed
 
     private void generarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarPresupuestoActionPerformed
-        navegacion.mostrarPantallaGenerarPresupuesto(navegacion, creacion, orden, cliente, presupuesto, servicio, controlServicios, controlRefacciones, controlPresupuesto, mensajes, clientes);
+        navegacion.mostrarPantallaSeleccionarCliente(navegacion, clientes, creacion, controlPresupuesto, controlOrdenes, controlPresupuesto, orden, mensajes);
+        this.dispose();
     }//GEN-LAST:event_generarPresupuestoActionPerformed
 
 
